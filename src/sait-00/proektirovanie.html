@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Проектирование и расчёт защитных конструкций от БПЛА — ЗОК‑ИНЖИНИРИНГ</title>
+    <meta name="description" content="Обследование объекта, исходные данные, расчётная логика и нормативная база СП 542.1325800.2024 для защитных ограждающих конструкций от БПЛА." />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <div id="site-header"></div>
+    <main>
+      <section class="relative overflow-hidden border-b border-white/5">
+        <div class="bg-glow absolute inset-0"></div>
+        <div class="wrap relative pt-28 pb-12 sm:pt-32 sm:pb-16">
+          <nav class="text-sm text-slate-500"><a href="index.html" class="hover:text-slate-300">Главная</a> <span class="mx-1">/</span> <span class="text-slate-300">Проектирование</span></nav>
+          <p class="eyebrow mt-8">Раздел 04</p>
+          <h1 class="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-white sm:text-5xl">Проектирование и расчёт</h1>
+          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300/90">
+            Проектирование начинается со сбора исходных данных: задача безопасности переводится в проверяемые параметры,
+            а не в универсальную спецификацию.
+          </p>
+        </div>
+      </section>
+
+      <section class="py-16 sm:py-20">
+        <div class="wrap">
+          <div class="max-w-3xl reveal">
+            <p class="eyebrow">Обследование объекта</p>
+            <h2 class="h2 mt-3">Сначала реальные, а не проектные габариты</h2>
+            <p class="mt-4 leading-relaxed text-slate-400">
+              На площадке выполняют обмеры фасадов и кровли, фотофиксацию, проверку возможных точек опирания, трасс
+              коммуникаций и зон обслуживания. Важны выносы, перепады высот, существующие лестницы, ограждения,
+              оборудование на кровле, проезды и опасные зоны монтажа.
+            </p>
+            <p class="mt-4 leading-relaxed text-slate-400">
+              Отдельно оценивается несущая способность элементов крепления: если действующие конструкции не рассчитаны
+              на новые нагрузки, проект предусматривает самостоятельный каркас или усиление, подтверждённое расчётом.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-t border-white/5 py-16 sm:py-20">
+        <div class="wrap grid gap-10 lg:grid-cols-2">
+          <div class="reveal">
+            <p class="eyebrow">Исходные данные</p>
+            <h2 class="h2 mt-3">Что нужно для расчёта</h2>
+          </div>
+          <ul class="space-y-3 text-sm leading-relaxed text-slate-300 reveal" style="--d:0.05s">
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>архитектурные и конструктивные чертежи, результаты обследования и геодезическая основа;</li>
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>сведения о материалах, сечениях и состоянии существующих несущих элементов;</li>
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>перечень критичного оборудования и минимально допустимые расстояния до него;</li>
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>профиль угрозы и расчётные сценарии воздействия;</li>
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>ветровые, снеговые, температурные, гололёдные и коррозионные условия;</li>
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>требования промышленной, пожарной и эксплуатационной безопасности.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="border-t border-white/5 py-16 sm:py-20">
+        <div class="wrap">
+          <div class="max-w-3xl reveal">
+            <p class="eyebrow">Расчётная логика</p>
+            <h2 class="h2 mt-3">Проверяется не элемент, а конструкция целиком</h2>
+            <p class="mt-4 leading-relaxed text-slate-400">
+              В обычных сочетаниях учитываются собственный вес, предварительное натяжение, ветер, снег и температурные
+              деформации. Для сценария воздействия БПЛА дополнительно рассматривают динамическую работу полотна, тросов,
+              рам, связей, опор и анкеров.
+            </p>
+            <p class="mt-4 leading-relaxed text-slate-400">
+              Принципиально важно проверять путь передачи усилий: нагрузка от полотна передаётся на тросы, затем на узлы,
+              каркас и основание. У каждого участка есть предельные состояния — разрыв, потеря устойчивости, вырыв анкера,
+              разрушение сварного соединения, чрезмерное перемещение.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-t border-white/5 py-16 sm:py-20">
+        <div class="wrap">
+          <div class="max-w-2xl reveal">
+            <p class="eyebrow">Нормативная база</p>
+            <h2 class="h2 mt-3">Основание параметров ЗОК</h2>
+          </div>
+          <div class="mt-10 grid gap-5 md:grid-cols-2">
+            <div class="card p-6 reveal">
+              <p class="h3">СП 542.1325800.2024</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-400">«Защитные ограждающие конструкции от БПЛА»: функциональные требования и классификация, нагрузки от осколочных воздействий (раздел 7.6) и нагрузки от падения аппарата (раздел 7.7).</p>
+            </div>
+            <div class="card p-6 reveal" style="--d:0.05s">
+              <p class="h3">Рекомендации МЧС России</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-400">Сетчато-тросовая конструкция: каркас, тросы, сети; стойки с шагом 3 м; натяжение талрепами; энергопоглощающие устройства в тросах; ЗОК на независимом каркасе при пролётах менее 25 м.</p>
+            </div>
+            <div class="card p-6 reveal" style="--d:0.1s">
+              <p class="h3">Методика взрывных нагрузок</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-400">Приведённое расстояние и коэффициент эффективности заряда, давление во фронте, длительность и импульс фазы сжатия, отражённое давление.</p>
+            </div>
+            <div class="card p-6 reveal" style="--d:0.15s">
+              <p class="h3">Явная динамика</p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-400">ANSYS LS-DYNA и AUTODYN для моделирования физики удара, детонационной волны и прочности элементов до начала монтажа.</p>
+            </div>
+          </div>
+          <div class="mt-8 grid gap-5 sm:grid-cols-2 reveal" style="--d:0.2s">
+            <div class="card p-6"><p class="text-3xl font-bold text-white">47,9 кДж</p><p class="mt-2 text-sm text-slate-400">предельная ударная энергия высокопрочной сети 60×60×4,6 по испытаниям МЧС России.</p></div>
+            <div class="card p-6"><p class="text-3xl font-bold text-white">180–400 кДж</p><p class="mt-2 text-sm text-slate-400">энергия удара планёра расчётного аппарата до срабатывания боевой части.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-t border-white/5 py-16 sm:py-20">
+        <div class="wrap grid gap-10 lg:grid-cols-2">
+          <div class="reveal">
+            <p class="eyebrow">Результат</p>
+            <h2 class="h2 mt-3">Комплект решений, а не обещание</h2>
+            <p class="mt-4 leading-relaxed text-slate-400">
+              Заказчик получает пояснительную записку, расчётные обоснования, планы, разрезы, узлы, спецификацию,
+              требования к материалам и монтажу, а также регламент контроля.
+            </p>
+          </div>
+          <div class="reveal" style="--d:0.05s">
+            <a href="index.html#cta" class="btn btn-primary">Обсудить проект</a>
+            <p class="mt-4 text-sm text-slate-500">Конфигурация, материалы и узлы определяются после обследования объекта и инженерного расчёта.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>
