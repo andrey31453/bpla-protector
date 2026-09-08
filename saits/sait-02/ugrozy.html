@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Угрозы и расчётные сценарии — БАСТИОН · ЗОК</title>
+    <meta name="description" content="Профиль угрозы от БПЛА: кинетический удар, ударная волна, осколочное поле, термическое воздействие и повторные атаки." />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <div id="site-header"></div>
+    <main>
+      <section class="relative overflow-hidden border-b border-white/5">
+        <div class="bg-glow-olive absolute inset-0"></div>
+        <div class="wrap relative pt-28 pb-12 sm:pt-32 sm:pb-16">
+          <nav class="text-sm text-stone-500"><a href="index.html" class="hover:text-stone-600">Главная</a> <span class="mx-1">/</span> <span class="text-stone-600">Угрозы</span></nav>
+          <p class="eyebrow mt-8">Раздел 01</p>
+          <h1 class="mt-3 max-w-3xl text-3xl font-bold tracking-tight text-stone-900 sm:text-5xl">Угрозы и расчётные сценарии</h1>
+          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-stone-600/90">
+            Основание для выбора защитной конструкции — профиль угрозы: не абстрактный «дрон», а возможные способы
+            воздействия на конкретный объект.
+          </p>
+        </div>
+      </section>
+
+      <section class="py-16 sm:py-20">
+        <div class="wrap">
+          <div class="max-w-2xl reveal">
+            <p class="eyebrow">Виды воздействий</p>
+            <h2 class="h2 mt-3">Что учитывается в расчёте</h2>
+          </div>
+          <div class="mt-10 grid gap-5 md:grid-cols-2">
+            <div class="card p-6 reveal">
+              <p class="h3">Кинетическое воздействие</p>
+              <p class="mt-3 text-sm leading-relaxed text-stone-500">Аппарат и его элементы передают конструкции энергию при столкновении. Важны масса, скорость, угол встречи, жёсткость корпуса и место контакта.</p>
+            </div>
+            <div class="card p-6 reveal" style="--d:0.05s">
+              <p class="h3">Воздушная ударная волна</p>
+              <p class="mt-3 text-sm leading-relaxed text-stone-500">Если сценарий предусматривает взрыв, критичны удаление точки события, отражение волны, длительность импульса и уязвимость ограждающих конструкций.</p>
+            </div>
+            <div class="card p-6 reveal" style="--d:0.1s">
+              <p class="h3">Первичные и вторичные осколки</p>
+              <p class="mt-3 text-sm leading-relaxed text-stone-500">Фрагменты крепежа, труб, остекления и оборудования способны образовать вторичное осколочное поле, поэтому оценивается разрушение самой конструкции.</p>
+            </div>
+            <div class="card p-6 reveal" style="--d:0.15s">
+              <p class="h3">Термическое воздействие и пожар</p>
+              <p class="mt-3 text-sm leading-relaxed text-stone-500">Для объектов с горючими средами даже локальное повреждение может стать началом крупного инцидента — защита увязывается с противопожарными разрывами.</p>
+            </div>
+            <div class="card p-6 reveal md:col-span-2" style="--d:0.2s">
+              <p class="h3">Повторное или групповое воздействие</p>
+              <p class="mt-3 text-sm leading-relaxed text-stone-500">Первый удар может ослабить натяжение, повредить раму или открыть локальный проём. Проектная логика предусматривает локализацию повреждения, сохранение устойчивости соседних участков и оперативное восстановление секции.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="border-t border-white/5 py-16 sm:py-20">
+        <div class="wrap">
+          <div class="reveal">
+            <p class="eyebrow">Пространственный анализ</p>
+            <h2 class="h2 mt-3">Карта приоритетов зон</h2>
+            <p class="mt-4 max-w-3xl leading-relaxed text-stone-500">
+              Для крупных объектов рассматривают геометрию площадки, окружающую застройку, рельеф, препятствия
+              и вероятные сектора подлёта. Результат — карта приоритетов: где нужен сплошной барьер, где допустима
+              локальная защита, а где важнее наблюдение, ограничение доступа или изменение технологической компоновки.
+              Сценарии регулярно пересматриваются: тактика применения БПЛА и условия эксплуатации меняются.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-t border-white/5 py-16 sm:py-20">
+        <div class="wrap">
+          <div class="reveal">
+            <p class="eyebrow">Расчётный сценарий</p>
+            <h2 class="h2 mt-3">Пример исходных параметров</h2>
+          </div>
+          <div class="mt-8 overflow-hidden rounded-2xl border border-stone-200 reveal" style="--d:0.05s">
+            <table class="w-full text-sm">
+              <tbody>
+                <tr class="border-b border-stone-200 bg-white/60"><th class="px-5 py-3 text-left font-medium text-stone-500">Параметр</th><th class="px-5 py-3 text-left font-medium text-stone-500">Значение</th></tr>
+                <tr class="border-b border-stone-200"><td class="px-5 py-3 text-stone-600">Тип атаки</td><td class="px-5 py-3 text-stone-900">Удар сверху по кровле</td></tr>
+                <tr class="border-b border-stone-200"><td class="px-5 py-3 text-stone-600">Взлётная масса</td><td class="px-5 py-3 text-stone-900">более 200 кг</td></tr>
+                <tr class="border-b border-stone-200"><td class="px-5 py-3 text-stone-600">Масса боевой части</td><td class="px-5 py-3 text-stone-900">50–75 кг; до 120 кг у FP-1</td></tr>
+                <tr class="border-b border-stone-200"><td class="px-5 py-3 text-stone-600">Скорость встречи</td><td class="px-5 py-3 text-stone-900">42–55 м/с</td></tr>
+                <tr class="border-b border-stone-200"><td class="px-5 py-3 text-stone-600">Энергия удара</td><td class="px-5 py-3 text-stone-900">180–300 кДж</td></tr>
+                <tr class="border-b border-stone-200"><td class="px-5 py-3 text-stone-600">Дальность</td><td class="px-5 py-3 text-stone-900">1000–1300 км</td></tr>
+                <tr class="border-b border-stone-200"><td class="px-5 py-3 text-stone-600">Габариты</td><td class="px-5 py-3 text-stone-900">4,4 × 6,7 м</td></tr>
+                <tr><td class="px-5 py-3 text-stone-600">Наведение</td><td class="px-5 py-3 text-stone-900">ИНС + GPS-коррекция</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note mt-6 max-w-3xl reveal" style="--d:0.1s">
+            Данные о тактико-технических характеристиках и типах боевых частей приняты как расчётные на основе открытых
+            источников. Применимость параметров к конкретному объекту определяется проектом после обследования.
+          </p>
+        </div>
+      </section>
+
+      <section class="border-t border-white/5 py-16 sm:py-20">
+        <div class="wrap grid gap-10 lg:grid-cols-2">
+          <div class="reveal">
+            <p class="eyebrow">Исходный бриф</p>
+            <h2 class="h2 mt-3">Вопросы, с которых начинается проект</h2>
+          </div>
+          <ul class="space-y-3 text-sm leading-relaxed text-stone-600 reveal" style="--d:0.05s">
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-olive-600"></span>Какие здания, агрегаты, резервуары и участки имеют наибольшую критичность?</li>
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-olive-600"></span>Какова фактическая геометрия объекта и какие конструкции уже существуют?</li>
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-olive-600"></span>Какие технологические ограничения нельзя нарушать: вентиляция, освещение, эвакуация, проезды?</li>
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-olive-600"></span>Каковы условия ветра, снега, обледенения, коррозионной активности и температур?</li>
+            <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-olive-600"></span>Какие требования к продолжению работы объекта после локального повреждения?</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>

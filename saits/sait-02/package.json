@@ -1,0 +1,17 @@
+{
+  "name": "bastion-zok-landing",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Лендинг «Защитные конструкции от БПЛА» — sait-02, светлый милитари-дизайн, Vite + Tailwind CSS v4",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "vite": "^6.4.3"
+  }
+}
