@@ -1,340 +1,947 @@
-<!doctype html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Защитные конструкции от БПЛА для промышленных объектов — ЗОК‑ИНЖИНИРИНГ</title>
-    <meta
-      name="description"
-      content="Проектируем, рассчитываем, изготавливаем и монтируем защитные ограждающие конструкции от БПЛА для кровель, технологических площадок и критически важных узлов объекта."
-    />
-    <script type="module" src="/src/main.js"></script>
-  </head>
-  <body>
-    <div id="site-header"></div>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Защитные конструкции от БПЛА — инженерная концепция / Демо 01</title>
+<meta name="description" content="Демонстрационный лендинг о пассивных конструкциях для гражданских и промышленных объектов: навесы, защитные экраны и комплексные укрытия. Подготовка запроса без отправки данных.">
+<meta property="og:title" content="Защитные конструкции от БПЛА — инженерная концепция / Демо 01">
+<meta property="og:description" content="Демонстрационный лендинг о пассивных конструкциях для гражданских и промышленных объектов: навесы, защитные экраны и комплексные укрытия. Подготовка запроса без отправки данных.">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#f6f8fb"><meta property="og:locale" content="ru_RU"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iOCIgZmlsbD0iIzI4NThiNSIvPjxwYXRoIGQ9Ik05IDM2VjE3TDI0IDlsMTUgOHYxOU05IDE3bDE1IDggMTUtOE0yNCAyNXYxNU0xNSAzMnYtOWw5LTUgOSA1djkiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+Cg=="><style>:root {
+  --paper: #ffffff;
+  --surface: #f5f7fa;
+  --ink: #1f2935;
+  --muted: #626f80;
+  --blue: #2858b5;
+  --blue-hover: #204b9c;
+  --line: #dce2e9;
+  --night: #182636;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --header-height: 88px;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 24px); }
+body { min-width: 320px; margin: 0; }
+a { color: inherit; }
+a, button, input, select, textarea, summary { -webkit-tap-highlight-color: transparent; }
+button, input, select, textarea { font: inherit; }
+button, summary { cursor: pointer; }
+button { color: inherit; }
+button:disabled { cursor: not-allowed; }
+input, select, textarea { min-width: 0; }
+button, input, select, textarea, a, summary { touch-action: manipulation; }
+fieldset { min-width: 0; padding: 0; margin: 0; border: 0; }
+figure { margin: 0; }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }
+h2 { font-size: clamp(34px, 3.5vw, 50px); line-height: 1.12; letter-spacing: -.045em; font-weight: 500; }
+h3 { font-weight: 500; letter-spacing: -.02em; }
+svg { display: block; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; }
+::selection { background: #d7e5ff; color: #143668; }
+.container { width: min(1280px, calc(100% - 112px)); margin-inline: auto; }
+.section { padding-block: 112px; }
+.eyebrow { color: var(--blue); font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .075em; line-height: 1.7; }
+.mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: .045em; line-height: 1.5; }
+.muted-heading { color: #748091; }
+.icon { width: 20px; height: 20px; flex: 0 0 auto; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 20px; min-height: 54px; padding: 15px 22px; border: 1px solid transparent; border-radius: 3px; font-size: 14px; line-height: 1.5; font-weight: 500; text-decoration: none; transition: background-color 160ms, border-color 160ms, color 160ms; }
+.button-primary { background: var(--blue); color: #fff; }
+.button-primary:hover { background: var(--blue-hover); }
+.button-primary:disabled { background: #697e9f; }
+.button-outline { border-color: #cbd5e4; background: #fff; color: var(--ink); }
+.button-outline:hover { background: #f3f6fa; border-color: #8da5c9; }
+.text-link { display: inline-flex; align-items: center; gap: 14px; width: fit-content; min-height: 44px; border: 0; background: transparent; padding: 0; font-size: 14px; line-height: 1.5; text-decoration: none; }
+.text-link:hover { color: var(--blue); }
+.text-link .icon { width: 17px; height: 17px; }
+.status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: 0 0 auto; }
+.skip-link { position: fixed; z-index: 100; top: 14px; left: 20px; padding: 14px 22px; color: white; background: var(--blue); transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
+.sr-only { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.error-page { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; gap: 24px; padding: 32px max(24px, calc((100% - 1280px) / 2)); }
+.error-page h1 { font-size: clamp(36px, 5vw, 64px); }
+@media (max-width: 1100px) {
+  .container { width: calc(100% - 64px); }
+  .section { padding-block: 88px; }
+}
+@media (max-width: 700px) {
+  :root { --header-height: 72px; }
+  .container { width: calc(100% - 40px); }
+  .section { padding-block: 64px; }
+  h2 { font-size: 35px; letter-spacing: -.04em; }
+  .eyebrow, .mono { font-size: 10px; }
+  .button { min-height: 52px; }
+}
+@media (max-width: 359px) {
+  .container { width: calc(100% - 32px); }
+  h2 { font-size: 31px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0s !important; animation: none !important; }
+}
+@media (forced-colors: active) {
+  .button, .scene-switcher label, .solution-card { border: 1px solid ButtonText; }
+  .hero-figure, .solution-image, .plan-figure { forced-color-adjust: none; }
+}
+@media print {
+  .site-header, .hero-actions, .hero-bottom, .scene-switcher, .request-section, .site-footer, .solution-action { display: none; }
+  .container { width: 100%; }
+  .section { padding-block: 28px; }
+  .hero { padding-top: 20px; }
+  .applications { background: white; color: black; }
+  a { text-decoration: none; }
+  .solution-card, .consideration, .faq-item { break-inside: avoid; }
+}
 
-    <main>
-      <!-- HERO -->
-      <section class="relative overflow-hidden">
-        <div class="bg-glow absolute inset-0"></div>
-        <div class="bg-grid absolute inset-0"></div>
-        <div class="wrap relative pt-32 pb-20 sm:pt-36 sm:pb-24">
-          <div class="max-w-3xl">
-            <span class="chip reveal">
-              <span class="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
-              Инженерно-механическая защита 24/7
-            </span>
-            <h1 class="mt-6 text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl reveal" style="--d:0.05s">
-              Защитные конструкции от&nbsp;БПЛА для&nbsp;промышленных объектов
-            </h1>
-            <p class="mt-6 text-lg leading-relaxed text-slate-300/90 reveal" style="--d:0.1s">
-              Проектируем, изготавливаем и&nbsp;монтируем металлоконструкции с&nbsp;защитным сетчатым контуром
-              для кровель, технологических площадок и&nbsp;критически важных узлов объекта. Решение формируется
-              по&nbsp;результатам обследования, анализа сценариев и&nbsp;расчёта несущей системы.
-            </p>
-            <div class="mt-8 flex flex-wrap gap-3 reveal" style="--d:0.15s">
-              <a href="index.html#cta" class="btn btn-primary">Получить предварительный расчёт</a>
-              <a href="konstrukcii.html" class="btn btn-outline">Смотреть конструкции</a>
-            </div>
-          </div>
+.site-header { position: sticky; top: 0; z-index: 30; height: var(--header-height); border-bottom: 1px solid var(--line); background: rgb(255 255 255 / 96%); }
+.header-inner { display: flex; justify-content: space-between; align-items: center; height: 100%; gap: 30px; }
+.brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; color: var(--ink); flex-shrink: 0; }
+.brand-mark { color: var(--blue); width: 37px; height: 37px; }
+.brand-type { display: flex; flex-direction: column; font-size: 11px; line-height: 1.5; font-weight: 700; letter-spacing: .09em; }
+.desktop-nav { display: flex; align-items: center; gap: 30px; }
+.desktop-nav a { position: relative; padding-block: 14px; font-size: 13px; text-decoration: none; color: #526071; }
+.desktop-nav a:hover, .desktop-nav a[aria-current] { color: var(--blue); }
+.desktop-nav a[aria-current]::after { content: ""; position: absolute; bottom: 7px; left: 0; right: 0; height: 1px; background: currentColor; }
+.header-action { display: inline-flex; align-items: center; gap: 24px; min-height: 44px; padding: 10px 0 10px 22px; border-left: 1px solid var(--line); font-size: 13px; font-weight: 500; text-decoration: none; }
+.header-action .icon { color: var(--blue); width: 18px; height: 18px; }
+.header-action:hover { color: var(--blue); }
+.mobile-menu { display: none; }
+.site-footer { padding-block: 48px 24px; background: #fff; }
+.footer-top { display: flex; align-items: center; gap: 54px; padding-bottom: 35px; border-bottom: 1px solid var(--line); }
+.footer-top > p { font-size: 13px; color: var(--muted); }
+.back-top { display: flex; align-items: center; gap: 18px; min-height: 44px; margin-left: auto; font-size: 13px; text-decoration: none; }
+.back-top .icon { width: 18px; height: 18px; }
+.footer-middle { display: flex; justify-content: space-between; gap: 40px; padding-block: 28px; }
+.footer-middle > p { font-size: 12px; line-height: 1.8; color: var(--muted); }
+.footer-middle nav { display: flex; gap: 24px; align-items: start; }
+.footer-middle nav a { min-height: 36px; padding-top: 5px; font-size: 12px; text-decoration: none; }
+.footer-middle nav a:hover { color: var(--blue); }
+.footer-bottom { display: flex; align-items: start; justify-content: space-between; gap: 24px; border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); }
+.privacy-details { max-width: 560px; flex: 0 1 auto; }
+.privacy-details summary { min-height: 36px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.privacy-details p { margin-top: 8px; padding: 20px; background: var(--surface); font-size: 12px; line-height: 1.8; }
+@media (max-width: 1050px) {
+  .desktop-nav { gap: 18px; }
+  .header-inner { gap: 16px; }
+  .header-action { padding-left: 18px; gap: 12px; }
+  .footer-top { gap: 26px; }
+}
+@media (max-width: 900px) {
+  .desktop-nav, .header-action { display: none; }
+  .mobile-menu { display: block; }
+  .mobile-menu > summary { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 8px 10px; margin-right: -10px; font-size: 12px; list-style: none; }
+  .mobile-menu > summary::-webkit-details-marker { display: none; }
+  .menu-lines { width: 18px; height: 8px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .mobile-menu[open] .menu-lines { height: 1px; transform: rotate(-45deg); position: relative; }
+  .mobile-menu[open] .menu-lines::after { position: absolute; content: ""; top: -1px; left: 0; width: 18px; border-top: 1px solid var(--ink); transform: rotate(90deg); }
+  .mobile-menu nav { position: absolute; top: calc(var(--header-height) - 1px); left: 0; right: 0; max-height: calc(100dvh - var(--header-height)); overflow-y: auto; border-bottom: 1px solid var(--line); background: #fff; box-shadow: 0 16px 24px rgb(21 37 59 / 8%); padding: 16px 32px 24px; }
+  .mobile-menu nav a { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 18px; text-decoration: none; }
+  .mobile-menu nav p { font-family: var(--font-mono); font-size: 11px; padding-top: 22px; color: var(--muted); }
+  .footer-middle { flex-direction: column; gap: 20px; }
+}
+@media (max-width: 700px) {
+  .brand-mark { width: 31px; height: 31px; }
+  .brand-type { font-size: 9px; }
+  .brand { gap: 9px; }
+  .mobile-menu nav { padding-inline: 20px; }
+  .site-footer { padding-block: 32px 22px; }
+  .footer-top { flex-wrap: wrap; gap: 20px; padding-bottom: 26px; }
+  .footer-top > p { order: 3; flex-basis: 100%; }
+  .footer-middle { padding-block: 22px; }
+  .footer-middle nav { flex-wrap: wrap; gap: 8px 24px; }
+  .footer-bottom { flex-wrap: wrap; row-gap: 12px; }
+  .footer-bottom > .mono:last-child { margin-left: auto; }
+  .privacy-details { order: 3; flex-basis: 100%; }
+}
 
-          <dl class="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4 reveal" style="--d:0.2s">
-            <div class="card p-5">
-              <dt class="text-2xl font-bold text-white">24/7</dt>
-              <dd class="mt-1 text-sm text-slate-400">пассивная защита</dd>
-            </div>
-            <div class="card p-5">
-              <dt class="text-2xl font-bold text-white">360°</dt>
-              <dd class="mt-1 text-sm text-slate-400">контур по проекту</dd>
-            </div>
-            <div class="card p-5">
-              <dt class="text-2xl font-bold text-white">1</dt>
-              <dd class="mt-1 text-sm text-slate-400">подрядчик от обследования до монтажа</dd>
-            </div>
-            <div class="card p-5">
-              <dt class="text-2xl font-bold text-white">СП 542</dt>
-              <dd class="mt-1 text-sm text-slate-400">проект по нормативной базе</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-      <!-- НАЗНАЧЕНИЕ -->
-      <section class="py-20 sm:py-24">
-        <div class="wrap grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div class="reveal">
-            <p class="eyebrow">Назначение</p>
-            <h2 class="h2 mt-3">Физический рубеж до&nbsp;критичной поверхности</h2>
-            <p class="mt-5 leading-relaxed text-slate-400">
-              Инженерная защита от&nbsp;беспилотных летательных аппаратов&nbsp;— это физический рубеж вокруг здания,
-              отдельного оборудования, технологической зоны или участка территории. Его задача&nbsp;— встретить аппарат
-              до&nbsp;критичной поверхности, ограничить продвижение обломков и&nbsp;увеличить расстояние между точкой
-              события и&nbsp;защищаемым объектом.
-            </p>
-            <p class="mt-4 leading-relaxed text-slate-400">
-              Приоритетом становится не&nbsp;только сохранность строительного контура, но&nbsp;и&nbsp;непрерывность
-              процесса, защита персонала, предотвращение пожара и&nbsp;уменьшение времени восстановления.
-            </p>
-          </div>
-          <div class="card p-6 sm:p-8 reveal" style="--d:0.1s">
-            <p class="text-sm font-semibold uppercase tracking-wider text-slate-500">Цели, которые решает конструкция</p>
-            <ul class="mt-5 space-y-3 text-sm leading-relaxed text-slate-300">
-              <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>вынести точку контакта или срабатывания за пределы критичной поверхности;</li>
-              <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>не допустить прямого проникновения аппарата в расчётном сценарии;</li>
-              <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>уменьшить передачу кинетического воздействия на кровлю, стену или оборудование;</li>
-              <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>ограничить разлёт вторичных фрагментов;</li>
-              <li class="flex gap-3"><span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400"></span>сформировать ремонтопригодный рубеж, восстанавливаемый по секциям.</li>
-            </ul>
-            <p class="note mt-6">
-              Защитная ограждающая конструкция&nbsp;— не&nbsp;универсальная сетка. Её&nbsp;параметры определяются
-              конфигурацией здания, пролётами, допустимыми нагрузками и&nbsp;сценарием угрозы. Подход начинается
-              с&nbsp;обследования, а&nbsp;не&nbsp;с&nbsp;выбора материала по&nbsp;фотографии.
-            </p>
-          </div>
-        </div>
-      </section>
+.hero { position: relative; display: grid; grid-template-columns: .93fr 1.07fr; align-items: center; gap: 0 12px; padding-top: 76px; }
+.hero::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc((min(1280px, 100vw - 112px) - 100vw) / 2); width: 100vw; background: linear-gradient(108deg, #fff 25%, #f5f7fa 100%); z-index: -1; }
+.hero-copy { position: relative; z-index: 1; padding-bottom: 30px; }
+.hero-copy > .eyebrow { display: flex; align-items: center; gap: 9px; margin-bottom: 25px; }
+h1 { font-size: clamp(54px, 5.45vw, 79px); font-weight: 500; letter-spacing: -.055em; line-height: 1.04; }
+h1 > span { color: var(--blue); }
+.hero-description { max-width: 460px; margin-top: 25px; font-size: 17px; line-height: 1.65; color: #455265; }
+.hero-supporting { margin-top: 15px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 30px; align-items: center; }
+.hero-actions .text-link { font-size: 13px; }
+.hero-footnote { display: flex; gap: 10px; align-items: center; margin-top: 37px; color: #667486; font-size: 11px; line-height: 1.8; }
+.hero-footnote .icon { width: 17px; height: 17px; }
+.footnote-separator { color: #9ba7b6; padding-inline: 5px; }
+.hero-figure { position: relative; min-width: 0; padding: 22px 0 20px; margin: 0 -18px 15px 0; background-image: linear-gradient(#dce3ec66 1px, transparent 1px), linear-gradient(90deg, #dce3ec66 1px, transparent 1px); background-size: 32px 32px; border: 1px solid #e3e8ef; }
+.drawing-topline { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-inline: 22px; color: #66758a; }
+.drawing-topline .mono { font-size: 9px; }
+.drawing-badge { padding: 4px 7px; border: 1px solid #d0dae7; border-radius: 2px; font-family: var(--font-mono); font-size: 9px; color: #506683; background: #f5f7fa; }
+.drawing-stage { margin-block: 15px -8px; overflow: hidden; }
+.structure-drawing { width: 100%; height: auto; overflow: visible; }
+.box-side { fill: #c4ceda; stroke: #8998aa; stroke-width: .65; }
+.box-front { fill: #aebdce; stroke: #8a9caf; stroke-width: .65; }
+.box-top { fill: #e7edf3; stroke: #91a4ba; stroke-width: .7; }
+.steel .box-side { fill: #647b93; stroke: #516a82; stroke-width: .5; }
+.steel .box-front { fill: #8296ab; stroke: #566f88; stroke-width: .5; }
+.steel .box-top { fill: #b1bfce; stroke: #617b94; stroke-width: .5; }
+.foundation-pad .box-top { fill: #a7b7c8; }
+.scene-walls { opacity: .06; transition: opacity 300ms; }
+.scene-roof { opacity: 1; transition: opacity 300ms; }
+.drawing-screen .scene-walls, .drawing-contour .scene-walls { opacity: 1; }
+.drawing-screen .scene-roof { opacity: .04; }
+.scene:has(input[value="screen"]:checked) .scene-walls, .scene:has(input[value="contour"]:checked) .scene-walls { opacity: 1; }
+.scene:has(input[value="screen"]:checked) .scene-roof { opacity: .04; }
+.scene-switcher { display: flex; width: fit-content; max-width: calc(100% - 32px); padding: 4px; margin: 4px auto 0; border: 1px solid #d2dce9; background: #f2f5f9; border-radius: 4px; }
+.scene-switcher label { position: relative; cursor: pointer; }
+.scene-switcher input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.scene-switcher label span { display: block; padding: 11px 23px; min-height: 40px; font-size: 12px; line-height: 18px; color: #5b6c82; border: 1px solid transparent; border-radius: 2px; transition: background-color 160ms; }
+.scene-switcher input:checked + span { color: var(--blue); background: white; border-color: #2858b5; box-shadow: 0 2px 3px rgb(31 47 74 / 4%); }
+.scene-switcher input:focus-visible + span { outline: 3px solid var(--blue); outline-offset: 2px; }
+.hero-figure figcaption { margin-top: 17px; text-align: center; font-size: 10px; color: #596b83; padding-inline: 12px; line-height: 1.6; }
+.figure-cross { position: absolute; color: #8ca0bb; font-family: var(--font-mono); font-size: 17px; line-height: 1; }
+.cross-top { top: -9px; left: -6px; }
+.cross-bottom { bottom: -8px; right: -6px; }
+.hero-bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; margin-top: 36px; padding-block: 22px; border-top: 1px solid var(--line); color: var(--muted); }
+.hero-bottom .mono { font-size: 9px; }
+.hero-bottom a { display: flex; align-items: center; min-height: 32px; gap: 24px; font-size: 11px; text-decoration: none; }
+.hero-bottom .icon { width: 16px; height: 16px; }
+@media (min-width: 1600px) { .hero { padding-top: 90px; } }
+@media (max-width: 1100px) {
+  .hero { padding-top: 60px; grid-template-columns: 1fr 1fr; }
+  .hero::before { left: -32px; }
+  .hero-figure { margin-right: 0; }
+  h1 { font-size: 62px; }
+  .hero-actions { gap: 8px 18px; }
+  .hero-footnote { margin-top: 26px; font-size: 10px; }
+  .hero-description { font-size: 16px; }
+  .scene-switcher label span { padding-inline: 17px; }
+  .drawing-topline { padding-inline: 14px; }
+  .drawing-badge { display: none; }
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 54px; }
+  .hero-copy { padding-bottom: 40px; }
+  h1 { font-size: 72px; }
+  .hero-description { max-width: 530px; font-size: 18px; }
+  .hero-supporting { font-size: 15px; }
+  .hero-figure { width: 100%; max-width: 680px; margin: 0 auto; }
+  .hero-footnote { font-size: 12px; }
+  .drawing-topline { padding-inline: 24px; }
+  .drawing-badge { display: block; }
+  .hero-bottom { margin-top: 30px; }
+}
+@media (max-width: 700px) {
+  .hero { padding-top: 40px; }
+  .hero::before { left: -20px; }
+  h1 { font-size: clamp(49px, 13vw, 72px); }
+  .hero-copy > .eyebrow { margin-bottom: 20px; font-size: 9px; }
+  .hero-description { font-size: 16px; margin-top: 22px; line-height: 1.65; }
+  .desktop-break { display: none; }
+  .hero-supporting { margin-top: 12px; font-size: 13px; }
+  .hero-actions { margin-top: 24px; gap: 9px 20px; }
+  .hero-actions .button { width: 100%; justify-content: space-between; padding-inline: 20px; }
+  .hero-actions .text-link { font-size: 12px; }
+  .hero-footnote { margin-top: 16px; font-size: 9px; gap: 8px; }
+  .hero-footnote .icon { width: 16px; height: 16px; }
+  .hero-copy { padding-bottom: 30px; }
+  .hero-figure { padding-block: 16px; }
+  .drawing-topline { padding-inline: 14px; }
+  .drawing-topline .mono, .drawing-badge { font-size: 8px; }
+  .drawing-stage { margin-block: 12px 0; }
+  .drawing-annotations { display: none; }
+  .scene-switcher { margin-top: -2px; }
+  .scene-switcher label span { padding-inline: 22px; font-size: 11px; }
+  .hero-figure figcaption { font-size: 9px; margin-top: 12px; }
+  .hero-bottom { margin-top: 26px; padding-block: 15px; gap: 16px; }
+  .hero-bottom .mono { font-size: 8px; max-width: 150px; }
+  .hero-bottom a { font-size: 10px; gap: 6px; }
+}
+@media (max-width: 359px) {
+  .hero::before { left: -16px; }
+  h1 { font-size: 45px; }
+  .hero-footnote { font-size: 8px; }
+  .footnote-separator { padding-inline: 3px; }
+  .scene-switcher label span { padding-inline: 18px; }
+}
 
-      <!-- ПРЕИМУЩЕСТВА -->
-      <section class="border-t border-white/5 py-20 sm:py-24">
-        <div class="wrap">
-          <div class="max-w-2xl reveal">
-            <p class="eyebrow">Преимущества</p>
-            <h2 class="h2 mt-3">Пассивный рубеж, рассчитанный под объект</h2>
-            <p class="mt-4 text-slate-400">
-              Конструкция сохраняет своё назначение независимо от&nbsp;обнаружения сигнала или режима работы электроники
-              и&nbsp;дополняет остальные меры безопасности.
-            </p>
-          </div>
-          <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <div class="card p-6 reveal">
-              <p class="h3">Адаптация к объекту</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Проектируется вокруг существующего здания, оборудования или участка с учётом нестандартных размеров, перепадов высот и ограничений производства.</p>
-            </div>
-            <div class="card p-6 reveal" style="--d:0.05s">
-              <p class="h3">Защита прицельных зон</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Фокусируем усилия на кровле, фасадах, узлах ввода, резервуарах, трансформаторных площадках и эстакадах — без необоснованного перекрытия всей территории.</p>
-            </div>
-            <div class="card p-6 reveal" style="--d:0.1s">
-              <p class="h3">Модульность</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Секционное построение упрощает доставку, монтаж и замену локально повреждённых элементов; ремонтопригодность закладывается в проекте.</p>
-            </div>
-            <div class="card p-6 reveal" style="--d:0.15s">
-              <p class="h3">Интеграция с инфраструктурой</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Учитываются маршруты персонала и техники, обслуживание агрегатов, пожарный доступ, водоотвод, освещение и вентиляция.</p>
-            </div>
-            <div class="card p-6 reveal" style="--d:0.2s">
-              <p class="h3">Контролируемое качество</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Проверяемые параметры: состав элементов, узлы, усилия натяжения, отметки, антикоррозионная защита и порядок осмотров.</p>
-            </div>
-            <div class="card p-6 reveal" style="--d:0.25s">
-              <p class="h3">Сочетание мер</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Наиболее устойчивый результат даёт сочетание инженерных, организационных, противопожарных и технических средств.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- РАЗДЕЛЫ -->
-      <section class="border-t border-white/5 py-20 sm:py-24">
-        <div class="wrap">
-          <div class="max-w-2xl reveal">
-            <p class="eyebrow">Разделы</p>
-            <h2 class="h2 mt-3">Весь цикл инженерной защиты</h2>
-            <p class="mt-4 text-slate-400">От анализа угрозы до монтажа и эксплуатации защитного контура.</p>
-          </div>
-          <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            <a href="ugrozy.html" class="card group p-6 transition hover:border-cyan-500/50 reveal">
-              <p class="text-sm font-semibold text-cyan-400">01 · Угрозы и сценарии</p>
-              <p class="h3 mt-3">Профиль угрозы и виды воздействий</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Кинетический удар, ударная волна, осколочное поле, термическое воздействие и повторные атаки.</p>
-              <span class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-cyan-400 transition-all group-hover:gap-2">Подробнее →</span>
-            </a>
-            <a href="konstrukcii.html" class="card group p-6 transition hover:border-cyan-500/50 reveal" style="--d:0.05s">
-              <p class="text-sm font-semibold text-cyan-400">02 · Конструкции</p>
-              <p class="h3 mt-3">Сетчатые, тросовые, комбинированные</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Полотно, силовой контур, несущий каркас, узлы крепления и элементы энергопоглощения.</p>
-              <span class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-cyan-400 transition-all group-hover:gap-2">Подробнее →</span>
-            </a>
-            <a href="princip.html" class="card group p-6 transition hover:border-cyan-500/50 reveal" style="--d:0.1s">
-              <p class="text-sm font-semibold text-cyan-400">03 · Принцип работы</p>
-              <p class="h3 mt-3">Разнесение и управляемая деформация</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Как вынесенный барьер принимает первичный контакт и распределяет усилия по каркасу.</p>
-              <span class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-cyan-400 transition-all group-hover:gap-2">Подробнее →</span>
-            </a>
-            <a href="proektirovanie.html" class="card group p-6 transition hover:border-cyan-500/50 reveal" style="--d:0.15s">
-              <p class="text-sm font-semibold text-cyan-400">04 · Проектирование</p>
-              <p class="h3 mt-3">Обследование, расчёт, документация</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Исходные данные, расчётная логика и нормативная база СП 542.1325800.2024.</p>
-              <span class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-cyan-400 transition-all group-hover:gap-2">Подробнее →</span>
-            </a>
-            <a href="primenenie.html" class="card group p-6 transition hover:border-cyan-500/50 reveal" style="--d:0.2s">
-              <p class="text-sm font-semibold text-cyan-400">05 · Применение</p>
-              <p class="h3 mt-3">Преимущества и типовые объекты</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Промышленность, энергетика, нефтегаз, склады и транспортные площадки.</p>
-              <span class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-cyan-400 transition-all group-hover:gap-2">Подробнее →</span>
-            </a>
-            <a href="montazh.html" class="card group p-6 transition hover:border-cyan-500/50 reveal" style="--d:0.25s">
-              <p class="text-sm font-semibold text-cyan-400">06 · Монтаж</p>
-              <p class="h3 mt-3">Монтаж, приёмка, эксплуатация</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Последовательность сборки, контроль натяжения и регламент осмотров.</p>
-              <span class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-cyan-400 transition-all group-hover:gap-2">Подробнее →</span>
-            </a>
-            <a href="kompleksnaya.html" class="card group p-6 transition hover:border-cyan-500/50 reveal" style="--d:0.3s">
-              <p class="text-sm font-semibold text-cyan-400">07 · Комплексная защита</p>
-              <p class="h3 mt-3">Ограничения и многоуровневая модель</p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-400">Границы применимости и сочетание с организационными и техническими мерами.</p>
-              <span class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-cyan-400 transition-all group-hover:gap-2">Подробнее →</span>
-            </a>
-          </div>
-        </div>
-      </section>
-      <!-- ЭТАПЫ -->
-      <section class="border-t border-white/5 py-20 sm:py-24">
-        <div class="wrap">
-          <div class="max-w-2xl reveal">
-            <p class="eyebrow">Полный цикл</p>
-            <h2 class="h2 mt-3">От проекта до готового контура защиты</h2>
-            <p class="mt-4 text-slate-400">Один подрядчик на всех этапах — от обследования до передачи документации.</p>
-          </div>
-          <ol class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            <li class="card p-6 reveal">
-              <p class="text-3xl font-bold text-slate-700">01</p>
-              <p class="h3 mt-4">Сбор исходных данных</p>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Планы, размеры, фотографии и ограничения площадки.</p>
-            </li>
-            <li class="card p-6 reveal" style="--d:0.05s">
-              <p class="text-3xl font-bold text-slate-700">02</p>
-              <p class="h3 mt-4">Обследование объекта</p>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Места опирания, коммуникации и проезды.</p>
-            </li>
-            <li class="card p-6 reveal" style="--d:0.1s">
-              <p class="text-3xl font-bold text-slate-700">03</p>
-              <p class="h3 mt-4">Концепция и расчёты</p>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Компоновка, нагрузки, узлы крепления.</p>
-            </li>
-            <li class="card p-6 reveal" style="--d:0.15s">
-              <p class="text-3xl font-bold text-slate-700">04</p>
-              <p class="h3 mt-4">Рабочая документация</p>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Чертежи, спецификации, согласование.</p>
-            </li>
-            <li class="card p-6 reveal" style="--d:0.2s">
-              <p class="text-3xl font-bold text-slate-700">05</p>
-              <p class="h3 mt-4">Изготовление</p>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Каркас, антикоррозийная защита, контроль.</p>
-            </li>
-            <li class="card p-6 reveal" style="--d:0.25s">
-              <p class="text-3xl font-bold text-slate-700">06</p>
-              <p class="h3 mt-4">Монтаж и сдача</p>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Сборка, натяжение контура, передача документации.</p>
-            </li>
-          </ol>
+.section-heading { display: flex; justify-content: space-between; align-items: end; gap: 60px; margin-bottom: 46px; }
+.section-heading .eyebrow, .approach-copy > .eyebrow, .questions-heading .eyebrow { margin-bottom: 22px; }
+.section-intro { max-width: 340px; padding-bottom: 4px; font-size: 15px; line-height: 1.8; color: var(--muted); }
+.solution-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: start; }
+.solution-card { min-width: 0; border: 1px solid var(--line); border-radius: 4px; overflow: clip; transition: border-color 180ms; }
+.solution-card:hover { border-color: #aabbd3; }
+.solution-image { position: relative; padding-top: 6px; background: #f1f4f8; border-bottom: 1px solid var(--line); }
+.solution-image .structure-drawing { height: 250px; }
+.solution-number { position: absolute; z-index: 1; top: 20px; left: 21px; color: #596d88; }
+.solution-image-label { position: absolute; right: 17px; bottom: 14px; color: #586b84; font-size: 8px; }
+.solution-copy { padding: 26px 24px 0; }
+.solution-copy .eyebrow { font-size: 9px; margin-bottom: 11px; }
+.solution-copy h3 { font-size: 24px; line-height: 1.2; }
+.solution-description { min-height: 103px; margin-top: 16px; font-size: 14px; line-height: 1.75; color: var(--muted); }
+.solution-note { display: flex; align-items: start; gap: 9px; margin-top: 22px; padding-block: 16px; border-top: 1px solid var(--line); font-size: 11px; line-height: 1.65; color: #4d5e73; min-height: 68px; }
+.solution-note .icon { margin-top: 1px; color: var(--blue); width: 15px; height: 15px; }
+.solution-detail { border-top: 1px solid var(--line); }
+.solution-detail summary { min-height: 49px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; list-style: none; }
+.solution-detail summary::-webkit-details-marker, .faq-item summary::-webkit-details-marker { display: none; }
+.solution-detail summary .icon { width: 15px; height: 15px; }
+.solution-detail[open] summary .icon, .faq-item[open] summary .icon { transform: rotate(45deg); }
+.solution-detail p { padding: 0 0 20px; font-size: 13px; line-height: 1.75; color: var(--muted); }
+.solution-action { display: flex; align-items: center; justify-content: space-between; min-height: 60px; border-top: 1px solid var(--line); font-size: 13px; text-decoration: none; color: var(--blue); }
+.solution-action:hover { color: var(--blue-hover); }
+.solution-action .icon { width: 17px; height: 17px; }
+.section-disclaimer { display: flex; align-items: start; gap: 9px; margin-top: 26px; font-size: 11px; line-height: 1.7; color: var(--muted); }
+.section-disclaimer .icon { width: 15px; height: 15px; margin-top: 2px; }
+.applications { position: relative; overflow: clip; padding-block: 88px; background: var(--night); color: #f5f7fb; }
+.applications-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 110px; }
+.applications .eyebrow { margin-bottom: 28px; color: #93b4e9; }
+.applications h2 { font-size: 52px; line-height: 1.1; }
+.applications h2 span { color: #91a5bd; }
+.applications-copy > p:not(.eyebrow) { max-width: 340px; margin-top: 28px; font-size: 14px; line-height: 1.85; color: #bac7d7; }
+.dark-sidenote { display: flex; align-items: center; gap: 8px; margin-top: 35px; color: #9eb4ce; font-size: 10px; }
+.dark-sidenote .status-dot { width: 5px; height: 5px; }
+.application-list { align-self: center; }
+.application-row { position: relative; display: grid; grid-template-columns: 46px minmax(0, 1fr) 20px; gap: 14px; align-items: start; padding-block: 30px; border-top: 1px solid #354353; }
+.application-row:last-child { border-bottom: 1px solid #354353; }
+.application-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #223449; border: 1px solid #3b516d; border-radius: 3px; color: #9cbae7; }
+.application-icon .icon { width: 21px; height: 21px; }
+.application-row h3 { margin-top: 2px; font-size: 22px; }
+.application-row p { max-width: 365px; margin-top: 10px; font-size: 13px; line-height: 1.75; color: #b5c3d5; }
+.application-number { color: #90a5c0; font-size: 9px; padding-top: 7px; }
+.dark-grid-decoration { position: absolute; width: 670px; height: 440px; left: -280px; bottom: -300px; background-image: linear-gradient(#57749430 1px, transparent 1px), linear-gradient(90deg, #57749430 1px, transparent 1px); background-size: 40px 40px; transform: rotate(-20deg) skew(20deg); pointer-events: none; }
+.approach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 110px; }
+.approach-description { max-width: 365px; margin-top: 26px; font-size: 15px; line-height: 1.8; color: var(--muted); }
+.plan-figure { max-width: 390px; margin-top: 36px; padding-bottom: 13px; border: 1px solid var(--line); border-radius: 2px; background: var(--surface); }
+.plan-figure svg { width: 100%; }
+.plan-figure figcaption { text-align: center; font-size: 8px; color: #596e8a; }
+.consideration { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding-block: 28px; border-top: 1px solid var(--line); }
+.consideration:last-child { border-bottom: 1px solid var(--line); }
+.consideration > .mono { padding-top: 6px; color: var(--blue); }
+.consideration h3 { font-size: 20px; line-height: 1.35; }
+.consideration p { max-width: 390px; margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.75; }
+.preparation-heading { display: flex; justify-content: space-between; align-items: center; gap: 30px; margin-top: 72px; padding-block: 28px; border-top: 1px solid var(--line); }
+.preparation-heading h3 { font-size: 23px; }
+.preparation-heading .text-link { font-size: 12px; color: var(--blue); }
+.preparation-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; margin: 0; padding: 0; }
+.preparation-list li { position: relative; padding: 10px 38px 0 0; }
+.preparation-list li + li { padding-left: 34px; border-left: 1px solid var(--line); }
+.step-number { display: inline-flex; width: 30px; height: 30px; align-items: center; justify-content: center; border: 1px solid #cfdaea; border-radius: 50%; color: var(--blue); font-size: 10px; }
+.preparation-list h4 { margin-top: 22px; font-weight: 500; font-size: 18px; letter-spacing: -.01em; }
+.preparation-list p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: var(--muted); }
+.questions { display: grid; grid-template-columns: .78fr 1.22fr; gap: 80px; border-top: 1px solid var(--line); padding-top: 85px; }
+.questions-heading > p:last-child { margin-top: 22px; font-size: 14px; color: var(--muted); line-height: 1.8; }
+.faq-item { border-top: 1px solid var(--line); }
+.faq-item:last-child { border-bottom: 1px solid var(--line); }
+.faq-item summary { display: grid; grid-template-columns: 28px 1fr 20px; gap: 16px; align-items: center; min-height: 82px; padding-block: 22px; font-size: 16px; line-height: 1.45; list-style: none; }
+.faq-index { font-size: 10px; color: #66758a; }
+.faq-item summary .icon { width: 18px; height: 18px; color: var(--blue); transition: transform 150ms; }
+.faq-item[open] summary { color: var(--blue); }
+.faq-answer { padding: 0 44px 26px; font-size: 14px; line-height: 1.85; color: var(--muted); }
+@media (max-width: 1200px) {
+  .solution-copy { padding-inline: 20px; }
+  .solution-copy h3 { font-size: 21px; }
+  .solution-description { min-height: 130px; }
+  .applications-grid, .approach-grid { gap: 64px; }
+  .questions { gap: 54px; }
+}
+@media (max-width: 1000px) {
+  .section-heading { gap: 40px; }
+  .section-intro { max-width: 290px; font-size: 14px; }
+  .solution-grid { gap: 16px; }
+  .solution-image .structure-drawing { height: 204px; }
+  .solution-copy { padding: 22px 18px 0; }
+  .solution-copy h3 { font-size: 21px; min-height: 50px; }
+  .solution-description { min-height: 162px; font-size: 13px; }
+  .solution-note { min-height: 88px; }
+  .applications h2 { font-size: 45px; }
+  .applications-grid, .approach-grid { gap: 44px; }
+  .application-row { grid-template-columns: 40px 1fr; gap: 12px; }
+  .application-number { display: none; }
+  .application-row h3 { font-size: 21px; }
+  .preparation-heading { margin-top: 50px; }
+  .preparation-heading h3 { font-size: 20px; }
+  .questions { grid-template-columns: .75fr 1.25fr; gap: 40px; }
+  .faq-item summary { font-size: 15px; }
+}
+@media (max-width: 800px) {
+  .section-heading { align-items: start; flex-direction: column; gap: 22px; }
+  .section-intro { max-width: 480px; }
+  .solution-grid { grid-template-columns: 1fr; gap: 24px; }
+  .solution-card { display: grid; grid-template-columns: .8fr 1.2fr; }
+  .solution-image { display: flex; align-items: center; border-bottom: 0; border-right: 1px solid var(--line); }
+  .solution-image .structure-drawing { height: auto; width: 100%; }
+  .solution-copy h3 { min-height: 0; }
+  .solution-description { min-height: 0; font-size: 14px; }
+  .solution-note { min-height: 0; margin-top: 18px; }
+  .applications-grid, .approach-grid { grid-template-columns: 1fr; gap: 42px; }
+  .applications-copy > p:not(.eyebrow) { max-width: 510px; }
+  .applications h2 br:nth-of-type(2), .applications h2 span br { display: none; }
+  .applications h2 { max-width: 570px; }
+  .applications h2 span::before { content: ' '; }
+  .dark-sidenote { margin-top: 26px; }
+  .application-row { grid-template-columns: 46px 1fr 20px; padding-block: 26px; }
+  .application-number { display: block; }
+  .application-row p { max-width: 540px; }
+  .approach-description { max-width: 510px; }
+  .plan-figure { max-width: 420px; }
+  .consideration-list { margin-top: 0; }
+  .consideration p { max-width: 580px; }
+  .preparation-heading { align-items: start; flex-direction: column; gap: 10px; margin-top: 48px; }
+  .preparation-list li { padding-right: 20px; }
+  .preparation-list li + li { padding-left: 20px; }
+  .questions { grid-template-columns: 1fr; gap: 34px; }
+  .questions-heading h2 br, .questions-heading > p:last-child br { display: none; }
+}
+@media (max-width: 550px) {
+  .section-heading { margin-bottom: 30px; }
+  .section-heading .eyebrow, .approach-copy > .eyebrow, .questions-heading .eyebrow { margin-bottom: 16px; }
+  .section-intro { font-size: 14px; }
+  .solution-card { display: block; }
+  .solution-image { display: block; border-right: 0; border-bottom: 1px solid var(--line); }
+  .solution-image .structure-drawing { height: 232px; }
+  .solution-copy { padding: 24px 22px 0; }
+  .solution-copy h3 { font-size: 24px; }
+  .solution-description { font-size: 14px; line-height: 1.8; }
+  .section-disclaimer { font-size: 10px; margin-top: 22px; }
+  .applications { padding-block: 60px; }
+  .applications h2 { font-size: 40px; }
+  .applications .eyebrow { margin-bottom: 22px; }
+  .applications-copy > p:not(.eyebrow) { font-size: 14px; }
+  .applications-grid { gap: 32px; }
+  .application-row { grid-template-columns: 38px 1fr; gap: 14px; padding-block: 23px; }
+  .application-icon { width: 36px; height: 36px; }
+  .application-icon .icon { width: 19px; height: 19px; }
+  .application-row h3 { font-size: 22px; }
+  .application-row p { font-size: 13px; }
+  .application-number { display: none; }
+  .approach-grid { gap: 32px; }
+  .approach-description { margin-top: 21px; font-size: 14px; }
+  .plan-figure { margin-top: 28px; }
+  .consideration { grid-template-columns: 24px 1fr; gap: 12px; padding-block: 23px; }
+  .consideration h3 { font-size: 19px; }
+  .consideration p { font-size: 13px; margin-top: 9px; }
+  .preparation-heading { padding-block: 26px 22px; margin-top: 40px; }
+  .preparation-heading h3 { font-size: 21px; max-width: 250px; }
+  .preparation-heading .text-link { font-size: 12px; }
+  .preparation-list { grid-template-columns: 1fr; gap: 24px; }
+  .preparation-list li, .preparation-list li + li { display: grid; grid-template-columns: 30px 1fr; gap: 5px 15px; padding: 0; border: 0; }
+  .preparation-list h4 { margin-top: 5px; font-size: 18px; }
+  .preparation-list p { grid-column: 2; margin-top: 0; }
+  .questions { padding-top: 58px; }
+  .questions-heading h2 br { display: initial; }
+  .questions-heading > p:last-child { margin-top: 20px; font-size: 13px; }
+  .faq-item summary { min-height: 80px; grid-template-columns: 22px 1fr 18px; gap: 10px; font-size: 15px; }
+  .faq-answer { padding: 0 10px 24px 32px; font-size: 13px; }
+}
+@media (max-width: 359px) {
+  .solution-image .structure-drawing { height: 200px; }
+  .solution-copy { padding-inline: 18px; }
+  .solution-copy h3 { font-size: 22px; }
+  .applications h2 { font-size: 35px; }
+}
 
-          <div class="mt-12 grid gap-5 md:grid-cols-3 reveal">
-            <div class="card p-6">
-              <p class="h3">Механический контур</p>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Физически защищает выбранные зоны и оборудование.</p>
-            </div>
-            <div class="card p-6">
-              <p class="h3">Радиоподавление</p>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Воздействует на каналы управления и навигации в предусмотренном сценарии.</p>
-            </div>
-            <div class="card p-6">
-              <p class="h3">Единый проект</p>
-              <p class="mt-2 text-sm leading-relaxed text-slate-400">Согласует зоны защиты, размещение оборудования, доступ и эксплуатационные ограничения.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- FAQ -->
-      <section class="border-t border-white/5 py-20 sm:py-24">
-        <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-          <div class="reveal">
-            <p class="eyebrow">Вопросы и ответы</p>
-            <h2 class="h2 mt-3">Что важно знать до начала проектирования</h2>
-            <p class="mt-4 text-slate-400">
-              Предварительную концепцию можно подготовить по плану объекта, фотографиям и размерам защищаемой зоны.
-            </p>
-          </div>
-          <div class="space-y-3">
-            <details class="card group reveal">
-              <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 text-white">Заменяет ли механическая защита радиоподавление?<span class="text-cyan-400 transition-transform group-open:rotate-45">+</span></summary>
-              <p class="px-5 pb-5 text-sm leading-relaxed text-slate-400">Нет. Эти решения работают по разным принципам. Радиоподавление воздействует на каналы управления и навигации, а механическая конструкция формирует физический барьер. Для ответственных объектов рекомендуется многоуровневый подход.</p>
-            </details>
-            <details class="card group reveal" style="--d:0.05s">
-              <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 text-white">Можно ли установить конструкцию на существующую кровлю?<span class="text-cyan-400 transition-transform group-open:rotate-45">+</span></summary>
-              <p class="px-5 pb-5 text-sm leading-relaxed text-slate-400">Да, если это подтверждается обследованием и расчётом. До проектирования необходимо определить несущие участки, допустимые нагрузки, состояние основания и безопасную схему крепления.</p>
-            </details>
-            <details class="card group reveal" style="--d:0.1s">
-              <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 text-white">Можно ли защитить большую площадь?<span class="text-cyan-400 transition-transform group-open:rotate-45">+</span></summary>
-              <p class="px-5 pb-5 text-sm leading-relaxed text-slate-400">Да. Контур разбивается на расчётные секции и пролёты. Итоговая геометрия зависит от размеров площадки, мест размещения опор, ветровых и снеговых нагрузок, а также эксплуатационных проездов.</p>
-            </details>
-            <details class="card group reveal" style="--d:0.15s">
-              <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 text-white">Из каких материалов изготавливается система?<span class="text-cyan-400 transition-transform group-open:rotate-45">+</span></summary>
-              <p class="px-5 pb-5 text-sm leading-relaxed text-slate-400">Как правило, применяется стальной несущий каркас с антикоррозионной защитой и специальный сетчатый контур. Точный профиль, материал полотна, размер ячейки, способ натяжения и крепёж определяются проектом.</p>
-            </details>
-            <details class="card group reveal" style="--d:0.2s">
-              <summary class="flex cursor-pointer items-center justify-between gap-4 p-5 text-white">Будет ли конструкция мешать эксплуатации объекта?<span class="text-cyan-400 transition-transform group-open:rotate-45">+</span></summary>
-              <p class="px-5 pb-5 text-sm leading-relaxed text-slate-400">Проект предусматривает доступ к оборудованию, обслуживаемые проходы, водоотведение, вентиляцию, пожарные проезды и возможность локального ремонта защитного контура.</p>
-            </details>
-          </div>
-        </div>
-      </section>
-      <!-- CTA / КОНТАКТЫ -->
-      <section id="cta" class="relative overflow-hidden border-t border-white/5 py-20 sm:py-24">
-        <div class="bg-glow absolute inset-0"></div>
-        <div class="wrap relative grid gap-12 lg:grid-cols-2 lg:items-start">
-          <div class="reveal">
-            <p class="eyebrow">Предварительный расчёт</p>
-            <h2 class="h2 mt-3">Подберём формат механической защиты под ваш объект</h2>
-            <p class="mt-4 text-slate-400">
-              Пришлите план, фотографии и размеры защищаемой зоны. Инженер уточнит исходные данные и предложит следующий шаг.
-            </p>
-            <ol class="mt-8 space-y-4">
-              <li class="flex gap-3"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-cyan-500/15 text-sm font-semibold text-cyan-400">1</span><div><p class="font-medium text-white">Обследование</p><p class="text-sm text-slate-400">Выезд на объект, замеры и фотофиксация.</p></div></li>
-              <li class="flex gap-3"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-cyan-500/15 text-sm font-semibold text-cyan-400">2</span><div><p class="font-medium text-white">Компоновка</p><p class="text-sm text-slate-400">Схема защитного контура и расчёт нагрузок.</p></div></li>
-              <li class="flex gap-3"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-cyan-500/15 text-sm font-semibold text-cyan-400">3</span><div><p class="font-medium text-white">Смета и сроки</p><p class="text-sm text-slate-400">Коммерческое предложение за 3–5 рабочих дней.</p></div></li>
-              <li class="flex gap-3"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-cyan-500/15 text-sm font-semibold text-cyan-400">4</span><div><p class="font-medium text-white">Условия эксплуатации</p><p class="text-sm text-slate-400">Проезды, обслуживание, коммуникации и ограничения.</p></div></li>
-            </ol>
-            <div class="mt-8 flex flex-col gap-2 text-sm">
-              <a href="tel:+78005054466" class="text-white hover:text-cyan-400">+7 (800) 505-44-66</a>
-              <a href="mailto:info@zok-eng.ru" class="text-white hover:text-cyan-400">info@zok-eng.ru</a>
-            </div>
-          </div>
+.request-section { padding-block: 88px 94px; border-block: 1px solid #dce4ef; background: #eef3fa; }
+.request-grid { display: grid; grid-template-columns: .93fr 1.07fr; gap: 100px; align-items: start; }
+.request-copy { padding-top: 22px; }
+.request-copy .eyebrow { margin-bottom: 26px; }
+.request-copy h2 { font-size: 48px; }
+.request-copy h2 span { color: var(--blue); }
+.request-description { max-width: 340px; margin-top: 24px; font-size: 16px; line-height: 1.75; color: #596c84; }
+.local-notice { display: flex; gap: 14px; max-width: 360px; margin-top: 40px; padding-top: 24px; border-top: 1px solid #cad7e9; }
+.local-notice > .icon { color: var(--blue); width: 20px; height: 20px; margin-top: 2px; }
+.local-notice h3 { font-size: 15px; font-weight: 500; }
+.local-notice p { margin-top: 9px; font-size: 13px; line-height: 1.8; color: #5a6d87; }
+.request-privacy { max-width: 340px; margin-top: 25px; font-size: 11px; line-height: 1.8; color: #586b86; }
+.download-blank { color: var(--blue); font-size: 12px; margin-top: 18px; }
+.brief-card { padding: 30px 32px 26px; border: 1px solid #dce5f0; border-radius: 5px; background: #fff; box-shadow: 0 12px 36px rgb(29 58 105 / 3%); }
+.brief-progress { display: flex; align-items: center; gap: 13px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+.brief-progress > span:not(.progress-line) { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #66758a; }
+.brief-progress b { display: inline-flex; justify-content: center; align-items: center; width: 22px; height: 22px; border: 1px solid #d6deea; border-radius: 50%; font-family: var(--font-mono); font-size: 9px; font-weight: 400; }
+.brief-progress .is-current { color: var(--blue) !important; }
+.brief-progress .is-current b { border-color: var(--blue); color: white; background: var(--blue); }
+.progress-line { width: 26px; height: 1px; background: var(--line); flex-shrink: 0; }
+.form-help { margin-top: 22px; font-size: 10px; line-height: 1.6; color: var(--muted); }
+.brief-form fieldset { padding-top: 22px; }
+.brief-form fieldset:disabled { opacity: .64; }
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+.field { margin-bottom: 23px; min-width: 0; }
+.field label { display: block; margin-bottom: 9px; font-size: 12px; line-height: 1.6; color: #35455c; }
+.field label > span:not(.optional) { color: var(--blue); }
+.optional { color: #66758a; margin-left: 3px; font-size: 9px; }
+.field input, .field select, .field textarea { display: block; width: 100%; min-height: 48px; padding: 12px 13px; border: 1px solid #8494ab; border-radius: 3px; color: var(--ink); background: #fff; font-size: 13px; line-height: 1.5; transition: border-color 160ms; }
+.field input::placeholder, .field textarea::placeholder { color: #66758a; opacity: 1; }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: #a4b8d6; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--blue); outline-offset: 2px; }
+.select-wrap { position: relative; }
+.select-wrap select { appearance: none; padding-right: 35px; }
+.select-wrap::after { content: ""; position: absolute; right: 16px; top: 19px; width: 7px; height: 7px; border-right: 1px solid #657a96; border-bottom: 1px solid #657a96; transform: rotate(45deg); pointer-events: none; }
+.field textarea { min-height: 124px; resize: vertical; }
+.field-bottom { display: flex; align-items: start; justify-content: space-between; gap: 14px; margin-top: 9px; color: #617086; font-size: 9px; line-height: 1.6; }
+.field-bottom span { white-space: nowrap; font-family: var(--font-mono); }
+.field-error { color: #a52b3b; font-size: 11px; line-height: 1.6; }
+.field-error:not(:empty) { margin-top: 8px; }
+.field [aria-invalid="true"] { border-color: #b93f4f; }
+.form-errors { margin-top: 20px; padding: 12px; border-left: 2px solid #b93f4f; color: #912235; background: #fff4f4; font-size: 12px; line-height: 1.7; }
+.brief-submit { justify-content: space-between; width: 100%; min-height: 51px; padding-inline: 18px; }
+.form-disclaimer { margin-top: 12px; text-align: center; font-size: 9px; line-height: 1.7; color: #637289; }
+.brief-status { font-size: 12px; color: var(--blue); line-height: 1.7; }
+.brief-status:not(:empty) { margin-top: 18px; }
+.brief-result { margin-top: 25px; }
+.brief-result:focus { outline: none; }
+.brief-result:focus-visible { outline: 3px solid var(--blue); outline-offset: 8px; }
+.result-heading { display: flex; align-items: center; gap: 13px; margin-bottom: 21px; }
+.result-check { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #e9f0fc; color: var(--blue); }
+.result-heading h3 { font-size: 20px; line-height: 1.3; }
+.result-heading p { margin-top: 5px; font-size: 12px; color: var(--muted); }
+.result-text { display: block; width: 100%; resize: vertical; min-height: 250px; max-height: 650px; padding: 18px; font-family: var(--font-mono); font-size: 11px; line-height: 1.85; color: #3b516f; border: 1px solid #d5dfed; border-radius: 3px; background: #f8faff; }
+.result-actions { display: flex; gap: 12px; margin-top: 20px; }
+.result-actions .button { gap: 10px; min-height: 49px; font-size: 12px; padding: 12px 17px; flex: 1; }
+.result-actions .icon { width: 17px; height: 17px; }
+.edit-brief { margin-top: 13px; font-size: 12px; }
+.result-note { margin-top: 14px; font-size: 11px; line-height: 1.8; color: var(--muted); }
+.no-js-note { margin-top: 20px; padding: 16px; border: 1px solid #d9e3f1; font-size: 13px; line-height: 1.8; color: #415b7c; }
+@media (max-width: 1200px) {
+  .request-grid { gap: 66px; }
+  .request-copy h2 { font-size: 42px; }
+  .brief-card { padding-inline: 26px; }
+}
+@media (max-width: 1000px) {
+  .request-grid { grid-template-columns: .85fr 1.15fr; gap: 36px; }
+  .request-copy h2 { font-size: 39px; }
+  .brief-card { padding-inline: 22px; }
+  .brief-progress { gap: 8px; }
+  .brief-progress > span:not(.progress-line) { gap: 6px; font-size: 10px; }
+  .progress-line { width: 15px; }
+  .field-grid { grid-template-columns: 1fr; gap: 0; }
+}
+@media (max-width: 800px) {
+  .request-section { padding-block: 64px; }
+  .request-grid { grid-template-columns: 1fr; gap: 32px; }
+  .request-copy { padding-top: 0; }
+  .request-description { max-width: 450px; }
+  .local-notice { max-width: 470px; margin-top: 28px; padding-top: 22px; }
+  .request-privacy { max-width: 470px; margin-top: 20px; }
+  .brief-card { max-width: 610px; padding: 28px; width: 100%; }
+  .field-grid { grid-template-columns: 1fr 1fr; gap: 17px; }
+  .brief-progress { gap: 13px; }
+  .brief-progress > span:not(.progress-line) { font-size: 11px; gap: 8px; }
+  .progress-line { width: 26px; }
+}
+@media (max-width: 550px) {
+  .request-copy .eyebrow { margin-bottom: 20px; }
+  .request-copy h2 { font-size: 36px; }
+  .request-description { font-size: 14px; margin-top: 22px; }
+  .local-notice h3 { font-size: 14px; }
+  .local-notice p { font-size: 12px; }
+  .request-privacy { font-size: 10px; }
+  .brief-card { padding: 23px 20px; }
+  .brief-progress { gap: 8px; }
+  .brief-progress > span:not(.progress-line) { font-size: 10px; gap: 6px; }
+  .progress-line { width: 15px; }
+  .field-grid { grid-template-columns: 1fr; gap: 0; }
+  .field { margin-bottom: 21px; }
+  .field input, .field textarea, .field select { font-size: 16px; }
+  .field label { font-size: 12px; }
+  .field textarea { font-size: 16px; }
+  .optional { font-size: 10px; }
+  .field-bottom { font-size: 9px; gap: 8px; }
+  .result-actions { flex-wrap: wrap; }
+  .result-actions .button { min-width: 120px; }
+  .result-text { font-size: 13px; padding: 13px; }
+}
+@media (max-width: 359px) {
+  .request-copy h2 { font-size: 32px; }
+  .brief-card { padding-inline: 16px; }
+  .brief-progress { gap: 6px; }
+  .brief-progress > span:not(.progress-line) { font-size: 9px; }
+  .progress-line { width: 10px; }
+  .brief-progress b { width: 19px; height: 19px; font-size: 8px; }
+}
 
-          <div class="card p-6 sm:p-8 reveal" style="--d:0.1s">
-            <form id="lead-form" class="space-y-4">
-              <div>
-                <label for="name" class="mb-1.5 block text-sm font-medium text-slate-300">Ваше имя *</label>
-                <input id="name" type="text" required class="w-full rounded-lg border border-slate-700 bg-slate-950/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition focus:border-cyan-500" placeholder="Введите ваше имя" />
-              </div>
-              <div>
-                <label for="phone" class="mb-1.5 block text-sm font-medium text-slate-300">Телефон *</label>
-                <input id="phone" type="tel" required class="w-full rounded-lg border border-slate-700 bg-slate-950/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition focus:border-cyan-500" placeholder="Введите корректный номер" />
-              </div>
-              <div>
-                <label for="company" class="mb-1.5 block text-sm font-medium text-slate-300">Компания</label>
-                <input id="company" type="text" class="w-full rounded-lg border border-slate-700 bg-slate-950/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition focus:border-cyan-500" placeholder="Название организации" />
-              </div>
-              <div>
-                <label for="direction" class="mb-1.5 block text-sm font-medium text-slate-300">Направление *</label>
-                <select id="direction" required class="w-full rounded-lg border border-slate-700 bg-slate-950/60 px-4 py-2.5 text-sm text-white outline-none transition focus:border-cyan-500">
-                  <option value="" selected disabled>Выберите направление</option>
-                  <option>Защитные конструкции от БПЛА</option>
-                  <option>Радиоподавление БПЛА</option>
-                  <option>Анализ угроз и проектирование защиты</option>
-                </select>
-              </div>
-              <div>
-                <label for="message" class="mb-1.5 block text-sm font-medium text-slate-300">Сообщение</label>
-                <textarea id="message" rows="3" class="w-full resize-none rounded-lg border border-slate-700 bg-slate-950/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition focus:border-cyan-500" placeholder="Описание объекта или задачи"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary w-full">Отправить заявку</button>
-              <p class="text-xs leading-relaxed text-slate-500">Демо-форма: данные не отправляются на сервер. Нажимая «Отправить», вы соглашаетесь на обработку персональных данных.</p>
-              <div id="form-status" class="hidden"></div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
+</style></head><body><a class="skip-link" href="#main-content">Перейти к содержанию</a><div id="top"><header class="site-header"><div class="header-inner container"><a href="#top" class="brand" aria-label="Защитные конструкции — в начало страницы"><svg aria-hidden="true" class="brand-mark" width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M4 31V13L19 5l15 8v18M4 13l15 8 15-8M19 21v12M10 28v-8l9-5 9 5v8" stroke="currentColor" stroke-width="2"></path></svg><span class="brand-type"><span>ЗАЩИТНЫЕ</span><span>КОНСТРУКЦИИ</span></span></a><nav class="desktop-nav" aria-label="Основная навигация"><a href="#solutions">Решения</a><a href="#applications">Объекты</a><a href="#approach">Подход</a><a href="#questions">Вопросы</a></nav><a class="header-action" href="#request">Подготовить запрос <svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a><details class="mobile-menu" id="mobile-menu"><summary aria-label="Меню навигации"><span class="menu-lines" aria-hidden="true"></span><span>Меню</span></summary><nav aria-label="Мобильная навигация"><a href="#solutions">Решения<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a><a href="#applications">Объекты<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a><a href="#approach">Подход<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a><a href="#questions">Вопросы<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a><a href="#request">Подготовить запрос<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a><p>Демонстрационный сайт / 01</p></nav></details></div></header><main id="main-content"><section class="hero container" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span>ПАССИВНАЯ ЗАЩИТА ОБЪЕКТОВ</p><h1 id="hero-title">Защитные<br>конструкции<br><span>от БПЛА</span></h1><p class="hero-description">Навесы, экраны и комплексные укрытия<br class="desktop-break"> для гражданских и промышленных объектов.</p><p class="hero-supporting">Решение начинается с понимания объекта.<br>Не с выбора типовой картинки.</p><div class="hero-actions"><a class="button button-primary" href="#solutions" data-primary-cta="true">Посмотреть решения<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a><a class="text-link" href="#approach">Инженерный подход<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"></path></svg></a></div><div class="hero-footnote"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 10 5-10 5L2 8Zm-9 10 9 5 9-5M3 18l9 5 9-5"></path></svg><span>Верхнее перекрытие<span class="footnote-separator" aria-hidden="true"> / </span>Периметр<span class="footnote-separator" aria-hidden="true"> / </span>Контур</span></div></div><figure class="hero-figure scene" aria-labelledby="hero-figure-caption"><div class="drawing-topline"><span class="mono">КОНЦЕПЦИЯ КОНСТРУКЦИИ</span><span class="drawing-badge">3D / СХЕМА</span></div><div class="drawing-stage"><svg class="structure-drawing drawing-interactive " viewBox="0 0 720 540" role="img" aria-labelledby="hero-scene-title hero-scene-description"><title id="hero-scene-title">Условная компоновка защитной конструкции</title><desc id="hero-scene-description">Изометрическая иллюстрация каркаса вокруг условного оборудования. Без размеров, инженерного расчёта и заявленных защитных характеристик.</desc><defs><linearGradient id="hero-scene-floor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9edf2"></stop><stop offset="1" stop-color="#dbe2e9"></stop></linearGradient><linearGradient id="hero-scene-net" x1="0" y1="0" x2="0.8" y2="1"><stop stop-color="#376fd1" stop-opacity=".06"></stop><stop offset="1" stop-color="#376fd1" stop-opacity=".19"></stop></linearGradient><filter id="hero-scene-shadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur std-deviation="10"></feGaussianBlur></filter></defs><g class="drawing-guide" fill="none" stroke="#cfd8e3" stroke-width=".8"><line x1="295.6" y1="200" x2="-57" y2="364" class=""></line><line x1="351.5" y1="226" x2="-1.1000000000000227" y2="390" class=""></line><line x1="407.4" y1="252" x2="54.80000000000001" y2="416" class=""></line><line x1="463.3" y1="278" x2="110.70000000000002" y2="442" class=""></line><line x1="519.2" y1="304" x2="166.6" y2="468" class=""></line><line x1="575.1" y1="330" x2="222.5" y2="494" class=""></line><line x1="631" y1="356" x2="278.4" y2="520" class=""></line><line x1="686.9" y1="382" x2="334.3" y2="546" class=""></line><line x1="742.8" y1="408" x2="390.2" y2="572" class=""></line><line x1="798.7" y1="434" x2="446.1" y2="598" class=""></line><line x1="330" y1="216" x2="742.8" y2="408" class=""></line><line x1="278.4" y1="240" x2="691.2" y2="432" class=""></line><line x1="226.8" y1="264" x2="639.6" y2="456" class=""></line><line x1="175.2" y1="288" x2="588" y2="480" class=""></line><line x1="123.6" y1="312" x2="536.4" y2="504" class=""></line><line x1="72" y1="336" x2="484.8" y2="528" class=""></line><line x1="20.399999999999977" y1="360" x2="433.2" y2="552" class=""></line><line x1="-31.19999999999999" y1="384" x2="381.6" y2="576" class=""></line></g><polygon points="323.98,272.2 639.6,419 420.3,521 104.68,374.2" fill="#66798e" opacity=".14" filter="url(#hero-scene-shadow)" transform="translate(9 14)"></polygon><polygon points="325.7,266 631,408 416,508 110.70000000000002,366" fill="url(#hero-scene-floor)" stroke="#c8d2dd" stroke-width="1"></polygon><polygon points="325.7,296 553.6,402 418.58,464.8 190.68,358.8" fill="none" stroke="#7f96b1" stroke-width="1" stroke-dasharray="5 5"></polygon><g class="scene-walls" stroke="#3565b4" stroke-width=".65"><polygon points="330,275 588,395 588,201 330,81" fill="url(#hero-scene-net)"></polygon><line x1="330" y1="273" x2="330" y2="83" class=""></line><line x1="347.2" y1="281" x2="347.2" y2="91" class=""></line><line x1="364.4" y1="289" x2="364.4" y2="99" class=""></line><line x1="381.6" y1="297" x2="381.6" y2="107" class=""></line><line x1="398.8" y1="305" x2="398.8" y2="115" class=""></line><line x1="416" y1="313" x2="416" y2="123" class=""></line><line x1="433.2" y1="321" x2="433.2" y2="131" class=""></line><line x1="450.4" y1="329" x2="450.4" y2="139" class=""></line><line x1="467.6" y1="337" x2="467.6" y2="147" class=""></line><line x1="484.8" y1="345" x2="484.8" y2="155" class=""></line><line x1="502" y1="353" x2="502" y2="163" class=""></line><line x1="519.2" y1="361" x2="519.2" y2="171" class=""></line><line x1="536.4" y1="369" x2="536.4" y2="179" class=""></line><line x1="553.6" y1="377" x2="553.6" y2="187" class=""></line><line x1="570.8" y1="385" x2="570.8" y2="195" class=""></line><line x1="588" y1="393" x2="588" y2="203" class=""></line><line x1="330" y1="275" x2="588" y2="395" class=""></line><line x1="330" y1="255.8" x2="588" y2="375.8" class=""></line><line x1="330" y1="236.6" x2="588" y2="356.6" class=""></line><line x1="330" y1="217.4" x2="588" y2="337.4" class=""></line><line x1="330" y1="198.2" x2="588" y2="318.2" class=""></line><line x1="330" y1="179" x2="588" y2="299" class=""></line><line x1="330" y1="159.8" x2="588" y2="279.8" class=""></line><line x1="330" y1="140.6" x2="588" y2="260.6" class=""></line><line x1="330" y1="121.4" x2="588" y2="241.4" class=""></line><line x1="330" y1="102.20000000000002" x2="588" y2="222.20000000000002" class=""></line><line x1="330" y1="83" x2="588" y2="203" class=""></line><polygon points="330,275 158,355 158,161 330,81" fill="url(#hero-scene-net)"></polygon><line x1="330" y1="273" x2="330" y2="83" class=""></line><line x1="312.8" y1="281" x2="312.8" y2="91" class=""></line><line x1="295.6" y1="289" x2="295.6" y2="99" class=""></line><line x1="278.4" y1="297" x2="278.4" y2="107" class=""></line><line x1="261.2" y1="305" x2="261.2" y2="115" class=""></line><line x1="244" y1="313" x2="244" y2="123" class=""></line><line x1="226.8" y1="321" x2="226.8" y2="131" class=""></line><line x1="209.60000000000002" y1="329" x2="209.60000000000002" y2="139" class=""></line><line x1="192.4" y1="337" x2="192.4" y2="147" class=""></line><line x1="175.2" y1="345" x2="175.2" y2="155" class=""></line><line x1="158" y1="353" x2="158" y2="163" class=""></line><line x1="330" y1="275" x2="158" y2="355" class=""></line><line x1="330" y1="255.8" x2="158" y2="335.8" class=""></line><line x1="330" y1="236.6" x2="158" y2="316.6" class=""></line><line x1="330" y1="217.4" x2="158" y2="297.4" class=""></line><line x1="330" y1="198.2" x2="158" y2="278.2" class=""></line><line x1="330" y1="179" x2="158" y2="259" class=""></line><line x1="330" y1="159.8" x2="158" y2="239.8" class=""></line><line x1="330" y1="140.6" x2="158" y2="220.6" class=""></line><line x1="330" y1="121.4" x2="158" y2="201.4" class=""></line><line x1="330" y1="102.20000000000002" x2="158" y2="182.20000000000002" class=""></line><line x1="330" y1="83" x2="158" y2="163" class=""></line></g><g class="scene-structure"><g class="steel"><polygon class="box-side" points="323.98,275.4 330,278.2 330,86.19999999999999 323.98,83.39999999999998"></polygon><polygon class="box-front" points="336.02,275.4 330,278.2 330,86.19999999999999 336.02,83.39999999999998"></polygon><polygon class="box-top" points="330,80.60000000000002 336.02,83.39999999999998 330,86.19999999999999 323.98,83.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="452.98,335.4 459,338.2 459,146.2 452.98,143.39999999999998"></polygon><polygon class="box-front" points="465.02,335.4 459,338.2 459,146.2 465.02,143.39999999999998"></polygon><polygon class="box-top" points="459,140.60000000000002 465.02,143.39999999999998 459,146.2 452.98,143.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="581.98,395.4 588,398.2 588,206.2 581.98,203.39999999999998"></polygon><polygon class="box-front" points="594.02,395.4 588,398.2 588,206.2 594.02,203.39999999999998"></polygon><polygon class="box-top" points="588,200.60000000000002 594.02,203.39999999999998 588,206.2 581.98,203.39999999999998"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="317.1,275.4 330,281.4 330,278.4 317.1,272.4"></polygon><polygon class="box-front" points="342.9,275.4 330,281.4 330,278.4 342.9,272.4"></polygon><polygon class="box-top" points="330,266.4 342.9,272.4 330,278.4 317.1,272.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="575.1,395.4 588,401.4 588,398.4 575.1,392.4"></polygon><polygon class="box-front" points="600.9,395.4 588,401.4 588,398.4 600.9,392.4"></polygon><polygon class="box-top" points="588,386.4 600.9,392.4 588,398.4 575.1,392.4"></polygon></g></g><g class="equipment"><g class=""><polygon class="box-side" points="266.36,360.6 346.34,397.8 346.34,324.8 266.36,287.6"></polygon><polygon class="box-front" points="417.72,364.6 346.34,397.8 346.34,324.8 417.72,291.6"></polygon><polygon class="box-top" points="337.74,254.39999999999998 417.72,291.6 346.34,324.8 266.36,287.6"></polygon></g><g class=""><polygon class="box-side" points="259.48,287.6 346.34,328 346.34,321 259.48,280.6"></polygon><polygon class="box-front" points="424.6,291.6 346.34,328 346.34,321 424.6,284.6"></polygon><polygon class="box-top" points="337.74,244.2 424.6,284.6 346.34,321 259.48,280.6"></polygon></g><g class=""><polygon class="box-side" points="363.54,408.20000000000005 404.82,427.4 404.82,336.4 363.54,317.20000000000005"></polygon><polygon class="box-front" points="462.44,400.6 404.82,427.4 404.82,336.4 462.44,309.6"></polygon><polygon class="box-top" points="421.15999999999997,290.4 462.44,309.6 404.82,336.4 363.54,317.20000000000005"></polygon></g><g class=""><polygon class="box-side" points="356.66,317.20000000000005 404.82,339.6 404.82,335.6 356.66,313.20000000000005"></polygon><polygon class="box-front" points="469.32,309.6 404.82,339.6 404.82,335.6 469.32,305.6"></polygon><polygon class="box-top" points="421.15999999999997,283.2 469.32,305.6 404.82,335.6 356.66,313.20000000000005"></polygon></g><g fill="none" stroke="#8b9cab" stroke-width="2"><line x1="277.54" y1="346.6" x2="333.44" y2="372.6" class=""></line><line x1="277.54" y1="338.6" x2="333.44" y2="364.6" class=""></line><line x1="277.54" y1="330.6" x2="333.44" y2="356.6" class=""></line><line x1="277.54" y1="322.6" x2="333.44" y2="348.6" class=""></line><line x1="277.54" y1="314.6" x2="333.44" y2="340.6" class=""></line><line x1="372.14" y1="337" x2="393.64" y2="347" class=""></line><line x1="372.14" y1="343" x2="393.64" y2="353" class=""></line><line x1="404.82" y1="352.6" x2="404.82" y2="306.6" class=""></line></g><polygon points="376.44,388 390.2,394.4 390.2,384.4 376.44,378" fill="#42689a"></polygon></g><g class="scene-structure"><g class="steel"><polygon class="box-side" points="151.98,355.4 158,358.2 158,166.2 151.98,163.39999999999998"></polygon><polygon class="box-front" points="164.02,355.4 158,358.2 158,166.2 164.02,163.39999999999998"></polygon><polygon class="box-top" points="158,160.60000000000002 164.02,163.39999999999998 158,166.2 151.98,163.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="409.98,475.4 416,478.20000000000005 416,286.20000000000005 409.98,283.4"></polygon><polygon class="box-front" points="422.02,475.4 416,478.20000000000005 416,286.20000000000005 422.02,283.4"></polygon><polygon class="box-top" points="416,280.6 422.02,283.4 416,286.20000000000005 409.98,283.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="145.1,355.4 158,361.4 158,358.4 145.1,352.4"></polygon><polygon class="box-front" points="170.9,355.4 158,361.4 158,358.4 170.9,352.4"></polygon><polygon class="box-top" points="158,346.4 170.9,352.4 158,358.4 145.1,352.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="403.1,475.4 416,481.4 416,478.4 403.1,472.4"></polygon><polygon class="box-front" points="428.9,475.4 416,481.4 416,478.4 428.9,472.4"></polygon><polygon class="box-top" points="416,466.4 428.9,472.4 416,478.4 403.1,472.4"></polygon></g><g class="steel"><polygon class="box-side" points="325.7,96 583.7,216 583.7,203 325.7,83"></polygon><polygon class="box-front" points="588,214 583.7,216 583.7,203 588,201"></polygon><polygon class="box-top" points="330,81 588,201 583.7,203 325.7,83"></polygon></g><g class="steel"><polygon class="box-side" points="154.56,175.60000000000002 412.56,295.6 412.56,282.6 154.56,162.60000000000002"></polygon><polygon class="box-front" points="416.86,293.6 412.56,295.6 412.56,282.6 416.86,280.6"></polygon><polygon class="box-top" points="158.86,160.60000000000002 416.86,280.6 412.56,282.6 154.56,162.60000000000002"></polygon></g><g class="steel"><polygon class="box-side" points="158,174 162.3,176 162.3,163 158,161"></polygon><polygon class="box-front" points="334.3,96 162.3,176 162.3,163 334.3,83"></polygon><polygon class="box-top" points="330,81 334.3,83 162.3,163 158,161"></polygon></g><g class="steel"><polygon class="box-side" points="411.7,295.20000000000005 416,297.20000000000005 416,284.20000000000005 411.7,282.20000000000005"></polygon><polygon class="box-front" points="591.44,215.60000000000002 416,297.20000000000005 416,284.20000000000005 591.44,202.60000000000002"></polygon><polygon class="box-top" points="587.14,200.60000000000002 591.44,202.60000000000002 416,284.20000000000005 411.7,282.20000000000005"></polygon></g><g fill="none" stroke="#6d8095" stroke-width="1.2"><line x1="158" y1="204" x2="194.12" y2="190.8" class=""></line><line x1="416" y1="324" x2="379.88" y2="277.20000000000005" class=""></line><line x1="330" y1="123" x2="295.6" y2="110" class=""></line><line x1="588" y1="243" x2="553.6" y2="230" class=""></line></g></g><g class="scene-roof" stroke="#3c6bb4" stroke-width=".7"><polygon points="330,74.39999999999998 594.88,197.60000000000002 416,280.8 151.12,157.60000000000002" fill="url(#hero-scene-net)"></polygon><line x1="330" y1="76" x2="154.56" y2="157.60000000000002" class=""></line><line x1="347.2" y1="84" x2="171.76" y2="165.60000000000002" class=""></line><line x1="364.4" y1="92" x2="188.96" y2="173.60000000000002" class=""></line><line x1="381.6" y1="100" x2="206.16" y2="181.60000000000002" class=""></line><line x1="398.8" y1="108" x2="223.36" y2="189.60000000000002" class=""></line><line x1="416" y1="116" x2="240.56" y2="197.60000000000002" class=""></line><line x1="433.2" y1="124" x2="257.76" y2="205.60000000000002" class=""></line><line x1="450.4" y1="132" x2="274.96" y2="213.60000000000002" class=""></line><line x1="467.6" y1="140" x2="292.16" y2="221.60000000000002" class=""></line><line x1="484.8" y1="148" x2="309.36" y2="229.60000000000002" class=""></line><line x1="502" y1="156" x2="326.56" y2="237.60000000000002" class=""></line><line x1="519.2" y1="164" x2="343.76" y2="245.60000000000002" class=""></line><line x1="536.4" y1="172" x2="360.96" y2="253.60000000000002" class=""></line><line x1="553.6" y1="180" x2="378.15999999999997" y2="261.6" class=""></line><line x1="570.8" y1="188" x2="395.36" y2="269.6" class=""></line><line x1="588" y1="196" x2="412.56" y2="277.6" class=""></line><line x1="330" y1="76" x2="589.72" y2="196.8" class=""></line><line x1="312.8" y1="84" x2="572.52" y2="204.8" class=""></line><line x1="295.6" y1="92" x2="555.3199999999999" y2="212.8" class=""></line><line x1="278.4" y1="100" x2="538.12" y2="220.8" class=""></line><line x1="261.2" y1="108" x2="520.92" y2="228.8" class=""></line><line x1="244" y1="116" x2="503.72" y2="236.8" class=""></line><line x1="226.8" y1="124" x2="486.52" y2="244.8" class=""></line><line x1="209.60000000000002" y1="132" x2="469.32" y2="252.8" class=""></line><line x1="192.4" y1="140" x2="452.12" y2="260.8" class=""></line><line x1="175.2" y1="148" x2="434.92" y2="268.8" class=""></line><line x1="158" y1="156" x2="417.72" y2="276.8" class=""></line></g><g class="drawing-annotations" fill="none" stroke="#8b9db5" stroke-width="1"><path d="M481 145h65l25-36h86"></path><circle cx="481" cy="145" r="3" fill="#2b59a2" stroke="none"></circle><path d="M581 335h43l27 23h24"></path><circle cx="581" cy="335" r="3" fill="#2b59a2" stroke="none"></circle><path d="M215 368h-63l-21 27H66"></path><circle cx="215" cy="368" r="3" fill="#2b59a2" stroke="none"></circle><g fill="#4c627f" stroke="none" font-size="10" font-family="monospace"><text x="573" y="99">01 / ЭЛЕМЕНТЫ</text><text x="639" y="348">02 / КАРКАС</text><text x="66" y="412">03 / ОБЪЕКТ</text></g></g></svg></div><fieldset class="scene-switcher"><legend class="sr-only">Формат иллюстрации</legend><label><input type="radio" name="scene" value="canopy" checked><span>Навес</span></label><label><input type="radio" name="scene" value="screen"><span>Экран</span></label><label><input type="radio" name="scene" value="contour"><span>Контур</span></label></fieldset><figcaption id="hero-figure-caption">Условная визуализация. Не инженерный проект.</figcaption><span class="figure-cross cross-top" aria-hidden="true">+</span><span class="figure-cross cross-bottom" aria-hidden="true">+</span></figure><div class="hero-bottom"><span class="mono">ДЕМОНСТРАЦИОННЫЙ САЙТ / 01</span><a href="#solutions">От задачи к решению <svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16m-6-6 6 6 6-6"></path></svg></a></div></section><section class="solutions section container" id="solutions" aria-labelledby="solutions-title"><div class="section-heading"><div><p class="eyebrow">01 / ФОРМАТЫ КОНСТРУКЦИЙ</p><h2 id="solutions-title">Разные задачи.<br><span class="muted-heading">Разная компоновка.</span></h2></div><p class="section-intro">Три формата, с которых можно начать обсуждение. Состав и параметры решения определяются для конкретного объекта.</p></div><div class="solution-grid"><article class="solution-card" id="solution-canopy"><div class="solution-image"><span class="solution-number mono">01</span><svg class="structure-drawing drawing-canopy drawing-compact" viewBox="0 0 720 540" role="img" aria-labelledby="drawing-canopy-title drawing-canopy-description"><title id="drawing-canopy-title">Условная компоновка защитной конструкции</title><desc id="drawing-canopy-description">Изометрическая иллюстрация каркаса вокруг условного оборудования. Без размеров, инженерного расчёта и заявленных защитных характеристик.</desc><defs><linearGradient id="drawing-canopy-floor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9edf2"></stop><stop offset="1" stop-color="#dbe2e9"></stop></linearGradient><linearGradient id="drawing-canopy-net" x1="0" y1="0" x2="0.8" y2="1"><stop stop-color="#376fd1" stop-opacity=".06"></stop><stop offset="1" stop-color="#376fd1" stop-opacity=".19"></stop></linearGradient><filter id="drawing-canopy-shadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur std-deviation="10"></feGaussianBlur></filter></defs><g class="drawing-guide" fill="none" stroke="#cfd8e3" stroke-width=".8"><line x1="295.6" y1="200" x2="-57" y2="364" class=""></line><line x1="351.5" y1="226" x2="-1.1000000000000227" y2="390" class=""></line><line x1="407.4" y1="252" x2="54.80000000000001" y2="416" class=""></line><line x1="463.3" y1="278" x2="110.70000000000002" y2="442" class=""></line><line x1="519.2" y1="304" x2="166.6" y2="468" class=""></line><line x1="575.1" y1="330" x2="222.5" y2="494" class=""></line><line x1="631" y1="356" x2="278.4" y2="520" class=""></line><line x1="686.9" y1="382" x2="334.3" y2="546" class=""></line><line x1="742.8" y1="408" x2="390.2" y2="572" class=""></line><line x1="798.7" y1="434" x2="446.1" y2="598" class=""></line><line x1="330" y1="216" x2="742.8" y2="408" class=""></line><line x1="278.4" y1="240" x2="691.2" y2="432" class=""></line><line x1="226.8" y1="264" x2="639.6" y2="456" class=""></line><line x1="175.2" y1="288" x2="588" y2="480" class=""></line><line x1="123.6" y1="312" x2="536.4" y2="504" class=""></line><line x1="72" y1="336" x2="484.8" y2="528" class=""></line><line x1="20.399999999999977" y1="360" x2="433.2" y2="552" class=""></line><line x1="-31.19999999999999" y1="384" x2="381.6" y2="576" class=""></line></g><polygon points="323.98,272.2 639.6,419 420.3,521 104.68,374.2" fill="#66798e" opacity=".14" filter="url(#drawing-canopy-shadow)" transform="translate(9 14)"></polygon><polygon points="325.7,266 631,408 416,508 110.70000000000002,366" fill="url(#drawing-canopy-floor)" stroke="#c8d2dd" stroke-width="1"></polygon><polygon points="325.7,296 553.6,402 418.58,464.8 190.68,358.8" fill="none" stroke="#7f96b1" stroke-width="1" stroke-dasharray="5 5"></polygon><g class="scene-walls" stroke="#3565b4" stroke-width=".65"><polygon points="330,275 588,395 588,201 330,81" fill="url(#drawing-canopy-net)"></polygon><line x1="330" y1="273" x2="330" y2="83" class=""></line><line x1="347.2" y1="281" x2="347.2" y2="91" class=""></line><line x1="364.4" y1="289" x2="364.4" y2="99" class=""></line><line x1="381.6" y1="297" x2="381.6" y2="107" class=""></line><line x1="398.8" y1="305" x2="398.8" y2="115" class=""></line><line x1="416" y1="313" x2="416" y2="123" class=""></line><line x1="433.2" y1="321" x2="433.2" y2="131" class=""></line><line x1="450.4" y1="329" x2="450.4" y2="139" class=""></line><line x1="467.6" y1="337" x2="467.6" y2="147" class=""></line><line x1="484.8" y1="345" x2="484.8" y2="155" class=""></line><line x1="502" y1="353" x2="502" y2="163" class=""></line><line x1="519.2" y1="361" x2="519.2" y2="171" class=""></line><line x1="536.4" y1="369" x2="536.4" y2="179" class=""></line><line x1="553.6" y1="377" x2="553.6" y2="187" class=""></line><line x1="570.8" y1="385" x2="570.8" y2="195" class=""></line><line x1="588" y1="393" x2="588" y2="203" class=""></line><line x1="330" y1="275" x2="588" y2="395" class=""></line><line x1="330" y1="255.8" x2="588" y2="375.8" class=""></line><line x1="330" y1="236.6" x2="588" y2="356.6" class=""></line><line x1="330" y1="217.4" x2="588" y2="337.4" class=""></line><line x1="330" y1="198.2" x2="588" y2="318.2" class=""></line><line x1="330" y1="179" x2="588" y2="299" class=""></line><line x1="330" y1="159.8" x2="588" y2="279.8" class=""></line><line x1="330" y1="140.6" x2="588" y2="260.6" class=""></line><line x1="330" y1="121.4" x2="588" y2="241.4" class=""></line><line x1="330" y1="102.20000000000002" x2="588" y2="222.20000000000002" class=""></line><line x1="330" y1="83" x2="588" y2="203" class=""></line><polygon points="330,275 158,355 158,161 330,81" fill="url(#drawing-canopy-net)"></polygon><line x1="330" y1="273" x2="330" y2="83" class=""></line><line x1="312.8" y1="281" x2="312.8" y2="91" class=""></line><line x1="295.6" y1="289" x2="295.6" y2="99" class=""></line><line x1="278.4" y1="297" x2="278.4" y2="107" class=""></line><line x1="261.2" y1="305" x2="261.2" y2="115" class=""></line><line x1="244" y1="313" x2="244" y2="123" class=""></line><line x1="226.8" y1="321" x2="226.8" y2="131" class=""></line><line x1="209.60000000000002" y1="329" x2="209.60000000000002" y2="139" class=""></line><line x1="192.4" y1="337" x2="192.4" y2="147" class=""></line><line x1="175.2" y1="345" x2="175.2" y2="155" class=""></line><line x1="158" y1="353" x2="158" y2="163" class=""></line><line x1="330" y1="275" x2="158" y2="355" class=""></line><line x1="330" y1="255.8" x2="158" y2="335.8" class=""></line><line x1="330" y1="236.6" x2="158" y2="316.6" class=""></line><line x1="330" y1="217.4" x2="158" y2="297.4" class=""></line><line x1="330" y1="198.2" x2="158" y2="278.2" class=""></line><line x1="330" y1="179" x2="158" y2="259" class=""></line><line x1="330" y1="159.8" x2="158" y2="239.8" class=""></line><line x1="330" y1="140.6" x2="158" y2="220.6" class=""></line><line x1="330" y1="121.4" x2="158" y2="201.4" class=""></line><line x1="330" y1="102.20000000000002" x2="158" y2="182.20000000000002" class=""></line><line x1="330" y1="83" x2="158" y2="163" class=""></line></g><g class="scene-structure"><g class="steel"><polygon class="box-side" points="323.98,275.4 330,278.2 330,86.19999999999999 323.98,83.39999999999998"></polygon><polygon class="box-front" points="336.02,275.4 330,278.2 330,86.19999999999999 336.02,83.39999999999998"></polygon><polygon class="box-top" points="330,80.60000000000002 336.02,83.39999999999998 330,86.19999999999999 323.98,83.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="452.98,335.4 459,338.2 459,146.2 452.98,143.39999999999998"></polygon><polygon class="box-front" points="465.02,335.4 459,338.2 459,146.2 465.02,143.39999999999998"></polygon><polygon class="box-top" points="459,140.60000000000002 465.02,143.39999999999998 459,146.2 452.98,143.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="581.98,395.4 588,398.2 588,206.2 581.98,203.39999999999998"></polygon><polygon class="box-front" points="594.02,395.4 588,398.2 588,206.2 594.02,203.39999999999998"></polygon><polygon class="box-top" points="588,200.60000000000002 594.02,203.39999999999998 588,206.2 581.98,203.39999999999998"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="317.1,275.4 330,281.4 330,278.4 317.1,272.4"></polygon><polygon class="box-front" points="342.9,275.4 330,281.4 330,278.4 342.9,272.4"></polygon><polygon class="box-top" points="330,266.4 342.9,272.4 330,278.4 317.1,272.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="575.1,395.4 588,401.4 588,398.4 575.1,392.4"></polygon><polygon class="box-front" points="600.9,395.4 588,401.4 588,398.4 600.9,392.4"></polygon><polygon class="box-top" points="588,386.4 600.9,392.4 588,398.4 575.1,392.4"></polygon></g></g><g class="equipment"><g class=""><polygon class="box-side" points="266.36,360.6 346.34,397.8 346.34,324.8 266.36,287.6"></polygon><polygon class="box-front" points="417.72,364.6 346.34,397.8 346.34,324.8 417.72,291.6"></polygon><polygon class="box-top" points="337.74,254.39999999999998 417.72,291.6 346.34,324.8 266.36,287.6"></polygon></g><g class=""><polygon class="box-side" points="259.48,287.6 346.34,328 346.34,321 259.48,280.6"></polygon><polygon class="box-front" points="424.6,291.6 346.34,328 346.34,321 424.6,284.6"></polygon><polygon class="box-top" points="337.74,244.2 424.6,284.6 346.34,321 259.48,280.6"></polygon></g><g class=""><polygon class="box-side" points="363.54,408.20000000000005 404.82,427.4 404.82,336.4 363.54,317.20000000000005"></polygon><polygon class="box-front" points="462.44,400.6 404.82,427.4 404.82,336.4 462.44,309.6"></polygon><polygon class="box-top" points="421.15999999999997,290.4 462.44,309.6 404.82,336.4 363.54,317.20000000000005"></polygon></g><g class=""><polygon class="box-side" points="356.66,317.20000000000005 404.82,339.6 404.82,335.6 356.66,313.20000000000005"></polygon><polygon class="box-front" points="469.32,309.6 404.82,339.6 404.82,335.6 469.32,305.6"></polygon><polygon class="box-top" points="421.15999999999997,283.2 469.32,305.6 404.82,335.6 356.66,313.20000000000005"></polygon></g><g fill="none" stroke="#8b9cab" stroke-width="2"><line x1="277.54" y1="346.6" x2="333.44" y2="372.6" class=""></line><line x1="277.54" y1="338.6" x2="333.44" y2="364.6" class=""></line><line x1="277.54" y1="330.6" x2="333.44" y2="356.6" class=""></line><line x1="277.54" y1="322.6" x2="333.44" y2="348.6" class=""></line><line x1="277.54" y1="314.6" x2="333.44" y2="340.6" class=""></line><line x1="372.14" y1="337" x2="393.64" y2="347" class=""></line><line x1="372.14" y1="343" x2="393.64" y2="353" class=""></line><line x1="404.82" y1="352.6" x2="404.82" y2="306.6" class=""></line></g><polygon points="376.44,388 390.2,394.4 390.2,384.4 376.44,378" fill="#42689a"></polygon></g><g class="scene-structure"><g class="steel"><polygon class="box-side" points="151.98,355.4 158,358.2 158,166.2 151.98,163.39999999999998"></polygon><polygon class="box-front" points="164.02,355.4 158,358.2 158,166.2 164.02,163.39999999999998"></polygon><polygon class="box-top" points="158,160.60000000000002 164.02,163.39999999999998 158,166.2 151.98,163.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="409.98,475.4 416,478.20000000000005 416,286.20000000000005 409.98,283.4"></polygon><polygon class="box-front" points="422.02,475.4 416,478.20000000000005 416,286.20000000000005 422.02,283.4"></polygon><polygon class="box-top" points="416,280.6 422.02,283.4 416,286.20000000000005 409.98,283.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="145.1,355.4 158,361.4 158,358.4 145.1,352.4"></polygon><polygon class="box-front" points="170.9,355.4 158,361.4 158,358.4 170.9,352.4"></polygon><polygon class="box-top" points="158,346.4 170.9,352.4 158,358.4 145.1,352.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="403.1,475.4 416,481.4 416,478.4 403.1,472.4"></polygon><polygon class="box-front" points="428.9,475.4 416,481.4 416,478.4 428.9,472.4"></polygon><polygon class="box-top" points="416,466.4 428.9,472.4 416,478.4 403.1,472.4"></polygon></g><g class="steel"><polygon class="box-side" points="325.7,96 583.7,216 583.7,203 325.7,83"></polygon><polygon class="box-front" points="588,214 583.7,216 583.7,203 588,201"></polygon><polygon class="box-top" points="330,81 588,201 583.7,203 325.7,83"></polygon></g><g class="steel"><polygon class="box-side" points="154.56,175.60000000000002 412.56,295.6 412.56,282.6 154.56,162.60000000000002"></polygon><polygon class="box-front" points="416.86,293.6 412.56,295.6 412.56,282.6 416.86,280.6"></polygon><polygon class="box-top" points="158.86,160.60000000000002 416.86,280.6 412.56,282.6 154.56,162.60000000000002"></polygon></g><g class="steel"><polygon class="box-side" points="158,174 162.3,176 162.3,163 158,161"></polygon><polygon class="box-front" points="334.3,96 162.3,176 162.3,163 334.3,83"></polygon><polygon class="box-top" points="330,81 334.3,83 162.3,163 158,161"></polygon></g><g class="steel"><polygon class="box-side" points="411.7,295.20000000000005 416,297.20000000000005 416,284.20000000000005 411.7,282.20000000000005"></polygon><polygon class="box-front" points="591.44,215.60000000000002 416,297.20000000000005 416,284.20000000000005 591.44,202.60000000000002"></polygon><polygon class="box-top" points="587.14,200.60000000000002 591.44,202.60000000000002 416,284.20000000000005 411.7,282.20000000000005"></polygon></g><g fill="none" stroke="#6d8095" stroke-width="1.2"><line x1="158" y1="204" x2="194.12" y2="190.8" class=""></line><line x1="416" y1="324" x2="379.88" y2="277.20000000000005" class=""></line><line x1="330" y1="123" x2="295.6" y2="110" class=""></line><line x1="588" y1="243" x2="553.6" y2="230" class=""></line></g></g><g class="scene-roof" stroke="#3c6bb4" stroke-width=".7"><polygon points="330,74.39999999999998 594.88,197.60000000000002 416,280.8 151.12,157.60000000000002" fill="url(#drawing-canopy-net)"></polygon><line x1="330" y1="76" x2="154.56" y2="157.60000000000002" class=""></line><line x1="347.2" y1="84" x2="171.76" y2="165.60000000000002" class=""></line><line x1="364.4" y1="92" x2="188.96" y2="173.60000000000002" class=""></line><line x1="381.6" y1="100" x2="206.16" y2="181.60000000000002" class=""></line><line x1="398.8" y1="108" x2="223.36" y2="189.60000000000002" class=""></line><line x1="416" y1="116" x2="240.56" y2="197.60000000000002" class=""></line><line x1="433.2" y1="124" x2="257.76" y2="205.60000000000002" class=""></line><line x1="450.4" y1="132" x2="274.96" y2="213.60000000000002" class=""></line><line x1="467.6" y1="140" x2="292.16" y2="221.60000000000002" class=""></line><line x1="484.8" y1="148" x2="309.36" y2="229.60000000000002" class=""></line><line x1="502" y1="156" x2="326.56" y2="237.60000000000002" class=""></line><line x1="519.2" y1="164" x2="343.76" y2="245.60000000000002" class=""></line><line x1="536.4" y1="172" x2="360.96" y2="253.60000000000002" class=""></line><line x1="553.6" y1="180" x2="378.15999999999997" y2="261.6" class=""></line><line x1="570.8" y1="188" x2="395.36" y2="269.6" class=""></line><line x1="588" y1="196" x2="412.56" y2="277.6" class=""></line><line x1="330" y1="76" x2="589.72" y2="196.8" class=""></line><line x1="312.8" y1="84" x2="572.52" y2="204.8" class=""></line><line x1="295.6" y1="92" x2="555.3199999999999" y2="212.8" class=""></line><line x1="278.4" y1="100" x2="538.12" y2="220.8" class=""></line><line x1="261.2" y1="108" x2="520.92" y2="228.8" class=""></line><line x1="244" y1="116" x2="503.72" y2="236.8" class=""></line><line x1="226.8" y1="124" x2="486.52" y2="244.8" class=""></line><line x1="209.60000000000002" y1="132" x2="469.32" y2="252.8" class=""></line><line x1="192.4" y1="140" x2="452.12" y2="260.8" class=""></line><line x1="175.2" y1="148" x2="434.92" y2="268.8" class=""></line><line x1="158" y1="156" x2="417.72" y2="276.8" class=""></line></g></svg><span class="solution-image-label mono">УСЛОВНАЯ СХЕМА</span></div><div class="solution-copy"><p class="eyebrow">НАД ОБЪЕКТОМ</p><h3>Навесы и укрытия</h3><p class="solution-description">Конструкция над оборудованием или рабочей зоной. Формат для обсуждения, когда требуется перекрыть пространство сверху.</p><div class="solution-note"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"></path></svg><span>Свободное пространство и доступ к оборудованию</span></div><details class="solution-detail"><summary>Что учесть<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg></summary><p>До выбора конфигурации важно обсудить границы зоны, движение техники и возможность обслуживания. Изображение показывает принцип компоновки, а не готовый проект.</p></details><a href="#request" class="solution-action" data-select-solution="canopy">Включить в запрос<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a></div></article><article class="solution-card" id="solution-screen"><div class="solution-image"><span class="solution-number mono">02</span><svg class="structure-drawing drawing-screen drawing-compact" viewBox="0 0 720 540" role="img" aria-labelledby="drawing-screen-title drawing-screen-description"><title id="drawing-screen-title">Условная компоновка защитной конструкции</title><desc id="drawing-screen-description">Изометрическая иллюстрация каркаса вокруг условного оборудования. Без размеров, инженерного расчёта и заявленных защитных характеристик.</desc><defs><linearGradient id="drawing-screen-floor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9edf2"></stop><stop offset="1" stop-color="#dbe2e9"></stop></linearGradient><linearGradient id="drawing-screen-net" x1="0" y1="0" x2="0.8" y2="1"><stop stop-color="#376fd1" stop-opacity=".06"></stop><stop offset="1" stop-color="#376fd1" stop-opacity=".19"></stop></linearGradient><filter id="drawing-screen-shadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur std-deviation="10"></feGaussianBlur></filter></defs><g class="drawing-guide" fill="none" stroke="#cfd8e3" stroke-width=".8"><line x1="295.6" y1="200" x2="-57" y2="364" class=""></line><line x1="351.5" y1="226" x2="-1.1000000000000227" y2="390" class=""></line><line x1="407.4" y1="252" x2="54.80000000000001" y2="416" class=""></line><line x1="463.3" y1="278" x2="110.70000000000002" y2="442" class=""></line><line x1="519.2" y1="304" x2="166.6" y2="468" class=""></line><line x1="575.1" y1="330" x2="222.5" y2="494" class=""></line><line x1="631" y1="356" x2="278.4" y2="520" class=""></line><line x1="686.9" y1="382" x2="334.3" y2="546" class=""></line><line x1="742.8" y1="408" x2="390.2" y2="572" class=""></line><line x1="798.7" y1="434" x2="446.1" y2="598" class=""></line><line x1="330" y1="216" x2="742.8" y2="408" class=""></line><line x1="278.4" y1="240" x2="691.2" y2="432" class=""></line><line x1="226.8" y1="264" x2="639.6" y2="456" class=""></line><line x1="175.2" y1="288" x2="588" y2="480" class=""></line><line x1="123.6" y1="312" x2="536.4" y2="504" class=""></line><line x1="72" y1="336" x2="484.8" y2="528" class=""></line><line x1="20.399999999999977" y1="360" x2="433.2" y2="552" class=""></line><line x1="-31.19999999999999" y1="384" x2="381.6" y2="576" class=""></line></g><polygon points="323.98,272.2 639.6,419 420.3,521 104.68,374.2" fill="#66798e" opacity=".14" filter="url(#drawing-screen-shadow)" transform="translate(9 14)"></polygon><polygon points="325.7,266 631,408 416,508 110.70000000000002,366" fill="url(#drawing-screen-floor)" stroke="#c8d2dd" stroke-width="1"></polygon><polygon points="325.7,296 553.6,402 418.58,464.8 190.68,358.8" fill="none" stroke="#7f96b1" stroke-width="1" stroke-dasharray="5 5"></polygon><g class="scene-walls" stroke="#3565b4" stroke-width=".65"><polygon points="330,275 588,395 588,201 330,81" fill="url(#drawing-screen-net)"></polygon><line x1="330" y1="273" x2="330" y2="83" class=""></line><line x1="347.2" y1="281" x2="347.2" y2="91" class=""></line><line x1="364.4" y1="289" x2="364.4" y2="99" class=""></line><line x1="381.6" y1="297" x2="381.6" y2="107" class=""></line><line x1="398.8" y1="305" x2="398.8" y2="115" class=""></line><line x1="416" y1="313" x2="416" y2="123" class=""></line><line x1="433.2" y1="321" x2="433.2" y2="131" class=""></line><line x1="450.4" y1="329" x2="450.4" y2="139" class=""></line><line x1="467.6" y1="337" x2="467.6" y2="147" class=""></line><line x1="484.8" y1="345" x2="484.8" y2="155" class=""></line><line x1="502" y1="353" x2="502" y2="163" class=""></line><line x1="519.2" y1="361" x2="519.2" y2="171" class=""></line><line x1="536.4" y1="369" x2="536.4" y2="179" class=""></line><line x1="553.6" y1="377" x2="553.6" y2="187" class=""></line><line x1="570.8" y1="385" x2="570.8" y2="195" class=""></line><line x1="588" y1="393" x2="588" y2="203" class=""></line><line x1="330" y1="275" x2="588" y2="395" class=""></line><line x1="330" y1="255.8" x2="588" y2="375.8" class=""></line><line x1="330" y1="236.6" x2="588" y2="356.6" class=""></line><line x1="330" y1="217.4" x2="588" y2="337.4" class=""></line><line x1="330" y1="198.2" x2="588" y2="318.2" class=""></line><line x1="330" y1="179" x2="588" y2="299" class=""></line><line x1="330" y1="159.8" x2="588" y2="279.8" class=""></line><line x1="330" y1="140.6" x2="588" y2="260.6" class=""></line><line x1="330" y1="121.4" x2="588" y2="241.4" class=""></line><line x1="330" y1="102.20000000000002" x2="588" y2="222.20000000000002" class=""></line><line x1="330" y1="83" x2="588" y2="203" class=""></line><polygon points="330,275 158,355 158,161 330,81" fill="url(#drawing-screen-net)"></polygon><line x1="330" y1="273" x2="330" y2="83" class=""></line><line x1="312.8" y1="281" x2="312.8" y2="91" class=""></line><line x1="295.6" y1="289" x2="295.6" y2="99" class=""></line><line x1="278.4" y1="297" x2="278.4" y2="107" class=""></line><line x1="261.2" y1="305" x2="261.2" y2="115" class=""></line><line x1="244" y1="313" x2="244" y2="123" class=""></line><line x1="226.8" y1="321" x2="226.8" y2="131" class=""></line><line x1="209.60000000000002" y1="329" x2="209.60000000000002" y2="139" class=""></line><line x1="192.4" y1="337" x2="192.4" y2="147" class=""></line><line x1="175.2" y1="345" x2="175.2" y2="155" class=""></line><line x1="158" y1="353" x2="158" y2="163" class=""></line><line x1="330" y1="275" x2="158" y2="355" class=""></line><line x1="330" y1="255.8" x2="158" y2="335.8" class=""></line><line x1="330" y1="236.6" x2="158" y2="316.6" class=""></line><line x1="330" y1="217.4" x2="158" y2="297.4" class=""></line><line x1="330" y1="198.2" x2="158" y2="278.2" class=""></line><line x1="330" y1="179" x2="158" y2="259" class=""></line><line x1="330" y1="159.8" x2="158" y2="239.8" class=""></line><line x1="330" y1="140.6" x2="158" y2="220.6" class=""></line><line x1="330" y1="121.4" x2="158" y2="201.4" class=""></line><line x1="330" y1="102.20000000000002" x2="158" y2="182.20000000000002" class=""></line><line x1="330" y1="83" x2="158" y2="163" class=""></line></g><g class="scene-structure"><g class="steel"><polygon class="box-side" points="323.98,275.4 330,278.2 330,86.19999999999999 323.98,83.39999999999998"></polygon><polygon class="box-front" points="336.02,275.4 330,278.2 330,86.19999999999999 336.02,83.39999999999998"></polygon><polygon class="box-top" points="330,80.60000000000002 336.02,83.39999999999998 330,86.19999999999999 323.98,83.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="452.98,335.4 459,338.2 459,146.2 452.98,143.39999999999998"></polygon><polygon class="box-front" points="465.02,335.4 459,338.2 459,146.2 465.02,143.39999999999998"></polygon><polygon class="box-top" points="459,140.60000000000002 465.02,143.39999999999998 459,146.2 452.98,143.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="581.98,395.4 588,398.2 588,206.2 581.98,203.39999999999998"></polygon><polygon class="box-front" points="594.02,395.4 588,398.2 588,206.2 594.02,203.39999999999998"></polygon><polygon class="box-top" points="588,200.60000000000002 594.02,203.39999999999998 588,206.2 581.98,203.39999999999998"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="317.1,275.4 330,281.4 330,278.4 317.1,272.4"></polygon><polygon class="box-front" points="342.9,275.4 330,281.4 330,278.4 342.9,272.4"></polygon><polygon class="box-top" points="330,266.4 342.9,272.4 330,278.4 317.1,272.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="575.1,395.4 588,401.4 588,398.4 575.1,392.4"></polygon><polygon class="box-front" points="600.9,395.4 588,401.4 588,398.4 600.9,392.4"></polygon><polygon class="box-top" points="588,386.4 600.9,392.4 588,398.4 575.1,392.4"></polygon></g></g><g class="equipment"><g class=""><polygon class="box-side" points="266.36,360.6 346.34,397.8 346.34,324.8 266.36,287.6"></polygon><polygon class="box-front" points="417.72,364.6 346.34,397.8 346.34,324.8 417.72,291.6"></polygon><polygon class="box-top" points="337.74,254.39999999999998 417.72,291.6 346.34,324.8 266.36,287.6"></polygon></g><g class=""><polygon class="box-side" points="259.48,287.6 346.34,328 346.34,321 259.48,280.6"></polygon><polygon class="box-front" points="424.6,291.6 346.34,328 346.34,321 424.6,284.6"></polygon><polygon class="box-top" points="337.74,244.2 424.6,284.6 346.34,321 259.48,280.6"></polygon></g><g class=""><polygon class="box-side" points="363.54,408.20000000000005 404.82,427.4 404.82,336.4 363.54,317.20000000000005"></polygon><polygon class="box-front" points="462.44,400.6 404.82,427.4 404.82,336.4 462.44,309.6"></polygon><polygon class="box-top" points="421.15999999999997,290.4 462.44,309.6 404.82,336.4 363.54,317.20000000000005"></polygon></g><g class=""><polygon class="box-side" points="356.66,317.20000000000005 404.82,339.6 404.82,335.6 356.66,313.20000000000005"></polygon><polygon class="box-front" points="469.32,309.6 404.82,339.6 404.82,335.6 469.32,305.6"></polygon><polygon class="box-top" points="421.15999999999997,283.2 469.32,305.6 404.82,335.6 356.66,313.20000000000005"></polygon></g><g fill="none" stroke="#8b9cab" stroke-width="2"><line x1="277.54" y1="346.6" x2="333.44" y2="372.6" class=""></line><line x1="277.54" y1="338.6" x2="333.44" y2="364.6" class=""></line><line x1="277.54" y1="330.6" x2="333.44" y2="356.6" class=""></line><line x1="277.54" y1="322.6" x2="333.44" y2="348.6" class=""></line><line x1="277.54" y1="314.6" x2="333.44" y2="340.6" class=""></line><line x1="372.14" y1="337" x2="393.64" y2="347" class=""></line><line x1="372.14" y1="343" x2="393.64" y2="353" class=""></line><line x1="404.82" y1="352.6" x2="404.82" y2="306.6" class=""></line></g><polygon points="376.44,388 390.2,394.4 390.2,384.4 376.44,378" fill="#42689a"></polygon></g><g class="scene-structure"><g class="steel"><polygon class="box-side" points="151.98,355.4 158,358.2 158,166.2 151.98,163.39999999999998"></polygon><polygon class="box-front" points="164.02,355.4 158,358.2 158,166.2 164.02,163.39999999999998"></polygon><polygon class="box-top" points="158,160.60000000000002 164.02,163.39999999999998 158,166.2 151.98,163.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="409.98,475.4 416,478.20000000000005 416,286.20000000000005 409.98,283.4"></polygon><polygon class="box-front" points="422.02,475.4 416,478.20000000000005 416,286.20000000000005 422.02,283.4"></polygon><polygon class="box-top" points="416,280.6 422.02,283.4 416,286.20000000000005 409.98,283.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="145.1,355.4 158,361.4 158,358.4 145.1,352.4"></polygon><polygon class="box-front" points="170.9,355.4 158,361.4 158,358.4 170.9,352.4"></polygon><polygon class="box-top" points="158,346.4 170.9,352.4 158,358.4 145.1,352.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="403.1,475.4 416,481.4 416,478.4 403.1,472.4"></polygon><polygon class="box-front" points="428.9,475.4 416,481.4 416,478.4 428.9,472.4"></polygon><polygon class="box-top" points="416,466.4 428.9,472.4 416,478.4 403.1,472.4"></polygon></g><g class="steel"><polygon class="box-side" points="325.7,96 583.7,216 583.7,203 325.7,83"></polygon><polygon class="box-front" points="588,214 583.7,216 583.7,203 588,201"></polygon><polygon class="box-top" points="330,81 588,201 583.7,203 325.7,83"></polygon></g><g class="steel"><polygon class="box-side" points="154.56,175.60000000000002 412.56,295.6 412.56,282.6 154.56,162.60000000000002"></polygon><polygon class="box-front" points="416.86,293.6 412.56,295.6 412.56,282.6 416.86,280.6"></polygon><polygon class="box-top" points="158.86,160.60000000000002 416.86,280.6 412.56,282.6 154.56,162.60000000000002"></polygon></g><g class="steel"><polygon class="box-side" points="158,174 162.3,176 162.3,163 158,161"></polygon><polygon class="box-front" points="334.3,96 162.3,176 162.3,163 334.3,83"></polygon><polygon class="box-top" points="330,81 334.3,83 162.3,163 158,161"></polygon></g><g class="steel"><polygon class="box-side" points="411.7,295.20000000000005 416,297.20000000000005 416,284.20000000000005 411.7,282.20000000000005"></polygon><polygon class="box-front" points="591.44,215.60000000000002 416,297.20000000000005 416,284.20000000000005 591.44,202.60000000000002"></polygon><polygon class="box-top" points="587.14,200.60000000000002 591.44,202.60000000000002 416,284.20000000000005 411.7,282.20000000000005"></polygon></g><g fill="none" stroke="#6d8095" stroke-width="1.2"><line x1="158" y1="204" x2="194.12" y2="190.8" class=""></line><line x1="416" y1="324" x2="379.88" y2="277.20000000000005" class=""></line><line x1="330" y1="123" x2="295.6" y2="110" class=""></line><line x1="588" y1="243" x2="553.6" y2="230" class=""></line></g></g><g class="scene-roof" stroke="#3c6bb4" stroke-width=".7"><polygon points="330,74.39999999999998 594.88,197.60000000000002 416,280.8 151.12,157.60000000000002" fill="url(#drawing-screen-net)"></polygon><line x1="330" y1="76" x2="154.56" y2="157.60000000000002" class=""></line><line x1="347.2" y1="84" x2="171.76" y2="165.60000000000002" class=""></line><line x1="364.4" y1="92" x2="188.96" y2="173.60000000000002" class=""></line><line x1="381.6" y1="100" x2="206.16" y2="181.60000000000002" class=""></line><line x1="398.8" y1="108" x2="223.36" y2="189.60000000000002" class=""></line><line x1="416" y1="116" x2="240.56" y2="197.60000000000002" class=""></line><line x1="433.2" y1="124" x2="257.76" y2="205.60000000000002" class=""></line><line x1="450.4" y1="132" x2="274.96" y2="213.60000000000002" class=""></line><line x1="467.6" y1="140" x2="292.16" y2="221.60000000000002" class=""></line><line x1="484.8" y1="148" x2="309.36" y2="229.60000000000002" class=""></line><line x1="502" y1="156" x2="326.56" y2="237.60000000000002" class=""></line><line x1="519.2" y1="164" x2="343.76" y2="245.60000000000002" class=""></line><line x1="536.4" y1="172" x2="360.96" y2="253.60000000000002" class=""></line><line x1="553.6" y1="180" x2="378.15999999999997" y2="261.6" class=""></line><line x1="570.8" y1="188" x2="395.36" y2="269.6" class=""></line><line x1="588" y1="196" x2="412.56" y2="277.6" class=""></line><line x1="330" y1="76" x2="589.72" y2="196.8" class=""></line><line x1="312.8" y1="84" x2="572.52" y2="204.8" class=""></line><line x1="295.6" y1="92" x2="555.3199999999999" y2="212.8" class=""></line><line x1="278.4" y1="100" x2="538.12" y2="220.8" class=""></line><line x1="261.2" y1="108" x2="520.92" y2="228.8" class=""></line><line x1="244" y1="116" x2="503.72" y2="236.8" class=""></line><line x1="226.8" y1="124" x2="486.52" y2="244.8" class=""></line><line x1="209.60000000000002" y1="132" x2="469.32" y2="252.8" class=""></line><line x1="192.4" y1="140" x2="452.12" y2="260.8" class=""></line><line x1="175.2" y1="148" x2="434.92" y2="268.8" class=""></line><line x1="158" y1="156" x2="417.72" y2="276.8" class=""></line></g></svg><span class="solution-image-label mono">УСЛОВНАЯ СХЕМА</span></div><div class="solution-copy"><p class="eyebrow">ПО ПЕРИМЕТРУ</p><h3>Защитные экраны</h3><p class="solution-description">Вертикальные конструкции вдоль выбранной зоны. Позволяют рассматривать отдельный участок периметра, не закрывая всю площадку.</p><div class="solution-note"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"></path></svg><span>Проезды, проходы и существующие коммуникации</span></div><details class="solution-detail"><summary>Что учесть<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg></summary><p>Для обсуждения обозначают участок периметра и доступы, которые необходимо сохранить. Конкретные материалы и параметры выбираются не по демонстрационной схеме.</p></details><a href="#request" class="solution-action" data-select-solution="screen">Включить в запрос<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a></div></article><article class="solution-card" id="solution-contour"><div class="solution-image"><span class="solution-number mono">03</span><svg class="structure-drawing drawing-contour drawing-compact" viewBox="0 0 720 540" role="img" aria-labelledby="drawing-contour-title drawing-contour-description"><title id="drawing-contour-title">Условная компоновка защитной конструкции</title><desc id="drawing-contour-description">Изометрическая иллюстрация каркаса вокруг условного оборудования. Без размеров, инженерного расчёта и заявленных защитных характеристик.</desc><defs><linearGradient id="drawing-contour-floor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9edf2"></stop><stop offset="1" stop-color="#dbe2e9"></stop></linearGradient><linearGradient id="drawing-contour-net" x1="0" y1="0" x2="0.8" y2="1"><stop stop-color="#376fd1" stop-opacity=".06"></stop><stop offset="1" stop-color="#376fd1" stop-opacity=".19"></stop></linearGradient><filter id="drawing-contour-shadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur std-deviation="10"></feGaussianBlur></filter></defs><g class="drawing-guide" fill="none" stroke="#cfd8e3" stroke-width=".8"><line x1="295.6" y1="200" x2="-57" y2="364" class=""></line><line x1="351.5" y1="226" x2="-1.1000000000000227" y2="390" class=""></line><line x1="407.4" y1="252" x2="54.80000000000001" y2="416" class=""></line><line x1="463.3" y1="278" x2="110.70000000000002" y2="442" class=""></line><line x1="519.2" y1="304" x2="166.6" y2="468" class=""></line><line x1="575.1" y1="330" x2="222.5" y2="494" class=""></line><line x1="631" y1="356" x2="278.4" y2="520" class=""></line><line x1="686.9" y1="382" x2="334.3" y2="546" class=""></line><line x1="742.8" y1="408" x2="390.2" y2="572" class=""></line><line x1="798.7" y1="434" x2="446.1" y2="598" class=""></line><line x1="330" y1="216" x2="742.8" y2="408" class=""></line><line x1="278.4" y1="240" x2="691.2" y2="432" class=""></line><line x1="226.8" y1="264" x2="639.6" y2="456" class=""></line><line x1="175.2" y1="288" x2="588" y2="480" class=""></line><line x1="123.6" y1="312" x2="536.4" y2="504" class=""></line><line x1="72" y1="336" x2="484.8" y2="528" class=""></line><line x1="20.399999999999977" y1="360" x2="433.2" y2="552" class=""></line><line x1="-31.19999999999999" y1="384" x2="381.6" y2="576" class=""></line></g><polygon points="323.98,272.2 639.6,419 420.3,521 104.68,374.2" fill="#66798e" opacity=".14" filter="url(#drawing-contour-shadow)" transform="translate(9 14)"></polygon><polygon points="325.7,266 631,408 416,508 110.70000000000002,366" fill="url(#drawing-contour-floor)" stroke="#c8d2dd" stroke-width="1"></polygon><polygon points="325.7,296 553.6,402 418.58,464.8 190.68,358.8" fill="none" stroke="#7f96b1" stroke-width="1" stroke-dasharray="5 5"></polygon><g class="scene-walls" stroke="#3565b4" stroke-width=".65"><polygon points="330,275 588,395 588,201 330,81" fill="url(#drawing-contour-net)"></polygon><line x1="330" y1="273" x2="330" y2="83" class=""></line><line x1="347.2" y1="281" x2="347.2" y2="91" class=""></line><line x1="364.4" y1="289" x2="364.4" y2="99" class=""></line><line x1="381.6" y1="297" x2="381.6" y2="107" class=""></line><line x1="398.8" y1="305" x2="398.8" y2="115" class=""></line><line x1="416" y1="313" x2="416" y2="123" class=""></line><line x1="433.2" y1="321" x2="433.2" y2="131" class=""></line><line x1="450.4" y1="329" x2="450.4" y2="139" class=""></line><line x1="467.6" y1="337" x2="467.6" y2="147" class=""></line><line x1="484.8" y1="345" x2="484.8" y2="155" class=""></line><line x1="502" y1="353" x2="502" y2="163" class=""></line><line x1="519.2" y1="361" x2="519.2" y2="171" class=""></line><line x1="536.4" y1="369" x2="536.4" y2="179" class=""></line><line x1="553.6" y1="377" x2="553.6" y2="187" class=""></line><line x1="570.8" y1="385" x2="570.8" y2="195" class=""></line><line x1="588" y1="393" x2="588" y2="203" class=""></line><line x1="330" y1="275" x2="588" y2="395" class=""></line><line x1="330" y1="255.8" x2="588" y2="375.8" class=""></line><line x1="330" y1="236.6" x2="588" y2="356.6" class=""></line><line x1="330" y1="217.4" x2="588" y2="337.4" class=""></line><line x1="330" y1="198.2" x2="588" y2="318.2" class=""></line><line x1="330" y1="179" x2="588" y2="299" class=""></line><line x1="330" y1="159.8" x2="588" y2="279.8" class=""></line><line x1="330" y1="140.6" x2="588" y2="260.6" class=""></line><line x1="330" y1="121.4" x2="588" y2="241.4" class=""></line><line x1="330" y1="102.20000000000002" x2="588" y2="222.20000000000002" class=""></line><line x1="330" y1="83" x2="588" y2="203" class=""></line><polygon points="330,275 158,355 158,161 330,81" fill="url(#drawing-contour-net)"></polygon><line x1="330" y1="273" x2="330" y2="83" class=""></line><line x1="312.8" y1="281" x2="312.8" y2="91" class=""></line><line x1="295.6" y1="289" x2="295.6" y2="99" class=""></line><line x1="278.4" y1="297" x2="278.4" y2="107" class=""></line><line x1="261.2" y1="305" x2="261.2" y2="115" class=""></line><line x1="244" y1="313" x2="244" y2="123" class=""></line><line x1="226.8" y1="321" x2="226.8" y2="131" class=""></line><line x1="209.60000000000002" y1="329" x2="209.60000000000002" y2="139" class=""></line><line x1="192.4" y1="337" x2="192.4" y2="147" class=""></line><line x1="175.2" y1="345" x2="175.2" y2="155" class=""></line><line x1="158" y1="353" x2="158" y2="163" class=""></line><line x1="330" y1="275" x2="158" y2="355" class=""></line><line x1="330" y1="255.8" x2="158" y2="335.8" class=""></line><line x1="330" y1="236.6" x2="158" y2="316.6" class=""></line><line x1="330" y1="217.4" x2="158" y2="297.4" class=""></line><line x1="330" y1="198.2" x2="158" y2="278.2" class=""></line><line x1="330" y1="179" x2="158" y2="259" class=""></line><line x1="330" y1="159.8" x2="158" y2="239.8" class=""></line><line x1="330" y1="140.6" x2="158" y2="220.6" class=""></line><line x1="330" y1="121.4" x2="158" y2="201.4" class=""></line><line x1="330" y1="102.20000000000002" x2="158" y2="182.20000000000002" class=""></line><line x1="330" y1="83" x2="158" y2="163" class=""></line></g><g class="scene-structure"><g class="steel"><polygon class="box-side" points="323.98,275.4 330,278.2 330,86.19999999999999 323.98,83.39999999999998"></polygon><polygon class="box-front" points="336.02,275.4 330,278.2 330,86.19999999999999 336.02,83.39999999999998"></polygon><polygon class="box-top" points="330,80.60000000000002 336.02,83.39999999999998 330,86.19999999999999 323.98,83.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="452.98,335.4 459,338.2 459,146.2 452.98,143.39999999999998"></polygon><polygon class="box-front" points="465.02,335.4 459,338.2 459,146.2 465.02,143.39999999999998"></polygon><polygon class="box-top" points="459,140.60000000000002 465.02,143.39999999999998 459,146.2 452.98,143.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="581.98,395.4 588,398.2 588,206.2 581.98,203.39999999999998"></polygon><polygon class="box-front" points="594.02,395.4 588,398.2 588,206.2 594.02,203.39999999999998"></polygon><polygon class="box-top" points="588,200.60000000000002 594.02,203.39999999999998 588,206.2 581.98,203.39999999999998"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="317.1,275.4 330,281.4 330,278.4 317.1,272.4"></polygon><polygon class="box-front" points="342.9,275.4 330,281.4 330,278.4 342.9,272.4"></polygon><polygon class="box-top" points="330,266.4 342.9,272.4 330,278.4 317.1,272.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="575.1,395.4 588,401.4 588,398.4 575.1,392.4"></polygon><polygon class="box-front" points="600.9,395.4 588,401.4 588,398.4 600.9,392.4"></polygon><polygon class="box-top" points="588,386.4 600.9,392.4 588,398.4 575.1,392.4"></polygon></g></g><g class="equipment"><g class=""><polygon class="box-side" points="266.36,360.6 346.34,397.8 346.34,324.8 266.36,287.6"></polygon><polygon class="box-front" points="417.72,364.6 346.34,397.8 346.34,324.8 417.72,291.6"></polygon><polygon class="box-top" points="337.74,254.39999999999998 417.72,291.6 346.34,324.8 266.36,287.6"></polygon></g><g class=""><polygon class="box-side" points="259.48,287.6 346.34,328 346.34,321 259.48,280.6"></polygon><polygon class="box-front" points="424.6,291.6 346.34,328 346.34,321 424.6,284.6"></polygon><polygon class="box-top" points="337.74,244.2 424.6,284.6 346.34,321 259.48,280.6"></polygon></g><g class=""><polygon class="box-side" points="363.54,408.20000000000005 404.82,427.4 404.82,336.4 363.54,317.20000000000005"></polygon><polygon class="box-front" points="462.44,400.6 404.82,427.4 404.82,336.4 462.44,309.6"></polygon><polygon class="box-top" points="421.15999999999997,290.4 462.44,309.6 404.82,336.4 363.54,317.20000000000005"></polygon></g><g class=""><polygon class="box-side" points="356.66,317.20000000000005 404.82,339.6 404.82,335.6 356.66,313.20000000000005"></polygon><polygon class="box-front" points="469.32,309.6 404.82,339.6 404.82,335.6 469.32,305.6"></polygon><polygon class="box-top" points="421.15999999999997,283.2 469.32,305.6 404.82,335.6 356.66,313.20000000000005"></polygon></g><g fill="none" stroke="#8b9cab" stroke-width="2"><line x1="277.54" y1="346.6" x2="333.44" y2="372.6" class=""></line><line x1="277.54" y1="338.6" x2="333.44" y2="364.6" class=""></line><line x1="277.54" y1="330.6" x2="333.44" y2="356.6" class=""></line><line x1="277.54" y1="322.6" x2="333.44" y2="348.6" class=""></line><line x1="277.54" y1="314.6" x2="333.44" y2="340.6" class=""></line><line x1="372.14" y1="337" x2="393.64" y2="347" class=""></line><line x1="372.14" y1="343" x2="393.64" y2="353" class=""></line><line x1="404.82" y1="352.6" x2="404.82" y2="306.6" class=""></line></g><polygon points="376.44,388 390.2,394.4 390.2,384.4 376.44,378" fill="#42689a"></polygon></g><g class="scene-structure"><g class="steel"><polygon class="box-side" points="151.98,355.4 158,358.2 158,166.2 151.98,163.39999999999998"></polygon><polygon class="box-front" points="164.02,355.4 158,358.2 158,166.2 164.02,163.39999999999998"></polygon><polygon class="box-top" points="158,160.60000000000002 164.02,163.39999999999998 158,166.2 151.98,163.39999999999998"></polygon></g><g class="steel"><polygon class="box-side" points="409.98,475.4 416,478.20000000000005 416,286.20000000000005 409.98,283.4"></polygon><polygon class="box-front" points="422.02,475.4 416,478.20000000000005 416,286.20000000000005 422.02,283.4"></polygon><polygon class="box-top" points="416,280.6 422.02,283.4 416,286.20000000000005 409.98,283.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="145.1,355.4 158,361.4 158,358.4 145.1,352.4"></polygon><polygon class="box-front" points="170.9,355.4 158,361.4 158,358.4 170.9,352.4"></polygon><polygon class="box-top" points="158,346.4 170.9,352.4 158,358.4 145.1,352.4"></polygon></g><g class="foundation-pad"><polygon class="box-side" points="403.1,475.4 416,481.4 416,478.4 403.1,472.4"></polygon><polygon class="box-front" points="428.9,475.4 416,481.4 416,478.4 428.9,472.4"></polygon><polygon class="box-top" points="416,466.4 428.9,472.4 416,478.4 403.1,472.4"></polygon></g><g class="steel"><polygon class="box-side" points="325.7,96 583.7,216 583.7,203 325.7,83"></polygon><polygon class="box-front" points="588,214 583.7,216 583.7,203 588,201"></polygon><polygon class="box-top" points="330,81 588,201 583.7,203 325.7,83"></polygon></g><g class="steel"><polygon class="box-side" points="154.56,175.60000000000002 412.56,295.6 412.56,282.6 154.56,162.60000000000002"></polygon><polygon class="box-front" points="416.86,293.6 412.56,295.6 412.56,282.6 416.86,280.6"></polygon><polygon class="box-top" points="158.86,160.60000000000002 416.86,280.6 412.56,282.6 154.56,162.60000000000002"></polygon></g><g class="steel"><polygon class="box-side" points="158,174 162.3,176 162.3,163 158,161"></polygon><polygon class="box-front" points="334.3,96 162.3,176 162.3,163 334.3,83"></polygon><polygon class="box-top" points="330,81 334.3,83 162.3,163 158,161"></polygon></g><g class="steel"><polygon class="box-side" points="411.7,295.20000000000005 416,297.20000000000005 416,284.20000000000005 411.7,282.20000000000005"></polygon><polygon class="box-front" points="591.44,215.60000000000002 416,297.20000000000005 416,284.20000000000005 591.44,202.60000000000002"></polygon><polygon class="box-top" points="587.14,200.60000000000002 591.44,202.60000000000002 416,284.20000000000005 411.7,282.20000000000005"></polygon></g><g fill="none" stroke="#6d8095" stroke-width="1.2"><line x1="158" y1="204" x2="194.12" y2="190.8" class=""></line><line x1="416" y1="324" x2="379.88" y2="277.20000000000005" class=""></line><line x1="330" y1="123" x2="295.6" y2="110" class=""></line><line x1="588" y1="243" x2="553.6" y2="230" class=""></line></g></g><g class="scene-roof" stroke="#3c6bb4" stroke-width=".7"><polygon points="330,74.39999999999998 594.88,197.60000000000002 416,280.8 151.12,157.60000000000002" fill="url(#drawing-contour-net)"></polygon><line x1="330" y1="76" x2="154.56" y2="157.60000000000002" class=""></line><line x1="347.2" y1="84" x2="171.76" y2="165.60000000000002" class=""></line><line x1="364.4" y1="92" x2="188.96" y2="173.60000000000002" class=""></line><line x1="381.6" y1="100" x2="206.16" y2="181.60000000000002" class=""></line><line x1="398.8" y1="108" x2="223.36" y2="189.60000000000002" class=""></line><line x1="416" y1="116" x2="240.56" y2="197.60000000000002" class=""></line><line x1="433.2" y1="124" x2="257.76" y2="205.60000000000002" class=""></line><line x1="450.4" y1="132" x2="274.96" y2="213.60000000000002" class=""></line><line x1="467.6" y1="140" x2="292.16" y2="221.60000000000002" class=""></line><line x1="484.8" y1="148" x2="309.36" y2="229.60000000000002" class=""></line><line x1="502" y1="156" x2="326.56" y2="237.60000000000002" class=""></line><line x1="519.2" y1="164" x2="343.76" y2="245.60000000000002" class=""></line><line x1="536.4" y1="172" x2="360.96" y2="253.60000000000002" class=""></line><line x1="553.6" y1="180" x2="378.15999999999997" y2="261.6" class=""></line><line x1="570.8" y1="188" x2="395.36" y2="269.6" class=""></line><line x1="588" y1="196" x2="412.56" y2="277.6" class=""></line><line x1="330" y1="76" x2="589.72" y2="196.8" class=""></line><line x1="312.8" y1="84" x2="572.52" y2="204.8" class=""></line><line x1="295.6" y1="92" x2="555.3199999999999" y2="212.8" class=""></line><line x1="278.4" y1="100" x2="538.12" y2="220.8" class=""></line><line x1="261.2" y1="108" x2="520.92" y2="228.8" class=""></line><line x1="244" y1="116" x2="503.72" y2="236.8" class=""></line><line x1="226.8" y1="124" x2="486.52" y2="244.8" class=""></line><line x1="209.60000000000002" y1="132" x2="469.32" y2="252.8" class=""></line><line x1="192.4" y1="140" x2="452.12" y2="260.8" class=""></line><line x1="175.2" y1="148" x2="434.92" y2="268.8" class=""></line><line x1="158" y1="156" x2="417.72" y2="276.8" class=""></line></g></svg><span class="solution-image-label mono">УСЛОВНАЯ СХЕМА</span></div><div class="solution-copy"><p class="eyebrow">В ЕДИНОЙ СИСТЕМЕ</p><h3>Комплексный контур</h3><p class="solution-description">Сочетание верхних и боковых элементов вокруг выбранной зоны. Формат для рассмотрения объекта и его ограничений в целом.</p><div class="solution-note"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"></path></svg><span>Согласованная компоновка всех элементов</span></div><details class="solution-detail"><summary>Что учесть<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg></summary><p>Верхние и боковые элементы рассматривают совместно с условиями эксплуатации. Схема не определяет защитные характеристики и не заменяет обоснование решения.</p></details><a href="#request" class="solution-action" data-select-solution="contour">Включить в запрос<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a></div></article></div><p class="section-disclaimer"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v-5m0-4v.1M22 12A10 10 0 1 1 2 12a10 10 0 0 1 20 0Z"></path></svg>Иллюстрации показывают компоновку, а не защитные характеристики. Конкретное решение требует отдельного обоснования.</p></section><section class="applications" id="applications" aria-labelledby="applications-title"><div class="container applications-grid"><div class="applications-copy"><p class="eyebrow">02 / ОБЛАСТИ ПРИМЕНЕНИЯ</p><h2 id="applications-title">Защита —<br>часть объекта.<br><span>Не помеха<br>его работе.</span></h2><p>Конструкцию нужно рассматривать вместе с тем, что происходит вокруг: движением техники, доступом людей и обслуживанием оборудования.</p><div class="dark-sidenote"><span class="status-dot"></span>Гражданская и промышленная инфраструктура</div></div><div class="application-list"><article class="application-row"><span class="application-icon"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l6 3V8l6 4V3h4l2 18ZM7 17h1m3 0h1m3 0h1"></path></svg></span><div><h3>Промышленность</h3><p>Оборудование и технологические зоны. В фокусе — доступ для обслуживания и рабочие маршруты.</p></div><span class="application-number mono">01</span></article><article class="application-row"><span class="application-icon"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 10-13h-8z"></path></svg></span><div><h3>Энергетика</h3><p>Отдельные узлы и вспомогательное оборудование. Важно учитывать эксплуатационные ограничения.</p></div><span class="application-number mono">02</span></article><article class="application-row"><span class="application-icon"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12ZM8 21V11h8v10M8 15h8M8 18h8"></path></svg></span><div><h3>Логистика</h3><p>Складские и погрузочные зоны. Конструкцию рассматривают вместе с движением транспорта.</p></div><span class="application-number mono">03</span></article><article class="application-row"><span class="application-icon"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"></path></svg></span><div><h3>Открытые площадки</h3><p>Выделенные участки и места размещения имущества. Границы решения зависят от задачи объекта.</p></div><span class="application-number mono">04</span></article></div></div><div class="dark-grid-decoration" aria-hidden="true"></div></section><section class="approach section container" id="approach" aria-labelledby="approach-title"><div class="approach-grid"><div class="approach-copy"><p class="eyebrow">03 / ИНЖЕНЕРНАЯ ЛОГИКА</p><h2 id="approach-title">Сначала объект.<br><span class="muted-heading">Затем конструкция.</span></h2><p class="approach-description">Универсальной картинки недостаточно. Чтобы обсуждать решение по существу, нужно увидеть задачу в контексте площадки.</p><figure class="plan-figure"><svg viewBox="0 0 480 245" role="img" aria-labelledby="plan-title"><title id="plan-title">Условная схема: зона объекта, проход и граница конструкции. Без масштаба и размеров.</title><defs><pattern id="plan-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0v20" fill="none" stroke="#dce3ea" stroke-width=".6"></path></pattern></defs><rect x="0" y="0" width="480" height="245" fill="url(#plan-grid)"></rect><rect x="74" y="45" width="302" height="147" rx="1" fill="#edf2f9" stroke="#3667b9" stroke-width="1.5" stroke-dasharray="5 5"></rect><rect x="110" y="73" width="102" height="85" fill="#d1dbe8" stroke="#91a5bf"></rect><rect x="229" y="73" width="50" height="85" fill="#d1dbe8" stroke="#91a5bf"></rect><path d="M307 214V91l34 0m-8-7 8 7-8 7" stroke="#416da9" stroke-width="1.5" fill="none"></path><path d="M59 45h30m-15-15v30M361 45h30m-15-15v30M59 192h30m-15-15v30M361 192h30m-15-15v30" stroke="#294a7a" stroke-width="1.5"></path><text x="110" y="176" fill="#455b79" font-size="10" font-family="monospace">ЗОНА ОБЪЕКТА</text><text x="319" y="169" fill="#455b79" font-size="10" font-family="monospace">ДОСТУП</text></svg><figcaption class="mono">ОБЪЕКТ + ЭКСПЛУАТАЦИЯ + ОГРАНИЧЕНИЯ</figcaption></figure></div><div class="consideration-list"><article class="consideration"><span class="mono">01</span><div><h3>Что именно нужно закрыть</h3><p>Отдельное оборудование, рабочую зону или часть площадки. Не весь объект по умолчанию.</p></div></article><article class="consideration"><span class="mono">02</span><div><h3>Что должно оставаться доступным</h3><p>Проходы, проезды, обслуживание и доступ к коммуникациям.</p></div></article><article class="consideration"><span class="mono">03</span><div><h3>Какие есть ограничения</h3><p>Существующая инфраструктура, условия площадки и требования к эксплуатации.</p></div></article><article class="consideration"><span class="mono">04</span><div><h3>Чем обосновывается решение</h3><p>Исходными требованиями и документацией на конкретную конфигурацию, а не только её внешним видом.</p></div></article></div></div><div class="preparation-heading"><h3>Что подготовить к первому обсуждению</h3><a href="data:text/plain;charset=utf-8;base64,0KfQotCeINCf0J7QlNCT0J7QotCe0JLQmNCi0Kwg0Jog0J/QldCg0JLQntCc0KMg0J7QkdCh0KPQltCU0JXQndCY0K4K0JTQtdC80L7QvdGB0YLRgNCw0YbQuNC+0L3QvdGL0Lkg0YHQv9C40YHQvtC6INC00LvRjyDQs9GA0LDQttC00LDQvdGB0LrQuNGFINC4INC/0YDQvtC80YvRiNC70LXQvdC90YvRhSDQvtCx0YrQtdC60YLQvtCyCgoxLiDQntCx0YnQsNGPINC30LDQtNCw0YfQsAogICDQotC40L8g0L7QsdGK0LXQutGC0LAg0Lgg0L3QsNC30L3QsNGH0LXQvdC40LUg0YDQsNGB0YHQvNCw0YLRgNC40LLQsNC10LzQvtC5INC30L7QvdGLLiDQkdC10Lcg0YLQvtGH0L3QvtCz0L4g0LDQtNGA0LXRgdCwLgogICDQndGD0LbQtdC9INC90LDQstC10YEsINGN0LrRgNCw0L0sINC60L7QvNC/0LvQtdC60YHQvdCw0Y8g0LrQvtC80L/QvtC90L7QstC60LAg0LjQu9C4INC/0L7QvNC+0YnRjCDQsiDQstGL0LHQvtGA0LUg0YTQvtGA0LzQsNGC0LAuCgoyLiDQrdC60YHQv9C70YPQsNGC0LDRhtC40Y8KICAg0JrQsNC6INC40YHQv9C+0LvRjNC30YPQtdGC0YHRjyDQt9C+0L3QsCwg0LrQsNC60L7QuSDQtNC+0YHRgtGD0L8g0Lgg0L7QsdGB0LvRg9C20LjQstCw0L3QuNC1INC90LXQvtCx0YXQvtC00LjQvNC+INGB0L7RhdGA0LDQvdC40YLRjC4KICAg0JXRgdGC0Ywg0LvQuCDQvtCz0YDQsNC90LjRh9C10L3QuNGPINC/0L4g0L7RgNCz0LDQvdC40LfQsNGG0LjQuCDRgNCw0LHQvtGCINC90LAg0LTQtdC50YHRgtCy0YPRjtGJ0LXQuSDQv9C70L7RidCw0LTQutC1LgoKMy4g0JLQvtC/0YDQvtGB0Ysg0L/QvtGB0YLQsNCy0YnQuNC60YMKICAg0JrQsNC60LjQtSDQuNGB0YXQvtC00L3Ri9C1INC00LDQvdC90YvQtSDQvdGD0LbQvdGLINC00LvRjyDQvtCx0L7RgdC90L7QstCw0L3QuNGPINGA0LXRiNC10L3QuNGPLgogICDQmtCw0LrQvtC5INGB0L7RgdGC0LDQsiDRgNCw0LHQvtGCINC4INC00L7QutGD0LzQtdC90YLQvtCyINC/0YDQtdC00LvQsNCz0LDQtdGC0YHRjy4KICAg0JrQsNC60LjQtSDQvNCw0YLQtdGA0LjQsNC70Ysg0L/QvtC00YLQstC10YDQttC00LDRjtGCINGF0LDRgNCw0LrRgtC10YDQuNGB0YLQuNC60Lgg0LjQvNC10L3QvdC+INC/0YDQtdC00LvQsNCz0LDQtdC80L7QuSDQutC+0L3RhNC40LPRg9GA0LDRhtC40LguCiAgINCn0YLQviDQvdC10L7QsdGF0L7QtNC40LzQviDQtNC70Y8g0L7Qv9GA0LXQtNC10LvQtdC90LjRjyDRgdGC0L7QuNC80L7RgdGC0Lgg0Lgg0YHRgNC+0LrQvtCyLgoKNC4g0JHQtdC30L7Qv9Cw0YHQvdCw0Y8g0L/QtdGA0LXQtNCw0YfQsCDQuNC90YTQvtGA0LzQsNGG0LjQuAogICDQndC1INCy0LLQvtC00LjRgtC1INCyINC00LXQvNC+0YTQvtGA0LzRgyDRgdCy0LXQtNC10L3QuNGPINC+0LPRgNCw0L3QuNGH0LXQvdC90L7Qs9C+INC00L7RgdGC0YPQv9CwLCDQv9C10YDRgdC+0L3QsNC70YzQvdGL0LUg0LTQsNC90L3Ri9C1LAogICDQsNC00YDQtdGBLCDQutC+0L7RgNC00LjQvdCw0YLRiyDQuNC70Lgg0YHRhdC10LzRiyDRgNC10LDQu9GM0L3QvtCz0L4g0L7QsdGK0LXQutGC0LAuCiAgINCf0L7QtNGA0L7QsdC90YvQtSDQvNCw0YLQtdGA0LjQsNC70Ysg0L/QtdGA0LXQtNCw0LLQsNC50YLQtSDQv9C+0YHQu9C1INGB0L7Qs9C70LDRgdC+0LLQsNC90LjRjyDQv9C+0LvRg9GH0LDRgtC10LvRjyDQuCDQt9Cw0YnQuNGJ0ZHQvdC90L7Qs9C+INC60LDQvdCw0LvQsC4KCtCt0YLQvtGCINGB0L/QuNGB0L7QuiDQvdC1INC30LDQtNCw0ZHRgiDQv9Cw0YDQsNC80LXRgtGA0Ysg0LfQsNGJ0LjRgtC90L7QuSDQutC+0L3RgdGC0YDRg9C60YbQuNC4LCDQvdC1INC30LDQvNC10L3Rj9C10YIg0LjQvdC20LXQvdC10YDQvdC+0LUK0L/RgNC+0LXQutGC0LjRgNC+0LLQsNC90LjQtSDQuCDQvdC1INC/0L7QtNGC0LLQtdGA0LbQtNCw0LXRgiDQt9Cw0YnQuNGC0L3Ri9C1INGF0LDRgNCw0LrRgtC10YDQuNGB0YLQuNC60LguCg==" download="object-brief-checklist.txt" class="text-link">Список исходных данных<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"></path></svg></a></div><ol class="preparation-list"><li><span class="step-number mono">01</span><h4>Обозначьте задачу</h4><p>Тип объекта, нужную зону и общий смысл обращения — без закрытой информации.</p></li><li><span class="step-number mono">02</span><h4>Отметьте ограничения</h4><p>Как используется площадка и какой доступ нужно сохранить.</p></li><li><span class="step-number mono">03</span><h4>Соберите вопросы</h4><p>Состав работ, обоснование характеристик, стоимость и сроки для вашей задачи.</p></li></ol></section><section class="questions section container" id="questions" aria-labelledby="questions-title"><div class="questions-heading"><p class="eyebrow">04 / ВОПРОСЫ И ОТВЕТЫ</p><h2 id="questions-title">Важное.<br><span class="muted-heading">До первого шага.</span></h2><p>Что стоит прояснить<br>до обсуждения конструкции.</p></div><div class="faq-list"><details class="faq-item"><summary><span class="faq-index mono">01</span><span>Это РЭБ или система обнаружения?</span><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg></summary><div class="faq-answer"><p>Нет. На странице показаны форматы пассивных конструкций. Активное подавление и обнаружение БПЛА в демонстрационное предложение не входят.</p></div></details><details class="faq-item"><summary><span class="faq-index mono">02</span><span>Можно ли выбрать конструкцию по фотографии?</span><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg></summary><div class="faq-answer"><p>Изображение помогает обсудить формат, но не определяет пригодность решения для объекта. Для предметного выбора нужны исходные требования, ограничения площадки и обоснование конкретной конструкции.</p></div></details><details class="faq-item"><summary><span class="faq-index mono">03</span><span>От чего зависят стоимость и сроки?</span><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg></summary><div class="faq-answer"><p>Для коммерческого предложения нужно уточнить состав и объём работ, условия площадки, комплектацию и требования к документации. В демонстрации нет фиксированных цен и обещаний по срокам.</p></div></details><details class="faq-item"><summary><span class="faq-index mono">04</span><span>Что подтверждает защитные характеристики?</span><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg></summary><div class="faq-answer"><p>У поставщика стоит запросить обоснование именно предлагаемой конфигурации и применимые к ней материалы испытаний. Визуализация, общее описание или документ на другую конструкцию сами по себе таких характеристик не подтверждают. На этом сайте результаты испытаний не заявлены.</p></div></details><details class="faq-item"><summary><span class="faq-index mono">05</span><span>Куда попадёт мой запрос?</span><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg></summary><div class="faq-answer"><p>Никуда автоматически. Это демонстрационный сайт: текст создаётся только в вашем браузере. Его можно скопировать или скачать и самостоятельно передать выбранному поставщику. Форма не запрашивает контактные данные. Сайт не сохраняет черновик.</p></div></details></div></section><section class="request-section" id="request" aria-labelledby="request-title"><div class="container request-grid"><div class="request-copy"><p class="eyebrow">05 / НАЧАТЬ С ОБЪЕКТА</p><h2 id="request-title">Опишите объект.<br><span>Соберите запрос.</span></h2><p class="request-description">Несколько исходных данных — и у вас будет текст для первого разговора с поставщиком.</p><div class="local-notice"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 10h14v11H5zM8 10V7a4 4 0 0 1 8 0v3M12 14v3"></path></svg><div><h3>Только в вашем браузере</h3><p>Это демо. Запрос никуда не отправляется: его можно скопировать или скачать.</p></div></div><p class="request-privacy">Не указывайте адрес, координаты, персональные данные или сведения ограниченного доступа. Для примера достаточно условного описания.</p><a class="download-blank text-link" href="data:text/plain;charset=utf-8;base64,0JfQkNCf0KDQntChINCd0JAg0J7QkdCh0KPQltCU0JXQndCY0JUg0JfQkNCp0JjQotCd0KvQpSDQmtCe0J3QodCi0KDQo9Ca0KbQmNCZCtCf0YPRgdGC0L7QuSDQtNC10LzQvtC90YHRgtGA0LDRhtC40L7QvdC90YvQuSDRiNCw0LHQu9C+0L0uINCd0LUg0L7RgtC/0YDQsNCy0LvRj9C10YLRgdGPINCw0LLRgtC+0LzQsNGC0LjRh9C10YHQutC4LgoK0KLQuNC/INCz0YDQsNC20LTQsNC90YHQutC+0LPQviDQvtCx0YrQtdC60YLQsDoK0KDQtdCz0LjQvtC9ICjQvdC10L7QsdGP0LfQsNGC0LXQu9GM0L3Qvjsg0LHQtdC3INGC0L7Rh9C90L7Qs9C+INCw0LTRgNC10YHQsCk6CtCk0L7RgNC80LDRgjog0L3QsNCy0LXRgSAvINGN0LrRgNCw0L0gLyDQutC+0LzQv9C70LXQutGB0L3Ri9C5INC60L7QvdGC0YPRgCAvINC90YPQttC90LAg0LrQvtC90YHRg9C70YzRgtCw0YbQuNGPCgrQp9GC0L4g0L3Rg9C20L3QviDQvtCx0YHRg9C00LjRgtGMOgoK0JrQsNC60LjQtSDQtNC+0YHRgtGD0L/RiyDQuCDRg9GB0LvQvtCy0LjRjyDRjdC60YHQv9C70YPQsNGC0LDRhtC40Lgg0L3Rg9C20L3QviDRgdC+0YXRgNCw0L3QuNGC0Yw6CgrQktC+0L/RgNC+0YHRiyDQv9C+0YHRgtCw0LLRidC40LrRgzoK4oCUINCa0LDQutC40LUg0LjRgdGF0L7QtNC90YvQtSDQtNCw0L3QvdGL0LUg0L3Rg9C20L3Riz8K4oCUINCa0LDQutC+0Lkg0YHQvtGB0YLQsNCyINGA0LDQsdC+0YIg0Lgg0LTQvtC60YPQvNC10L3RgtC+0LIg0LLRiyDQv9GA0LXQtNC70LDQs9Cw0LXRgtC1PwrigJQg0KfQtdC8INC+0LHQvtGB0L3QvtCy0YvQstCw0Y7RgtGB0Y8g0YXQsNGA0LDQutGC0LXRgNC40YHRgtC40LrQuCDQuNC80LXQvdC90L4g0Y3RgtC+0Lkg0LrQvtC90YTQuNCz0YPRgNCw0YbQuNC4PwrigJQg0J3QsCDQutCw0LrQuNGFINGD0YHQu9C+0LLQuNGP0YUg0L7Qv9GA0LXQtNC10LvRj9GO0YLRgdGPINGB0YLQvtC40LzQvtGB0YLRjCDQuCDRgdGA0L7QutC4PwoK0J3QtSDQstC60LvRjtGH0LDQudGC0LUg0LDQtNGA0LXRgSwg0LrQvtC+0YDQtNC40L3QsNGC0YssINC/0LXRgNGB0L7QvdCw0LvRjNC90YvQtSDQtNCw0L3QvdGL0LUsINGB0YXQtdC80Ysg0YDQtdCw0LvRjNC90YvRhSDQvtCx0YrQtdC60YLQvtCyCtC4INGB0LLQtdC00LXQvdC40Y8g0L7Qs9GA0LDQvdC40YfQtdC90L3QvtCz0L4g0LTQvtGB0YLRg9C/0LAuINCU0LvRjyDQv9C10YDQstC+0LPQviDQvtCx0YDQsNGJ0LXQvdC40Y8g0LTQvtGB0YLQsNGC0L7Rh9C90L4g0L7QsdGJ0LXQs9C+INC+0L/QuNGB0LDQvdC40Y8uCtCo0LDQsdC70L7QvSDQvdC1INGP0LLQu9GP0LXRgtGB0Y8g0YLQtdGF0L3QuNGH0LXRgdC60LjQvCDQt9Cw0LTQsNC90LjQtdC8LCDQuNC90LbQtdC90LXRgNC90YvQvCDRgNCw0YHRh9GR0YLQvtC8INC40LvQuCDQutC+0LzQvNC10YDRh9C10YHQutC40Lwg0L/RgNC10LTQu9C+0LbQtdC90LjQtdC8Lgo=" download="request-template.txt">Скачать пустой шаблон<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"></path></svg></a></div><div class="brief-card" data-brief="true"><div class="brief-progress" aria-label="Этапы подготовки запроса"><span class="is-current" data-brief-step="1"><b>01</b> Исходные данные</span><span class="progress-line" aria-hidden="true"></span><span data-brief-step="2"><b>02</b> Готовый текст</span></div><form id="brief-form" class="brief-form" autocomplete="off" novalidate aria-describedby="brief-help"><p id="brief-help" class="form-help">Поля со звёздочкой обязательны.</p><div class="form-errors" id="brief-errors" role="alert" tabindex="-1" hidden></div><fieldset data-brief-fields="true" disabled><legend class="sr-only">Исходные данные об объекте</legend><div class="field-grid"><div class="field"><label for="brief-object">Тип объекта <span aria-hidden="true">*</span></label><div class="select-wrap"><select id="brief-object" name="objectType" required aria-describedby="error-objectType"><option value="" disabled selected>Выберите тип</option><option value="industry">Промышленный объект</option><option value="energy">Энергетический объект</option><option value="logistics">Логистический объект</option><option value="outdoor">Открытая площадка</option><option value="other">Другой гражданский объект</option></select></div><p class="field-error" id="error-objectType"></p></div><div class="field"><label for="brief-region">Регион <span class="optional">необязательно</span></label><input id="brief-region" name="region" type="text" autocomplete="off" maxlength="100" placeholder="Без точного адреса" aria-describedby="error-region"><p class="field-error" id="error-region"></p></div></div><div class="field"><label for="brief-solution">Интересующее решение</label><div class="select-wrap"><select id="brief-solution" name="solution" aria-describedby="error-solution"><option value="" selected>Нужна консультация</option><option value="canopy">Навесы и укрытия</option><option value="screen">Защитные экраны</option><option value="contour">Комплексный контур</option></select></div><p class="field-error" id="error-solution"></p></div><div class="field"><label for="brief-task">Что нужно обсудить <span aria-hidden="true">*</span></label><textarea id="brief-task" name="task" required minlength="20" maxlength="1200" rows="4" placeholder="Например: рассматриваем навес над зоной оборудования. Нужно сохранить доступ для обслуживания." aria-describedby="task-hint error-task"></textarea><div class="field-bottom"><p id="task-hint">От 20 до 1 200 символов</p><span data-task-count="true" aria-hidden="true">0 / 1 200</span></div><p class="field-error" id="error-task"></p></div><button class="button button-primary brief-submit" type="submit">Составить запрос<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"></path></svg></button><p class="form-disclaimer">Только подготовка текста. Без регистрации и отправки.</p></fieldset></form><section class="brief-result" id="brief-result" aria-labelledby="result-title" tabindex="-1" hidden><div class="result-heading"><span class="result-check"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"></path></svg></span><div><h3 id="result-title">Черновик подготовлен</h3><p>Он никуда не отправлен.</p></div></div><label class="sr-only" for="brief-text">Текст запроса</label><textarea class="result-text" id="brief-text" readonly rows="12"></textarea><div class="result-actions"><button class="button button-primary" type="button" data-copy-brief="true"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9h11v12H9zM5 15H3V3h11v2"></path></svg>Скопировать</button><button class="button button-outline" type="button" data-download-brief="true"><svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"></path></svg>Скачать .txt</button></div><button class="edit-brief text-link" type="button" data-edit-brief="true">Изменить исходные данные<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"></path></svg></button><p class="result-note">Сайт не сохраняет черновик. Скопируйте или скачайте его перед закрытием страницы.</p></section><p class="brief-status" data-brief-status="true" role="status" aria-live="polite" aria-atomic="true"></p><noscript><div class="no-js-note">Для сборки запроса нужен JavaScript. Содержание сайта и вопросы доступны без него. <a href="data:text/plain;charset=utf-8;base64,0JfQkNCf0KDQntChINCd0JAg0J7QkdCh0KPQltCU0JXQndCY0JUg0JfQkNCp0JjQotCd0KvQpSDQmtCe0J3QodCi0KDQo9Ca0KbQmNCZCtCf0YPRgdGC0L7QuSDQtNC10LzQvtC90YHRgtGA0LDRhtC40L7QvdC90YvQuSDRiNCw0LHQu9C+0L0uINCd0LUg0L7RgtC/0YDQsNCy0LvRj9C10YLRgdGPINCw0LLRgtC+0LzQsNGC0LjRh9C10YHQutC4LgoK0KLQuNC/INCz0YDQsNC20LTQsNC90YHQutC+0LPQviDQvtCx0YrQtdC60YLQsDoK0KDQtdCz0LjQvtC9ICjQvdC10L7QsdGP0LfQsNGC0LXQu9GM0L3Qvjsg0LHQtdC3INGC0L7Rh9C90L7Qs9C+INCw0LTRgNC10YHQsCk6CtCk0L7RgNC80LDRgjog0L3QsNCy0LXRgSAvINGN0LrRgNCw0L0gLyDQutC+0LzQv9C70LXQutGB0L3Ri9C5INC60L7QvdGC0YPRgCAvINC90YPQttC90LAg0LrQvtC90YHRg9C70YzRgtCw0YbQuNGPCgrQp9GC0L4g0L3Rg9C20L3QviDQvtCx0YHRg9C00LjRgtGMOgoK0JrQsNC60LjQtSDQtNC+0YHRgtGD0L/RiyDQuCDRg9GB0LvQvtCy0LjRjyDRjdC60YHQv9C70YPQsNGC0LDRhtC40Lgg0L3Rg9C20L3QviDRgdC+0YXRgNCw0L3QuNGC0Yw6CgrQktC+0L/RgNC+0YHRiyDQv9C+0YHRgtCw0LLRidC40LrRgzoK4oCUINCa0LDQutC40LUg0LjRgdGF0L7QtNC90YvQtSDQtNCw0L3QvdGL0LUg0L3Rg9C20L3Riz8K4oCUINCa0LDQutC+0Lkg0YHQvtGB0YLQsNCyINGA0LDQsdC+0YIg0Lgg0LTQvtC60YPQvNC10L3RgtC+0LIg0LLRiyDQv9GA0LXQtNC70LDQs9Cw0LXRgtC1PwrigJQg0KfQtdC8INC+0LHQvtGB0L3QvtCy0YvQstCw0Y7RgtGB0Y8g0YXQsNGA0LDQutGC0LXRgNC40YHRgtC40LrQuCDQuNC80LXQvdC90L4g0Y3RgtC+0Lkg0LrQvtC90YTQuNCz0YPRgNCw0YbQuNC4PwrigJQg0J3QsCDQutCw0LrQuNGFINGD0YHQu9C+0LLQuNGP0YUg0L7Qv9GA0LXQtNC10LvRj9GO0YLRgdGPINGB0YLQvtC40LzQvtGB0YLRjCDQuCDRgdGA0L7QutC4PwoK0J3QtSDQstC60LvRjtGH0LDQudGC0LUg0LDQtNGA0LXRgSwg0LrQvtC+0YDQtNC40L3QsNGC0YssINC/0LXRgNGB0L7QvdCw0LvRjNC90YvQtSDQtNCw0L3QvdGL0LUsINGB0YXQtdC80Ysg0YDQtdCw0LvRjNC90YvRhSDQvtCx0YrQtdC60YLQvtCyCtC4INGB0LLQtdC00LXQvdC40Y8g0L7Qs9GA0LDQvdC40YfQtdC90L3QvtCz0L4g0LTQvtGB0YLRg9C/0LAuINCU0LvRjyDQv9C10YDQstC+0LPQviDQvtCx0YDQsNGJ0LXQvdC40Y8g0LTQvtGB0YLQsNGC0L7Rh9C90L4g0L7QsdGJ0LXQs9C+INC+0L/QuNGB0LDQvdC40Y8uCtCo0LDQsdC70L7QvSDQvdC1INGP0LLQu9GP0LXRgtGB0Y8g0YLQtdGF0L3QuNGH0LXRgdC60LjQvCDQt9Cw0LTQsNC90LjQtdC8LCDQuNC90LbQtdC90LXRgNC90YvQvCDRgNCw0YHRh9GR0YLQvtC8INC40LvQuCDQutC+0LzQvNC10YDRh9C10YHQutC40Lwg0L/RgNC10LTQu9C+0LbQtdC90LjQtdC8Lgo=" download="request-template.txt">Скачайте текстовый шаблон</a> и заполните его самостоятельно.</div></noscript></div></div></section></main><footer class="site-footer"><div class="container"><div class="footer-top"><a class="brand" href="#top" aria-label="В начало страницы"><svg aria-hidden="true" class="brand-mark" width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M4 31V13L19 5l15 8v18M4 13l15 8 15-8M19 21v12M10 28v-8l9-5 9 5v8" stroke="currentColor" stroke-width="2"></path></svg><span class="brand-type"><span>ЗАЩИТНЫЕ</span><span>КОНСТРУКЦИИ</span></span></a><p>Инженерный подход к пассивной защите</p><a class="back-top" href="#top">Наверх<svg aria-hidden="true" class="icon " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"></path></svg></a></div><div class="footer-middle"><p>Демонстрационная концепция для адаптации под поставщика.<br>Не сайт действующей компании и не предложение конкретных работ.</p><nav aria-label="Навигация в подвале"><a href="#solutions">Решения</a><a href="#applications">Объекты</a><a href="#approach">Подход</a><a href="#questions">Вопросы</a></nav></div><div class="footer-bottom"><span class="mono">ДЕМО / 01 — ИНЖЕНЕРНЫЙ</span><details class="privacy-details"><summary>О демонстрации и данных</summary><p>Реальные контакты и сведения о компании не используются. Иллюстрации — условные схемы, а не выполненные работы. Сайт не использует аналитику, внешние шрифты, cookie или сохранение введённого текста. Формирование запроса выполняется локально. Не вводите конфиденциальные сведения. После подключения хостинга его журналы обращений требуют отдельной оценки.</p></details><span class="mono">2026</span></div></div></footer></div><script>(()=>{const modules={"app/enhance.ts":(module,exports,require)=>{"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.enhanceLanding = enhanceLanding;
+const enhance_ts_1 = require("app/features/brief/enhance.ts");
+function enhanceLanding(doc) {
+    const controller = new AbortController();
+    const options = { signal: controller.signal };
+    const menu = doc.querySelector("#mobile-menu");
+    const summary = menu?.querySelector("summary");
+    if (menu) {
+        for (const link of menu.querySelectorAll("a"))
+            link.addEventListener("click", () => { menu.open = false; }, options);
+        doc.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && menu.open) {
+                menu.open = false;
+                summary?.focus();
+            }
+        }, options);
+        doc.addEventListener("click", (event) => {
+            if (menu.open && event.target instanceof Node && !menu.contains(event.target))
+                menu.open = false;
+        }, options);
+    }
+    const cleanBrief = (0, enhance_ts_1.enhanceBrief)(doc);
+    const view = doc.defaultView;
+    let observer;
+    if (view && "IntersectionObserver" in view) {
+        observer = new IntersectionObserver((entries) => {
+            const visible = entries.find((entry) => entry.isIntersecting);
+            if (!visible)
+                return;
+            for (const link of doc.querySelectorAll(".desktop-nav a")) {
+                if (link.hash === `#${visible.target.id}`)
+                    link.setAttribute("aria-current", "location");
+                else
+                    link.removeAttribute("aria-current");
+            }
+        }, { rootMargin: "-15% 0px -65% 0px", threshold: 0 });
+        for (const section of doc.querySelectorAll("main section[id]"))
+            observer.observe(section);
+    }
+    doc.documentElement.dataset.enhanced = "true";
+    return () => { controller.abort(); observer?.disconnect(); cleanBrief(); delete doc.documentElement.dataset.enhanced; };
+}
 
-    <div id="site-footer"></div>
-  </body>
-</html>
+},"app/features/brief/enhance.ts":(module,exports,require)=>{"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.enhanceBrief = enhanceBrief;
+const landing_ts_1 = require("app/content/landing.ts");
+const model_ts_1 = require("app/features/brief/model.ts");
+/** Progressive enhancement shared by the React page and the explicitly separate offline preview. */
+function enhanceBrief(doc) {
+    const form = doc.querySelector("#brief-form");
+    const fieldset = doc.querySelector("[data-brief-fields]");
+    const result = doc.querySelector("#brief-result");
+    const resultText = doc.querySelector("#brief-text");
+    const status = doc.querySelector("[data-brief-status]");
+    const errorSummary = doc.querySelector("#brief-errors");
+    const view = doc.defaultView;
+    if (!form || !fieldset || !result || !resultText || !status || !errorSummary || !view)
+        return () => { };
+    const controller = new AbortController();
+    const options = { signal: controller.signal };
+    const fields = ["objectType", "region", "solution", "task"];
+    const activeUrls = new Set();
+    let disposed = false;
+    function input(field) {
+        return form?.elements.namedItem(field);
+    }
+    function clearError(field) {
+        input(field).removeAttribute("aria-invalid");
+        const error = doc.getElementById(`error-${field}`);
+        if (error)
+            error.textContent = "";
+    }
+    function setStep(step) {
+        for (const element of doc.querySelectorAll("[data-brief-step]")) {
+            const current = element.dataset.briefStep === step;
+            element.classList.toggle("is-current", current);
+            if (current)
+                element.setAttribute("aria-current", "step");
+            else
+                element.removeAttribute("aria-current");
+        }
+    }
+    const edit = () => {
+        result.hidden = true;
+        form.hidden = false;
+        setStep("1");
+        status.textContent = "";
+        input("objectType").focus({ preventScroll: true });
+    };
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        status.textContent = "";
+        for (const field of fields)
+            clearError(field);
+        const values = {
+            objectType: input("objectType").value,
+            region: input("region").value,
+            solution: input("solution").value,
+            task: input("task").value,
+        };
+        const validation = (0, model_ts_1.validateBrief)(values);
+        if (!validation.ok) {
+            errorSummary.hidden = false;
+            errorSummary.textContent = "Проверьте отмеченные поля. Запрос пока не составлен.";
+            for (const field of fields) {
+                const message = validation.errors[field];
+                if (!message)
+                    continue;
+                input(field).setAttribute("aria-invalid", "true");
+                const error = doc.getElementById(`error-${field}`);
+                if (error)
+                    error.textContent = message;
+            }
+            const firstInvalid = fields.find((field) => validation.errors[field]);
+            if (firstInvalid)
+                input(firstInvalid).focus();
+            return;
+        }
+        errorSummary.hidden = true;
+        errorSummary.textContent = "";
+        resultText.value = (0, model_ts_1.formatBrief)(validation.value);
+        form.hidden = true;
+        result.hidden = false;
+        setStep("2");
+        result.focus({ preventScroll: true });
+        result.scrollIntoView({ block: "nearest", behavior: "instant" });
+    }, options);
+    for (const field of fields) {
+        const control = input(field);
+        const update = () => {
+            clearError(field);
+            if (!form.querySelector("[aria-invalid=\"true\"]")) {
+                errorSummary.hidden = true;
+                errorSummary.textContent = "";
+            }
+            if (field === "task") {
+                const counter = doc.querySelector("[data-task-count]");
+                if (counter)
+                    counter.textContent = `${control.value.length.toLocaleString("ru-RU")} / 1 200`;
+            }
+        };
+        control.addEventListener("input", update, options);
+        control.addEventListener("change", update, options);
+    }
+    doc.querySelector("[data-edit-brief]")?.addEventListener("click", edit, options);
+    doc.querySelector("[data-copy-brief]")?.addEventListener("click", async () => {
+        try {
+            if (!view.navigator.clipboard?.writeText)
+                throw new Error("Clipboard unavailable");
+            await view.navigator.clipboard.writeText(resultText.value);
+            if (!disposed)
+                status.textContent = "Текст скопирован. Передайте его выбранному поставщику самостоятельно.";
+        }
+        catch {
+            if (disposed)
+                return;
+            resultText.focus();
+            resultText.select();
+            status.textContent = "Автоматическое копирование недоступно. Текст выделен — скопируйте его вручную или скачайте файл.";
+        }
+    }, options);
+    doc.querySelector("[data-download-brief]")?.addEventListener("click", () => {
+        const blob = new Blob(["\uFEFF", resultText.value], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        activeUrls.add(url);
+        const link = doc.createElement("a");
+        link.href = url;
+        link.download = "protection-request.txt";
+        doc.body.append(link);
+        link.click();
+        link.remove();
+        status.textContent = "Файл подготовлен для скачивания. Запрос не отправлялся.";
+        view.setTimeout(() => { URL.revokeObjectURL(url); activeUrls.delete(url); }, 1000);
+    }, options);
+    for (const link of doc.querySelectorAll("[data-select-solution]")) {
+        link.addEventListener("click", () => {
+            const selected = landing_ts_1.solutions.find((item) => item.id === link.dataset.selectSolution);
+            if (!selected)
+                return;
+            if (form.hidden)
+                edit();
+            input("solution").value = selected.id;
+            clearError("solution");
+            status.textContent = `${selected.title} — добавлено в запрос. Заполните исходные данные.`;
+        }, options);
+    }
+    // Never enable native submission before the prevention handler is installed.
+    setStep("1");
+    fieldset.disabled = false;
+    return () => {
+        disposed = true;
+        controller.abort();
+        fieldset.disabled = true;
+        for (const url of activeUrls)
+            URL.revokeObjectURL(url);
+        activeUrls.clear();
+    };
+}
+
+},"app/content/landing.ts":(module,exports,require)=>{"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.questions = exports.preparation = exports.considerations = exports.applications = exports.objectTypes = exports.solutions = exports.navigation = exports.identity = void 0;
+/** Demonstration content only. Replace locally when adapting for a specific supplier. */
+exports.identity = {
+    name: "Защитные конструкции",
+    lineOne: "ЗАЩИТНЫЕ",
+    lineTwo: "КОНСТРУКЦИИ",
+    edition: "ДЕМО / 01",
+    descriptor: "Инженерный подход к пассивной защите",
+};
+exports.navigation = [
+    { href: "#solutions", label: "Решения" },
+    { href: "#applications", label: "Объекты" },
+    { href: "#approach", label: "Подход" },
+    { href: "#questions", label: "Вопросы" },
+];
+exports.solutions = [
+    {
+        id: "canopy",
+        number: "01",
+        eyebrow: "НАД ОБЪЕКТОМ",
+        title: "Навесы и укрытия",
+        description: "Конструкция над оборудованием или рабочей зоной. Формат для обсуждения, когда требуется перекрыть пространство сверху.",
+        note: "Свободное пространство и доступ к оборудованию",
+        detail: "До выбора конфигурации важно обсудить границы зоны, движение техники и возможность обслуживания. Изображение показывает принцип компоновки, а не готовый проект.",
+    },
+    {
+        id: "screen",
+        number: "02",
+        eyebrow: "ПО ПЕРИМЕТРУ",
+        title: "Защитные экраны",
+        description: "Вертикальные конструкции вдоль выбранной зоны. Позволяют рассматривать отдельный участок периметра, не закрывая всю площадку.",
+        note: "Проезды, проходы и существующие коммуникации",
+        detail: "Для обсуждения обозначают участок периметра и доступы, которые необходимо сохранить. Конкретные материалы и параметры выбираются не по демонстрационной схеме.",
+    },
+    {
+        id: "contour",
+        number: "03",
+        eyebrow: "В ЕДИНОЙ СИСТЕМЕ",
+        title: "Комплексный контур",
+        description: "Сочетание верхних и боковых элементов вокруг выбранной зоны. Формат для рассмотрения объекта и его ограничений в целом.",
+        note: "Согласованная компоновка всех элементов",
+        detail: "Верхние и боковые элементы рассматривают совместно с условиями эксплуатации. Схема не определяет защитные характеристики и не заменяет обоснование решения.",
+    },
+];
+exports.objectTypes = [
+    { id: "industry", label: "Промышленный объект" },
+    { id: "energy", label: "Энергетический объект" },
+    { id: "logistics", label: "Логистический объект" },
+    { id: "outdoor", label: "Открытая площадка" },
+    { id: "other", label: "Другой гражданский объект" },
+];
+exports.applications = [
+    {
+        icon: "factory",
+        number: "01",
+        title: "Промышленность",
+        description: "Оборудование и технологические зоны. В фокусе — доступ для обслуживания и рабочие маршруты."
+    },
+    {
+        icon: "energy",
+        number: "02",
+        title: "Энергетика",
+        description: "Отдельные узлы и вспомогательное оборудование. Важно учитывать эксплуатационные ограничения."
+    },
+    {
+        icon: "warehouse",
+        number: "03",
+        title: "Логистика",
+        description: "Складские и погрузочные зоны. Конструкцию рассматривают вместе с движением транспорта."
+    },
+    {
+        icon: "grid",
+        number: "04",
+        title: "Открытые площадки",
+        description: "Выделенные участки и места размещения имущества. Границы решения зависят от задачи объекта."
+    },
+];
+exports.considerations = [
+    {
+        number: "01",
+        title: "Что именно нужно закрыть",
+        description: "Отдельное оборудование, рабочую зону или часть площадки. Не весь объект по умолчанию."
+    },
+    {
+        number: "02",
+        title: "Что должно оставаться доступным",
+        description: "Проходы, проезды, обслуживание и доступ к коммуникациям."
+    },
+    {
+        number: "03",
+        title: "Какие есть ограничения",
+        description: "Существующая инфраструктура, условия площадки и требования к эксплуатации."
+    },
+    {
+        number: "04",
+        title: "Чем обосновывается решение",
+        description: "Исходными требованиями и документацией на конкретную конфигурацию, а не только её внешним видом."
+    },
+];
+exports.preparation = [
+    {
+        number: "01",
+        title: "Обозначьте задачу",
+        description: "Тип объекта, нужную зону и общий смысл обращения — без закрытой информации."
+    },
+    {
+        number: "02",
+        title: "Отметьте ограничения",
+        description: "Как используется площадка и какой доступ нужно сохранить."
+    },
+    {
+        number: "03",
+        title: "Соберите вопросы",
+        description: "Состав работ, обоснование характеристик, стоимость и сроки для вашей задачи."
+    },
+];
+exports.questions = [
+    { question: "Это РЭБ или система обнаружения?", answer: "Нет. На странице показаны форматы пассивных конструкций. Активное подавление и обнаружение БПЛА в демонстрационное предложение не входят." },
+    { question: "Можно ли выбрать конструкцию по фотографии?", answer: "Изображение помогает обсудить формат, но не определяет пригодность решения для объекта. Для предметного выбора нужны исходные требования, ограничения площадки и обоснование конкретной конструкции." },
+    { question: "От чего зависят стоимость и сроки?", answer: "Для коммерческого предложения нужно уточнить состав и объём работ, условия площадки, комплектацию и требования к документации. В демонстрации нет фиксированных цен и обещаний по срокам." },
+    { question: "Что подтверждает защитные характеристики?", answer: "У поставщика стоит запросить обоснование именно предлагаемой конфигурации и применимые к ней материалы испытаний. Визуализация, общее описание или документ на другую конструкцию сами по себе таких характеристик не подтверждают. На этом сайте результаты испытаний не заявлены." },
+    { question: "Куда попадёт мой запрос?", answer: "Никуда автоматически. Это демонстрационный сайт: текст создаётся только в вашем браузере. Его можно скопировать или скачать и самостоятельно передать выбранному поставщику. Форма не запрашивает контактные данные. Сайт не сохраняет черновик." },
+];
+
+},"app/features/brief/model.ts":(module,exports,require)=>{"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.validateBrief = validateBrief;
+exports.formatBrief = formatBrief;
+const landing_ts_1 = require("app/content/landing.ts");
+const controlCharacters = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/u;
+/** Pure validation. No browser state, networking, logging or persistence. */
+function validateBrief(input) {
+    const value = {
+        objectType: input.objectType.trim(),
+        region: input.region.trim(),
+        solution: input.solution.trim(),
+        task: input.task.trim(),
+    };
+    const errors = {};
+    if (!landing_ts_1.objectTypes.some((type) => type.id === value.objectType)) {
+        errors.objectType = "Выберите тип гражданского объекта.";
+    }
+    if (value.region.length > 100 || controlCharacters.test(value.region)) {
+        errors.region = "Укажите регион обычным текстом, до 100 символов.";
+    }
+    if (value.solution && !landing_ts_1.solutions.some((solution) => solution.id === value.solution)) {
+        errors.solution = "Выберите решение из списка или оставьте \u00ABНужна консультация\u00BB.";
+    }
+    if (value.task.length < 20) {
+        errors.task = "Опишите задачу чуть подробнее — не менее 20 символов.";
+    }
+    else if (value.task.length > 1200 || controlCharacters.test(value.task)) {
+        errors.task = "Используйте обычный текст длиной до 1200 символов.";
+    }
+    return Object.keys(errors).length ? { ok: false, errors } : { ok: true, value };
+}
+/** Plain text only. Consumers must write to textContent/value, never innerHTML. */
+function formatBrief(brief) {
+    const object = landing_ts_1.objectTypes.find((item) => item.id === brief.objectType)?.label;
+    const solution = landing_ts_1.solutions.find((item) => item.id === brief.solution)?.title;
+    return [
+        "ЗАПРОС НА ОБСУЖДЕНИЕ ЗАЩИТНЫХ КОНСТРУКЦИЙ",
+        "",
+        `Тип объекта: ${object ?? "Не определён"}`,
+        `Регион: ${brief.region || "Не указан"}`,
+        `Формат решения: ${solution ?? "Нужна консультация"}`,
+        "",
+        "ЗАДАЧА",
+        brief.task,
+        "",
+        "ВОПРОСЫ ДЛЯ ОБСУЖДЕНИЯ",
+        "— Какие исходные данные нужны для рассмотрения задачи?",
+        "— Как учесть эксплуатацию объекта и доступ для обслуживания?",
+        "— Чем обосновываются характеристики предлагаемой конфигурации?",
+        "— Какой состав работ, документов, стоимость и сроки можно предложить?",
+        "",
+        "Черновик создан локально на демонстрационном сайте. Никуда не отправлен.",
+        "Это не техническое задание, инженерный расчёт или коммерческое предложение.",
+        "",
+    ].join("\n");
+}
+
+}};const cache={};function require(id){if(cache[id])return cache[id].exports;const m={exports:{}};cache[id]=m;modules[id](m,m.exports,require);return m.exports;}require("app/enhance.ts").enhanceLanding(document);})();</script></body></html>
