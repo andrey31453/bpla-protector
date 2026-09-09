@@ -1,0 +1,9 @@
+.quiz__shade
+	opacity: 1
+	transition: all 1000ms
+	.quiz__shade-wrapper
+		transition: transform 150ms 50ms
+	&.--shade-in
+		opacity: 0
+		.quiz__shade-wrapper
+			transform: translate3D(0, 66%, 0)

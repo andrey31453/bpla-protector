@@ -1,0 +1,25 @@
+.gallery:not(.--sro)
+	.gallery__other-proect__img-item.--sro
+		display: none
+
+.gallery.--sro
+	.gallery__other-proect__img-item:not(:hover)
+		.gallery__other-proect__img-name
+			opacity: 0
+
+	.gallery__other-proect__img-name
+		background: none
+
+	.gallery__other-proect__images
+		@media (min-width: $d)
+			grid-template-columns: 1fr 1fr 1fr
+			grid-gap: 2 * $p
+		@media (min-width: $hd)
+			grid-gap: 4 * $p
+		@media (max-width: $m)
+			grid-template-columns: 1fr 1fr 1fr
+			grid-gap: $p
+		@media (max-width: $sm)
+			grid-template-columns: 1fr
+	.gallery__other-proect__img-item:not(.--sro)
+		display: none

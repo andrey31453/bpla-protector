@@ -1,0 +1,35 @@
+.price__btn
+	cursor: pointer
+	& > *
+		@extend .__btn
+		width: auto
+		height: auto
+
+.currency-icon
+	height: 22px
+	width: 24px
+	path
+		fill: #4b5563
+
+.price
+	.right
+		@media (min-width: 768px)
+			width: 250px
+			min-width: 250px
+		@media (max-width: 767px)
+			text-align: center
+		span
+			font-size: 1.1rem
+			line-height: 1.2rem
+	.left
+		@media (max-width: 767px)
+			text-align: center
+		svg
+			min-width: 36px
+			@media (max-width: 767px)
+				display: none
+
+.about-list
+	background: $grada
+	&:hover
+		background: $grad

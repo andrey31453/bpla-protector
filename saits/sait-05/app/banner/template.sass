@@ -1,0 +1,58 @@
+.banner
+	position: relative
+	margin-top: -$menu_h
+	height: 107vh
+	margin-bottom: -3.5vh
+
+	font-family: 'century gothic bold'
+	color: $fc2
+	background-image: url('/wp-content/themes/twentytwentyone/images/banner/images/_background.jpg')
+
+	filter: saturate(130%)
+	@media (min-width: $d)
+		background-position: right center
+	@media (max-width: $m)
+		background-position: 75% center
+	> .__container
+		position: relative
+		z-index: 1
+		height: 100%
+	&::before
+		position: absolute
+		content: ''
+		z-index: 0
+
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+
+		opacity: 0.3
+		background: linear-gradient($deg, $bc2 0%, $bc2 30%, $c80 60%, $bc280 80%, $bc2 100%)
+	.banner__heading
+		text-align: center
+		margin-top: 0
+
+.banner__wrapper
+	height: 100%
+	max-width: 730px
+
+h1.banner__heading
+	position: relative
+	padding-bottom: $pl
+	margin-bottom: $pl
+	&::after
+		position: absolute
+		content: ''
+
+		bottom: 0
+		left: 30%
+		right: 30%
+		height: 1px
+
+		background-color: $fc2
+		opacity: $op
+
+h2.banner__heading
+	font-family: 'century gothic'
+	font-weight: 100

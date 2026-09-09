@@ -1,0 +1,59 @@
+.quiz__result-item
+	margin: $p
+	padding: $p
+
+	border: 1px solid $fc20
+	border-radius: $rad
+
+// head
+.quiz__result-item__head
+	display: flex
+	justify-content: space-between
+	align-items: center
+	margin-bottom: $p
+
+	font-size: $fzh3
+	@media (max-width: $m)
+		flex-direction: column
+
+.quiz__result-item__name
+	font-weight: bold
+	color: $ch
+	@media (max-width: $m)
+		text-align: center
+
+.quiz__result-item__price
+	@media (min-width: $d)
+		min-width: 250px
+		text-align: right
+	@media (max-width: $m)
+		text-align: center
+	span
+		font-weight: bold
+		color: $c
+
+// body
+.quiz__result-item__link-cont
+	margin-top: $p
+	min-width: 250px
+	@media (max-width: $sm)
+		display: none
+
+.quiz__result-item__link
+	width: 150px
+	height: 40px
+	span
+		opacity: $ops
+	&:hover
+		span
+			opacity: 1
+
+// summary-price
+.quiz__result-summary-price
+	margin: 2 * $p
+	text-align: right
+	font-size: $fzh3
+	font-weight: bold
+	color: $ch
+	span
+		color: $c

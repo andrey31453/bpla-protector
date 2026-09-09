@@ -1,0 +1,68 @@
+<section class="form__modal-callback --cntrl js__fmc __fcolc">
+	<!-- form -->
+	<form class="fmc__form js__fmc__form" action="" method="post" enctype="multipart/form-data">
+		<p class="fmc__type-error js__type-error"></p>
+		<!-- type -->
+		<div class="fmc__type-btns __f">
+			<label class="fmc__type-btn js__type-btn __fcolc" for="fiz-lico">Физ лицо</label>
+			<input id="fiz-lico" class="fmc__type-btn-input js__type-btn-input" type="radio" name="fmc__type"
+				value="Физическое лицо" data-required="true" />
+
+			<label class="fmc__type-btn js__type-btn __fcolc" for="ur-lico">Юр лицо</label>
+			<input id="ur-lico" class="fmc__type-btn-input js__type-btn-input" type="radio" name="fmc__type"
+				value="Юридическое лицо" data-required="true" />
+		</div>
+		<!-- /type -->
+
+		<!-- phone -->
+		<div class="fmc__input-wrapper __fcolc __fais">
+			<label class="fmc__label" for="phone">Номер телефона</label>
+			<input class="fmc__input" id="phone" type="text" name="fmc__phone" autocomplete="phone" data-required="true" />
+		</div>
+		<!-- /phone -->
+
+		<!-- button -->
+		<button class="inline-block js__btn fmc__submit-btn" type="submit" name="fmc__btn">
+			<div class="
+					inner
+					flex
+					text-white
+					hover:text-blue-600 hover:bg-transparent
+					border border-transparent
+					hover:border-blue-600
+					transition
+					duration-300
+					rounded-md
+					items-center
+					px-6
+					py-3.5
+					default-orange
+					w-auto
+				" style="
+					box-shadow: -12px 12px 30px rgba(255, 118, 67, 0.25);
+					justify-content: center;
+				">
+				<span>Отправить заявку</span>
+				<div class="icon ml-2 flex items-center">
+					<svg width="22" height="8" viewBox="0 0 22 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M21.0241 4.04362C21.2194 3.84835 21.2194 3.53177 21.0241 3.33651L17.8421 0.15453C17.6469 -0.0407326 17.3303 -0.0407326 17.135 0.15453C16.9398 0.349792 16.9398 0.666374 17.135 0.861636L19.9635 3.69006L17.135 6.51849C16.9398 6.71375 16.9398 7.03034 17.135 7.2256C17.3303 7.42086 17.6469 7.42086 17.8421 7.2256L21.0241 4.04362ZM0.987305 4.19006H20.6706V3.19006H0.987305V4.19006Z"
+							fill="currentColor"></path>
+					</svg>
+				</div>
+			</div>
+		</button>
+		<!-- /button -->
+
+		<!-- quiz-data -->
+		<input class="quiz-data js__quiz-data" type="text" name="quiz-data" />
+		<!-- /quiz-data -->
+
+		<div class="fmc__close-btn" data-close="true">×</div>
+	</form>
+	<!-- /form -->
+
+	<!-- substrate -->
+	<div class="__substrate" data-close="true"></div>
+	<!-- /substrate -->
+</section>

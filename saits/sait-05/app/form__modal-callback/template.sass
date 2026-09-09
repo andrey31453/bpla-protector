@@ -1,0 +1,72 @@
+.form__modal-callback
+	position: fixed
+	z-index: 50
+	top: -100vh
+	left: 0
+
+	width: 100%
+	height: 100vh
+
+	opacity: 0
+	cursor: pointer
+	background: none
+	transition-duration: 450ms
+
+	font-family: 'century gothic bold'
+	font-size: $fz
+	&.--active
+		opacity: 1
+		top: 0
+
+.fmc__form
+	position: relative
+	z-index: 80
+
+	padding: 2 * $pl 40px $pl $pl
+
+	width: 90%
+	max-width: 600px
+	background: linear-gradient(to right, $c2a, $c2c)
+	overflow: hidden
+
+	cursor: auto
+
+.fmc__input-wrapper
+	height: 110px
+
+.fmc__label
+	opacity: $ops
+	padding-bottom: $ps
+
+.fmc__input
+	padding: $ps
+	margin-bottom: $p
+
+	min-height: 60px
+	width: 100%
+	border: 2px solid $bc
+	font-size: $fz
+
+	opacity: 0.9
+	&:hover
+		opacity: 1
+		border-bottom: 2px solid $c
+
+.fmc__btn
+	min-width: 300px
+	span::after
+		content: '' !important
+
+.fmc__close-btn
+	position: absolute
+
+	right: 12px
+	top: 0
+
+	font-size: 60px
+	opacity: $ops
+
+	cursor: pointer
+	&:hover
+		opacity: 1
+		color: $c

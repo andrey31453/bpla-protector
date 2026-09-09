@@ -1,0 +1,36 @@
+body > article
+	margin-top: 50px
+	padding-top: 0
+
+.woocommerce
+	margin-top: $psec + 50px
+	padding: $psec 0
+
+.shop_table
+	.product-name
+		font-size: $fz
+	bdi
+		margin-left: $p
+		font-size: $fzh2
+		color: $c
+		span
+			font-size: $fz
+			color: $fc2
+	thead,
+	tfoot,
+	tr:not(:first-child)
+		display: none
+
+.payment_method_yookassa_bank_card
+	display: none
+
+.woocommerce-terms-and-conditions-wrapper .woocommerce-privacy-policy-text p
+	font-size: $fzs !important
+	font-style: italic
+	opacity: $ops
+
+#place_order
+	color: $fc2
+	transition: color 0ms
+	&:hover
+		color: $fc

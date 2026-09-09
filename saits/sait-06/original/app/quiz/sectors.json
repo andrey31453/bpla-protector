@@ -1,0 +1,20 @@
+{
+	"data": [
+		{
+			"type": "geologija",
+			"title": "Геологические изыскания"
+		},
+		{
+			"type": "geodezija",
+			"title": "Геодезия"
+		},
+		{
+			"type": "ecologija",
+			"title": "Экология"
+		},
+		{
+			"type": "gidromet",
+			"title": "Гидрометеорология"
+		}
+	]
+}

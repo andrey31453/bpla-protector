@@ -1,0 +1,137 @@
+{
+	"data": [
+		{
+			"type": "geologija index",
+			"name": "АД Москва-Казань (0-80км)",
+			"folder-name": "admoskvakazan",
+			"folder-type": "jpg",
+			"image-quantity": "8",
+			"image-quantity-real": "20",
+			"hashtag": "20"
+		},
+		{
+			"type": "geologija index",
+			"name": "Чистые пруды",
+			"folder-name": "chistye-prudy",
+			"folder-type": "jpg",
+			"image-quantity": "7",
+			"image-quantity-real": "7",
+			"hashtag": "21"
+		},
+		{
+			"type": "geologija index",
+			"name": "Софрино 1",
+			"folder-name": "sofrino-1",
+			"folder-type": "jpg",
+			"image-quantity": "4",
+			"hashtag": "geologija"
+		},
+		{
+			"type": "geologija index",
+			"name": "СНТ Романтика",
+			"folder-name": "snt-romantica",
+			"folder-type": "jpg",
+			"image-quantity": "4",
+			"image-quantity-real": "7",
+			"hashtag": "index"
+		},
+		{
+			"type": "geologija index",
+			"name": "Плотина Палашкино",
+			"folder-name": "plotina-palashkino",
+			"folder-type": "jpg",
+			"image-quantity": "11",
+			"image-quantity-real": "17",
+			"hashtag": "index"
+		},
+		{
+			"type": "geologija index",
+			"name": "Плотина Марфин Брод",
+			"folder-name": "plotina-marfin-brod",
+			"folder-type": "jpg",
+			"image-quantity": "4",
+			"image-quantity-real": "14",
+			"hashtag": "index20"
+		},
+		{
+			"type": "geologija index",
+			"name": "Плотина Колочь",
+			"folder-name": "plotina-koloch",
+			"folder-type": "jpg",
+			"image-quantity": "4",
+			"image-quantity-real": "17",
+			"hashtag": "geologija"
+		},
+		{
+			"type": "geologija index",
+			"name": "Плотина Васильевская",
+			"folder-name": "plotina-vasilievskaya",
+			"folder-type": "jpg",
+			"image-quantity": "4",
+			"image-quantity-real": "11",
+			"hashtag": "geologija"
+		},
+		{
+			"type": "geologija index",
+			"name": "Москва Комунарка",
+			"folder-name": "moskva-kommunarka",
+			"folder-type": "jpg",
+			"image-quantity": "4",
+			"hashtag": "geologija"
+		},
+		{
+			"type": "geologija index",
+			"name": "Марьино",
+			"folder-name": "marino",
+			"folder-type": "jpg",
+			"image-quantity": "4",
+			"image-quantity-real": "7",
+			"hashtag": "geologija20"
+		},
+		{
+			"type": "geologija index",
+			"name": "Красноармейск ГК Первый",
+			"folder-name": "krasnoarmeisk-gk-perviyi",
+			"folder-type": "jpg",
+			"image-quantity": "4",
+			"image-quantity-real": "5",
+			"hashtag": "geologija20"
+		},
+		{
+			"type": "geologija index",
+			"name": "Ивановский Перевоз",
+			"folder-name": "ivanovskii-perevoz",
+			"folder-type": "jpg",
+			"image-quantity": "4",
+			"image-quantity-real": "4",
+			"hashtag": "20"
+		},
+		{
+			"type": "sro",
+			"name": "Свидетельство СРО",
+			"folder-name": "sro-1",
+			"folder-type": "png",
+			"image-quantity": "3",
+			"image-quantity-real": "3",
+			"hashtag": "sro"
+		},
+		{
+			"type": "sro",
+			"name": "Свидетельство СРО",
+			"folder-name": "sro-2",
+			"folder-type": "png",
+			"image-quantity": "3",
+			"image-quantity-real": "3",
+			"hashtag": "sro"
+		},
+		{
+			"type": "sro",
+			"name": "Свидетельство СРО",
+			"folder-name": "sro-3",
+			"folder-type": "png",
+			"image-quantity": "3",
+			"image-quantity-real": "3",
+			"hashtag": "sro"
+		}
+	]
+}

@@ -1,0 +1,93 @@
+.gallery__active-wrapper
+	.gallery:not(.--all) &
+		position: relative
+		height: 600px
+		overflow: hidden
+		margin-bottom: 1rem
+
+.gallery__active-proect__images
+	position: relative
+	width: 100%
+	.gallery.--all &
+		z-index: 250
+		cursor: pointer
+
+.gallery__active-proect__img
+	max-height: 80vh
+	.gallery:not(.--all) &
+		position: absolute
+		top: 0
+		bottom: 0
+		width: 100%
+		max-width: 992px
+		border-radius: $rad
+	.gallery.--all &
+		position: absolute
+
+		left: 0
+		top: 50%
+		opacity: 0
+
+		transition: opacity 600ms, top 0ms
+		&.--active
+			opacity: 1
+
+.gallery__active-name
+	position: absolute
+	top: 20px
+	right: 30px
+
+	font-weight: bold
+	color: $fc
+	opacity: $ops
+	.gallery.--all &
+		color: #cbcbcb
+		z-index: 250
+	@media (min-width: $d)
+		font-size: 40px
+	@media (max-width: $m)
+		font-size: 24px
+	@media (max-width: 520px)
+		display: none
+
+.gallery__img-number
+	position: absolute
+
+	top: 20px
+	left: 30px
+
+	font-weight: bold
+	.gallery.--all &
+		z-index: 250
+	@media (min-width: $d)
+		font-size: 40px
+	@media (max-width: $m)
+		font-size: 24px
+	& > span:not(.gallery__current-active-img-number)
+		color: $fc
+		opacity: $ops
+		.gallery.--all &
+			color: #cbcbcb
+	.gallery__current-active-img-number
+		color: $c
+
+.gallery.--all
+	.gallery__active-wrapper
+		position: fixed
+		z-index: -1
+
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+
+		opacity: 0
+		transform: translateY(-105vh)
+
+		display: flex
+		justify-content: space-between
+		flex-wrap: nowrap
+		&.--active
+			z-index: 200
+			opacity: 1
+			transform: translateY(0)

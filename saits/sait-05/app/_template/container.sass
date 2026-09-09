@@ -1,0 +1,12 @@
+.__container
+	width: 100%
+	padding: 0 $p
+	margin: 0 auto
+	&:not(.--alt)
+		max-width: 1200px
+	&.--alt
+		max-width: 1600px
+	@media (max-width: 550px)
+		padding: 0 $ps
+	@media (max-width: 400px)
+		padding: 0 $ps * 0.5

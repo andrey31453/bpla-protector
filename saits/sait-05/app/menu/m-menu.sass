@@ -1,0 +1,25 @@
+.menu__m-menu
+	position: relative
+	width: 50px
+	height: $menu_h
+	@media (min-width: $d)
+		display: none
+
+.menu__m-menu__svg-cont
+	position: absolute
+
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	&.--close
+		opacity: 0
+	.--active &.--close
+		opacity: 1
+	.--active &.--list
+		opacity: 0
+	svg
+		width: 36px
+		opacity: $ops
+	&:hover svg
+		opacity: 1

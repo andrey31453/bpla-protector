@@ -1,0 +1,61 @@
+.contacts
+	padding-top: $psec * 0.5
+	padding-bottom: $psec * 0.5
+
+.contacts__wrapper
+	padding: math.div($psec, 3) $pl
+
+.contacts__item
+	position: relative
+
+	padding-top: $p
+	padding-bottom: $p
+	color: $fc2
+	@media (min-width: $d)
+		width: 33.33%
+	@media (max-width: $m)
+		width: 50px
+	&.--phone-num
+		@media (max-width: $m)
+			width: calc(100% - 100px)
+	@media (min-width: $d)
+		&::before
+			position: absolute
+			content: ''
+
+			z-index: 5
+			top: 0
+			bottom: 0
+			right: 0
+			width: 1px
+
+			opacity: $op
+			background-color: $fc2
+
+	&:last-child::before
+		opacity: 0
+	svg
+		max-height: 100px
+		@media (min-width: $d)
+			padding: $p
+		@media (max-width: $m)
+			padding: $ps
+
+	.--phone-num span
+		font-family: 'century gothic bold'
+		font-size: $fzh2
+		@media (max-width: $m)
+			font-size: $fzh3_m
+	svg,
+	span
+		position: relative
+		z-index: 10
+		transition: 0ms all
+	path
+		fill: $fc2
+	&.--phone:hover path
+		fill: url(#__phone)
+	&.--email:hover path
+		fill: url(#__email)
+	&.--phone-num:hover span
+		color: $c

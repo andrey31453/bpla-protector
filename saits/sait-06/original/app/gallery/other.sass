@@ -1,0 +1,105 @@
+.gallery__other-wrapper
+	.gallery:not(.--all) &
+		position: relative
+		height: 200px
+		@media (max-width: 600px)
+			height: 150px
+
+.gallery__other-proect__img-item
+	overflow: hidden
+	cursor: pointer
+
+	.gallery:not(.--all) &
+		position: absolute
+		top: 0
+		bottom: 0
+
+		width: calc(25% - $ps)
+		height: 100%
+		@media (max-width: 1199px)
+			width: calc(33% - $ps)
+		@media (max-width: 768px)
+			width: 50%
+	.gallery.--all &
+		position: relative
+		&:not(.--active)
+			display: none
+
+.gallery__other-proect__img-name
+	position: absolute
+	z-index: 30
+
+	top: calc(50% - 24px)
+	left: $ps
+	right: $ps
+	height: 48px
+
+	text-align: center
+
+	color: $fc2
+	background-color: $bc280
+	overflow: hidden
+	font-weight: bold
+	@media (max-width: $m)
+		top: 0
+		left: 0
+		right: 0
+		height: 100%
+
+		border-radius: $rad
+	span
+		display: block
+		width: calc(100% - 20px)
+		padding-left: 10px
+		padding-right: 10px
+
+.gallery__other-proect__img-item:hover .gallery__other-proect__img-name
+	color: $c
+	background-color: $bc200
+
+.gallery__other-proect__img-cont
+	position: relative
+	&::after
+		position: absolute
+		z-index: 20
+		content: ''
+
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+
+		background-color: #202020
+		border-radius: $rad
+		opacity: 0
+
+.gallery__other-proect__img-item:hover .gallery__other-proect__img-cont::after
+	opacity: 0.85
+
+.gallery__other-proect__img
+	width: 100%
+	height: auto
+	border-radius: $rad
+
+.gallery__other-proect__images
+	position: relative
+	.gallery:not(.--all) &
+		overflow: hidden
+		margin: 0 auto
+
+		@media (min-width: $d)
+			max-width: 992px
+			width: calc(100% - 160px)
+		@media (max-width: $m)
+			width: calc(100% - 80px)
+	.gallery.--all &
+		display: grid
+		grid-gap: $ps
+		@media (min-width: $d)
+			grid-template-columns: 1fr 1fr 1fr 1fr
+		@media (min-width: $hd)
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr
+		@media (max-width: $m)
+			grid-template-columns: 1fr 1fr 1fr
+		@media (max-width: $sm)
+			grid-template-columns: 1fr 1fr

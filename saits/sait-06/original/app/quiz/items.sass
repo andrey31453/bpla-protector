@@ -1,0 +1,137 @@
+.quiz__items
+	position: relative
+
+	margin-bottom: $p
+
+	display: grid
+	grid-gap: $p
+	@media (min-width: $d)
+		grid-template-columns: repeat(4, 1fr)
+	@media (min-width: $hd)
+		grid-template-columns: repeat(5, 1fr)
+	@media (max-width: $m)
+		grid-template-columns: repeat(2, 1fr)
+	@media (max-width: $sm)
+		grid-template-columns: 1fr
+
+.quiz__items-heading
+	font-size: $fzh3
+	text-transform: uppercase
+	font-weight: bold
+	padding-bottom: $p
+	opacity: $ops
+
+.quiz__item
+	position: relative
+	&::before
+		position: absolute
+		content: ''
+		z-index: 0
+
+		top: 0
+		left: 0
+		right: 0
+		bottom: - 2 * $border-width
+
+		border-radius: $rad + 2px
+		background-image: $grad
+		opacity: 0
+	&.--active::before
+		opacity: 1
+
+.quiz__item-wrapper
+	position: relative
+	z-index: 1
+
+	margin: $border-width
+	height: 100%
+
+	overflow: hidden
+	border-radius: $rad
+	cursor: pointer
+
+.quiz__item-active-icon
+	&::before,
+	&::after
+		position: absolute
+		content: ''
+		z-index: 2
+
+		top: $ps
+		left: $ps
+		width: 2 * $p
+		height: 2 * $p
+
+		opacity: 0
+
+	&::before
+		background-image: $grad
+		border-radius: $rad
+		overflow: hidden
+	&::after
+		background-image: url('/images/quiz/icons/active.svg')
+		background-position: center
+		background-repeat: no-repeat
+		background-size: $p
+	.quiz__item.--active &::before,
+	.quiz__item.--active &::after
+		opacity: 1
+
+.quiz__img
+	position: relative
+
+	background-position: center
+	background-repeat: no-repeat
+	background-size: cover
+	background-color: $c50
+	@media (min-width: $d)
+		height: 160px
+	@media (min-width: $hd)
+		height: 180px
+	@media (max-width: $m)
+		height: 140px
+	@media (max-width: $sm)
+		height: 120px
+	&::after
+		position: absolute
+		z-index: 1
+		content: ''
+
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+
+		background-color: $bc2
+		opacity: 0
+	.quiz__item.--active &::after
+		opacity: $ops
+
+.quiz__title
+	padding: $ps
+	background-color: $bc2
+	color: $fc2
+	font-weight: bold
+	height: 100%
+	.quiz__item.--active &
+		color: $c
+
+.quiz__errors
+	color: $ca
+	min-height: $fz
+	margin-top: $p
+	text-align: right
+	opacity: 0
+
+.quiz__buttons
+	margin-top: $p
+	@media (max-width: 380px)
+		flex-direction: column
+		align-items: center
+
+.quiz__button
+	width: 160px
+	@media (max-width: 380px)
+		margin: $p
+	span
+		padding: 0 $ps

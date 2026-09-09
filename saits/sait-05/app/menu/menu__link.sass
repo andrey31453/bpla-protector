@@ -1,0 +1,33 @@
+.menu__links
+	@media (max-width: $m)
+		position: fixed
+
+		top: -200vh
+		bottom: 200vh
+		left: 0
+		right: 0
+
+		opacity: 0
+		background: linear-gradient(to right, $c2a, $c2c)
+
+		flex-direction: column
+		justify-content: center
+
+		transition: top 0ms 300ms, bottom 0ms 300ms, opacity 200ms
+		.--active &
+			top: $menu_h
+			bottom: 0
+			opacity: 1
+			transition: top 0ms, bottom 0ms, opacity 200ms
+
+.menu__link
+	position: relative
+	height: $menu_h
+	text-transform: uppercase
+	@media (min-width: $d)
+		&:not(:first-child)
+			padding-left: $p
+		&:not(:last-child)
+			padding-right: $p
+	@media (max-width: $m)
+		text-align: center

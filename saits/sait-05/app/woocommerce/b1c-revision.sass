@@ -1,0 +1,71 @@
+#formOrderOneClick
+	// overlay
+	.overlay
+		background: rgba(0,0,0,0.5) !important
+		z-index: 60 !important
+		backdrop-filter: blur(3px)
+	& > .popup
+		width: 90% !important
+		max-width: 600px !important
+		background: linear-gradient(to right, $c2a, $c2c) !important
+
+		border: none !important
+		border-radius: 0 !important
+		h2, p
+			display: none !important
+		.b1c-form
+			margin: 2 * $pl $pl $pl $pl !important
+
+		// close_order
+		.close_order
+			right: -8px !important
+			top: 0 !important
+
+			font-size: 60px !important
+			opacity: $ops !important
+
+			cursor: pointer !important
+			&:hover
+				opacity: 1 !important
+				color: $c !important
+		// buyvalide
+		.buyvalide
+			padding: $ps !important
+			margin: $p 0 !important
+
+			min-height: 60px !important
+			width: 100% !important
+			border: 2px solid $bc !important
+			font-size: $fz !important
+
+			opacity: 0.9 !important
+			border-radius: 0 !important
+			&:hover
+				opacity: 1 !important
+				border-bottom: 2px solid $c !important
+		// buyButtonOkForm
+		.buyButtonOkForm
+			margin-top: $p
+			width: 260px !important
+			height: 60px !important
+
+			font-family: 'century gothic bold' !important
+			cursor: pointer !important
+			border: 2px solid $c !important
+			background: none !important
+			&:hover
+				background: linear-gradient(to right, $c, $ca) !important
+			&:before
+				position: absolute
+				content: 'Перейти к оплате'
+
+				top: 14px
+				left: 0
+				bottom: 0
+				right: 0
+
+				text-align: center
+				font-size: $fz
+				color: $fc2
+			&:hover:before
+				color: $fc

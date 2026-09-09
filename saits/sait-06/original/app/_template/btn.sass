@@ -1,0 +1,38 @@
+.__btn
+	display: flex
+	justify-content: center
+	align-items: center
+	align-content: center
+
+	width: 260px
+	height: 60px
+
+	background: linear-gradient($deg, $c2a, $c2a, $c2c) !important
+	color: $fc2 !important
+	border: none !important
+	border-radius: $rad
+	cursor: pointer
+	svg
+		margin: 0 0.5 * $ps
+		height: 12px
+		opacity: 0
+	path
+		fill: $fc2
+	&:hover
+		border: none !important
+		color: $fc2 !important
+		background: linear-gradient($deg, $c, $ca) !important
+		.icon svg
+			opacity: 1
+	&.--cntrl
+		background: linear-gradient($deg, $c, $ca) !important
+		&:hover
+			border: none !important
+			color: $fc2 !important
+			background: linear-gradient($deg, $c2a, $c2a, $c2c) !important
+
+.--cntrl
+	.__btn
+		border: 2px solid $c
+		&:not(:hover)
+			background: none

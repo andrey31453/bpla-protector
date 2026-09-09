@@ -1,0 +1,6 @@
+AddDefaultCharset UTF-8
+RewriteEngine on
+
+RewriteRule ^$ html/index.php [QSA]
+RewriteRule ^([a-zA-Z0-9-_]+)$ html/$1.php [QSA]
+RewriteRule ^([a-zA-Z0-9-_]+)\/([a-zA-Z0-9-_]+)$ html/$1/$2.php [QSA]

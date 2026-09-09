@@ -1,0 +1,52 @@
+// more-text-link
+.__open-more-text-link,
+.__close-more-text-link
+	padding-top: $pl
+	padding-bottom: $pl
+
+	cursor: pointer
+	opacity: $ops
+	@media (max-width: $m)
+		justify-content: center
+	span
+		font-size: $fzh3
+		font-family: 'century gothic bold'
+		text-transform: uppercase
+	&:hover
+		opacity: 1
+		span
+			color: $c
+	svg
+		padding-left: $ps
+		width: 40px
+	path
+		fill: $fc
+	.--cntrl & path
+		fill: $fc2
+	&:hover
+		path
+			fill: $c
+		.--cntrl & path
+			fill: $c
+
+.__open-more-text-link.__more-text--active
+	span,
+	svg
+		opacity: 0
+
+// more-text-cont
+.__more-text-cont
+	position: relative
+	height: 0
+	&:not(.__more-text--active)
+		opacity: 0
+
+.__more-text
+	position: absolute
+
+	top: 0
+	left: 0
+
+	z-index: -1
+	.__more-text--active &
+		z-index: 0

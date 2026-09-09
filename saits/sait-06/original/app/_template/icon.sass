@@ -1,0 +1,28 @@
+.__icon
+	display: flex
+	justify-content: center
+	align-items: center
+
+	width: 36px
+	height: 36px
+
+	background: $grad
+	border: 1px transparent
+	border-radius: 5px
+	cursor: pointer
+	svg
+		height: 22px
+	&.--phone
+		svg
+			height: 18px
+	&.--go-top
+		svg
+			height: 14px
+	path
+		fill: $fc2
+	&:hover
+		border: 1px $c50 solid
+		box-shadow: -$ps * 0.5 $ps * 0.5 $ps $c25
+		background: $grada
+		path
+			fill: url(#--active)
