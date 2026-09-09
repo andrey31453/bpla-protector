@@ -1,0 +1,53 @@
+.__btn
+	display: flex
+	justify-content: center
+	align-items: center
+	align-content: center
+
+	width: 260px
+	height: 60px
+
+	background: linear-gradient(to right, $c2a, $c2c)
+
+	font-family: 'century gothic bold'
+	cursor: pointer
+	&.--no-price
+		font-size: $fzl
+		text-transform: uppercase
+		color: $c
+		&:hover
+			color: $fc
+	span
+		transition: all 0ms
+	span:first-child
+		position: relative
+		padding-right: $ps
+
+		color: $fc2
+		font-size: $fzl
+		&::after
+			position: absolute
+			content: '₽'
+
+			right: - 3px
+			bottom: 3px
+
+			font-size: $fzs
+	span:not(:first-child)
+		margin-left: $pl
+
+		color: $c
+		text-transform: uppercase
+	&:hover
+		background: linear-gradient(to right, $c, $ca)
+
+		span:first-child
+			color: #fff
+		span:last-child
+			color: $fc
+
+.--cntrl
+	.__btn
+		border: 2px solid $c
+		&:not(:hover)
+			background: none

@@ -1,0 +1,18 @@
+.menu__sub-links
+	position: absolute
+
+	top: -100vh
+	left: 0
+
+	opacity: 0
+	transition: top 0ms, opacity 300ms
+	.--scrolled &
+		background-color: $bc2
+	.menu__link:hover &
+		top: calc(100% + 10px)
+		opacity: 1
+
+.menu__sub-link
+	padding-top: $ps
+	padding-bottom: $ps
+	width: 355px

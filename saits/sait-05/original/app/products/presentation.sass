@@ -1,0 +1,120 @@
+$presentation-type_h: 50px
+// presentation
+.products__presentation
+	position: relative
+
+	margin-top: $presentation-type_h
+	width: 100%
+	height: 600px
+
+	color: #f4f5f7
+	text-transform: uppercase
+	font-family: 'century gothic bold'
+	word-spacing: 6px
+	@media (min-width: $d)
+		min-width: 400px
+	&.--client
+		background-image: url('/wp-content/themes/twentytwentyone/images/products/desktop/client.jpg')
+	&.--sopr
+		background-image: url('/wp-content/themes/twentytwentyone/images/products/desktop/sopr.jpg')
+	&.--vody
+		background-image: url('/wp-content/themes/twentytwentyone/images/products/desktop/vody.jpg')
+	&.--indi
+		background-image: url('/wp-content/themes/twentytwentyone/images/products/desktop/indi.jpg')
+	@media (max-width: $m)
+		&.--client
+			background-image: url('/wp-content/themes/twentytwentyone/images/products/mobile/client.jpg')
+		&.--sopr
+			background-image: url('/wp-content/themes/twentytwentyone/images/products/mobile/sopr.jpg')
+		&.--vody
+			background-image: url('/wp-content/themes/twentytwentyone/images/products/mobile/vody.jpg')
+		&.--indi
+			background-image: url('/wp-content/themes/twentytwentyone/images/products/mobile/indi.jpg')
+	&::before
+		position: absolute
+		content: ''
+
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+
+		opacity: 0.6
+		background: linear-gradient(55deg, #000000, #1953ce00)
+	&::after
+		position: absolute
+		content: ''
+
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+
+		opacity: 0.6
+		background: linear-gradient(164deg, #c5ff7d, #0055a9)
+	& > *
+		position: relative
+		z-index: 1
+
+.products__presentation-type
+	position: absolute
+	color: $c
+
+	top: - $presentation-type_h
+	left: 0
+	right: 0
+	height: $presentation-type_h
+	section.--cntrl &
+		text-align: left
+	section:not(.--cntrl) &
+		text-align: right
+
+.products__presentation-name
+	position: relative
+
+	width: 100%
+	height: 100%
+
+	padding-left: $pl + $p
+	padding-right: $pl + $p
+
+	text-align: center
+	letter-spacing: 4px
+	&::before
+		position: absolute
+		content: ''
+
+		top: $pl
+		bottom: $pl
+		left: $pl
+		right: $pl
+
+		border: 2px solid #f4f5f7
+
+.products__presentation-tag
+	position: absolute
+
+	bottom: $pl - $p
+	height: 2 * $p
+	left: 0
+	right: 0
+	span
+		padding: $ps $p
+
+		color: #6d949b
+		background-color: #f4f5f7
+		text-align: center
+
+.products__presentation-slogan
+	position: absolute
+
+	top: 50%
+	width: 600px
+
+	text-align: center
+	section.--cntrl &
+		right: ($p + $ps) * 0.5 - 300px
+		transform: rotate(90deg)
+	section:not(.--cntrl) &
+		left: ($p + $ps) * 0.5 - 300px
+		transform: rotate(-90deg)

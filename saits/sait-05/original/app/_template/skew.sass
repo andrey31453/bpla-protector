@@ -1,0 +1,22 @@
+.__skew
+	position: relative
+	&::before,
+	&.--cntrl::after
+		position: absolute
+		content: ''
+
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+
+		transform: skew(0, $skew)
+	&:not(.--cntrl)::before
+		background: $bc
+	&.--cntrl::before
+		background: $bc2
+	&.--cntrl::after
+		background: linear-gradient(to right, $c2a, $c2c)
+	> *
+		position: relative
+		z-index: 1

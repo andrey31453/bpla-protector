@@ -1,0 +1,19 @@
+.product__description
+	position: relative
+	overflow: hidden
+
+	padding-top: $psec
+	&::before
+		position: absolute
+		content: ''
+
+		top: $psec * 0.5
+		left: 15%
+		right: 15%
+
+		height: 1px
+		background-color: $c
+		transform: skew(0, $skew)
+		.--cntrl &
+			opacity: $op
+			background-color: $fc2

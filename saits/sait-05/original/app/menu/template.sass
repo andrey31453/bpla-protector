@@ -1,0 +1,82 @@
+.main
+	margin-top: $menu_h
+
+.menu
+	position: fixed
+	z-index: 90
+
+	top: 0
+	left: 0
+	right: 0
+
+	padding-top: 0
+	padding-bottom: 0
+
+	color: $fc2
+	font-family: 'century gothic bold'
+	transition: right 0ms
+	&::before
+		position: absolute
+		content: ''
+
+		top: 100%
+		left: 0
+		right: 0
+		bottom: -4px
+
+		opacity: 0
+		background-color: $fc2
+		transition: 0ms all
+	&.--scrolled,
+	&.--scrolled-temporary
+		background: $c2a
+		&::before
+			opacity: $op
+	&:not(.--scrolled)::before
+		position: absolute
+		content: ''
+
+		top: 0
+		bottom: - $menu_h
+		right: 0
+		left: 0
+
+		opacity: 0.4
+		background: linear-gradient(to bottom, $bc2, $bc200)
+	> .__container
+		position: relative
+		z-index: 100
+
+.menu__wrapper
+	height: $menu_h
+
+.menu__logo
+	div
+		height: $menu_h
+		&:first-child
+			padding-right: $p
+			text-transform: uppercase
+			font-size: 16px
+			line-height: 18px
+		&:last-child
+			position: relative
+
+			padding-left: $p
+
+			font-size: 14px
+			line-height: 20px
+			opacity: $op
+			font-family: 'century gothic'
+			&::before
+				position: absolute
+				content: ''
+
+				top: $p
+				bottom: $p
+				left: 0
+				width: 1px
+
+				background-color: $fc2
+				transform: rotate(15deg)
+			@media (max-width: 450px)
+				display: none

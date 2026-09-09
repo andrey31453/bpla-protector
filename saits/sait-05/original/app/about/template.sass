@@ -1,0 +1,68 @@
+.about
+	position: relative
+	@media (min-width: $d)
+		&::after
+			position: absolute
+			content: ''
+
+			top: 2 * $pl
+			bottom: 0
+			left: 0
+			right: 0
+
+			background-image: url('/wp-content/themes/twentytwentyone/images/about/backgrounds/ua-regular.svg')
+
+			background-position: left 80px
+			background-repeat: no-repeat
+			background-size: 60px auto
+
+			opacity: $op
+	h3
+		text-align: left
+		margin-bottom: 1.5 * $pl
+
+.about__wrapper
+	@media (max-width: $m)
+		flex-direction: column
+
+.about__item
+	position: relative
+	width: 30%
+	@media (min-width: $d)
+		&:last-child
+			width: 40%
+	@media (max-width: $m)
+		text-align: center
+		margin: $p 0
+		width: 100%
+
+.about__greetings
+	font-size: 32px
+	font-family: 'century gothic bold'
+	@media (min-width: $d)
+		text-align: right
+		margin-top: 100px
+.about__img
+	margin-left: auto
+	margin-right: auto
+
+	width: 70%
+	max-width: 300px
+
+	overflow: hidden
+	clip-path: circle(50% at 50% 50%)
+
+.about__qoutes
+	position: absolute
+	z-index: 1
+	@media (min-width: $d)
+		top: 24px
+		left: 36px
+		width: 18%
+	@media (max-width: $m)
+		top: 5%
+		left: 26%
+		width: 12%
+
+.about__text
+	opacity: $ops

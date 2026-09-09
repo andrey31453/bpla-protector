@@ -1,0 +1,26 @@
+.ur-contacts
+	padding-top: 0
+	padding-bottom: $pl
+
+	text-align: center
+	span
+		opacity: $ops
+
+.information
+	padding-top: 2 * $pl
+	a
+		position: relative
+		&:hover span
+			opacity: 1
+		&::before
+			position: absolute
+			content: ''
+
+			top: - $pl - math.div($p, 2)
+			left: - $p
+			right: - $p
+			height: 1px
+
+			opacity: $ops
+			background-color: $fc
+			transform: skew(0, $skew)

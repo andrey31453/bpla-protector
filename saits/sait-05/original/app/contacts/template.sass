@@ -1,0 +1,57 @@
+.contacts
+	padding-top: $psec * 0.5
+	padding-bottom: $psec * 0.5
+
+.contacts__wrapper
+	padding: math.div($psec, 3) $pl
+
+.contacts__item
+	position: relative
+
+	padding-top: $p
+	padding-bottom: $p
+	@media (min-width: $d)
+		width: 33.33%
+	@media (max-width: $m)
+		width: 50px
+	&.--phone
+		@media (max-width: $m)
+			width: calc(100% - 100px)
+	@media (min-width: $d)
+		&::before
+			position: absolute
+			content: ''
+
+			z-index: 5
+			top: 0
+			bottom: 0
+			right: 0
+			width: 1px
+
+			opacity: $op
+			background-color: $fc2
+
+	&:last-child::before
+		opacity: 0
+	svg
+		max-height: 100px
+		@media (min-width: $d)
+			padding: $p
+		@media (max-width: $m)
+			padding: $ps
+
+	.--phone svg
+		max-height: $fzh2
+	svg,
+	span
+		position: relative
+		z-index: 10
+		transition: 0ms all
+	path
+		fill: $fc2
+	&.--wats:hover path
+		fill: url(#__wats)
+	&.--insta:hover path
+		fill: url(#__insta)
+	&.--phone:hover path
+		fill: url(#__phone)
