@@ -1,0 +1,99 @@
+.calculator
+	padding-top: $psec
+	padding-bottom: $psec
+
+.c__inner
+	position: relative
+
+	max-width: 800px
+	margin-left: auto
+	margin-right: auto
+
+.с__form
+	padding-top: $p
+
+.с__user-data__param
+	margin: $ps $p
+	padding: $ps
+	color: $ct2
+	&.__active
+		color: $c
+	&:not(.с__user-data__name):hover
+		border-bottom: 1px dashed $c
+	label
+		cursor: pointer
+
+.с__user-data__name
+	margin-left: 0
+	margin-right: 0
+	min-width: 140px
+	align-items: flex-start
+	span
+		opacity: 0.6
+		border-bottom: 1px dashed $ct2
+	@media(max-width: 510px)
+		width: 100%
+
+.с__user-data__btn
+	display: none
+
+.с__user-data__btn-phone
+	margin-top: 1.5 * $pl
+	padding: $ps $p
+	font-size: $fz
+
+// с__btn
+.с__btn
+	font-size: $fzmin
+	letter-spacing: 0.1rem
+	margin-top: $p
+	padding: $p
+	border: 2px $cb solid
+	cursor: pointer
+	position: relative
+	font-weight: 700
+	color: $ct
+	background-color: $cb
+	text-transform: uppercase
+	&:hover
+		background-color: $c
+		border-color: $c
+	&:active
+		transform: translate(4px, 4px)
+	&:after
+		content: ''
+		position: absolute
+		border: 2px solid $cb
+		border-top-width: 0
+		border-left-width: 0
+		width: calc(100% + 2px)
+		height: calc(100% + 2px)
+		top: 0
+		left: 0
+		transform: translate(4px, 4px)
+	&:hover:after
+		border-color: $c
+	&:active:after
+		transform: translate(0px, 0px)
+
+// __pvh / __tkan
+.__pvh,
+.__tkan
+	display: none
+.__pvh-status .__pvh,
+.__tkan-status .__tkan
+	display: block
+
+// с__bg-img
+.с__bg-img
+	position: absolute
+	top: 20%
+	right: 0
+
+	height: 60%
+	width: auto
+
+	opacity: 0.4
+	@media (max-width: 800px)
+		z-index: -1
+		opacity: 0

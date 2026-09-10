@@ -1,0 +1,62 @@
+.catalog
+	font-family: 'century gothic bold'
+
+// cards
+.c__card__item
+	width: calc(33.3% - 2 * $ps)
+	height: 220px
+	position: relative
+	overflow: hidden
+	margin: $p $ps
+	@media (max-width: $dm)
+		width: calc(50% - 2 * $ps)
+	@media (max-width: $ds)
+		width: calc(100% - 2 * $ps)
+	&:before
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		content: ''
+		z-index: 2
+
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAYAAABirU3bAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2RkFEMjdFOTE3MjA2ODExODIyQUREREI0OUZDQTM1MSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpGNjMyQTM3QTQyNTQxMUU4QjQ2NkE3OEIxRDUyQkNEMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpGNjMyQTM3OTQyNTQxMUU4QjQ2NkE3OEIxRDUyQkNEMSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QjVCRUE5MEUwQzIwNjgxMTgyMkFBNTY1MzhBQzFBM0QiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NkZBRDI3RTkxNzIwNjgxMTgyMkFERERCNDlGQ0EzNTEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6hCcn4AAAAO0lEQVR42mKc0ZXvy8DAsBmIDdJLJ1xgYkCATyACJPCRgeE/kPqvDRJgATIOMTAwwpWBVAgjaWMACDAAb2IK6tIT3yYAAAAASUVORK5CYII=)
+	&:hover:before
+		opacity: 0
+
+.c__card__img
+	// position: absolute
+	// top: 0
+	// left: 0
+	width: 100%
+	height: auto
+	&.__back
+		display: none
+	.c__card__item:hover &.__front
+		display: none
+	.c__card__item:hover &.__back
+		display: block
+
+.c__card__text
+	position: absolute
+	bottom: 0
+	left: 0
+	right: 0
+	z-index: 3
+
+	padding-top: $p
+	padding-bottom: $p
+
+	background-color: $cb2
+	color: $ct2
+
+	text-align: center
+	.__cntrl &
+		background-color: $cb
+		color: $ct
+	.c__card__item:hover &
+		color: $ct
+		background: none
+	.c__card__item.__alt:hover &
+		color: $ct2

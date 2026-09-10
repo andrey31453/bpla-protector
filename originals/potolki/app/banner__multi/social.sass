@@ -1,0 +1,50 @@
+.bm__contacts
+	height: 100px
+	padding-top: $p
+	padding-bottom: $p
+	color: $c
+	font-size: 32px
+	@media(max-width: 670px)
+		justify-content: flex-end
+	@media(max-width: 520px)
+		font-size: 18px
+
+.bm__logo
+	@media(max-width: 670px)
+		display: none
+
+.bm__logo-svg
+	width: 160px
+	.--not-index & path
+		fill: $ct2
+
+.bm__phone-svg
+	width: 32px
+	@media(max-width: 520px)
+		width: 24px
+
+.bm__phone-item
+	padding-left: $ps
+	padding-right: $ps
+
+	color: $ct2
+	&.--wa
+		path
+			fill: #00c83c
+	&.--tg
+		path
+			fill: #00a7e3
+	&.--vb
+		path
+			fill: #8a51a2
+	&.--wa:hover
+		path
+			fill: $ct2
+	&.--tg:hover
+		path
+			fill: $ct2
+	&.--vb:hover
+		path
+			fill: $ct2
+	&.--phone:hover
+		color: $c

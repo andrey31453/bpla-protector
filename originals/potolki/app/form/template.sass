@@ -1,0 +1,212 @@
+// forma 
+.forma
+	position: relative
+	background-image: url('/design/template/images/background-images/cntl-block-3.jpg')
+
+.f__inner
+	border-radius: 0
+	padding: 0 30px 0 30px
+	z-index: 1
+	color: $ct
+	max-width: 800px
+	margin: auto
+	@media(max-width: 500px)
+		padding: 0
+
+.f__user-data-btn
+	padding: 0 15px !important
+	height: 50px
+	box-shadow: none
+	width: 98%
+	border: none
+	border-bottom: 1px $ct80 solid
+	margin-bottom: 3px
+	background: rgba(255, 255, 255, 0.15)
+	color: $ct
+	font-size: $fzh3
+	&:hover
+		border-color: $c60
+	// placeholder
+	&::placeholder
+		color: $ct
+		font-size: $fz
+	&:hover::placeholder
+		color: $c
+	// error
+	&.__error
+		border: 1px $c solid
+	&.__error::placeholder
+		color: $c
+		font-weight: bold
+
+.f__user-data-btn:active
+	background-color: $c !important
+
+// f__btn
+.f__btn
+	font-family: 'century gothic bold'
+	font-size: $fzmin
+	letter-spacing: 0.1rem
+	margin-top: $p
+	padding: $p
+	border: none
+	cursor: pointer
+	position: relative
+	font-weight: 700
+	color: $ct2
+	background-color: $cb2
+	text-transform: uppercase
+	&:hover
+		background-color: $c
+	&:active
+		transform: translate(2px, 2px)
+	&:after
+		content: ''
+		position: absolute
+		border: 2px solid $cb2
+		border-top-width: 0
+		border-left-width: 0
+		width: calc(100% + 2px)
+		height: calc(100% + 2px)
+		top: 0
+		left: 0
+		transform: translate(4px, 4px)
+	&:hover:after
+		border-color: $c
+	&:active:after
+		transform: translate(0px, 0px)
+	&.--cntrl
+		color: $ct
+		background-color: $cb
+		&:hover
+			background-color: $c
+		&:after
+			border-color: $cb
+		&:hover:after
+			border-color: $c
+
+.f__personal
+	font-size: $fzmin
+	margin-top: 20px
+	opacity: 0.4
+	padding-right: $p
+	.__modal &
+		color: $ct2
+
+// __modal 
+.forma.__modal
+	position: fixed
+	opacity: 0
+	cursor: pointer
+	top: -100vh
+	left: 0
+	z-index: 90
+	width: 100%
+	height: 100vh
+	background: none
+
+	transition: 450ms all
+
+.__modal .f__inner
+	max-width: 600px
+	padding-top: $pl
+	padding-bottom: 1.5 * $pl
+	padding-left: 1.5 * $pl
+	padding-right: 50px
+	margin: 0 auto
+	cursor: default
+	position: relative
+	z-index: 100
+	background-color: $cb2
+	@media(max-width: 500px)
+		padding-left: $ps
+		padding-right: 40px
+
+.f__close-button
+	position: absolute
+	right: 0
+	top: 0
+	font-size: 2rem
+	background-color: $cb2
+	width: 50px
+	height: 100%
+	line-height: 34px
+	text-align: center
+	border: 4px solid $cb2
+	cursor: pointer
+	@media(max-width: 500px)
+		width: 40px
+
+.f__close-button:before
+	position: absolute
+	left: -4px
+	top: -4px
+	bottom: -4px
+	width: 4px
+	content: ''
+	background: $cb60
+
+.f__close-button:hover
+	border-color: $c
+	color: $c
+.f__close-button:hover:before
+	opacity: 0
+
+// __active 
+.forma.__modal.__active
+	opacity: 1
+	top: 0
+
+.f__fixed-btn
+	top: 30%
+	right: 10px
+
+// phone
+.f__phone
+	font-size: $fzh1
+	color: $c
+	height: 60px
+	margin-bottom: $pl
+	> *
+		height: 100%
+	@media(max-width: 500px)
+		font-size: 18px
+
+.f__phone-svg
+	width: 40px
+	@media(max-width: 500px)
+		width: 24px
+
+.f__phone-item
+	padding-left: $ps
+	padding-right: $ps
+	&.--phone
+		color: $ct2
+	path
+		fill: $ct2
+	&.--wa:hover
+		path
+			fill: #00c83c
+	&.--tg:hover
+		path
+			fill: #00a7e3
+	&.--vb:hover
+		path
+			fill: #8a51a2
+	&.--phone:hover
+		color: $c
+
+.__cntrl
+	.f__user-data-btn
+		border-color: $cb80
+		color: $ct2
+		&::placeholder
+			color: $ct2
+		&:hover
+			border-color: $c60
+		&:hover::placeholder
+			color: $c
+	.f__close-button
+		color: $ct2
+		&:hover
+			color: $c

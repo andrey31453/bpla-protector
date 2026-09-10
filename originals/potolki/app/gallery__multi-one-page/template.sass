@@ -1,0 +1,146 @@
+.gmop__img-list
+	display: flex
+	justify-content: center
+	flex-wrap: wrap
+
+.gmop__img
+	margin: 4px 3px
+	width: calc(33% - 6px)
+	border: 1px solid $cb2
+	cursor: pointer
+	@media(max-width: 800px)
+		margin: 2px 2px
+		width: calc(50% - 4px)
+	@media(max-width: 450px)
+		width: calc(100% - 4px)
+
+.gmop__img:hover
+	border-color: $c
+
+.gmop__modal-image-inner-inner-container
+	transform: translateY(-600px)
+	position: fixed
+	top: 0
+	left: 20%
+	width: 60%
+	height: 80%
+	z-index: 52
+	opacity: 0
+	display: flex
+	justify-content: center
+	align-content: center
+	@media(max-width: 600px)
+		width: 86%
+		left: 7%
+
+.gmop__modal-image-inner-container
+	display: flex
+	justify-content: center
+	align-content: center
+	flex-direction: column
+.gmop__modal-image-container
+	position: relative
+
+.gmop__modal-window
+	max-width: 100%
+	max-height: 100%
+	box-shadow: 0px 0px 10px 0px $ct60
+
+// buttons 
+.gmop__close-slaider
+	position: absolute
+	top: -50px
+	right: -50px
+	font-size: 5em
+	width: 50px
+	height: 50px
+	border-radius: 60px
+	line-height: 1rem
+	color: $ct2
+	&:hover
+		color: $ct2
+	@media(max-width: 600px)
+		right: -20px
+		font-size: 4em
+
+.gmop__prev-slaid,
+.gmop__next-slaid
+	position: fixed
+	top: 0
+	width: 100px
+	height: 100%
+	cursor: pointer
+	display: flex
+	flex-direction: row
+	svg
+		width: 50%
+		margin: 0 auto
+		@media(max-width: 600px)
+			width: 100%
+	path
+		fill: $ct2
+	&:hover
+		path
+			fill: $c
+	@media(max-width: 600px)
+		width: 7%
+
+.gmop__prev-slaid
+	left: 0
+.gmop__next-slaid
+	right: 0
+
+// __active 
+.gmop__prev-slaid,
+.gmop__next-slaid,
+.gmop__close-slaider
+	opacity: 0
+
+.gmop__modal.__active
+	.gmop__prev-slaid,
+	.gmop__next-slaid,
+	.gmop__close-slaider
+		opacity: 0.7
+
+	.gmop__close-slaider
+		z-index: 53
+
+	.gmop__prev-slaid:hover,
+	.gmop__next-slaid:hover
+		background-color: #00000010
+		opacity: 1
+
+	.gmop__close-slaider:hover
+		color: $c
+
+	.gmop__prev-slaid:hover
+		box-shadow: 1px 0 5px 0 $ct60
+
+	.gmop__next-slaid:hover
+		box-shadow: -1px 0 5px 0 $ct60
+
+	.gmop__modal-image-inner-inner-container
+		transform: translateY(100px)
+		opacity: 1
+
+// страница со всеми галлереями
+.gmop__heading
+	padding-top: $pl
+.gmop__gallery-target
+	position: relative
+	margin-right: $pl
+	position: relative
+	margin-left: 30px
+	&.__active
+		color: $c
+		border-bottom: 1px dashed $c
+	&::before
+		position: absolute
+		left: -30px
+		top: 20%
+		bottom: 0
+		width: 30px
+		content: '.'
+		font-size: 3rem
+		padding-left: 12px
+		line-height: 0

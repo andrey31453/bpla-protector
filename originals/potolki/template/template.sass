@@ -1,0 +1,64 @@
+p
+	margin-top: 0
+	margin-bottom: $p
+
+.container
+	width: 100%
+	padding: 0 $psec
+	margin: 0 auto
+	max-width: 1200px
+
+@media (max-width: 450px)
+	.container
+		padding: 0 $ps
+
+@media (max-width: 350px)
+	.container
+		padding: 0 math.div($ps, 2)
+
+input, button
+	outline: none
+
+html,
+body
+	margin: 0
+	font-family: 'century gothic', -apple-system, sans-serif
+	font-size: $fz
+	font-weight: $fw
+	background-color: $cb
+	color: $ct
+
+h3, .h3, h2, .h2, h1, .h1
+	font-family: 'century gothic bold'
+	margin-top: 0
+	margin-bottom: $p
+	font-weight: $fwh
+
+h1, .h1
+	font-size: $fzh1
+
+h2, .h2
+	font-size: $fzh2
+
+h3, .h3
+	font-size: $fzh3
+
+ol,
+ul
+	padding-left: $p
+	margin-top: 0
+	margin-bottom: $p
+a
+	text-decoration: none
+	color: inherit
+a:hover
+	color: $c
+li
+	margin-bottom: 0.2rem
+table
+	caption-side: bottom
+	border-collapse: collapse
+*:focus-visible
+	outline: none
+*, ::after, ::before
+	box-sizing: border-box

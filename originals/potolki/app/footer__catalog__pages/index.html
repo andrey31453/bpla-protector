@@ -1,0 +1,59 @@
+<section class="footer__catalog__pages __content-section __cntrl">
+	<div class="container">
+		<div class="fcp__content-container __flex">
+
+			<div class="fcp__category-container">
+				<!-- categories -->
+				<div class="fcp__category __flex __fcol">
+					{foreach $categories as $cat}
+					{if $cat->id == 9 || $cat->id == 13 || $cat->id == 38}
+					<a class="fcp__category-link" href="catalog/{$cat->url}"><span>{$cat->name}</span></a>
+
+					<!-- subcategories -->
+					{if $cat->subcategories}
+					{foreach $cat->subcategories as $subcat}
+					<a class="fcp__category-link --sub-cat" href="catalog/{$subcat->url}">{$subcat->name}</a>
+					{/foreach}
+					{/if}
+					<!-- /subcategories -->
+
+					{/if}
+					{/foreach}
+				</div>
+				<!-- /categories -->
+			</div>
+
+			<div class="fcp__category-container">
+				<!-- categories -->
+				<div class="fcp__category __flex __fcol">
+					{foreach $categories as $cat}
+					{if $cat->id != 9 && $cat->id != 13 && $cat->id != 38}
+					<a class="fcp__category-link" href="catalog/{$cat->url}"><span>{$cat->name}</span></a>
+
+					<!-- subcategories -->
+					{if $cat->subcategories}
+					{foreach $cat->subcategories as $subcat}
+					<a class="fcp__category-link --sub-cat" href="catalog/{$subcat->url}">{$subcat->name}</a>
+					{/foreach}
+					{/if}
+					<!-- /subcategories -->
+
+					{/if}
+					{/foreach}
+				</div>
+				<!-- /categories -->
+			</div>
+
+			<div class="fcp__pages-container">
+				<div class="fcp__pages __flex">
+					{foreach $pages as $p}
+					{if $p->menu_id == 1}
+					<a class="fcp__pages-link" href="{$p->url}">{$p->name}</a>
+					{/if}
+					{/foreach}
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>

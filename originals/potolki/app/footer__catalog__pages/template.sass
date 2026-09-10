@@ -1,0 +1,39 @@
+// fcp__heading 
+.fcp__heading
+	padding-bottom: $p
+	span
+		padding-bottom: $ps
+		border-bottom: 1px solid $c
+
+// category 
+.fcp__category-container
+	width: 30%
+	@media (max-width: 600px)
+		width: 100%
+		padding-bottom: $pl
+.fcp__category-link
+	padding-bottom: $p
+	font-weight: bold
+	&:not(.--sub-cat)
+		font-family: 'century gothic bold'
+		text-transform: uppercase
+	&.--sub-cat
+		padding-left: $p
+		opacity: 0.6
+	&:hover
+		color: $c
+	@media (max-width: $dm)
+		width: 100%
+
+// pages 
+.fcp__pages-container
+	width: 30%
+	@media (max-width: $ds)
+		width: 100%
+.fcp__pages-link
+	width: 100%
+	padding-bottom: $p
+	font-size: $fzh3
+	font-weight: bold
+	&:hover
+		color: $c

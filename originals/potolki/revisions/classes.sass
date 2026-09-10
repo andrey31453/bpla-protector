@@ -1,0 +1,33 @@
+.__back-substrate
+	position: relative
+	&:before
+		position: absolute
+		top: 0
+		left: 0
+		bottom: 0
+		right: 0
+		content: ''
+
+		background-color: $cb
+		opacity: 0.5
+	& > *
+		position: relative
+		z-index: 1
+
+// content-section
+.__content-section
+	padding-top: $psec
+	padding-bottom: $psec
+	&:not(.__not-bc) > .container
+		background-color: $cb
+	> .container
+		padding-top: 1.5 * $pl
+		padding-bottom: 1.5 * $pl
+		padding-right: 1.5 * $pl
+		padding-left: 1.5 * $pl
+	&.__cntrl > .container
+		background-color: $cb2
+		background: linear-gradient(-30deg, $cg1, $cg2, $cg3)
+		border: 1px solid $c40
+.__cntrl
+	background: none

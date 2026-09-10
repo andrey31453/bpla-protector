@@ -1,0 +1,147 @@
+<!-- форма в теле страницы -->
+<section class="calculator __cntrl __calculator __content-section  __pvh-status">
+	<div class="container">
+
+		<div class="c__inner">
+
+			<h1>Калькулятор</h1>
+
+			<form class="с__form с__form__internal __form__internal" action="" method="post" enctype="multipart/form-data">
+
+				<div class="с__user-data __flex __fs">
+					<!-- name -->
+					<div class="с__user-data__param с__user-data__name __flex __fcol __fc">
+						<span>
+							Материал:
+						</span>
+					</div>
+					<!-- /name -->
+					<!-- pvh -->
+					<div class="с__user-data__param __user-data__param __active">
+						<label for="pvh">ПВХ</label>
+						<input id="pvh" class="с__user-data__btn __type __active" type="radio" name="с__type" value="ПВХ"
+							data-calc-type='__pvh-status' />
+					</div>
+					<!-- /pvh -->
+					<!-- tkan -->
+					<div class="с__user-data__param __user-data__param">
+						<label for="tkan">Ткань</label>
+						<input id="tkan" class="с__user-data__btn __type" type="radio" name="с__type" value="ТКАНЬ"
+							data-calc-type='__tkan-status' />
+					</div>
+					<!-- /tkan -->
+				</div>
+
+				<div class="с__user-data __flex __fs">
+					<!-- name -->
+					<div class="с__user-data__param с__user-data__name __flex __fcol __fc">
+						<span>
+							Производитель:
+						</span>
+					</div>
+					<!-- /name -->
+					<!-- pvh -->
+					<div class="с__user-data__param __user-data__param __pvh">
+						<label for="manuf__pongs">Pongs</label>
+						<input id="manuf__pongs" class="с__user-data__btn __type__manuf" type="radio" name="с__type__manuf"
+							value="Pongs" />
+					</div>
+					<div class="с__user-data__param __user-data__param __pvh">
+						<label for="manuf__gline">G-line</label>
+						<input id="manuf__gline" class="с__user-data__btn __type__manuf" type="radio" name="с__type__manuf"
+							value="G-line" />
+					</div>
+					<div class="с__user-data__param __user-data__param __pvh">
+						<label for="manuf__descor">Descor</label>
+						<input id="manuf__descor" class="с__user-data__btn __type__manuf" type="radio" name="с__type__manuf"
+							value="Descor" />
+					</div>
+					<!-- /pvh -->
+					<!-- tkan -->
+					<div class="с__user-data__param __user-data__param __tkan">
+						<label for="manuf__clipso">Clipso</label>
+						<input id="manuf__clipso" class="с__user-data__btn __type__manuf" type="radio" name="с__type__manuf"
+							value="Clipso" />
+					</div>
+					<!-- /tkan -->
+				</div>
+
+				<div class="с__user-data __flex __fs">
+					<!-- name -->
+					<div class="с__user-data__param с__user-data__name __flex __fcol __fc">
+						<span>
+							Фактура:
+						</span>
+					</div>
+					<!-- /name -->
+					<!-- pvh -->
+					<div class="с__user-data__param __user-data__param __pvh">
+						<label for="faktura__matov">Матовый</label>
+						<input id="faktura__matov" class="с__user-data__btn __type__faktura" type="radio" name="с__type__faktura"
+							value="Матовый" />
+					</div>
+					<div class="с__user-data__param __user-data__param __pvh">
+						<label for="faktura__satin">Сатиновый</label>
+						<input id="faktura__satin" class="с__user-data__btn __type__faktura" type="radio" name="с__type__faktura"
+							value="Сатиновый" />
+					</div>
+					<div class="с__user-data__param __user-data__param __pvh">
+						<label for="faktura__glyanec">Глянцевый</label>
+						<input id="faktura__glyanec" class="с__user-data__btn __type__faktura" type="radio" name="с__type__faktura"
+							value="Глянцевый" />
+					</div>
+					<!-- /pvh -->
+					<!-- tkan -->
+					<div class="с__user-data__param __user-data__param __tkan">
+						<label for="faktura__tkan">Тканевый</label>
+						<input id="faktura__tkan" class="с__user-data__btn __type__faktura" type="radio" name="с__type__faktura"
+							value="Тканевый" />
+					</div>
+					<!-- /tkan -->
+				</div>
+
+				<div class="с__user-data">
+					<input best="true" class="с__user-data__btn-phone" type="tel" name="с__user-phone" data-required="true"
+						placeholder="Номер телефона *" />
+				</div>
+
+				<button class="с__btn __btn-in-form" type="submit" name="с__btn">
+					Расчёт цены
+				</button>
+
+			</form>
+
+			<svg class="с__bg-img" viewBox="0 0 5200 5200">
+				<path
+					d="M924.99 110.88l3320.93 0c120.53,0 230.03,49.23 309.34,128.52 79.3,79.32 128.54,188.81 128.54,309.34l0 4124.28c0,120.52 -49.24,230.02 -128.54,309.32 -79.31,79.3 -188.81,128.54 -309.34,128.54l-3320.93 0c-120.52,0 -230.02,-49.24 -309.31,-128.54 -79.31,-79.3 -128.54,-188.8 -128.54,-309.32l0 -4124.28c0,-120.52 49.23,-230.02 128.54,-309.34 79.29,-79.29 188.79,-128.52 309.31,-128.52zm3320.93 213.82l-3320.93 0c-61.49,0 -117.49,25.23 -158.14,65.89 -40.64,40.66 -65.88,96.66 -65.88,158.15l0 4124.28c0,61.49 25.24,117.48 65.88,158.14 40.65,40.65 96.65,65.89 158.14,65.89l3320.93 0c61.52,0 117.5,-25.24 158.15,-65.89 40.65,-40.66 65.9,-96.65 65.9,-158.14l0 -4124.28c0,-61.49 -25.25,-117.49 -65.9,-158.15 -40.65,-40.66 -96.63,-65.89 -158.15,-65.89zm-2945.31 1076.53l0 -648.72 2564.7 0 0 693.98 -2519.44 0c-34.76,0 -45.26,-10.5 -45.26,-45.26zm-226.3 -769.41l0 950.44c0,36.32 54.19,90.53 90.51,90.53l2836.26 0c36.33,0 90.53,-54.21 90.53,-90.53l0 -950.44c0,-89.93 -60.89,-120.69 -150.88,-120.69l-2730.65 0c-72.96,0 -135.77,42.83 -135.77,120.69zm2700.48 3107.8l196.12 0 0 724.15 -196.12 0 0 -724.15zm-241.39 -75.43l0 875.02c0,218.1 205.02,165.94 512.94,165.94 89.98,0 150.86,-30.76 150.86,-120.68l0 -965.54c0,-162.82 -280.42,-120.68 -482.76,-120.68 -117.15,0 -181.04,46.37 -181.04,165.94l0 0zm-2338.4 346.99l196.12 0 0 181.03 -196.12 0 0 -181.03zm-226.3 -120.69l0 452.59c0,136.21 371.85,90.53 558.21,90.53 144.47,0 105.59,-359.97 105.59,-497.86 0,-223.22 -196.24,-165.96 -543.1,-165.96 -72.98,0 -120.7,47.72 -120.7,120.7zm1086.23 120.69l196.13 0 0 181.03 -196.13 0 0 -181.03zm-226.29 -120.69l0 452.59c0,136.21 371.85,90.53 558.19,90.53 138.89,0 105.61,-341.37 105.61,-467.68 0,-253.87 -133.33,-196.13 -543.12,-196.13 -72.96,0 -120.68,47.72 -120.68,120.69l0 0zm1086.22 120.69l196.12 0 0 181.03 -196.12 0 0 -181.03zm-241.38 -45.25c0,556.4 -41.97,467.67 543.1,467.67 55.14,0 120.7,-41.64 120.7,-90.52l0 -482.76c0,-134.21 -352.67,-90.53 -528.03,-90.53 -107.59,0 -135.77,87.65 -135.77,196.14l0 0zm1101.31 -1040.97l196.12 0 0 196.12 -196.12 0 0 -196.12zm-241.39 -75.43c0,584.98 -81.01,497.84 573.28,497.84 36.33,0 90.52,-54.18 90.52,-90.51 0,-638.82 89,-573.29 -482.76,-573.29 -117.15,0 -181.04,46.39 -181.04,165.96l0 0zm241.39 -739.24l196.12 0 0 196.13 -196.12 0 0 -196.13zm-241.39 -75.43c0,584.98 -81.01,497.85 573.28,497.85 36.33,0 90.52,-54.19 90.52,-90.51 0,-638.84 89,-573.29 -482.76,-573.29 -117.15,0 -181.04,46.37 -181.04,165.96l0 -0.01zm-618.54 890.1l196.12 0 0 196.12 -196.12 0 0 -196.12zm-241.38 -60.34c0,570.03 -63.31,482.75 558.2,482.75 70.43,0 105.6,-35.17 105.6,-105.59 0,-626.77 85.86,-558.21 -482.77,-558.21 -124.16,0 -181.03,56.87 -181.03,181.05zm241.38 -754.33l196.12 0 0 196.13 -196.12 0 0 -196.13zm-241.38 -60.35c0,570.03 -63.31,482.77 558.2,482.77 70.43,0 105.6,-35.17 105.6,-105.61 0,-626.76 85.86,-558.19 -482.77,-558.19 -124.16,0 -181.03,56.87 -181.03,181.03zm-618.55 875.02l196.13 0 0 196.12 -196.13 0 0 -196.12zm-226.29 -120.69l0 437.51c0,70.42 35.17,105.59 105.6,105.59 621.51,0 558.2,87.28 558.2,-482.75 0,-231.55 -202.33,-181.05 -497.85,-181.05 -89.8,0 -165.95,29.07 -165.95,120.7zm226.29 -693.98l196.13 0 0 196.13 -196.13 0 0 -196.13zm-226.29 -120.7l0 437.51c0,70.44 35.17,105.61 105.6,105.61 621.51,0 558.2,87.26 558.2,-482.77 0,-231.54 -202.33,-181.03 -497.85,-181.03 -89.8,0 -165.95,29.05 -165.95,120.68zm-633.64 935.37l196.12 0 0 196.12 -196.12 0 0 -196.12zm-226.3 -120.69l0 452.59c0,36.33 54.2,90.51 90.52,90.51l452.6 0c168.82,0 120.68,-266.98 120.68,-497.84 0,-211.2 -192.87,-165.96 -467.67,-165.96 -102.52,0 -196.12,17.3 -196.12,120.7l-0.01 0zm226.3 -693.98l196.12 0 0 196.13 -196.12 0 0 -196.13zm-226.3 -120.7l0 452.61c0,36.32 54.2,90.51 90.52,90.51l452.6 0c168.82,0 120.68,-266.98 120.68,-497.85 0,-211.19 -192.87,-165.95 -467.67,-165.95 -102.52,0 -196.12,17.3 -196.12,120.68l-0.01 0z" />
+			</svg>
+
+		</div>
+
+	</div>
+</section>
+<!-- /форма в теле страницы -->
+
+<!-- скрипт отправки -->
+{php} if (isset($_POST["с__btn"]) && isset($_POST["antirobotpro"]) &&
+$_POST["antirobotpro"] == "gdfg56FG423er") { $to = "info@sait-myt.ru"; $subject
+= "Заявка на сайт"; $charset = "utf-8"; $un = strtoupper(uniqid(time())); $head
+= "Mime-Version: 1.0\r\n"; $head .= "Content-Type:multipart/mixed;"; $head .=
+"boundary=\"----------".$un."\"\n\n"; $body =
+"------------".$un."\nContent-Type:text/html; charset=$charset\r\n";
+
+$msg =
+"Тип потолка: ".$_POST["с__type"]."\n<br />".
+"Производитель: ".$_POST["с__type__manuf"]."\n<br />".
+"Фактура: ".$_POST["с__type__faktura"]."\n<br />".
+"Телефон: ".$_POST["с__user-phone"]."\n<br />". "";
+
+$body .= "Content-Transfer-Encoding:
+8bit\n\n".$msg."\n\n"; mail($to, $subject, $body, $head);
+
+print "
+<script>
+	alert('Сообщение успешно отправлено!'); window.location = '".$_SERVER['REQUEST_URI']."';
+</script>
+"; } {/php}
+<!-- /скрипт отправки -->

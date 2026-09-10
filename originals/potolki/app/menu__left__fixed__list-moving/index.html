@@ -1,0 +1,100 @@
+<section class="menu__left__fixed__list-moving">
+
+	<!-- substrate -->
+	<div class="substrate" data-close="true"></div>
+	<!-- /substrate -->
+
+	<div class="mlflm__menu-container">
+
+		<!-- mlflm__btn -->
+		<div class="mlflm__btn">
+			<div class="mlflm__btn-icon __btn __flex __fcol __fc" data-y_pos='0'>
+				<div class="mlflm__btn-icon__item __top"></div>
+				<div class="mlflm__btn-icon__item __middle"></div>
+				<div class="mlflm__btn-icon__item __bottom"></div>
+			</div>
+		</div>
+		<!-- /mlflm__btn -->
+
+
+		<nav class="mlflm__item-container --index">
+
+			<!-- index -->
+			<li class="mlflm__item __index">
+				<a class="mlflm__link" href="/">Главная</a>
+			</li>
+			<!-- /index -->
+
+			<!-- categories -->
+			<li class="mlflm__separator"></li>
+			{if $categories}
+			{foreach $categories as $c}
+			<li class="mlflm__item mlflm__catalog-item">
+				<a class="mlflm__link" href="catalog/{$c->url}">
+					{$c->name}
+				</a>
+				{if $c->subcategories}
+				<span class="mlflm__target-for-inner-menu">
+					<svg class="--open" viewBox="0 0 448 512">
+						<path
+							d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z">
+						</path>
+					</svg>
+
+					<svg class="--close" viewBox="0 0 448 512">
+						<path
+							d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z">
+						</path>
+					</svg>
+				</span>
+				<div class="mlflm__box">
+
+					<ul class="mlflm__item-container">
+						{foreach $c->subcategories as $cat}
+						<li class="mlflm__item mlflm__item-2">
+							<a class="mlflm__link mlflm__link-2" href="catalog/{$cat->url}">{$cat->name}</a>
+							{if $cat->subcategories}
+							<ul id="mlflm__item-container">
+								{foreach $cat->subcategories as $cat3}
+								{if $cat3->visible}
+								<li class="mlflm__item mlflm__item-3">
+									<a class="mlflm__link mlflm__link-3" href="catalog/{$cat3->url}">{$cat3->name}</a>
+								</li>
+								{/if}
+								{/foreach}
+							</ul>
+							{/if}
+						</li>
+						{/foreach}
+					</ul>
+
+				</div>
+				{/if}
+			</li>
+			{/foreach}
+			{/if}
+			<!-- /categories -->
+
+			<!-- pages -->
+			<li class="mlflm__separator"></li>
+			{foreach $pages as $p}
+			{* Выводим только страницы из первого меню *}
+			{if $p->menu_id == 1}
+			<li class="mlflm__item mlflm__page-item" {if $page->id == $p->id}class="selected"{/if}>
+				<a class="mlflm__link" data-page="{$p->id}" href="{$p->url}">{$p->name|escape}</a>
+			</li>
+			{/if}
+			{/foreach}
+			<li class="mlflm__item mlflm__page-item">
+				<a class="mlflm__link" href="#contacts">Контакты</a>
+			</li>
+			<!-- /pages -->
+
+			<!-- callback -->
+			<li class="mlflm__separator"></li>
+			<button class="mlflm__f-btn --cntrl f__btn __btn-call-form">Обратный&nbsp;звонок</button>
+			<!-- /callback -->
+		</nav>
+	</div>
+
+</section>

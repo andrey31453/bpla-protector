@@ -1,0 +1,226 @@
+// .lmfl
+.menu__left__fixed__list-moving
+	position: absolute
+	padding-top: 0
+	padding-bottom: 0
+	ul
+		padding-left: 0
+		margin-bottom: 0
+	::-webkit-scrollbar,
+	::-webkit-scrollbar-button,
+	::-webkit-scrollbar-track,
+	::-webkit-scrollbar-thumb
+		display: none
+//
+// mlflm__menu-container
+//
+.mlflm__menu-container
+	position: fixed
+	top: 0
+	bottom: 0
+
+	left: -300px
+	right: calc(100% - 50px)
+
+	z-index: 65
+	overflow: auto
+	.__active &
+		left: 0
+		right: calc(100% - 350px)
+
+//
+// btn
+//
+.mlflm__btn
+	position: absolute
+	top: 0
+	bottom: 0
+	left: 300px
+	right: 0
+	z-index: 5
+
+	.__active &
+		background-color: $cb2
+
+.mlflm__btn-icon
+	cursor: pointer
+	width: 50px
+	height: 50px
+
+	position: absolute
+	left: 0
+	top: 25px
+	transition: 100ms top ease-out
+	&:hover,
+	&:active
+		.mlflm__btn-icon__item
+			background-color: $c
+
+.mlflm__btn-icon__item
+	height: 8px
+	width: 40px
+
+	margin-top: 4px
+	margin-bottom: 4px
+	background-color: $ct2
+	@media(max-width: 1200px)
+		background-color: $c
+		border: 1px solid $ct60
+	@media(max-width: 520px)
+		height: 6px
+		width: 30px
+
+		margin-top: 3px
+		margin-bottom: 3px
+
+.__active
+	.__middle
+		visibility: hidden
+	.__top
+		transform: rotate(45deg) translate(10px, 12px)
+		@media(max-width: 520px)
+			transform: rotate(45deg) translate(9px, 9px)
+	.__bottom
+		transform: rotate(-45deg) translate(12px, -12px)
+		@media(max-width: 520px)
+			transform: rotate(-45deg) translate(8px, -8px)
+
+//
+// item-container
+//
+.mlflm__item-container
+	&.--index
+		position: relative
+		z-index: 0
+		padding-top: 25px
+		min-height: 100vh
+		overflow: auto
+	.__active &
+		background-color: $cb2
+
+.mlflm__item
+	list-style: none
+	margin-bottom: 0
+	width: 300px
+
+.mlflm__item-container
+	margin-top: 0
+
+// __index
+.__index
+	display: none
+	@media (max-width: 600px)
+		display: block
+
+// .lmfl li
+.mlflm__link
+	padding-top: $ps
+	padding-bottom: $ps
+	padding-left: $pl
+	padding-right: $pl
+	background-repeat: no-repeat
+	background-position: 14px 8px
+	background-size: auto 20px
+	text-decoration: none
+	color: $ct2
+	display: block
+	text-transform: uppercase
+
+.mlflm__link:hover
+	background-color: $cb280
+
+.mlflm__link:hover
+	color: $c
+
+.mlflm__separator
+	position: relative
+	height: 50px
+	&:before
+		position: absolute
+		content: ''
+
+		top: 50%
+		right: 110px
+		left: 30px
+		height: 1px
+
+		opacity: 0.2
+		background-color: $ct2
+
+// __active
+.menu__left__fixed__list-moving.__active
+	width: 100%
+
+// item-2-container
+.mlflm__link-2
+	margin-left: 0
+
+.menu__left__fixed__list-moving.__active .mlflm__link-2
+	margin-left: 20px
+.menu__left__fixed__list-moving.__active .mlflm__link-3
+	margin-left: 40px
+
+// f-btn
+.mlflm__f-btn
+	margin-left: $pl
+	margin-right: $pl
+
+// mlflm__box
+.mlflm__box
+	opacity: 0.6
+.mlflm__box
+	display: none
+
+.__innerMenuExists
+	position: relative
+
+.__innerMenuExists .mlflm__target-For-Inner-Menu
+	display: block
+
+// target-for-inner-menu
+.mlflm__item
+	position: relative
+.mlflm__target-for-inner-menu
+	position: absolute
+
+	right: 0
+	top: 0
+	width: 34px
+	height: 34px
+
+	cursor: pointer
+	svg
+		margin: 8px
+		width: 18px
+		height: 18px
+	path
+		opacity: 0.6
+		fill: $ct2
+	&:hover path
+		opacity: 1
+		fill: $c
+	&:not(.--active)
+		.--close
+			display: none
+	&.--active
+		.--open
+			display: none
+		&.--active + .mlflm__box
+			display: block
+// media
+@media (max-width: 830px)
+	body
+		margin-left: 0
+
+	.menu__left__fixed__list-moving
+		height: 51px
+		border-bottom: 1px solid $ct2
+		z-index: 49
+
+	.menu__left__fixed__list-moving.__active
+		height: 100%
+		z-index: 99
+		border-bottom: none
+
+	.menu__left__fixed__list-moving > .mlflm__item-container
+		margin-top: 30px

@@ -1,0 +1,38 @@
+.footer-line
+	padding-top: $p
+	padding-bottom: $p
+	color: $ct2
+
+.fl__phone-item,
+.fl__mail-item
+	padding-left: $ps
+	padding-right: $ps
+	font-size: $fzh1
+
+.fl__phone-item
+	color: $c
+	&:hover
+		color: $ct2
+		path
+			fill: $ct2 !important
+
+.fl__phone-svg
+	height: 30px
+	@media(max-width: 400px)
+		margin-top: $ps
+		margin-bottom: $ps
+
+.fl__items
+	@media(max-width: 1000px)
+		justify-content: space-evenly
+	@media(max-width: 600px)
+		justify-content: center
+
+.fl__item
+	height: 40px
+	@media(max-width: 600px)
+		width: 100%
+
+.fl__phone
+	@media(max-width: 600px)
+		justify-content: center

@@ -1,0 +1,27 @@
+.go-top__quadr
+	bottom: 10px
+	right: 10px
+
+// внешние стили кнопки (для использования на других кнопках)
+.__fixed-btn
+	position: fixed
+	width: 45px
+	height: 45px
+	border: 1px solid $ct
+	background-color: $cb
+	cursor: pointer
+	z-index: 10
+	opacity: 0
+	&.__active
+		opacity: 1
+	// svg style
+	path
+		fill: $ct
+	&:hover
+		background-color: $c
+
+	// svg size
+	svg
+		width: 35px
+		padding-left: 8px
+		padding-top: 8px

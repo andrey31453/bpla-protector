@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Защитные конструкции от БПЛА — ЕВРОСТАЛЬ · ЗОК</title>
+  <meta name="description" content="Проектируем, изготавливаем и монтируем защитные ограждающие конструкции (ЗОК) от БПЛА для промышленных объектов. Расчёт по СП 542.1325800.2024, моделирование в ANSYS и LS-DYNA." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23feda4a' stroke-width='1.5'%3E%3Cpath d='M12 2 3 7v5c0 5 3.8 8.6 9 10 5.2-1.4 9-5 9-10V7l-9-5z'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section id="hero" class="relative flex min-h-screen items-center overflow-hidden pt-[72px]">
+      <div class="stars-bg" aria-hidden="true">
+        <div class="stars __fsmall"></div>
+        <div class="stars __small"></div>
+        <div class="stars __fmedium"></div>
+        <div class="stars __medium"></div>
+        <div class="stars __fbig"></div>
+        <div class="stars __big"></div>
+      </div>
+
+      <div class="relative z-10 wrap grid gap-12 py-20 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+        <div>
+          <span class="reveal inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold">
+            <span class="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_10px_2px_rgba(254,218,74,0.7)]"></span>
+            Инженерно-механическая защита · 24/7
+          </span>
+
+          <h1 class="reveal mt-6 font-heading text-4xl font-bold leading-[1.04] tracking-tight sm:text-5xl lg:text-6xl" style="--d:.05s">
+            Защитные конструкции <span class="text-gold text-glow">от БПЛА</span> для промышленных объектов
+          </h1>
+
+          <p class="reveal mt-6 max-w-xl text-lg leading-relaxed text-ghost" style="--d:.1s">
+            Проектируем, изготавливаем и монтируем металлоконструкции с защитным сетчатым контуром
+            для кровель, технологических площадок и критически важных узлов объекта. Решения
+            разрабатываются с учётом СП&nbsp;542.1325800.2024, исходных данных объекта и расчётных нагрузок.
+          </p>
+
+          <div class="reveal mt-8 flex flex-wrap gap-4" style="--d:.15s">
+            <a href="#kontakty" class="btn btn-gold">Получить предварительный расчёт</a>
+            <a href="#cikl" class="btn btn-ghost">Как это работает</a>
+          </div>
+
+          <div class="reveal mt-12 grid max-w-xl grid-cols-3 gap-6" style="--d:.2s">
+            <div class="border-l border-gold/40 pl-4">
+              <p class="num text-3xl font-bold text-saber text-glow-saber">24/7</p>
+              <p class="mt-1 text-xs uppercase tracking-[0.14em] text-ghost">пассивная защита</p>
+            </div>
+            <div class="border-l border-gold/40 pl-4">
+              <p class="num text-3xl font-bold text-gold">360°</p>
+              <p class="mt-1 text-xs uppercase tracking-[0.14em] text-ghost">контур по проекту</p>
+            </div>
+            <div class="border-l border-gold/40 pl-4">
+              <p class="num text-3xl font-bold text-sith">1</p>
+              <p class="mt-1 text-xs uppercase tracking-[0.14em] text-ghost">подрядчик «под ключ»</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal relative" style="--d:.15s">
+          <div class="absolute -inset-4 rounded-3xl bg-gold/10 blur-2xl"></div>
+          <figure class="relative overflow-hidden rounded-2xl border border-white/10 bg-space-800">
+            <img src="/img/hero-zok.webp" alt="Защитная конструкция от БПЛА" class="h-full w-full object-cover" loading="eager" />
+            <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-space-950/95 to-transparent p-5">
+              <span class="kicker">Концептуальная схема</span>
+              <p class="mt-1 text-sm text-ghost">Сетчатый защитный контур на несущем стальном каркасе</p>
+            </figcaption>
+          </figure>
+          <div class="absolute -bottom-6 -left-4 panel px-4 py-3 shadow-2xl backdrop-blur sm:-left-6">
+            <p class="num text-2xl font-bold text-gold text-glow">СП 542.1325800.2024</p>
+            <p class="text-xs text-ghost">нормативная база ЗОК</p>
+          </div>
+        </div>
+      </div>
+
+      <a href="#contur" aria-label="Вниз" class="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 text-ghost transition-colors hover:text-gold lg:block">
+        <svg viewBox="0 0 24 24" class="h-6 w-6 animate-bounce" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </a>
+    </section>
+    <!-- ===== ЗАЩИТНЫЙ КОНТУР ===== -->
+    <section id="contur" class="relative bg-space-850 py-24">
+      <div class="wrap">
+        <div class="max-w-3xl">
+          <p class="kicker reveal">01 · Защитный контур</p>
+          <h2 class="reveal mt-3 font-heading text-3xl font-bold sm:text-4xl">Несущая система, рассчитанная под конкретный объект</h2>
+          <p class="reveal mt-5 text-lg leading-relaxed text-ghost" style="--d:.05s">
+            Защитная ограждающая конструкция — это пространственная система: стальной каркас,
+            тросовый контур, сетчатое полотно и расчётные узлы крепления. Конфигурация, материалы
+            и шаг ячейки определяются после обследования и инженерного расчёта объекта.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-5 md:grid-cols-3">
+          <div class="panel panel-hover reveal p-6" style="--d:.05s">
+            <div class="grid h-11 w-11 place-items-center rounded-lg border border-gold/30 bg-gold/5 text-gold">
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20 20 4M4 20h5M4 20v-5M14 4h6v6"/></svg>
+            </div>
+            <h3 class="mt-4 font-heading text-xl font-bold">Стальной каркас</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ghost">
+              Несущая система из металлоконструкций с антикоррозионной защитой принимает нагрузку
+              и передаёт её на самостоятельные фундаменты или проверенные элементы здания.
+            </p>
+          </div>
+          <div class="panel panel-hover reveal p-6" style="--d:.1s">
+            <div class="grid h-11 w-11 place-items-center rounded-lg border border-saber/30 bg-saber/5 text-saber">
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21V8l9-5 9 5v13M3 21h18M9 21v-6h6v6"/></svg>
+            </div>
+            <h3 class="mt-4 font-heading text-xl font-bold">Конфигурация под объект</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ghost">
+              Геометрия, пролёты, выносы и точки опирания назначаются по плану объекта,
+              допустимым нагрузкам и схеме технологического доступа.
+            </p>
+          </div>
+          <div class="panel panel-hover reveal p-6" style="--d:.15s">
+            <div class="grid h-11 w-11 place-items-center rounded-lg border border-yoda/30 bg-yoda/5 text-yoda">
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3 class="mt-4 font-heading text-xl font-bold">Пассивный рубеж 24/7</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ghost">
+              Конструкция работает без электропитания и оператора: физический барьер сохраняет
+              назначение как постоянный рубеж защиты.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-16">
+          <h3 class="reveal font-heading text-2xl font-bold">Пассивный рубеж — пять этапов</h3>
+          <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <li class="panel reveal p-5" style="--d:.05s">
+              <span class="num text-sm font-bold text-gold">01</span>
+              <p class="mt-2 font-semibold">Обследование объекта</p>
+              <p class="mt-1 text-sm text-ghost">Обмеры, фотофиксация, точки опирания и коммуникации.</p>
+            </li>
+            <li class="panel reveal p-5" style="--d:.1s">
+              <span class="num text-sm font-bold text-gold">02</span>
+              <p class="mt-2 font-semibold">Расчёт нагрузок</p>
+              <p class="mt-1 text-sm text-ghost">Сценарии воздействия и несущая способность системы.</p>
+            </li>
+            <li class="panel reveal p-5" style="--d:.15s">
+              <span class="num text-sm font-bold text-gold">03</span>
+              <p class="mt-2 font-semibold">Проектирование</p>
+              <p class="mt-1 text-sm text-ghost">Компоновка, узлы крепления, спецификация.</p>
+            </li>
+            <li class="panel reveal p-5" style="--d:.2s">
+              <span class="num text-sm font-bold text-gold">04</span>
+              <p class="mt-2 font-semibold">Изготовление</p>
+              <p class="mt-1 text-sm text-ghost">Каркас, антикоррозионная защита, контроль качества.</p>
+            </li>
+            <li class="panel reveal p-5" style="--d:.25s">
+              <span class="num text-sm font-bold text-gold">05</span>
+              <p class="mt-2 font-semibold">Монтаж и сдача</p>
+              <p class="mt-1 text-sm text-ghost">Сборка, натяжение контура, передача документации.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- ===== ПРИМЕРЫ ИСПОЛНЕНИЯ ===== -->
+    <section id="primery" class="relative bg-space-900 py-24">
+      <div class="wrap">
+        <div class="max-w-3xl">
+          <p class="kicker reveal">02 · Примеры исполнения</p>
+          <h2 class="reveal mt-3 font-heading text-3xl font-bold sm:text-4xl">От локального каркаса до защиты большой площадки</h2>
+          <p class="reveal mt-5 text-lg leading-relaxed text-ghost" style="--d:.05s">
+            Показываем возможные форматы инженерных сооружений: отдельные опоры, пространственные
+            фермы, сетчатые перекрытия и модульные защитные камеры.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="panel panel-hover reveal overflow-hidden" style="--d:.05s">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img src="/img/example-1.webp" alt="Сетчатый контур над логистическим комплексом" class="h-full w-full object-cover" loading="lazy" />
+              <span class="num absolute left-4 top-4 rounded-md bg-space-950/80 px-2 py-1 text-xs font-bold text-gold backdrop-blur">01</span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-heading text-lg font-bold leading-snug">Сетчатый контур над логистическим комплексом</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ghost">Большепролётная система на самостоятельных мачтах с верхним и периметральным защитным полотном.</p>
+            </div>
+          </article>
+          <article class="panel panel-hover reveal overflow-hidden" style="--d:.1s">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img src="/img/example-2.webp" alt="Автономный каркас вокруг здания" class="h-full w-full object-cover" loading="lazy" />
+              <span class="num absolute left-4 top-4 rounded-md bg-space-950/80 px-2 py-1 text-xs font-bold text-gold backdrop-blur">02</span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-heading text-lg font-bold leading-snug">Автономный каркас вокруг здания</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ghost">Локальная защита технического корпуса с отдельными опорами, сервисным проходом и воротами.</p>
+            </div>
+          </article>
+          <article class="panel panel-hover reveal overflow-hidden" style="--d:.15s">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img src="/img/example-3.webp" alt="Модульная защитная камера" class="h-full w-full object-cover" loading="lazy" />
+              <span class="num absolute left-4 top-4 rounded-md bg-space-950/80 px-2 py-1 text-xs font-bold text-gold backdrop-blur">03</span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-heading text-lg font-bold leading-snug">Модульная защитная камера</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ghost">Сборно-разборное решение для компактного оборудования с жёстким нижним контуром и сетчатым перекрытием.</p>
+            </div>
+          </article>
+          <article class="panel panel-hover reveal overflow-hidden" style="--d:.05s">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img src="/img/example-4.jpg" alt="Каркас вокруг технологических узлов" class="h-full w-full object-cover" loading="lazy" />
+              <span class="num absolute left-4 top-4 rounded-md bg-space-950/80 px-2 py-1 text-xs font-bold text-gold backdrop-blur">04</span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-heading text-lg font-bold leading-snug">Каркас вокруг технологических узлов</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ghost">Пространственная конструкция для защиты резервуаров, трансформаторов и критических агрегатов.</p>
+            </div>
+          </article>
+          <article class="panel panel-hover reveal overflow-hidden" style="--d:.1s">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img src="/img/example-5.jpg" alt="Контур на самостоятельных опорах" class="h-full w-full object-cover" loading="lazy" />
+              <span class="num absolute left-4 top-4 rounded-md bg-space-950/80 px-2 py-1 text-xs font-bold text-gold backdrop-blur">05</span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-heading text-lg font-bold leading-snug">Контур на самостоятельных опорах</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ghost">Перекрытие локальной открытой площадки без передачи нагрузки на защищаемое оборудование.</p>
+            </div>
+          </article>
+          <article class="panel panel-hover reveal overflow-hidden" style="--d:.15s">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img src="/img/example-6.webp" alt="Мачты, фермы и узлы натяжения" class="h-full w-full object-cover" loading="lazy" />
+              <span class="num absolute left-4 top-4 rounded-md bg-space-950/80 px-2 py-1 text-xs font-bold text-gold backdrop-blur">06</span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-heading text-lg font-bold leading-snug">Мачты, фермы и узлы натяжения</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ghost">Несущая система для протяжённых пролётов с секционным монтажом и обслуживанием полотна.</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="reveal mt-10 rounded-xl border border-gold/20 bg-gold/5 p-4 text-sm text-ghost" style="--d:.05s">
+          <span class="font-semibold text-gold">Важно.</span> Материалы иллюстрируют варианты конструктивной реализации и не являются рабочей документацией.
+          Геометрия, опоры, материалы, размер ячейки и узлы крепления определяются после обследования и инженерного расчёта конкретного объекта.
+        </p>
+      </div>
+    </section>
+    <!-- ===== ПОЛНЫЙ ЦИКЛ И КОМПЛЕКСНАЯ ЗАЩИТА ===== -->
+    <section id="cikl" class="relative overflow-hidden py-24">
+      <div class="stars-bg" aria-hidden="true">
+        <div class="stars __fsmall"></div>
+        <div class="stars __small"></div>
+        <div class="stars __fmedium"></div>
+        <div class="stars __medium"></div>
+        <div class="stars __fbig"></div>
+        <div class="stars __big"></div>
+      </div>
+
+      <div class="wrap relative z-10">
+        <div class="max-w-3xl">
+          <p class="kicker reveal">03 · Полный цикл и комплексная защита</p>
+          <h2 class="reveal mt-3 font-heading text-3xl font-bold sm:text-4xl">От проекта до готового контура защиты</h2>
+          <p class="reveal mt-5 text-lg leading-relaxed text-ghost" style="--d:.05s">
+            Проектируем механическую ЗОК, при необходимости объединяем её с системами радиоподавления,
+            изготавливаем и монтируем решение на объекте.
+          </p>
+        </div>
+
+        <h3 class="reveal mt-14 font-heading text-2xl font-bold">Два рубежа защиты</h3>
+        <div class="mt-6 grid gap-5 md:grid-cols-3">
+          <div class="panel panel-hover reveal p-6" style="--d:.05s">
+            <span class="num text-sm font-bold text-gold">01</span>
+            <h4 class="mt-3 font-heading text-lg font-bold">Механический контур</h4>
+            <p class="mt-2 text-sm leading-relaxed text-ghost">Физически защищает выбранные зоны и оборудование.</p>
+          </div>
+          <div class="panel panel-hover reveal p-6" style="--d:.1s">
+            <span class="num text-sm font-bold text-saber">02</span>
+            <h4 class="mt-3 font-heading text-lg font-bold">Радиоподавление</h4>
+            <p class="mt-2 text-sm leading-relaxed text-ghost">Воздействует на каналы управления и навигации в предусмотренном для объекта сценарии.</p>
+          </div>
+          <div class="panel panel-hover reveal p-6" style="--d:.15s">
+            <span class="num text-sm font-bold text-sith">03</span>
+            <h4 class="mt-3 font-heading text-lg font-bold">Единый проект</h4>
+            <p class="mt-2 text-sm leading-relaxed text-ghost">Согласует зоны защиты, размещение оборудования, доступ и эксплуатационные ограничения.</p>
+          </div>
+        </div>
+
+        <h3 class="reveal mt-14 font-heading text-2xl font-bold">Этапы работ</h3>
+        <ol class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <li class="panel reveal p-5" style="--d:.05s">
+            <span class="num text-sm font-bold text-gold">01</span>
+            <p class="mt-2 font-semibold">Сбор исходных данных</p>
+            <p class="mt-1 text-sm text-ghost">Планы, размеры, фотографии и ограничения.</p>
+          </li>
+          <li class="panel reveal p-5" style="--d:.1s">
+            <span class="num text-sm font-bold text-gold">02</span>
+            <p class="mt-2 font-semibold">Обследование объекта</p>
+            <p class="mt-1 text-sm text-ghost">Места опирания, коммуникации и проезды.</p>
+          </li>
+          <li class="panel reveal p-5" style="--d:.15s">
+            <span class="num text-sm font-bold text-gold">03</span>
+            <p class="mt-2 font-semibold">Концепция и расчёты</p>
+            <p class="mt-1 text-sm text-ghost">Компоновка, нагрузки, узлы крепления.</p>
+          </li>
+          <li class="panel reveal p-5" style="--d:.2s">
+            <span class="num text-sm font-bold text-gold">04</span>
+            <p class="mt-2 font-semibold">Рабочая документация</p>
+            <p class="mt-1 text-sm text-ghost">Чертежи, спецификации, согласование.</p>
+          </li>
+          <li class="panel reveal p-5" style="--d:.25s">
+            <span class="num text-sm font-bold text-gold">05</span>
+            <p class="mt-2 font-semibold">Изготовление</p>
+            <p class="mt-1 text-sm text-ghost">Каркас, антикоррозионная защита, контроль.</p>
+          </li>
+          <li class="panel reveal p-5" style="--d:.3s">
+            <span class="num text-sm font-bold text-gold">06</span>
+            <p class="mt-2 font-semibold">Монтаж и сдача</p>
+            <p class="mt-1 text-sm text-ghost">Сборка, натяжение контура, передача документации.</p>
+          </li>
+        </ol>
+
+        <div class="reveal mt-12 flex flex-col items-start justify-between gap-6 rounded-2xl border border-gold/25 bg-gold/5 p-7 sm:flex-row sm:items-center" style="--d:.05s">
+          <p class="max-w-2xl text-ghost">
+            <span class="font-semibold text-gold">На выходе:</span> согласованное инженерное решение, рабочая документация,
+            изготовление и монтаж с возможностью дальнейшего обслуживания.
+          </p>
+          <a href="#kontakty" class="btn btn-gold shrink-0">Обсудить проект</a>
+        </div>
+      </div>
+    </section>
+    <!-- ===== РАСЧЁТНЫЙ СЦЕНАРИЙ ===== -->
+    <section id="raschet" class="relative overflow-hidden py-24">
+      <div class="stars-bg" aria-hidden="true">
+        <div class="stars __fsmall"></div>
+        <div class="stars __small"></div>
+        <div class="stars __fmedium"></div>
+        <div class="stars __medium"></div>
+        <div class="stars __fbig"></div>
+        <div class="stars __big"></div>
+      </div>
+
+      <div class="wrap relative z-10">
+        <div class="max-w-3xl">
+          <p class="kicker reveal">04 · Расчётный сценарий</p>
+          <h2 class="reveal mt-3 font-heading text-3xl font-bold sm:text-4xl">Доказательная база: расчёт, а не типовое решение</h2>
+          <p class="reveal mt-5 text-lg leading-relaxed text-ghost" style="--d:.05s">
+            Каждая система разрабатывается строго под конфигурацию объекта с учётом ландшафта,
+            архитектуры зданий и потенциальных угроз. Применяется математическое моделирование
+            в ANSYS и LS-DYNA — точный цифровой расчёт физики удара и прочности элементов.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-2">
+          <div class="panel reveal p-6 sm:p-7" style="--d:.05s">
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="font-heading text-xl font-bold">Расчётный БПЛА</h3>
+              <span class="rounded-full border border-sith/30 bg-sith/10 px-3 py-1 text-xs font-semibold text-sith">«Лютый» (Ан-196) / FP-1</span>
+            </div>
+            <p class="mt-2 text-sm text-ghost">Удар дальнобойного БПЛА по кровле критического объекта.</p>
+            <table class="mt-5 w-full text-sm">
+              <tbody class="divide-y divide-white/10">
+                <tr>
+                  <td class="py-2.5 pr-4 text-ghost">Тип атаки</td>
+                  <td class="py-2.5 font-medium">Удар сверху по кровле</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-4 text-ghost">Взлётная масса</td>
+                  <td class="py-2.5 font-medium">&gt;200 кг</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-4 text-ghost">Масса БЧ</td>
+                  <td class="py-2.5 font-medium">50–75 кг; до 120 кг у FP-1</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-4 text-ghost">Скорость встречи</td>
+                  <td class="py-2.5 font-medium">42–55 м/с</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-4 text-ghost">Энергия удара</td>
+                  <td class="py-2.5 font-medium text-gold">180–300 кДж</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-4 text-ghost">Дальность</td>
+                  <td class="py-2.5 font-medium">1000–1300 км</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-4 text-ghost">Габариты</td>
+                  <td class="py-2.5 font-medium">4,4 × 6,7 м</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-4 text-ghost">Наведение</td>
+                  <td class="py-2.5 font-medium">ИНС + GPS-коррекция</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="panel panel-hover reveal p-5" style="--d:.1s">
+              <p class="num text-3xl font-bold text-gold text-glow">180–300 кДж</p>
+              <p class="mt-2 text-sm text-ghost">Энергия удара планёра до срабатывания боевой части.</p>
+            </div>
+            <div class="panel panel-hover reveal p-5" style="--d:.15s">
+              <p class="num text-3xl font-bold text-saber text-glow-saber">47,9 кДж</p>
+              <p class="mt-2 text-sm text-ghost">Предельная ударная энергия сети 60×60×4,6 по испытаниям МЧС России.</p>
+            </div>
+            <div class="panel panel-hover reveal p-5" style="--d:.2s">
+              <p class="num text-lg font-bold leading-snug text-gold">СП 542.1325800.2024</p>
+              <p class="mt-2 text-sm text-ghost">«Защитные ограждающие конструкции от БПЛА» — нормативная база.</p>
+            </div>
+            <div class="panel panel-hover reveal p-5" style="--d:.25s">
+              <p class="num text-lg font-bold leading-snug text-sith">ANSYS · LS-DYNA · AUTODYN</p>
+              <p class="mt-2 text-sm text-ghost">Явная динамика и контроль достоверности по энергетическому балансу.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 grid gap-6 lg:grid-cols-2">
+          <div class="panel reveal p-6 sm:p-7" style="--d:.05s">
+            <h3 class="font-heading text-xl font-bold">Анализ направлений захода</h3>
+            <p class="mt-2 text-sm text-ghost">
+              Траектории рассчитываются методом цифрового моделирования «Провидение»:
+              «макромаршрут → обучаемый агент → реконструкция в защитный рубеж».
+            </p>
+            <ul class="mt-5 grid gap-3 text-sm">
+              <li class="flex items-start justify-between gap-4 border-b border-white/10 pb-3">
+                <span class="text-ghost">Ключевой азимут подлёта</span>
+                <span class="font-semibold text-gold">209°–306°</span>
+              </li>
+              <li class="flex items-start justify-between gap-4 border-b border-white/10 pb-3">
+                <span class="text-ghost">Доля достижения цели</span>
+                <span class="font-semibold text-gold">≈98%</span>
+              </li>
+              <li class="flex items-start justify-between gap-4 border-b border-white/10 pb-3">
+                <span class="text-ghost">Макромаршруты</span>
+                <span class="font-semibold text-right">1361 км и 1088 км</span>
+              </li>
+              <li class="flex items-start justify-between gap-4">
+                <span class="text-ghost">Учёт зон ИВП</span>
+                <span class="font-semibold text-right">EZ · LZ · DZ · REGIMEZ · CTRZ · MDPZ</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="reveal" style="--d:.1s">
+            <h3 class="font-heading text-xl font-bold">Виды воздействий</h3>
+            <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+              <li class="panel p-4 text-sm">
+                <p class="font-semibold text-sith">Кинетический удар</p>
+                <p class="mt-1 text-ghost">180–300 кДж; корпус пробивает преграду до подрыва БЧ.</p>
+              </li>
+              <li class="panel p-4 text-sm">
+                <p class="font-semibold text-sith">Воздушная ударная волна</p>
+                <p class="mt-1 text-ghost">Давление во фронте Δpf = 576 кПа, отражённое — до 2700 кПа.</p>
+              </li>
+              <li class="panel p-4 text-sm">
+                <p class="font-semibold text-sith">Первичные и вторичные осколки</p>
+                <p class="mt-1 text-ghost">Разрушенные трубы, крепёж и остекление формируют дополнительное поле.</p>
+              </li>
+              <li class="panel p-4 text-sm">
+                <p class="font-semibold text-sith">Кумулятивное действие</p>
+                <p class="mt-1 text-ghost">Нейтрализуется массой и разнесением экранов.</p>
+              </li>
+              <li class="panel p-4 text-sm">
+                <p class="font-semibold text-sith">Термическое поражение</p>
+                <p class="mt-1 text-ghost">Возгорание масла, газа и кабелей; риск вторичных пожаров.</p>
+              </li>
+              <li class="panel p-4 text-sm">
+                <p class="font-semibold text-sith">Повторные и групповые удары</p>
+                <p class="mt-1 text-ghost">Первое повреждение не должно открывать брешь для следующих БПЛА.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===== ПРЕИМУЩЕСТВА ===== -->
+    <section id="preimushchestva" class="relative bg-space-850 py-24">
+      <div class="wrap">
+        <div class="max-w-3xl">
+          <p class="kicker reveal">05 · Преимущества</p>
+          <h2 class="reveal mt-3 font-heading text-3xl font-bold sm:text-4xl">Почему проект рассчитывается под объект</h2>
+          <p class="reveal mt-5 text-lg leading-relaxed text-ghost" style="--d:.05s">
+            Главное преимущество инженерной защиты — физическое отделение угрозы от критичного объекта.
+            Конструкция сохраняет назначение как пассивный рубеж и не отменяет другие меры безопасности.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="panel panel-hover reveal p-6" style="--d:.05s">
+            <p class="num text-sm font-bold text-gold">01</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Адаптация к объекту</h3>
+            <p class="mt-2 text-sm text-ghost">Конструкцию проектируют вокруг существующего здания, оборудования или участка с учётом перепадов высот и ограничений производства.</p>
+          </div>
+          <div class="panel panel-hover reveal p-6" style="--d:.1s">
+            <p class="num text-sm font-bold text-gold">02</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Защита прицельных зон</h3>
+            <p class="mt-2 text-sm text-ghost">Фокус на кровле, фасадах, узлах ввода, резервуарах и трансформаторных площадках вместо необоснованного перекрытия всей территории.</p>
+          </div>
+          <div class="panel panel-hover reveal p-6" style="--d:.15s">
+            <p class="num text-sm font-bold text-gold">03</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Модульность и ремонт</h3>
+            <p class="mt-2 text-sm text-ghost">Секционное построение упрощает доставку, монтаж и замену локально повреждённых элементов.</p>
+          </div>
+          <div class="panel panel-hover reveal p-6" style="--d:.2s">
+            <p class="num text-sm font-bold text-gold">04</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Интеграция с инфраструктурой</h3>
+            <p class="mt-2 text-sm text-ghost">Учёт маршрутов персонала и техники, вентиляции, водоотвода, освещения и пожарного доступа.</p>
+          </div>
+          <div class="panel panel-hover reveal p-6" style="--d:.25s">
+            <p class="num text-sm font-bold text-gold">05</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Контролируемое качество</h3>
+            <p class="mt-2 text-sm text-ghost">Проверяемые параметры: узлы, усилия натяжения, отметки и антикоррозионная защита.</p>
+          </div>
+          <div class="panel panel-hover reveal p-6" style="--d:.3s">
+            <p class="num text-sm font-bold text-gold">06</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Разнесённый рубеж</h3>
+            <p class="mt-2 text-sm text-ghost">Вынос точки контакта за пределы критичной поверхности снижает передачу нагрузки и даёт полотну ход деформации.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== УСЛУГИ ===== -->
+    <section id="uslugi" class="relative bg-space-900 py-24">
+      <div class="wrap">
+        <div class="max-w-3xl">
+          <p class="kicker reveal">06 · Услуги</p>
+          <h2 class="reveal mt-3 font-heading text-3xl font-bold sm:text-4xl">От анализа угроз до готового контура защиты</h2>
+          <p class="reveal mt-5 text-lg leading-relaxed text-ghost" style="--d:.05s">
+            Выполняем полный цикл работ для промышленных и инфраструктурных объектов.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <a href="#kontakty" class="panel panel-hover reveal p-6" style="--d:.05s">
+            <p class="num text-sm font-bold text-saber">01</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Радиоэлектронная защита</h3>
+            <p class="mt-2 text-sm text-ghost">Радиоподавление БПЛА: подбор конфигурации оборудования, поставка и монтаж.</p>
+            <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-gold">Подробнее →</span>
+          </a>
+          <a href="#kontakty" class="panel panel-hover reveal p-6" style="--d:.1s">
+            <p class="num text-sm font-bold text-gold">02</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Защитные конструкции</h3>
+            <p class="mt-2 text-sm text-ghost">Проектирование, изготовление и монтаж ЗОК под конкретный объект.</p>
+            <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-gold">Подробнее →</span>
+          </a>
+          <a href="#kontakty" class="panel panel-hover reveal p-6" style="--d:.15s">
+            <p class="num text-sm font-bold text-sith">03</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Анализ угроз</h3>
+            <p class="mt-2 text-sm text-ghost">Классификация угроз, профиль сценариев и расчётные предпосылки.</p>
+            <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-gold">Подробнее →</span>
+          </a>
+          <a href="#kontakty" class="panel panel-hover reveal p-6" style="--d:.2s">
+            <p class="num text-sm font-bold text-yoda">04</p>
+            <h3 class="mt-3 font-heading text-lg font-bold">Монтаж и эксплуатация</h3>
+            <p class="mt-2 text-sm text-ghost">Сборка, натяжение контура, приёмка и регламент осмотров.</p>
+            <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-gold">Подробнее →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- ===== FAQ ===== -->
+    <section id="faq" class="relative bg-space-850 py-24">
+      <div class="wrap">
+        <div class="max-w-3xl">
+          <p class="kicker reveal">07 · Вопросы и ответы</p>
+          <h2 class="reveal mt-3 font-heading text-3xl font-bold sm:text-4xl">Что важно знать до начала проектирования</h2>
+          <p class="reveal mt-5 text-lg leading-relaxed text-ghost" style="--d:.05s">
+            Предварительную концепцию можно подготовить по плану объекта, фотографиям и размерам защищаемой зоны.
+          </p>
+        </div>
+
+        <div class="mt-12 grid max-w-3xl gap-4">
+          <div class="faq-item panel reveal overflow-hidden" style="--d:.05s">
+            <button type="button" class="faq-question flex w-full items-center justify-between gap-4 p-5 text-left">
+              <span class="font-heading text-lg font-semibold">Заменяет ли механическая защита радиоподавление?</span>
+              <span class="faq-icon grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gold/30 text-xl text-gold transition-transform">+</span>
+            </button>
+            <div class="faq-answer max-h-0 overflow-hidden transition-[max-height] duration-300">
+              <p class="px-5 pb-5 text-ghost">Нет. Эти решения работают по разным принципам. Радиоподавление воздействует на каналы управления и навигации, а механическая конструкция формирует физический барьер. Для ответственных объектов рекомендуется многоуровневый подход.</p>
+            </div>
+          </div>
+          <div class="faq-item panel reveal overflow-hidden" style="--d:.1s">
+            <button type="button" class="faq-question flex w-full items-center justify-between gap-4 p-5 text-left">
+              <span class="font-heading text-lg font-semibold">Можно ли установить конструкцию на существующую кровлю?</span>
+              <span class="faq-icon grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gold/30 text-xl text-gold transition-transform">+</span>
+            </button>
+            <div class="faq-answer max-h-0 overflow-hidden transition-[max-height] duration-300">
+              <p class="px-5 pb-5 text-ghost">Да, если это подтверждается обследованием и расчётом. До проектирования необходимо определить несущие участки, допустимые нагрузки, состояние основания и безопасную схему крепления.</p>
+            </div>
+          </div>
+          <div class="faq-item panel reveal overflow-hidden" style="--d:.15s">
+            <button type="button" class="faq-question flex w-full items-center justify-between gap-4 p-5 text-left">
+              <span class="font-heading text-lg font-semibold">Можно ли защитить большую площадь?</span>
+              <span class="faq-icon grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gold/30 text-xl text-gold transition-transform">+</span>
+            </button>
+            <div class="faq-answer max-h-0 overflow-hidden transition-[max-height] duration-300">
+              <p class="px-5 pb-5 text-ghost">Да. Контур разбивается на расчётные секции и пролёты. Итоговая геометрия зависит от размеров площадки, мест размещения опор, ветровых и снеговых нагрузок, а также эксплуатационных проездов.</p>
+            </div>
+          </div>
+          <div class="faq-item panel reveal overflow-hidden" style="--d:.2s">
+            <button type="button" class="faq-question flex w-full items-center justify-between gap-4 p-5 text-left">
+              <span class="font-heading text-lg font-semibold">Из каких материалов изготавливается система?</span>
+              <span class="faq-icon grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gold/30 text-xl text-gold transition-transform">+</span>
+            </button>
+            <div class="faq-answer max-h-0 overflow-hidden transition-[max-height] duration-300">
+              <p class="px-5 pb-5 text-ghost">Как правило, применяется стальной несущий каркас с антикоррозионной защитой и специальный сетчатый контур. Точный профиль, материал полотна, размер ячейки, способ натяжения и крепёж определяются проектом.</p>
+            </div>
+          </div>
+          <div class="faq-item panel reveal overflow-hidden" style="--d:.25s">
+            <button type="button" class="faq-question flex w-full items-center justify-between gap-4 p-5 text-left">
+              <span class="font-heading text-lg font-semibold">Будет ли конструкция мешать эксплуатации объекта?</span>
+              <span class="faq-icon grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gold/30 text-xl text-gold transition-transform">+</span>
+            </button>
+            <div class="faq-answer max-h-0 overflow-hidden transition-[max-height] duration-300">
+              <p class="px-5 pb-5 text-ghost">Проект предусматривает доступ к оборудованию, обслуживаемые проходы, водоотведение, вентиляцию, пожарные проезды и возможность локального ремонта защитного контура.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===== ПРЕДВАРИТЕЛЬНЫЙ РАСЧЁТ ===== -->
+    <section id="kontakty" class="relative overflow-hidden py-24">
+      <div class="stars-bg" aria-hidden="true">
+        <div class="stars __fsmall"></div>
+        <div class="stars __small"></div>
+        <div class="stars __fmedium"></div>
+        <div class="stars __medium"></div>
+        <div class="stars __fbig"></div>
+        <div class="stars __big"></div>
+      </div>
+
+      <div class="wrap relative z-10 grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div>
+          <p class="kicker reveal">08 · Предварительный расчёт</p>
+          <h2 class="reveal mt-3 font-heading text-3xl font-bold sm:text-4xl">Подберём формат механической защиты под ваш объект</h2>
+          <p class="reveal mt-5 text-lg leading-relaxed text-ghost" style="--d:.05s">
+            Пришлите план, фотографии и размеры защищаемой зоны. Инженер уточнит исходные данные
+            и предложит следующий шаг.
+          </p>
+
+          <ol class="mt-9 grid gap-4 sm:grid-cols-2">
+            <li class="reveal flex gap-4" style="--d:.05s">
+              <span class="num grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-gold/30 text-sm font-bold text-gold">01</span>
+              <div><p class="font-semibold">Обследование</p><p class="text-sm text-ghost">Выезд на объект, замеры и фотофиксация.</p></div>
+            </li>
+            <li class="reveal flex gap-4" style="--d:.1s">
+              <span class="num grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-gold/30 text-sm font-bold text-gold">02</span>
+              <div><p class="font-semibold">Компоновка</p><p class="text-sm text-ghost">Схема защитного контура и расчёт нагрузок.</p></div>
+            </li>
+            <li class="reveal flex gap-4" style="--d:.15s">
+              <span class="num grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-gold/30 text-sm font-bold text-gold">03</span>
+              <div><p class="font-semibold">Смета и сроки</p><p class="text-sm text-ghost">Коммерческое предложение за 3–5 рабочих дней.</p></div>
+            </li>
+            <li class="reveal flex gap-4" style="--d:.2s">
+              <span class="num grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-gold/30 text-sm font-bold text-gold">04</span>
+              <div><p class="font-semibold">Условия эксплуатации</p><p class="text-sm text-ghost">Проезды, обслуживание, коммуникации и ограничения.</p></div>
+            </li>
+          </ol>
+
+          <div class="reveal mt-10 space-y-3 text-sm" style="--d:.1s">
+            <a href="tel:88005506469" class="flex items-center gap-3 text-slate-100 transition-colors hover:text-gold">
+              <span class="grid h-9 w-9 place-items-center rounded-lg border border-gold/30 text-gold">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+              </span>
+              8 800 550 64 69
+            </a>
+            <a href="mailto:zakaz@boxwel.ru" class="flex items-center gap-3 text-slate-100 transition-colors hover:text-gold">
+              <span class="grid h-9 w-9 place-items-center rounded-lg border border-gold/30 text-gold">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </span>
+              zakaz@boxwel.ru
+            </a>
+            <p class="flex items-start gap-3 text-ghost">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-gold/30 text-gold">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              </span>
+              423800, Россия, РТ, г. Набережные Челны, пр-т Вахитова, д. 36 Г
+            </p>
+          </div>
+        </div>
+
+        <form id="calc-form" class="panel reveal p-6 sm:p-8" style="--d:.1s" novalidate>
+          <h3 class="font-heading text-2xl font-bold">Получить расчёт защиты объекта</h3>
+          <p class="mt-2 text-sm text-ghost">Оставьте контактные данные — специалист свяжется с вами для уточнения параметров объекта.</p>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-medium">Ваше имя *</span>
+              <input name="name" type="text" required placeholder="Введите ваше имя" class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 placeholder:text-steel outline-none transition focus:border-gold/60 focus:bg-white/10" />
+            </label>
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-medium">Телефон *</span>
+              <input name="phone" type="tel" required placeholder="Введите корректный номер" class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 placeholder:text-steel outline-none transition focus:border-gold/60 focus:bg-white/10" />
+            </label>
+          </div>
+
+          <div class="mt-4 grid gap-4 sm:grid-cols-2">
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-medium">Компания</span>
+              <input name="company" type="text" placeholder="Название организации" class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 placeholder:text-steel outline-none transition focus:border-gold/60 focus:bg-white/10" />
+            </label>
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-medium">Направление *</span>
+              <select name="direction" required class="w-full appearance-none rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-gold/60 focus:bg-white/10">
+                <option value="" class="bg-space-800">Выберите направление</option>
+                <option value="zok" class="bg-space-800">Защитные конструкции от БПЛА</option>
+                <option value="re" class="bg-space-800">Радиоподавление БПЛА</option>
+                <option value="analysis" class="bg-space-800">Анализ угроз и проектирование</option>
+                <option value="complex" class="bg-space-800">Комплексная защита объекта</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="mt-4 block">
+            <span class="mb-1.5 block text-sm font-medium">Сообщение</span>
+            <textarea name="message" rows="4" placeholder="Описание объекта или задачи" class="w-full resize-none rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 placeholder:text-steel outline-none transition focus:border-gold/60 focus:bg-white/10"></textarea>
+          </label>
+
+          <label class="mt-4 flex items-start gap-3 text-xs text-ghost">
+            <input type="checkbox" name="consent" required class="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/5 accent-gold" />
+            <span>Я даю согласие на обработку персональных данных в целях рассмотрения заявки и ознакомлен с Политикой обработки персональных данных.</span>
+          </label>
+
+          <button type="submit" class="btn btn-gold mt-6 w-full">Отправить заявку</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

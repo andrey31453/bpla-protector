@@ -1,0 +1,64 @@
+// banner__multi
+.banner__multi
+	padding-bottom: 0
+	padding-top: 0
+	.container
+		@media(max-width: 750px)
+			padding-right: 8px
+//
+// __index__bm
+//
+.__index__bm
+	padding-bottom: $psec
+	@media(min-width: 800px)
+		height: 100vh
+
+.bm__heading-cont
+	@media(max-width: 800px)
+		padding-top: $psec
+		padding-bottom: $psec
+
+// content
+.bm__content
+	display: grid
+	grid-template-rows: 1fr 1fr 1fr
+	grid-template-columns: 1fr 1fr 1fr
+
+.bm__content > *
+	padding-top: $pl
+	padding-bottom: $pl
+	padding-left: $pl
+	padding-right: $pl
+
+.bm__content__text
+	grid-column: span 2
+	grid-row: span 2
+
+.bm__content__img
+	border: $ct2 4px solid
+	&:not(:first-child)
+		margin-top: 2 * $pl
+
+// heading
+.bm__heading
+	color: $ct2
+	font-size: 50px
+	letter-spacing: 10px
+	text-transform: uppercase
+	@media(max-width: 800px)
+		font-size: 40px
+	@media(max-width: 600px)
+		font-size: 26px
+		letter-spacing: 4px
+	@media(max-width: 500px)
+		font-size: 22px
+	span
+		mark
+			color: $c
+
+.bm__btn.f__btn
+	margin-top: $psec
+
+.bm__images
+	@media(max-width: 980px)
+		display: none

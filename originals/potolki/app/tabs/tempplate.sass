@@ -1,0 +1,130 @@
+/* tabs */
+.tabs
+	overflow: hidden
+
+// __light
+.tabs *
+	transition: 1200ms background-color, 0ms color
+.tabs.__light > .container
+	background-color: $cb !important
+	color: $ct !important
+	.tabs__important-content
+		background-color: $cb2 !important
+		color: $ct2 !important
+
+/* tab-header */
+.tabs__header
+	display: flex
+	flex-wrap: wrap
+	justify-content: center
+	@media(min-width: 600px)
+		justify-content: flex-start
+
+.tabs__link
+	margin: 10px 20px
+	font-size: 1.5rem
+	text-transform: uppercase
+
+.tabs__link:hover
+	color: $c
+	cursor: pointer
+
+.tabs__link.tabs__active
+	border-bottom: 1px dashed $c
+
+/* tab-content-list */
+.tabs__content
+	padding-top: 50px
+
+.tabs__content-item
+	display: none
+
+.tabs__content-item.tabs__active
+	display: block
+
+/* tab-content-item */
+.tabs__heading
+	margin-bottom: 30px
+
+.tabs__heading-link
+	border-bottom: 1px dashed $c
+	padding-bottom: 10px
+	color: $ct2
+	text-decoration: none
+
+.tabs__heading-link:hover
+	color: $c
+
+.tabs__item
+	padding: 30px 0 30px 20%
+	position: relative
+	z-index: 2
+
+.tabs__item:before
+	background-repeat: no-repeat
+	background-position: 0 0
+	background-size: contain
+	content: ''
+	position: absolute
+	top: 0
+	left: 0
+	width: 17%
+	height: 230px
+	z-index: 1
+	background-position: 0 40px
+
+.tabs__important-content
+	max-width: 800px
+	margin: $pl auto $pl auto
+	padding: 30px
+	border: 1px dashed $c
+	font-size: 1.6rem
+
+.tabs__important-content span
+	color: $c
+
+/* transform-content */
+.tabs__transform-content
+	background-image: url('/design/template/images/tabs/images/paint-strokes.png')
+	background-size: 75% 100%
+	background-repeat: no-repeat
+	background-position: 30% 50%
+	max-width: 750px
+	margin: 0 auto 5 * $pl auto
+	font-size: 1.8rem
+	padding: 40px 0 40px 40px
+	transform: rotateZ(-15deg)
+	font-weight: 1000
+	text-shadow: 2px 2px 4px $cb2
+
+.tabs__transform-item
+	padding-left: 50px
+
+.tabs__transform-item__marker
+	text-transform: uppercase
+	border-bottom: 4px dashed $ct2
+	margin-left: -50px
+
+/* media */
+@media (max-width: 800px)
+	.tabs__transform-content
+		font-size: 1.5rem
+
+@media (max-width: 600px)
+	.tabs__transform-content
+		font-size: 1.2rem
+	.tabs__transform-content
+		background-size: 100% auto
+
+@media (max-width: 450px)
+	.tabs__transform-item__transfer
+		margin-left: -50px
+		display: block
+
+	.tabs__transform-content
+		background-position: 30% 50%
+		padding: 0 0 0 40px
+
+.tabs__after-tab-content
+	padding-top: $psec
+	opacity: 0.6
