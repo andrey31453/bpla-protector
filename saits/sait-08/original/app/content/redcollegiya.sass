@@ -1,0 +1,14 @@
+article
+	.redcollegiya
+		@media (max-width: 610px)
+			overflow-x: scroll
+		tr:first-child td
+			background-color: $cb
+			color: $fc2
+			font-family: 'century gothic bold'
+			&:not(:first-child)
+				border-left: 2px solid $fc2
+		td[colspan]
+			text-align: center
+			text-transform: uppercase
+			font-family: 'century gothic bold'

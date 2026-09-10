@@ -1,0 +1,57 @@
+.aside__arhivs
+	position: relative
+	z-index: 1
+
+	padding-left: $p
+	padding-right: $p
+	font-family: 'century gothic bold' !important
+	#primary-menu-list
+		& > li
+			width: 100%
+	.sub-menu-toggle
+		display: block !important
+	.menu-item
+		display: flex
+		justify-content: flex-start
+		align-items: center
+		&:hover
+			& > .aa__sub-menu-target
+				color: $c
+			path
+				fill: $c
+	.svg-icon
+		width: 25px
+		height: 25px
+		path
+			fill: $fc
+	.primary-navigation > div > .menu-wrapper > li > .sub-menu li
+		background-color: $cb !important
+		a
+			color: $fc2
+
+	.primary-navigation > div > .menu-wrapper > li > .sub-menu
+		border: 4px solid $fc2 !important
+		@media (min-width: 1301px)
+			left: 120px
+			top: 20px
+		@media (max-width: 1300px)
+			left: 60px
+			bottom: 0
+	.primary-navigation .sub-menu .current_page_item > a:first-child
+		color: $ca !important
+
+.aa__sub-menu-target
+	height: 40px
+	cursor: pointer
+
+	display: flex
+	justify-content: flex-start
+	align-items: center
+
+.aa__menu-name
+	padding-bottom: $pl
+	text-transform: uppercase
+	opacity: $op
+
+#site-navigation
+	padding-left: $p

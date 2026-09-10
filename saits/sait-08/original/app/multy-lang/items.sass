@@ -1,0 +1,28 @@
+.ml__items-wrapper
+	position: fixed
+	z-index: 100
+
+	top: -100vh
+	left: 0
+	right: 0
+	height: 100vh
+
+	opacity: 0
+	cursor: pointer
+	.--active &
+		top: 0
+		opacity: 1
+
+.ml__items
+	position: relative
+
+	padding: $psec $p
+	max-width: 100%
+
+	background-color: $bc
+	box-shadow: 3px 3px 6px #00000030
+	@media (min-width: 600px)
+		min-width: 600px
+	a
+		text-align: left
+		width: 80%

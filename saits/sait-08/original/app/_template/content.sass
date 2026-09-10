@@ -1,0 +1,29 @@
+
+.content > .__container
+	margin-bottom: $psec
+	padding-left: 0
+	padding-right: 0
+	background-color: $bc
+	@media (min-width: $menu_d)
+		margin-top: $psec
+
+.content-wrapper
+	padding-top: 0
+	padding-bottom: 0
+
+.main
+	padding: $p $p
+	@media (min-width: 801px)
+		width: 76%
+		max-width: calc(100% - 265px)
+	@media (max-width: 800px)
+		width: 100%
+
+.aside
+	min-width: 265px
+	width: 24%
+	padding: $p $p
+
+	background-color: $bc_body
+	@media (max-width: 800px)
+		display: none

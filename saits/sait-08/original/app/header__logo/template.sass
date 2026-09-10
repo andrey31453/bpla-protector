@@ -1,0 +1,40 @@
+.header__logo
+	position: absolute
+	z-index: 10
+
+	top: 0
+	left: 0
+	right: 0
+
+	padding: $ps 0
+	height: $menu_h
+
+	font-family: 'century gothic bold'
+	@media (min-width: $d)
+		font-size: $fzh1
+	@media (max-width: $m)
+		font-size: $fzh2
+	.--main
+		position: relative
+
+		margin-right: 1.5 * $p
+		padding-right: 1.5 * $p
+
+		opacity: $op
+		text-transform: uppercase
+
+		height: $menu_h
+		&::after
+			position: absolute
+			content: ''
+
+			top: $p
+			bottom: $p
+			right: 0
+
+			width: 1px
+
+			background-color: $fc2
+			transform: rotate(30deg)
+		.--title
+			height: $menu_h

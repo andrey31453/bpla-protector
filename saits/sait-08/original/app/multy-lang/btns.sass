@@ -1,0 +1,31 @@
+.ml__btn
+	position: absolute
+
+	cursor: pointer
+	&.--open
+		top: $pl
+		right: $pl
+
+		padding: $ps $p
+
+		border: 2px solid $fc2
+		background-color: $cb
+		color: $fc2
+
+		text-transform: uppercase
+		&:hover
+			border-color: $ca
+			color: $ca
+	&.--close
+		top: $ps
+		right: $ps
+
+		padding: 0 0.25 * $ps
+		svg
+			width: 35px
+			height: 35px
+		path
+			fill: $cb
+		&:hover
+			path
+				fill: $c

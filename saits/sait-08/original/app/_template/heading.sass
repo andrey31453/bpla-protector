@@ -1,0 +1,48 @@
+h1, h2, h3,
+.h1, .h2, .h3
+	margin-top: 0
+	margin-bottom: 2.5 * $pl
+
+	font-family: 'century gothic bold'
+	text-transform: uppercase
+	color: $cb
+	margin-bottom: $pl
+	&:not(:first-child)
+		margin-top: 2 * $psec
+	span
+		color: $fc
+		opacity: $op
+
+h1,
+.h1
+	text-align: center
+
+@media (min-width: $d)
+	h1, .h1
+		font-size: $fzh1
+
+	h2, .h2
+		font-size: $fzh2
+
+	h3, .h3
+		font-size: $fzh3
+
+@media (max-width: $m)
+	h1, .h1
+		font-size: $fzh1_m
+
+	h2, .h2
+		font-size: $fzh2_m
+
+	h3, .h3
+		font-size: $fzh3_m
+
+@media (max-width: $dxs)
+	h1, .h1
+		font-size: $fzh1_ms
+
+	h2, .h2
+		font-size: $fzh2_ms
+
+	h3, .h3
+		font-size: $fzh3_ms

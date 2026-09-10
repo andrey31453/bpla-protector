@@ -1,0 +1,47 @@
+p
+	margin-top: 0
+	margin-bottom: $p
+
+ol,
+ul
+	padding-left: $p
+	margin: 0 0 $p $pl
+li
+	margin-bottom: $ps
+
+a
+	text-decoration: none
+	color: inherit
+	cursor: pointer
+	&:hover
+		color: $c
+.--cntrl
+	a
+		&:hover
+			color: $ca
+
+table
+	caption-side: bottom
+	border-collapse: collapse
+
+input, button
+	outline: none
+
+*:focus-visible
+	outline: none
+
+*, ::after, ::before
+	box-sizing: border-box
+
+section,
+.section
+	position: relative
+	z-index: 0
+
+	padding: $psec 0
+	@media (min-width: $d)
+		padding: 0.8 * $psec 0
+	@media (max-width: $m)
+		padding: 0.6 * $psec 0
+	&.--cntrl
+		color: $fc2

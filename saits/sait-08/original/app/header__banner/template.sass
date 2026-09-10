@@ -1,0 +1,23 @@
+.header__banner
+	position: relative
+	z-index: 1
+
+	background-image: url('/wp-content/themes/twentytwentyone/images/header__banner/images/background.jpg')
+	@media (min-width: $menu_d)
+		border-bottom: 4px solid $fc2
+	&:not(.--index)
+		height: 200px
+	&.--index
+		height: 400px
+	&::before,
+	&::after
+		position: absolute
+		content: ''
+		z-index: 5
+
+		top: 0
+		right: 0
+		left: 0
+		bottom: 0
+
+		background: linear-gradient(to bottom, $cb80, $cb00)

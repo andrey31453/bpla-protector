@@ -1,0 +1,73 @@
+.wp-block-file
+	max-width: 100% !important
+
+article
+	h1,
+	h2
+		position: relative
+		&::before
+			position: absolute
+			content: ''
+
+			left: 2 * $pl
+			right: 2 * $pl
+
+			height: 1px
+
+			opacity: $ops
+			background-color: $fc
+	h1
+		margin-bottom: $pl
+		padding-bottom: $pl
+		&::before
+			bottom: 0
+	h2
+		margin-top: $pl
+		padding-top: $pl
+		&::before
+			top: 0
+	table
+		margin-bottom: $pl
+	td
+		border: 1px solid $fc60
+	tr:nth-child(2n) td
+		background-color: $ca30
+	tr:nth-child(2n+1) td
+		background-color: $cc30
+	li span,
+	p span
+		opacity: $opl
+		color: $c
+		font-family: 'century gothic bold'
+
+	a
+		font-family: 'century gothic bold'
+		border-bottom: 1px dashed $c
+	ul,
+	ol
+		padding-left: $p
+	ul
+		& > li
+			list-style: none
+			position: relative
+			svg
+				position: absolute
+
+				top: 0
+				right: 100%
+
+				width: 50px
+				height: 1.5 * $fz
+
+				opacity: $op
+				path
+					fill: $c
+
+.sub-menu-toggle[aria-expanded="true"]
+	path
+		fill: $cb
+	& ~ span
+		color: $cb
+
+.comment
+	font-style: italic

@@ -1,0 +1,23 @@
+.footer
+	padding-top: 0
+
+.footer__wrapper
+	opacity: 0.8
+	text-align: left
+	line-height: 2 * $fz
+	span
+		position: relative
+		display: inline-block
+		height: $fz
+		width: $fz + 6px
+		&::before
+			position: absolute
+			content: ''
+
+			top: -4px
+			bottom: -10px
+			left: 50%
+			width: 4px
+
+			background-color: $fc2
+			transform: rotate(30deg)

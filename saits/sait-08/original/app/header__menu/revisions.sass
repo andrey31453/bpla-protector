@@ -1,0 +1,116 @@
+.header__menu
+	padding-top: 0
+	padding-bottom: 0
+
+.primary-navigation .primary-menu-container
+	margin-left: 0 !important
+	margin-right: 0 !important
+
+menu
+	font-family: 'century gothic bold' !important
+	padding: $ps $ps
+	margin: 0
+	background-color: $cb
+	a
+		text-transform: uppercase
+		color: $fc2 !important
+		&:hover
+			color: $ca !important
+			text-decoration: none !important
+	.sub-menu	a:hover
+		color: $cb !important
+	@media (max-width: $menu_m)
+		min-height: 74px
+
+.primary-navigation a
+	font-family: 'century gothic bold' !important
+
+.menu-wrapper
+	justify-content: space-between !important
+
+.sub-menu-toggle
+	display: none !important
+
+.primary-navigation .current-menu-item > a:first-child
+	color: $ca !important
+	text-decoration: none
+
+.primary-navigation .sub-menu .current_page_item > a:first-child
+	color: $cb !important
+
+.sub-menu
+	&::before,
+	&::after
+		opacity: 0 !important
+	li a
+		padding: $ps $p !important
+	li:first-child a
+		padding-top: $p !important
+	li:last-child a
+		padding-bottom: $p !important
+
+.primary-navigation > div > .menu-wrapper > li > .sub-menu li
+	background-color: $cc !important
+
+.primary-navigation > div > .menu-wrapper > li > .sub-menu
+	padding-top: 0
+
+.primary-navigation > div > .menu-wrapper
+	@media (max-width: 800px)
+		justify-content: flex-start !important
+
+#menu-item-144
+	@media (min-width: 800px)
+		display: none
+
+.primary-navigation > div > .menu-wrapper > li > .sub-menu
+	border: none !important
+	@media (min-width: $menu_d)
+		border-top: 4px solid $fc2 !important
+	@media (max-width: $menu_m)
+		border-left: 4px solid $fc2 !important
+
+.menu-button-container
+	padding-bottom: calc(0.5 * var(--global--spacing-vertical)) !important
+
+@media (max-width: $menu_m)
+	.primary-navigation-open .primary-navigation
+		z-index: 30
+
+.menu-button-container #primary-mobile-menu
+	color: $fc2
+
+.primary-navigation-open .menu-button-container
+	background: none !important
+	padding-right: 50px
+
+@media (max-width: $menu_m)
+	.menu-button-container
+		color: $fc
+
+	.primary-navigation > .primary-menu-container
+		background-color: $cb
+		li
+			margin-bottom: 0
+	#primary-mobile-menu[aria-expanded="true"]
+		background-color: $bc2 !important
+		color: $fc2 !important
+	.aa__sub-menu-target
+		margin-left: $p
+	.sub-menu .sub-menu
+		margin-bottom: $p
+
+		li:last-child
+			position: relative
+			margin-bottom: $p
+			&::after
+				position: absolute
+				content: ''
+				z-index: 1000
+
+				bottom: -$p
+				left: -$pl
+				right: 0
+				height: $p
+
+				background-color: $cb
