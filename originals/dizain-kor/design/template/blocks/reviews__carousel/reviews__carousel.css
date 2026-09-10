@@ -1,0 +1,174 @@
+/* reviews__carousel */
+/* carousel */
+.rc__inner {
+	position: relative;
+	width: 80%;
+	margin: 0 auto;
+}
+
+/* prev next */
+.rc__button {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: calc(10% - 3px);
+	opacity: 0.7;
+	cursor: pointer;
+}
+.rc__button.__prev {
+	left: -10%;
+}
+.rc__button.__next {
+	right: -10%;
+}
+.rc__button:hover {
+	opacity: 1;
+}
+.rc__button.__prev:hover {
+	box-shadow: 1px 0 0px 0 #ff1e7150;
+}
+.rc__button.__next:hover {
+	box-shadow: -1px 0 0px 0 #ff1e7150;
+}
+
+.rc__button span {
+	display: inline-block;
+	width: 2.5rem;
+	height: 2.5rem;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: 70% auto;
+}
+.rc__button.__prev span {
+	background-image: url('/design/template/blocks/reviews__carousel/images/arrow-mono-left__ff1e71.svg');
+}
+.rc__button.__next span {
+	background-image: url('/design/template/blocks/reviews__carousel/images/arrow-mono-right__ff1e71.svg');
+}
+
+/* indicators */
+.rc__indicator-container {
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+	z-index: 90;
+	padding: 12px;
+	width: 200px;
+	border-radius: 16px;
+	background-color: #000;
+}
+.rc__indicator {
+	width: 16px;
+	height: 8px;
+	background-color: #fff;
+	margin: 0 3px;
+	cursor: pointer;
+}
+.rc__indicator:hover {
+	background-color: #ff1e71;
+}
+.rc__indicator.__active {
+	background-color: #ff1e71;
+	width: 32px;
+}
+
+/* review item */
+.rc__item-container {
+	position: relative;
+	overflow: hidden;
+}
+.rc__item {
+	z-index: -1;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translateX(1200px);
+	transition: all 600ms;
+
+	display: flex;
+	justify-content: space-between;
+}
+.rc__item-column {
+	width: calc(50% - 15px);
+}
+.rc__review {
+	position: relative;
+	padding: 30px;
+	margin-bottom: 30px;
+	border: 1px solid #cccccc50;
+	background-color: #fff;
+	color: #475059;
+}
+.rc__review:after {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	height: 100%;
+	width: 15%;
+	content: '';
+
+	background-image: url('/design/template/blocks/reviews__carousel/images/angle-double-right__ff1e71.svg');
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+	background-size: 75% auto;
+	opacity: 0.7;
+}
+.rc__hr {
+	width: 100px;
+	height: 3px;
+	border-radius: 2px;
+	background: #fff;
+	justify-content: flex-start;
+	margin: 20px 0 10px 0;
+	opacity: 0.7;
+	background: #ff1e71;
+}
+.rc__review-autor {
+	font-size: 1.1rem;
+	font-weight: bold;
+}
+.rc__review-autor span {
+	font-size: 0.8rem;
+	opacity: 0.8;
+	font-weight: normal;
+}
+.separator {
+	color: #ff1e71;
+	opacity: 1;
+}
+
+/* x-left*/
+.__left-item {
+	transform: translateX(-1200px);
+}
+
+/* __active */
+.rc__item.__active {
+	z-index: 0;
+	opacity: 1;
+	transform: translateX(0);
+}
+
+/* media */
+@media (max-width: 1000px) {
+	.rc__inner {
+		width: 92%;
+	}
+	.rc__item {
+		flex-wrap: wrap;
+	}
+	.rc__item-column {
+		width: 100%;
+	}
+	.rc__button-prev {
+		left: -9%;
+	}
+	.rc__button-next {
+		right: -9%;
+	}
+}
