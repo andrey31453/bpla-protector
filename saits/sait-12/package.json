@@ -1,0 +1,17 @@
+{
+	"name": "dizain-kor",
+	"version": "1.0.0",
+	"description": "dizain-kor — локальная копия сайта (css/js/картинки) и сборка для локального просмотра",
+	"main": "gulpfile.js",
+	"devDependencies": {
+		"browser-sync": "^2.27.7",
+		"gulp": "^4.0.2"
+	},
+	"scripts": {
+		"dev": "npx gulp",
+		"build": "npx gulp build",
+		"clean": "npx gulp clean"
+	},
+	"author": "",
+	"license": "ISC"
+}

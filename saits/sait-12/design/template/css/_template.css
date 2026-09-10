@@ -1,0 +1,208 @@
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.container {
+	width: 100%;
+	padding: 0 0.75rem;
+	margin: 0 auto;
+	max-width: 1140px;
+}
+@media (max-width: 992px) {
+	.container {
+		max-width: 960px;
+	}
+}
+@media (max-width: 768px) {
+	.container {
+		max-width: 720px;
+	}
+}
+@media (max-width: 576px) {
+	.container {
+		max-width: 540px;
+	}
+}
+@media (max-width: 450px) {
+	.container {
+		padding: 0 6px;
+	}
+}
+@media (max-width: 350px) {
+	.container {
+		padding: 0 3px;
+	}
+}
+
+html,
+body {
+	margin: 0;
+	font-family: Trebuchet MS, 'Gilroy', 'Roboto', sans-serif;
+	font-size: 1.1rem;
+	font-weight: 400;
+	color: #12263a;
+	background-color: #fff;
+}
+
+h3, .h3, h2, .h2, h1, .h1 {
+	margin-top: 0;
+	margin-bottom: 0.5rem;
+	font-weight: 400;
+}
+h1, .h1 {
+font-size: calc(1.375rem + 1.5vw);
+}
+h2, .h2 {
+	font-size: calc(1.325rem + 0.9vw);
+}
+h3, .h3 {
+	font-size: calc(1.3rem + 0.6vw);
+}
+@media (min-width: 1200px) {
+	h1, .h1 {
+		font-size: 2.5rem;
+	}
+	h2, .h2 {
+		font-size: 2rem;
+	}
+	h3, .h3 {
+		font-size: 1.75rem;
+	}
+}
+
+ol,
+ul {
+	padding-left: 2rem;
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+li {
+	margin-bottom: 0.2rem;
+}
+table {
+	caption-side: bottom;
+	border-collapse: collapse;
+}
+figure {
+	margin: 0 0 1rem;
+}
+img,
+svg {
+	vertical-align: middle;
+}
+
+
+/* ------------ */
+*, ::after, ::before {
+box-sizing: border-box;
+-webkit-transition: width 300ms linear,
+				max-width 300ms linear,
+				height 300ms linear,
+				max-height 300ms linear,
+				color 300ms linear,
+				border 300ms linear,
+				box-shadow 300ms linear,
+				background 300ms linear,
+				margin 300ms linear,
+				padding 300ms linear,
+				transform 300ms linear,
+				opacity 300ms linear,
+				top 300ms linear,
+				left 300ms linear,
+				right 300ms linear,
+				bottom 300ms linear,
+				z-index 300ms linear;
+-moz-transition: width 300ms linear,
+				max-width 300ms linear,
+				height 300ms linear,
+				max-height 300ms linear,
+				color 300ms linear,
+				border 300ms linear,
+				box-shadow 300ms linear,
+				background 300ms linear,
+				margin 300ms linear,
+				padding 300ms linear,
+				transform 300ms linear,
+				opacity 300ms linear,
+				top 300ms linear,
+				left 300ms linear,
+				right 300ms linear,
+				bottom 300ms linear,
+				z-index 300ms linear;
+-o-transition: width 300ms linear,
+				max-width 300ms linear,
+				height 300ms linear,
+				max-height 300ms linear,
+				color 300ms linear,
+				border 300ms linear,
+				box-shadow 300ms linear,
+				background 300ms linear,
+				margin 300ms linear,
+				padding 300ms linear,
+				transform 300ms linear,
+				opacity 300ms linear,
+				top 300ms linear,
+				left 300ms linear,
+				right 300ms linear,
+				bottom 300ms linear,
+				z-index 300ms linear;
+-ms-transition: width 300ms linear,
+				max-width 300ms linear,
+				height 300ms linear,
+				max-height 300ms linear,
+				color 300ms linear,
+				border 300ms linear,
+				box-shadow 300ms linear,
+				background 300ms linear,
+				margin 300ms linear,
+				padding 300ms linear,
+				transform 300ms linear,
+				opacity 300ms linear,
+				top 300ms linear,
+				left 300ms linear,
+				right 300ms linear,
+				bottom 300ms linear,
+				z-index 300ms linear;
+transition: width 300ms linear,
+				max-width 300ms linear,
+				height 300ms linear,
+				max-height 300ms linear,
+				color 300ms linear,
+				border 300ms linear,
+				box-shadow 300ms linear,
+				background 300ms linear,
+				margin 300ms linear,
+				padding 300ms linear,
+				transform 300ms linear,
+				opacity 300ms linear,
+				top 300ms linear,
+				left 300ms linear,
+				right 300ms linear,
+				bottom 300ms linear,
+				z-index 300ms linear;
+}
+ymaps * {
+	transition: all 0ms linear;
+}
+
+
+/* подключение шрифтов */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Roboto Condensed'), local('RobotoCn-Regular'),
+		 url('/design/template/fonts/roboto-condensed.woff') format('woff'),
+		 url('/design/template/fonts/roboto-condensed.ttf') format('truetype');
+ font-display: fallback;
+}
+@font-face {
+	font-family: 'Gilroy';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Gilroy'), local('Gilroy'),
+		 url('/design/template/fonts/gilroy-woff/Gilroy-Regular.woff') format('woff'),
+		 url('/design/template/fonts/gilroy-ttf/Gilroy-Regular.ttf') format('truetype');
+ font-display: fallback;
+}

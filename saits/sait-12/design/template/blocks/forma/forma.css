@@ -1,0 +1,228 @@
+/* forma */
+.forma {
+	background-color: #171717;
+	position: relative;
+}
+.frm__substrate {
+	position: fixed;
+	top: -100vh;
+	left: 0;
+	width: 100%;
+	height: 102vh;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 45;
+	opacity: 0;
+	backdrop-filter: blur(3px);
+	transition: 0ms top, 300ms opacity;
+}
+.__active .frm__substrate {
+	top: 0;
+	opacity: 0.8;
+}
+.frm__inner {
+	background: #ffffff;
+	border-radius: 0;
+	padding: 0 30px 0 30px;
+	z-index: 50;
+	position: relative;
+	color: #fff;
+}
+.frm__user-data-btn {
+	padding: 0 15px !important;
+	height: 50px;
+	box-shadow: none;
+	border: none;
+	width: 100%;
+	border-bottom: 1px #ff8a00 solid;
+	background-color: #ffffff;
+	margin-bottom: 3px;
+	color: #000000;
+	font-size: 1.2rem;
+}
+.frm__user-data-btn::placeholder {
+	color: #000000;
+	font-size: 1rem;
+	opacity: 0.5;
+}
+.frm__user-data-btn:hover::placeholder {
+	opacity: 1;
+}
+.frm__user-data-btn.__error {
+	border: 1px ff1e71 solid;
+}
+.frm__user-data-text.__error::placeholder {
+	color: #ff8a00;
+	font-size: 0.8rem;
+}
+.frm__user-data-btn:active {
+	background-color: #ff8a00 !important;
+}
+.frm__input-btn,
+.frm__external-button {
+	font-size: 1rem;
+	letter-spacing: 1px;
+	padding-top: 15px;
+	padding-right: 25px;
+	padding-bottom: 15px;
+	padding-left: 25px;
+	width: 100%;
+	text-align: center;
+	border: 0;
+	cursor: pointer;
+	position: relative;
+	font-weight: 700;
+	text-transform: uppercase;
+
+	transition: 0ms color, 300ms background;
+}
+.frm__external-button.__banner {
+	width: auto;
+}
+.frm__input-btn {
+	color: #ffffff;
+	background: #ff8a00;
+	margin-top: 20px;
+	max-width: 250px;
+}
+.frm__external-button {
+	background: #000000;
+	color: #ff8a00;
+}
+.frm__external-button:hover {
+	background: #ff8a00;
+	color: #000000;
+}
+.frm__input-btn:hover {
+	background: #000000;
+	color: #ff8a00;
+}
+.frm__btn-icon {
+	position: relative;
+	padding-left: 50px;
+}
+.__marker-text {
+	color: #fff;
+}
+.frm__btn-icon:before {
+	position: absolute;
+	width: 40px;
+	height: 100%;
+	left: 0;
+	top: 0;
+	content: '';
+
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	background-size: contain;
+
+	transition: 0ms background;
+}
+.frm__input-btn .frm__btn-icon:before {
+	background-image: url('/design/template/blocks/catalog__vertikal-carousel/images/template/arrow-right__ffffff.svg');
+}
+.frm__external-button .frm__btn-icon:before {
+	background-image: url('/design/template/blocks/catalog__vertikal-carousel/images/template/arrow-right__ff1e71.svg');
+}
+.frm__input-btn:hover .frm__btn-icon:before {
+	background-image: url('/design/template/blocks/catalog__vertikal-carousel/images/template/arrow-right__ff1e71.svg');
+}
+.frm__external-button:hover .frm__btn-icon:before {
+	background-image: url('/design/template/blocks/catalog__vertikal-carousel/images/template/arrow-right__000000.svg');
+}
+.frm__input-btn:hover .__marker-text,
+.frm__external-button:hover .__marker-text {
+	color: #000;
+}
+
+/* __modal */
+.forma.frm__modal {
+	position: fixed;
+	opacity: 0;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	background: none;
+	padding: 20% 0;
+}
+.frm__modal .frm__inner {
+	transform: translateY(-600px);
+	max-width: 600px;
+	padding: 30px 50px 30px 30px;
+	margin: 0 auto;
+	cursor: default;
+}
+.frm__close-button {
+	position: absolute;
+	top: -40px;
+	right: -40px;
+	width: 40px;
+	height: 40px;
+	z-index: 55;
+	cursor: pointer;
+}
+.frm__close-button::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	content: '';
+	background-image: url('/design/template/blocks/forma/images/times__ffffff.svg');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: 80% auto;
+}
+.frm__close-button:hover::after {
+	background-image: url('/design/template/blocks/forma/images/times__ff1e71.svg');
+}
+
+/* __active */
+.forma.frm__modal.__active {
+	opacity: 1;
+	z-index: 52;
+}
+.__active .frm__inner {
+	transform: translateY(0);
+}
+
+input,
+button {
+	outline: none;
+}
+
+/* media */
+@media (max-width: 700px) {
+	.frm__close-button {
+		top: 0;
+		right: 0;
+		width: 30px;
+		height: 30px;
+	}
+	.frm__close-button::after {
+		background-image: url('/design/template/blocks/forma/images/times__ff1e71.svg');
+	}
+	.frm__close-button:hover::after {
+		background-image: url('/design/template/blocks/forma/images/times__000000.svg');
+	}
+}
+@media (max-width: 600px) {
+	.frm__input-btn,
+	.frm__external-button {
+		padding-top: 15px;
+		padding-right: 10px;
+		padding-bottom: 15px;
+		padding-left: 10px;
+		font-size: 0.9rem;
+	}
+}
+@media (max-width: 500px) {
+	.frm__modal .frm__inner {
+		padding-top: 20px;
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-bottom: 20px;
+	}
+}
