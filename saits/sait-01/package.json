@@ -1,0 +1,15 @@
+{
+  "name": "sait-01-zok-shield",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Защитные конструкции от БПЛА — демо 01 (один самодостаточный index.html, оживлённый через Vite)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}

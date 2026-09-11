@@ -1,0 +1,252 @@
+/* ============================================================================
+   «Оживление» sait-01 — дополнительный слой поверх инлайн-стилей.
+   Не меняет вёрстку, только добавляет движение и микровзаимодействия.
+   Подключается после основного <style>, поэтому аккуратно переопределяет
+   только transition/animation, не трогая сетку и размеры.
+   ============================================================================ */
+
+/* --- 1. Полоса прогресса скролла --- */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 80;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--blue), #6f9bf0);
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+  transition: width 120ms linear;
+}
+
+/* --- 2. Шапка: «матовое стекло» + тень при скролле --- */
+.site-header {
+  transition: background-color 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.site-header.is-scrolled {
+  background: rgb(255 255 255 / 78%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: 0 12px 32px rgb(21 37 59 / 10%);
+}
+
+/* --- 3. Появление блоков при скролле --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- 3b. Вход hero: плавное появление без мигания --- */
+.hero-copy,
+.hero-figure,
+.hero-bottom {
+  animation: heroIn 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-figure { animation-delay: 120ms; }
+.hero-bottom { animation-delay: 200ms; }
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* --- 4. Кнопки: подъём, тень, стрелка --- */
+.button {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    background-color 160ms,
+    border-color 160ms,
+    color 160ms;
+}
+.button:hover { transform: translateY(-2px); }
+.button:active { transform: translateY(0); }
+.button-primary { box-shadow: 0 10px 22px rgb(40 88 181 / 16%); }
+.button-primary:hover { box-shadow: 0 18px 34px rgb(40 88 181 / 28%); }
+.button-outline:hover { border-color: var(--blue); }
+.button .icon { transition: transform 220ms ease; }
+.button:hover .icon { transform: translate(3px, -3px); }
+
+/* --- 5. Текстовые ссылки: растущее подчёркивание + стрелка --- */
+.text-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  background-position: 0 100%;
+  transition: background-size 260ms ease, color 160ms ease;
+}
+.text-link:hover { background-size: 100% 1px; }
+.text-link .icon { transition: transform 200ms ease; }
+.text-link:hover .icon { transform: translateX(4px); }
+
+/* --- 6. Десктоп-навигация: растущее подчёркивание --- */
+.desktop-nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 260ms ease;
+}
+.desktop-nav a:hover::after,
+.desktop-nav a[aria-current]::after { transform: scaleX(1); }
+
+/* --- 7. Карточки решений: подъём и тень --- */
+.solution-card {
+  transition: transform 240ms ease, box-shadow 240ms ease, border-color 180ms;
+}
+.solution-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 48px rgb(21 37 59 / 12%);
+}
+
+/* --- 8. Строки «Области применения» (тёмная секция) --- */
+.application-row { transition: background-color 200ms ease; }
+.application-row:hover { background: rgb(147 180 233 / 7%); }
+
+/* --- 9. Пункты «Подход» --- */
+.consideration { transition: background-color 200ms ease; }
+.consideration:hover { background: var(--surface); }
+
+/* --- 10. FAQ --- */
+.faq-item summary { transition: color 160ms ease; }
+.faq-item summary:hover { color: var(--blue); }
+.faq-item[open] .faq-answer { animation: faqReveal 320ms ease; }
+@keyframes faqReveal {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* --- 11. Пульс точки статуса --- */
+.status-dot { position: relative; }
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: 0.5;
+  animation: dotPing 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+}
+@keyframes dotPing {
+  0% { transform: scale(0.6); opacity: 0.55; }
+  70%, 100% { transform: scale(1.7); opacity: 0; }
+}
+
+/* --- 12. Переливающийся акцент в h1 --- */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  h1 > span {
+    background: linear-gradient(100deg, var(--blue) 0%, #5f8fe0 45%, #2f62c4 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: h1Shimmer 7s linear infinite;
+  }
+}
+@keyframes h1Shimmer {
+  to { background-position: -200% center; }
+}
+
+/* --- 13. Фон hero: мягкие пятна + точечная сетка --- */
+.hero-aura {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-image: radial-gradient(rgb(40 88 181 / 8%) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 85% at 30% 15%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse 75% 85% at 30% 15%, #000 0%, transparent 72%);
+}
+.hero-aura::before,
+.hero-aura::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.5;
+}
+.hero-aura::before {
+  width: 460px;
+  height: 460px;
+  left: -120px;
+  top: -140px;
+  background: radial-gradient(circle, rgb(40 88 181 / 26%), transparent 70%);
+  animation: auraA 20s ease-in-out infinite;
+}
+.hero-aura::after {
+  width: 520px;
+  height: 520px;
+  right: -150px;
+  bottom: -180px;
+  background: radial-gradient(circle, rgb(122 165 240 / 24%), transparent 70%);
+  animation: auraB 26s ease-in-out infinite;
+}
+@keyframes auraA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(70px, 50px) scale(1.08); }
+}
+@keyframes auraB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-60px, -45px) scale(1.05); }
+}
+
+/* --- 14. Дрейф декоративной сетки в тёмной секции --- */
+.dark-grid-decoration {
+  animation: gridDrift 34s linear infinite;
+}
+@keyframes gridDrift {
+  from { transform: rotate(-20deg) skew(20deg) translate(0, 0); }
+  to { transform: rotate(-20deg) skew(20deg) translate(46px, 26px); }
+}
+
+/* --- 15. Уважение к prefers-reduced-motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .status-dot::after,
+  .hero-aura::before,
+  .hero-aura::after,
+  .dark-grid-decoration,
+  .faq-item[open] .faq-answer,
+  h1 > span,
+  .hero-copy,
+  .hero-figure,
+  .hero-bottom {
+    animation: none !important;
+  }
+  .button,
+  .button .icon,
+  .text-link,
+  .text-link .icon,
+  .desktop-nav a::after,
+  .solution-card,
+  .application-row,
+  .consideration,
+  .faq-item summary,
+  .site-header,
+  #scroll-progress {
+    transition: none !important;
+  }
+  .button:hover,
+  .solution-card:hover { transform: none; }
+}
+
