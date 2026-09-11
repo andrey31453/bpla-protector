@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # ============================================================
-# dev.sh — запускает все три лендинга в dev-режиме параллельно
+# dev.sh — запускает все лендинги (sait-00 … sait-13) в dev-режиме параллельно
 #
-# sait-00 → http://localhost:8000  (ЗОК-ИНЖИНИРИНГ, тёмная тема)
-# sait-01 → http://localhost:8001  (ЗОК-ШИЛД, тёмная + акцент)
-# sait-02 → http://localhost:8002  (БАСТИОН · ЗОК, olive-тема)
+# sait-00 → http://localhost:8000
+# sait-01 → http://localhost:8001
+# ...
+# sait-13 → http://localhost:8013
 #
 # Запуск:  ./dev.sh
 # Стоп:    Ctrl+C (убивает все дочерние процессы)
@@ -17,9 +18,14 @@ SAITS_DIR="$(cd "$(dirname "$0")" && pwd)"
 log() { printf "\033[32m[dev]\033[0m %s\n" "$*"; }
 err() { printf "\033[31m[err]\033[0m %s\n" "$*" >&2; }
 
+FIRST=0
+LAST=13
+
 # --- check node_modules ---
-for site in sait-00 sait-01 sait-02; do
+for n in $(seq -w "$FIRST" "$LAST"); do
+  site="sait-$n"
   dir="$SAITS_DIR/$site"
+  [ -d "$dir" ] || { err "Skip (not found): $dir"; continue; }
   if [ ! -d "$dir/node_modules" ]; then
     log "Installing deps for $site..."
     (cd "$dir" && npm install --silent)
@@ -33,27 +39,30 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-# --- run all three in background ---
-log "Starting sait-00 on http://localhost:8000 ..."
-(cd "$SAITS_DIR/sait-00" && npm run dev) &
-PID0=$!
-
-log "Starting sait-01 on http://localhost:8001 ..."
-(cd "$SAITS_DIR/sait-01" && npm run dev) &
-PID1=$!
-
-log "Starting sait-02 on http://localhost:8002 ..."
-(cd "$SAITS_DIR/sait-02" && npm run dev) &
-PID2=$!
+# --- run all sites in background ---
+PIDS=()
+for n in $(seq -w "$FIRST" "$LAST"); do
+  site="sait-$n"
+  dir="$SAITS_DIR/$site"
+  [ -d "$dir" ] || continue
+  port=$((8000 + 10#$n))
+  log "Starting $site on http://localhost:$port ..."
+  (cd "$dir" && npm run dev) &
+  PIDS+=("$!")
+done
 
 echo ""
 log "All dev servers running:"
-log "  sait-00  →  http://localhost:8000"
-log "  sait-01  →  http://localhost:8001"
-log "  sait-02  →  http://localhost:8002"
+for n in $(seq -w "$FIRST" "$LAST"); do
+  site="sait-$n"
+  dir="$SAITS_DIR/$site"
+  [ -d "$dir" ] || continue
+  port=$((8000 + 10#$n))
+  log "  $site  →  http://localhost:$port"
+done
 echo ""
 log "Press Ctrl+C to stop all."
 echo ""
 
 # wait for any child to exit (error or manual kill)
-wait $PID0 $PID1 $PID2
+wait "${PIDS[@]}"
