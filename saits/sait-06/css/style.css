@@ -286,10 +286,11 @@ footer[id] {
 
 .hero__slide {
   position: absolute;
-  inset: 0;
+  inset: -16px;
   background-repeat: no-repeat;
   background-position: center right;
   background-size: cover;
+  filter: blur(6px);
   opacity: 0;
   transition: opacity 0.9s ease;
 }
@@ -301,7 +302,9 @@ footer[id] {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(15, 18, 28, 0.72) 0%, rgba(15, 18, 28, 0.45) 40%, rgba(15, 18, 28, 0) 100%);
+  background:
+    radial-gradient(90% 70% at 84% 34%, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0) 64%),
+    linear-gradient(90deg, rgba(15, 18, 28, 0.74) 0%, rgba(15, 18, 28, 0.5) 42%, rgba(15, 18, 28, 0) 72%);
 }
 
 .hero__content {
@@ -1228,7 +1231,9 @@ footer[id] {
   }
 
   .hero__overlay {
-    background: linear-gradient(90deg, rgba(15, 18, 28, 0.82) 0%, rgba(15, 18, 28, 0.45) 60%, rgba(15, 18, 28, 0.05) 100%);
+    background:
+      radial-gradient(85% 55% at 86% 24%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 62%),
+      linear-gradient(90deg, rgba(15, 18, 28, 0.84) 0%, rgba(15, 18, 28, 0.48) 62%, rgba(15, 18, 28, 0.04) 100%);
   }
 
   .hero__title {
