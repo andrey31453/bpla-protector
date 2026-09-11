@@ -3,28 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f4f2e9">
+  <meta name="theme-color" content="#faf7ee">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <meta name="description" content="Демонстрационный архитектурный каталог: защитные навесы, экраны и комбинированные контуры. Выбор формата и подготовка запроса без отправки данных.">
+  <meta name="description" content="Комплексная защита объектов от атак БПЛА: расчётный сценарий, нормативная база СП 542, защитные навесы, экраны и комбинированные контуры. Демонстрационный прототип.">
   <meta property="og:title" content="ФОРМА — защитные конструкции от БПЛА · прототип 03">
-  <meta property="og:description" content="Демонстрационный архитектурный каталог: защитные навесы, экраны и комбинированные контуры. Выбор формата и подготовка запроса без отправки данных.">
+  <meta property="og:description" content="Комплексная защита объектов от атак БПЛА: расчётный сценарий, нормативная база СП 542, защитные навесы, экраны и комбинированные контуры. Демонстрационный прототип.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <title>ФОРМА — защитные конструкции от БПЛА · прототип 03</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M9 48V25L32 12l23 13v23M9 25l23 13 23-13M32 38v23' fill='none' stroke='%23a64228' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M9 48V25L32 12l23 13v23M9 25l23 13 23-13M32 38v23' fill='none' stroke='%23c14e2b' stroke-width='4'/%3E%3C/svg%3E">
   <style>/* Source-only style manifest. build.py inlines every file; no HTTP imports in index.html. */
 :root {
-  --paper:#f4f2e9;
-  --white:#fffef9;
+  --paper:#faf7ee;
+  --white:#fffdf5;
   --ink:#292d25;
-  --muted:#62675b;
-  --line:#d2d4c7;
-  --rust:#a64228;
-  --rust-dark:#89341e;
-  --sage:#dce1ce;
-  --sage-light:#e7eadc;
-  --dark:#303b2d;
-  --focus:#703217;
+  --muted:#5d6156;
+  --line:#dfe0d1;
+  --rust:#c14e2b;
+  --rust-dark:#9e3a1f;
+  --sage:#e0e8d2;
+  --sage-light:#eef2e2;
+  --dark:#2f3a2d;
+  --gold:#d79a2f;
+  --focus:#8a3d1e;
   --shell:1328px;
   --pad:48px;
   --serif:Georgia,'Times New Roman',serif;
@@ -78,7 +79,7 @@ button {
   border:0
 }
 ::selection {
-  background:#dfb6a0;
+  background:#f2c9a6;
   color:#292d25
 }
 :focus-visible {
@@ -143,7 +144,7 @@ button {
   height:6px;
   display:inline-block;
   border-radius:50%;
-  background:var(--rust)
+  background:var(--gold)
 }
 .button {
   min-height:54px;
@@ -174,7 +175,7 @@ button {
   color:var(--white)
 }
 .button-dark:hover {
-  background:#172013
+  background:#26321f
 }
 .button-outline {
   background:transparent;
@@ -246,7 +247,7 @@ h3 {
   position:sticky;
   z-index:30;
   top:0;
-  background:rgba(244,242,233,.97);
+  background:rgba(250,247,238,.97);
   border-bottom:1px solid var(--line);
   backdrop-filter:blur(14px)
 }
@@ -668,7 +669,7 @@ h3 {
 .context-visual {
   align-self:stretch;
   min-height:590px;
-  background:#d9dfca;
+  background:#e3e9d4;
   position:relative;
   overflow:hidden;
   display:flex;
@@ -735,7 +736,7 @@ h3 {
 .context-row {
   display:flex;
   gap:25px;
-  border-top:1px solid #cbd1bd;
+  border-top:1px solid #d8ddc8;
   padding:21px 0
 }
 .context-row>span {
@@ -782,7 +783,7 @@ h3 {
 .prep-no {
   font:italic 49px/1 var(--serif);
   letter-spacing:-2px;
-  color:#69775b
+  color:var(--gold)
 }
 .prep-top svg {
   width:42px;
@@ -1206,7 +1207,7 @@ details[open] .faq-icon:after {
   max-width:650px
 }
 .site-footer {
-  background:#dce1cf;
+  background:#e2e8d4;
   padding-block:45px 23px
 }
 .footer-top {
@@ -2640,6 +2641,212 @@ details[open] .faq-icon:after {
   }
 }
 
+/* ===== Содержательные блоки: угрозы, нормативы, компания ===== */
+.threat-grid {
+  display:grid;
+  grid-template-columns:1fr 1.05fr;
+  gap:72px;
+  align-items:start
+}
+.threat-side h3,
+.threat-factors>h3 {
+  font-size:13px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:500;
+  color:var(--muted);
+  margin-bottom:18px
+}
+.threat-lead {
+  font-size:15px;
+  line-height:1.7;
+  margin-bottom:22px
+}
+.data-table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px
+}
+.data-table tr {
+  border-top:1px solid #d8ddc8
+}
+.data-table tr:last-child {
+  border-bottom:1px solid #d8ddc8
+}
+.data-table th {
+  text-align:left;
+  font-weight:400;
+  color:var(--muted);
+  padding:12px 18px 12px 0;
+  vertical-align:top;
+  width:47%
+}
+.data-table td {
+  padding:12px 0;
+  font-weight:500;
+  vertical-align:top
+}
+.threat-factors {
+  border-top:1px solid var(--line)
+}
+.threat-factors .context-row {
+  padding:15px 0
+}
+.threat-factors .context-row>span {
+  font:italic 24px/1 var(--serif);
+  color:var(--gold);
+  letter-spacing:-1px;
+  margin-top:1px
+}
+.threat-factors .context-row h3 {
+  font-size:16px;
+  margin-bottom:4px
+}
+.threat-factors .context-row p {
+  font-size:12.5px;
+  max-width:100%
+}
+.norm-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  border-top:1px solid var(--line)
+}
+.norm-card {
+  padding:30px 34px 30px 0;
+  border-bottom:1px solid var(--line)
+}
+.norm-card:nth-child(even) {
+  padding-left:34px;
+  border-left:1px solid var(--line)
+}
+.norm-card>span {
+  font:italic 34px/1 var(--serif);
+  color:var(--rust);
+  letter-spacing:-1.5px;
+  display:block;
+  margin-bottom:15px
+}
+.norm-card h3 {
+  font-size:18px;
+  margin-bottom:10px
+}
+.norm-card p {
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.7;
+  max-width:440px
+}
+.kpi-band {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  padding:42px 0;
+  border-bottom:1px solid var(--line)
+}
+.kpi {
+  display:flex;
+  flex-direction:column;
+  gap:12px
+}
+.kpi b {
+  font:400 clamp(52px,5vw,86px)/1 var(--serif);
+  letter-spacing:-.04em;
+  color:var(--rust)
+}
+.kpi span {
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.65;
+  max-width:420px
+}
+.pillar-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line)
+}
+.pillar {
+  padding:34px 40px 34px 0
+}
+.pillar+.pillar {
+  border-left:1px solid var(--line);
+  padding-left:39px
+}
+.pillar-no {
+  font:italic 49px/1 var(--serif);
+  letter-spacing:-2px;
+  color:var(--gold);
+  display:block;
+  margin-bottom:20px
+}
+.pillar h3 {
+  font-size:22px;
+  margin-bottom:12px
+}
+.pillar p {
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.7;
+  max-width:320px
+}
+.company-cta {
+  border-top:1px solid var(--line);
+  padding-top:26px;
+  display:flex;
+  gap:24px;
+  align-items:center;
+  justify-content:space-between
+}
+.company-cta p {
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.7;
+  max-width:540px
+}
+.footer-contacts {
+  align-self:center
+}
+.footer-contacts p {
+  max-width:430px
+}
+.footer-contact-list {
+  list-style:none;
+  margin:20px 0 0;
+  padding:0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 30px;
+  font-size:13px
+}
+.footer-contact-list a {
+  border-bottom:1px solid transparent
+}
+.footer-contact-list a:hover {
+  color:var(--rust);
+  border-bottom-color:currentColor
+}
+@media(max-width:900px) {
+  .threat-grid,
+  .kpi-band {
+    grid-template-columns:1fr;
+    gap:36px
+  }
+  .norm-grid,
+  .pillar-grid {
+    grid-template-columns:1fr
+  }
+  .norm-card:nth-child(even) {
+    padding-left:0;
+    border-left:0
+  }
+  .pillar+.pillar {
+    border-left:0;
+    padding-left:0
+  }
+  .company-cta {
+    flex-direction:column;
+    align-items:flex-start
+  }
+}
 </style>
 </head>
 <body>
@@ -2647,12 +2854,12 @@ details[open] .faq-icon:after {
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="#top" aria-label="форма — в начало страницы">
-        <span class="brand-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><title>ФОРМА — знак демонстрационного бренда</title><g fill="none" stroke="#a64228" stroke-width="3.2" stroke-linejoin="round"><path d="M9 48V25L32 12l23 13v23M9 25l23 13 23-13M32 38v23M9 36l23 13 23-13"/></g></svg></span>
+        <span class="brand-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><title>ФОРМА — знак демонстрационного бренда</title><g fill="none" stroke="#c14e2b" stroke-width="3.2" stroke-linejoin="round"><path d="M9 48V25L32 12l23 13v23M9 25l23 13 23-13M32 38v23M9 36l23 13 23-13"/></g></svg></span>
         <span class="brand-name">форма<span class="brand-descriptor">конструкции защиты</span></span>
       </a>
       <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Открыть меню"><span></span><span></span></button>
       <nav id="site-nav" class="site-nav" aria-label="Основная навигация">
-        <a href="#solutions">Решения</a><a href="#context">Объект</a><a href="#approach">Подготовка</a><a href="#faq">Вопросы</a>
+        <a href="#threats">Угрозы</a><a href="#norms">Нормативы</a><a href="#company">Компания</a><a href="#solutions">Решения</a><a href="#context">Объект</a><a href="#approach">Подготовка</a><a href="#faq">Вопросы</a>
         <a href="#brief" class="nav-cta">Подготовить запрос <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
@@ -2663,7 +2870,7 @@ details[open] .faq-icon:after {
       <div class="hero-overline"><span class="eyebrow"><i class="status-dot" aria-hidden="true"></i>Пассивная защита объекта</span><span class="edition">Демонстрационный проект · 03</span></div>
       <div class="hero-heading">
         <h1 id="hero-title" class="hero-title"><span>Защитные конструкции</span><em>от БПЛА.</em></h1>
-        <div class="hero-lead"><p>Навесы, экраны и комбинированные контуры. Начните с формата, который соответствует вашей задаче.</p><a class="button button-primary" href="#solutions">Выбрать решение <span aria-hidden="true">↗</span></a></div>
+        <div class="hero-lead"><p>Инженерное проектирование, расчёт и производство защитных барьеров от атак БПЛА. От расчётного сценария до ввода в эксплуатацию.</p><a class="button button-primary" href="#solutions">Смотреть решения <span aria-hidden="true">↗</span></a></div>
       </div>
       <figure class="hero-art">
         <figcaption class="art-side"><span class="tiny-label">Каталог форм</span><span class="art-index">03<span> / решения</span></span><span class="art-side-line"></span><p>Один объект.<br>Разные плоскости<br>защиты.</p></figcaption>
@@ -2951,8 +3158,64 @@ details[open] .faq-icon:after {
       <div class="hero-bottom"><p>Для обсуждения задач гражданских<br class="desktop-break"> и промышленных объектов</p><a href="#solutions">Смотреть каталог <span aria-hidden="true">↓</span></a><p class="hero-bottom-note">Без универсальных обещаний.<br>С вниманием к исходным условиям.</p></div>
     </section>
 
+    <section id="threats" class="threats-section shell section-space" aria-labelledby="threats-title">
+      <div class="section-heading"><span class="eyebrow section-index">01 / Угрозы</span><div><h2 id="threats-title">Что именно<br><em>предстоит выдержать.</em></h2><p class="section-intro">Расчётный сценарий — удар дальнобойного БПЛА по кровле критического объекта. Характеристики и типы боевых частей приняты как расчётные на основе открытых источников.</p></div></div>
+      <div class="threat-grid">
+        <div class="threat-side">
+          <h3>Расчётный сценарий</h3>
+          <p class="threat-lead">Удар дальнобойного БПЛА «Лютый» (Ан-196) / FP-1 сверху по кровле. Параметры задают требования к защитному контуру.</p>
+          <table class="data-table">
+            <tbody>
+              <tr><th>Тип атаки</th><td>Удар сверху по кровле</td></tr>
+              <tr><th>Взлётная масса</th><td>более 200 кг</td></tr>
+              <tr><th>Масса боевой части</th><td>50–75 кг; до 120 кг у FP-1</td></tr>
+              <tr><th>Скорость встречи</th><td>42–55 м/с</td></tr>
+              <tr><th>Энергия удара</th><td>180–300 кДж</td></tr>
+              <tr><th>Дальность</th><td>1000–1300 км</td></tr>
+              <tr><th>Габариты</th><td>4,4 × 6,7 м</td></tr>
+              <tr><th>Наведение</th><td>ИНС + GPS-коррекция</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="threat-factors">
+          <h3>Семь факторов поражения</h3>
+          <div class="context-row"><span>01</span><div><h3>Кинетический удар</h3><p>180–300 кДж. Пробитие преграды корпусом до подрыва БЧ; прочность стандартных лесов и навесов ниже требуемой на 2–3 порядка.</p></div></div>
+          <div class="context-row"><span>02</span><div><h3>Воздушная ударная волна</h3><p>50 кг С-4 на расстоянии 5 м: Δpf = 576 кПа, отражённое — до 2700 кПа. Для разрушения достаточно 100 кПа.</p></div></div>
+          <div class="context-row"><span>03</span><div><h3>Осколочное поле</h3><p>Радиус убоя — десятки метров. Стандартные защитные сетки не задерживают осколки из-за малой плотности поля.</p></div></div>
+          <div class="context-row"><span>04</span><div><h3>Вторичные осколки</h3><p>Разрушенные трубы, крепёж, остекление и элементы каркаса формируют дополнительное осколочное поле.</p></div></div>
+          <div class="context-row"><span>05</span><div><h3>Кумулятивное действие</h3><p>Локальное пробитие бетона, брони и сэндвич-панелей. Нейтрализуется массой и разнесением экранов.</p></div></div>
+          <div class="context-row"><span>06</span><div><h3>Термическое поражение</h3><p>Возгорание трансформаторного масла, газа и кабелей; риск полного выгорания объекта.</p></div></div>
+          <div class="context-row"><span>07</span><div><h3>Повторные удары</h3><p>Нарушение геометрии конструкции первым аппаратом открывает брешь для последующих БПЛА.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="norms" class="norms-section shell section-space" aria-labelledby="norms-title">
+      <div class="section-heading"><span class="eyebrow section-index">02 / Нормативы</span><div><h2 id="norms-title">На чём строятся<br><em>расчёты.</em></h2><p class="section-intro">Параметры защитных ограждающих конструкций опираются на действующие нормы и результаты математического моделирования.</p></div></div>
+      <div class="norm-grid">
+        <div class="norm-card"><span>СП 542</span><h3>СП 542.1325800.2024</h3><p>«Защитные ограждающие конструкции от БПЛА»: функциональные требования и классификация, нагрузки от осколочных воздействий (раздел 7.6) и падения аппарата (раздел 7.7).</p></div>
+        <div class="norm-card"><span>МЧС</span><h3>Рекомендации МЧС России, 2024</h3><p>Сетчато-тросовая конструкция: каркас, тросы, сети; стойки с шагом 3 м, натяжение талрепами, энергопоглощающие устройства в тросах и растяжках.</p></div>
+        <div class="norm-card"><span>ВУВ</span><h3>Методика взрывных нагрузок</h3><p>Приведённое расстояние и коэффициент эффективности заряда, Δpf, импульс фазы сжатия, скоростной напор и отражённое давление.</p></div>
+        <div class="norm-card"><span>FEM</span><h3>ANSYS LS-DYNA и AUTODYN</h3><p>Явная динамика: лагранжева и эйлерова постановки, связь «жидкость–конструкция», контакт методом штрафа, контроль энергетического баланса.</p></div>
+      </div>
+      <div class="kpi-band">
+        <div class="kpi"><b>47,9 кДж</b><span>Предельная ударная энергия сети высокопрочной 60 × 60 × 4,6 по результатам испытаний МЧС России.</span></div>
+        <div class="kpi"><b>180–400 кДж</b><span>Энергия удара планёра расчётного аппарата до срабатывания боевой части.</span></div>
+      </div>
+    </section>
+
+    <section id="company" class="company-section shell section-space" aria-labelledby="company-title">
+      <div class="section-heading"><span class="eyebrow section-index">03 / Компания</span><div><h2 id="company-title">Полный цикл —<br><em>от расчёта до монтажа.</em></h2><p class="section-intro">ООО «ЗМК «ЕВРОСТАЛЬ» предлагает изготовление и поставку защитных конструкций для стратегических объектов от атак БПЛА.</p></div></div>
+      <div class="pillar-grid">
+        <div class="pillar"><span class="pillar-no">01</span><h3>Индивидуальное проектирование</h3><p>Каждая система защиты разрабатывается строго под конфигурацию объекта — с учётом ландшафта, архитектуры зданий и потенциальных угроз.</p></div>
+        <div class="pillar"><span class="pillar-no">02</span><h3>Штатный проектный отдел</h3><p>Полный цикл «под ключ» без подрядчиков: скорость решений, строгий контроль качества и прямая ответственность разработчика.</p></div>
+        <div class="pillar"><span class="pillar-no">03</span><h3>Моделирование ANSYS и LS-DYNA</h3><p>Цифровой расчёт физики удара, детонационной волны и прочности элементов — надёжность конструкции подтверждается до монтажа.</p></div>
+      </div>
+      <div class="company-cta"><p>Безопасность вашего предприятия — наша задача. Компания берёт на себя полный цикл: от первичных 3D-расчётов до ввода защитных конструкций в эксплуатацию.</p><a class="button button-dark" href="#contacts">Связаться <span aria-hidden="true">↗</span></a></div>
+    </section>
+
     <section id="solutions" class="catalog-section shell section-space" aria-labelledby="catalog-title">
-      <div class="section-heading"><span class="eyebrow section-index">01 / Решения</span><div><h2 id="catalog-title">Начните с того,<br><em>что нужно закрыть.</em></h2><p class="section-intro">Три отправные точки для обсуждения. Не готовый инженерный подбор: параметры и применимость предстоит проверить.</p></div></div>
+      <div class="section-heading"><span class="eyebrow section-index">04 / Решения</span><div><h2 id="catalog-title">Начните с того,<br><em>что нужно закрыть.</em></h2><p class="section-intro">Три отправные точки для обсуждения. Не готовый инженерный подбор: параметры и применимость предстоит проверить.</p></div></div>
       <div class="catalog-layout">
         <div class="catalog-aside"><div class="catalog-menu" aria-label="Выбор формата защиты">
           <a id="tab-canopy" class="catalog-tab" href="#panel-canopy" data-tab="canopy"><span class="tab-number">01</span><span class="tab-copy"><strong>Сверху</strong><span>Навесы и тросовые покрытия</span></span><span class="tab-arrow" aria-hidden="true">↗</span></a>
@@ -3650,7 +3913,7 @@ details[open] .faq-icon:after {
 <g fill="#4a5841"><circle cx="57" cy="75" r="4"/><circle cx="202" cy="75" r="4"/><circle cx="346" cy="75" r="4"/><circle cx="57" cy="214" r="4"/><circle cx="346" cy="214" r="4"/><circle cx="57" cy="352" r="4"/><circle cx="202" cy="352" r="4"/><circle cx="346" cy="352" r="4"/></g>
 <g fill="none" stroke="#829570" stroke-width="1.2"><circle cx="95" cy="496" r="15"/><circle cx="151" cy="486" r="18"/><circle cx="217" cy="496" r="13"/><circle cx="471" cy="103" r="21"/><circle cx="471" cy="171" r="15"/></g>
 </g></svg></div><div class="plan-legend"><span><i></i>Обсуждаемая зона</span><span>Условная схема</span></div></div>
-        <div class="context-copy"><span class="eyebrow section-index">02 / Объект</span><h2 id="context-title">Вокруг конструкции<br><em>продолжается работа.</em></h2><p class="context-intro">Поэтому разговор начинается не с размеров изделия, а с того, что уже происходит на площадке.</p>
+        <div class="context-copy"><span class="eyebrow section-index">05 / Объект</span><h2 id="context-title">Вокруг конструкции<br><em>продолжается работа.</em></h2><p class="context-intro">Поэтому разговор начинается не с размеров изделия, а с того, что уже происходит на площадке.</p>
           <div class="context-row"><span>01</span><div><h3>Люди и транспорт</h3><p>Где проходят сотрудники, как движется техника, какие маршруты нужно сохранить.</p></div></div>
           <div class="context-row"><span>02</span><div><h3>Обслуживание объекта</h3><p>К чему нужен регулярный доступ и какие работы выполняются в этой зоне.</p></div></div>
           <div class="context-row"><span>03</span><div><h3>Существующая среда</h3><p>Здания, оборудование и ограничения площадки, которые предстоит учесть при обсуждении.</p></div></div>
@@ -3659,7 +3922,7 @@ details[open] .faq-icon:after {
     </section>
 
     <section id="approach" class="approach-section shell section-space" aria-labelledby="approach-title">
-      <div class="section-heading"><span class="eyebrow section-index">03 / Подготовка</span><div><h2 id="approach-title">Не больше информации.<br><em>Больше ясности.</em></h2><p class="section-intro">Для первого разговора достаточно описать задачу в общих чертах. Подробные материалы передаются позже — по согласованному каналу.</p></div></div>
+      <div class="section-heading"><span class="eyebrow section-index">06 / Подготовка</span><div><h2 id="approach-title">Не больше информации.<br><em>Больше ясности.</em></h2><p class="section-intro">Для первого разговора достаточно описать задачу в общих чертах. Подробные материалы передаются позже — по согласованному каналу.</p></div></div>
       <div class="preparation-grid">
         <article><div class="prep-top"><span class="prep-no">01</span><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M7 21 26 10l19 11v21H7ZM7 21l19 11 19-11M26 32v10"/></svg></div><h3>Назовите зону</h3><p>Площадка, производственная зона или отдельное оборудование. Без точного адреса.</p></article>
         <article><div class="prep-top"><span class="prep-no">02</span><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M9 42V10h34v32M9 18h34M18 18v24M34 18v24M9 42h34"/></svg></div><h3>Обозначьте задачу</h3><p>Что хотите обсудить: навес, экран, комбинированный контур — или помощь с выбором.</p></article>
@@ -3670,7 +3933,7 @@ details[open] .faq-icon:after {
 
     <section id="brief" class="brief-section" aria-labelledby="brief-title">
       <div class="shell brief-grid">
-        <div class="brief-intro"><span class="eyebrow">04 / Ваша задача</span><h2 id="brief-title">От формы —<br><em>к вашему объекту.</em></h2><p>Соберите исходный запрос для первого разговора. Его можно отредактировать, скопировать или сохранить.</p><div class="brief-privacy"><span aria-hidden="true">↗</span><p>Никакой отправки.<br><span>Всё остаётся на этой странице. Контакты и точный адрес не нужны.</span></p></div><span class="brief-giant" aria-hidden="true">ф.</span></div>
+        <div class="brief-intro"><span class="eyebrow">07 / Ваша задача</span><h2 id="brief-title">От формы —<br><em>к вашему объекту.</em></h2><p>Соберите исходный запрос для первого разговора. Его можно отредактировать, скопировать или сохранить.</p><div class="brief-privacy"><span aria-hidden="true">↗</span><p>Никакой отправки.<br><span>Всё остаётся на этой странице. Контакты и точный адрес не нужны.</span></p></div><span class="brief-giant" aria-hidden="true">ф.</span></div>
         <div class="brief-workspace">
           <div class="brief-progress" aria-label="Этапы подготовки"><span class="current" id="progress-input"><b>01</b> Контекст</span><span class="progress-line" aria-hidden="true"></span><span id="progress-result"><b>02</b> Готовый текст</span></div>
           <noscript><div class="noscript-message"><h3>Форма работает с JavaScript.</h3><p>Можно составить запрос вручную: укажите общий тип объекта, интересующий формат конструкции и важные ограничения. Не добавляйте адрес или конфиденциальные данные.</p></div></noscript>
@@ -3689,7 +3952,7 @@ details[open] .faq-icon:after {
     </section>
 
     <section id="faq" class="faq-section shell section-space" aria-labelledby="faq-title">
-      <div class="faq-heading"><span class="eyebrow section-index">05 / Вопросы</span><h2 id="faq-title">Важное —<br><em>до начала.</em></h2><p>Несколько уточнений о каталоге<br>и первом обсуждении.</p></div>
+      <div class="faq-heading"><span class="eyebrow section-index">08 / Вопросы</span><h2 id="faq-title">Важное —<br><em>до начала.</em></h2><p>Несколько уточнений о каталоге<br>и первом обсуждении.</p></div>
       <div class="faq-list">
         <details><summary>Что здесь относится к пассивной защите?<span class="faq-icon" aria-hidden="true"></span></summary><div><p>В этом демонстрационном каталоге — физические конструкции: верхние навесы, боковые экраны и их сочетания. Средства обнаружения, радиоэлектронного воздействия и активного перехвата здесь не представлены.</p></div></details>
         <details><summary>Можно ли выбрать конструкцию по изображению?<span class="faq-icon" aria-hidden="true"></span></summary><div><p>Нет. Изображения показывают только общую идею компоновки. Они не содержат расчётов, не определяют материалы или размеры и не подтверждают эффективность. Применимость обсуждается отдельно на основе исходных данных объекта.</p></div></details>
@@ -3698,7 +3961,7 @@ details[open] .faq-icon:after {
       </div>
     </section>
   </main>
-  <footer class="site-footer"><div class="shell"><div class="footer-top"><a class="footer-brand" href="#top" aria-label="форма — в начало">форма<span aria-hidden="true">↗</span></a><div><span class="tiny-label">Защитные конструкции от БПЛА</span><p>Сначала задача.<br>Затем — форма решения.</p></div><a class="back-top" href="#top">Наверх <span aria-hidden="true">↑</span></a></div><div class="footer-bottom"><p>ФОРМА — вымышленное название. Демонстрация для адаптации под компанию.</p><span>ПРОТОТИП 03 / НЕ ДЛЯ ИНДЕКСАЦИИ</span></div></div></footer>
+  <footer class="site-footer" id="contacts"><div class="shell"><div class="footer-top"><a class="footer-brand" href="#top" aria-label="форма — в начало">форма<span aria-hidden="true">↗</span></a><div class="footer-contacts"><span class="tiny-label">ООО «ЗМК «ЕВРОСТАЛЬ»</span><p>Инженерное проектирование, расчёт и производство сплошных защитных барьеров.</p><ul class="footer-contact-list"><li><a href="tel:+78005506469">8 800 550 64 69</a></li><li><a href="mailto:zakaz@boxwel.ru">zakaz@boxwel.ru</a></li><li>423800, Россия, РТ, г. Набережные Челны, пр-т Вахитова, д. 36 Г</li></ul></div><a class="back-top" href="#top">Наверх <span aria-hidden="true">↑</span></a></div><div class="footer-bottom"><p>ФОРМА — демонстрационное название. Контент — по материалам ООО «ЗМК «ЕВРОСТАЛЬ».</p><span>ПРОТОТИП 03 / НЕ ДЛЯ ИНДЕКСАЦИИ</span></div></div></footer>
   <script>/* Pure domain functions. No DOM, networking or persistence. */
 (function (root, factory) {
   'use strict';

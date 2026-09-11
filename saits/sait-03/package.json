@@ -1,0 +1,15 @@
+{
+  "name": "forma-bpla-prototype-03",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Одностраничный прототип «ФОРМА — защитные конструкции от БПЛА» (sait-03) на Vite",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.4.3"
+  }
+}
