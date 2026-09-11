@@ -1,0 +1,21 @@
+.menu__btn
+	z-index: 100
+	width: 30px
+	height: 30px
+	cursor: pointer
+	@extend .__fcol
+
+.menu__btn-array
+	width: 30px
+	height: 4px
+	background-color: $c
+	transition: $submenu_anim_time
+	.menu__btn:hover &
+		background-color: $fc3
+	.submenu_open--true &
+		&.--left
+			transform: rotate(45deg) translate(10px, 9px)
+		&.--center
+			opacity: 0
+		&.--right
+			transform: rotate(-45deg) translate(9px, -9px)

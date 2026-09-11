@@ -1,0 +1,15 @@
+.section
+	background-color: $bc
+	color: $fc
+	&.section--alt
+		background-color: $bc2
+		color: $fc2
+	&.section--cntrl
+		background-color: $bc3
+		color: $fc3
+	@media (min-width: $d)
+		padding-top: $psec
+		padding-bottom: $psec
+	@media (max-width: $m)
+		padding-top: $psecm
+		padding-bottom: $psecm

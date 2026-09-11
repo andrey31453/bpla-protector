@@ -1,0 +1,26 @@
+.menu__contacts-link
+	@extend .__h3
+	margin-bottom: 0
+	margin-top: 0
+
+.menu__contacts-icon
+	svg
+		height: 30px
+	&.--phone svg
+		height: 26px
+	&.--tik-tok svg
+		height: 27px
+	path
+		fill: $fc3
+	&:hover.--phone
+		path
+			fill: url(#sg--phone)
+	&:hover.--wa
+		path
+			fill: url(#sg--wa)
+	&:hover.--insta
+		path
+			fill: url(#sg--insta)
+	&:hover.--tik-tok
+		path
+			fill: url(#sg--tik-tok)

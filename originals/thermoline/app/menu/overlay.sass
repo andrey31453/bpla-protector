@@ -1,0 +1,17 @@
+.menu__overlay
+	position: absolute
+	top: -100vh
+	min-height: 100vh
+	left: 0
+	width: 100%
+	background: rgba(0,0,0,0.5)
+	z-index: 60
+	opacity: 0
+	backdrop-filter: blur(10px)
+	cursor: pointer
+	margin: 0
+	transition: $animt $animt top, $animt opacity, $animt margin
+	.submenu_open--true &
+		top: 0
+		opacity: 1
+		transition: 0ms top, $animt opacity, $animt margin

@@ -1,0 +1,18 @@
+// overlay
+.__overlay
+	position: fixed
+	top: -100vh
+	left: 0
+	width: 100%
+	height: 100vh
+	background: rgba(0,0,0,0.5)
+	z-index: 60
+	opacity: 0
+	backdrop-filter: blur(3px)
+	cursor: pointer
+	margin: 0
+	transition: $animt $animt top linear, $animt opacity linear, $animt margin linear
+	.--active &
+		top: 0
+		opacity: 1
+		transition: 0ms top, $animt opacity

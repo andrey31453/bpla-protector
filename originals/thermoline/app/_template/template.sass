@@ -1,0 +1,51 @@
+html,
+body
+	margin: 0
+	font-family: 'gothic', system-ui
+	color: $fc
+	letter-spacing: 0.5px
+	background-color: $bc
+	@media (min-width: $d)
+		font-size: $fz
+	@media (max-width: $m)
+		font-size: $fzm
+
+p
+	margin-top: 0
+	margin-bottom: $p
+
+ol,
+ul
+	padding-left: $p
+	margin: 0 0 $p $pl
+li
+	margin-bottom: $ps
+
+a
+	text-decoration: none
+	color: inherit
+	cursor: pointer
+	&:hover
+		color: $c
+
+img
+	max-width: 100%
+
+table
+	caption-side: bottom
+	border-collapse: collapse
+
+input, button
+	outline: none
+
+*:focus-visible
+	outline: none
+
+*, ::after, ::before
+	box-sizing: border-box
+
+header,
+main,
+footer
+	display: block
+	min-width: 100%

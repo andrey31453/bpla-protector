@@ -1,0 +1,22 @@
+.menu
+	position: relative
+	color: $fc3
+	background-color: $bc3
+	box-shadow: 0 0 $ps $fc40
+	font-family: 'gothic bold'
+	.submenu_open--true & .__container
+		min-width: -webkit-fill-available
+
+.menu-item
+	@extend .__fcolc
+	height: $menuh
+	padding-left: $p * 0.75
+	padding-right: $p * 0.75
+	&.--logo
+		svg
+			height: 40px
+		&:hover path
+			fill: $fc3
+
+body
+	overflow-x: hidden

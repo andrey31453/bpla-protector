@@ -1,0 +1,27 @@
+h1, h2, h3,
+.__h1, .__h2, .__h3
+	margin-bottom: $pl
+
+	font-family: 'gothic bold'
+	text-transform: uppercase
+	text-align: center
+	&:first-child
+		margin-top: 0
+	&:not(:first-child)
+		margin-top: $pl
+
+@media (min-width: $d)
+	h1, .__h1
+		font-size: $fzh1
+	h2, .__h2
+		font-size: $fzh2
+	h3, .__h3
+		font-size: $fzh3
+
+@media (max-width: $m)
+	h1, .__h1
+		font-size: $fzh1m
+	h2, .__h2
+		font-size: $fzh2m
+	h3, .__h3
+		font-size: $fzh3m

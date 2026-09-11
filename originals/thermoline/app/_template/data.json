@@ -1,0 +1,41 @@
+{
+	"index": {
+		"pathname": "/",
+
+		"tytle": "Главная",
+		"link_type": false,
+		"link_description": "Главная",
+
+		"src": ["app/banner/index.html"]
+	},
+
+	"sekcionnye": {
+		"pathname": "/sekcionnye",
+
+		"tytle": "Секционные",
+		"link_type": true,
+		"link_description": "Секционные",
+
+		"src": ["app/banner/sekcionnye.html"]
+	},
+
+	"otkatnye": {
+		"pathname": "/otkatnye",
+
+		"tytle": "Откатные",
+		"link_type": true,
+		"link_description": "Откатные",
+
+		"src": ["app/banner/otkatnye.html"]
+	},
+
+	"promyslennye": {
+		"pathname": "/promyslennye",
+
+		"tytle": "Промышленные",
+		"link_type": true,
+		"link_description": "Промышленные",
+
+		"src": ["app/banner/promyslennye.html"]
+	}
+}
