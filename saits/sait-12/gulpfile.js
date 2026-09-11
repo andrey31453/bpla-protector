@@ -34,7 +34,7 @@ const serve = (done) => {
 		server: {
 			baseDir: local_dist,
 		},
-		port: 3000,
+		port: 8012,
 		open: true,
 		notify: false,
 	})

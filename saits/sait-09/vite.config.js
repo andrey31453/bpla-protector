@@ -16,7 +16,7 @@ const pages = {
 export default defineConfig({
   plugins: [tailwindcss()],
   base: './',
-  server: { port: 8014, host: true },
+  server: { port: 8009, host: true },
   build: {
     rollupOptions: {
       input: Object.fromEntries(

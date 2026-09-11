@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 8013",
+    "dev": "vite --port 8004",
     "build": "vite build",
-    "preview": "vite preview --port 8013"
+    "preview": "vite preview --port 8004"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.0",

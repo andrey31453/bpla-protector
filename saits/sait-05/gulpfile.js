@@ -355,7 +355,7 @@ const sync_init = (done) => {
 		server: {
 			baseDir: local_dist,
 		},
-		port: 3000,
+		port: 8005,
 		notify: false,
 		open: true,
 	})
