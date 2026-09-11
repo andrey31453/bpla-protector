@@ -29,7 +29,13 @@
   }
 
   .btn-primary {
-    @apply bg-cyan-500 text-slate-950 hover:bg-cyan-400;
+    @apply text-slate-950;
+    background-image: linear-gradient(120deg, #67e8f9, #22d3ee 45%, #818cf8);
+    transition: filter 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.08);
   }
 
   .btn-outline {
@@ -81,6 +87,53 @@
   }
 
   .bg-glow {
-    background: radial-gradient(60% 55% at 50% 0%, rgb(34 211 238 / 0.14), transparent 70%);
+    background:
+      radial-gradient(55% 50% at 50% 0%, rgb(34 211 238 / 0.15), transparent 70%),
+      radial-gradient(42% 45% at 14% 4%, rgb(129 140 248 / 0.20), transparent 70%),
+      radial-gradient(38% 42% at 86% 6%, rgb(251 191 36 / 0.10), transparent 70%);
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(100deg, #67e8f9, #818cf8 55%, #f472b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .animate-float {
+    animation: float 4.5s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-soft 3s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(1.16);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-pulse-slow {
+    animation: none;
   }
 }

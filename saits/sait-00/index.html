@@ -19,13 +19,14 @@
         <div class="bg-glow absolute inset-0"></div>
         <div class="bg-grid absolute inset-0"></div>
         <div class="wrap relative pt-32 pb-20 sm:pt-36 sm:pb-24">
-          <div class="max-w-3xl">
+          <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            <div class="max-w-3xl">
             <span class="chip reveal">
               <span class="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
               Инженерно-механическая защита 24/7
             </span>
             <h1 class="mt-6 text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl reveal" style="--d:0.05s">
-              Защитные конструкции от&nbsp;БПЛА для&nbsp;промышленных объектов
+              Защитные конструкции <span class="text-gradient">от&nbsp;БПЛА</span> для&nbsp;промышленных объектов
             </h1>
             <p class="mt-6 text-lg leading-relaxed text-slate-300/90 reveal" style="--d:0.1s">
               Проектируем, изготавливаем и&nbsp;монтируем металлоконструкции с&nbsp;защитным сетчатым контуром
@@ -36,23 +37,103 @@
               <a href="index.html#cta" class="btn btn-primary">Получить предварительный расчёт</a>
               <a href="konstrukcii.html" class="btn btn-outline">Смотреть конструкции</a>
             </div>
+            </div>
+
+            <div class="reveal lg:justify-self-end" style="--d:0.15s">
+              <svg viewBox="0 0 520 500" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto h-auto w-full max-w-md" style="filter: drop-shadow(0 0 30px rgba(34,211,238,0.12))" role="img" aria-label="Защитный сетчатый купол отражает БПЛА над промышленным объектом">
+                <defs>
+                  <linearGradient id="dome-fill" x1="260" y1="210" x2="260" y2="400" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#22d3ee" stop-opacity="0.16"/>
+                    <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+                  </linearGradient>
+                  <linearGradient id="dome-stroke" x1="70" y1="210" x2="450" y2="400" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#67e8f9"/>
+                    <stop offset="0.55" stop-color="#22d3ee"/>
+                    <stop offset="1" stop-color="#818cf8"/>
+                  </linearGradient>
+                  <radialGradient id="spark-glow" cx="0.5" cy="0.5" r="0.5">
+                    <stop stop-color="#fbbf24"/>
+                    <stop offset="1" stop-color="#fbbf24" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+
+                <g class="animate-pulse-slow">
+                  <circle cx="260" cy="205" r="46" stroke="#22d3ee" stroke-opacity="0.18" stroke-width="1.5"/>
+                  <circle cx="260" cy="205" r="78" stroke="#22d3ee" stroke-opacity="0.10" stroke-width="1.5"/>
+                </g>
+
+                <g fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="90" y1="400" x2="440" y2="400"/>
+                  <rect x="115" y="352" width="100" height="48" rx="4"/>
+                  <rect x="129" y="368" width="16" height="32" rx="2" stroke="#22d3ee" stroke-opacity="0.75"/>
+                  <rect x="152" y="368" width="14" height="14" rx="2"/>
+                  <rect x="178" y="368" width="14" height="14" rx="2"/>
+                  <rect x="330" y="338" width="70" height="62" rx="12"/>
+                  <line x1="330" y1="362" x2="400" y2="362"/>
+                  <line x1="330" y1="384" x2="400" y2="384"/>
+                  <path d="M354 324 h22"/>
+                </g>
+
+                <path d="M70 400 A190 190 0 0 1 450 400 Z" fill="url(#dome-fill)"/>
+                <g stroke="#22d3ee" stroke-width="1">
+                  <path d="M120 400 A140 140 0 0 1 400 400" stroke-opacity="0.30"/>
+                  <path d="M170 400 A90 90 0 0 1 350 400" stroke-opacity="0.22"/>
+                  <path d="M260 210 V400" stroke-opacity="0.28"/>
+                  <path d="M190 223 V400" stroke-opacity="0.20"/>
+                  <path d="M330 223 V400" stroke-opacity="0.20"/>
+                  <path d="M120 272 V400" stroke-opacity="0.16"/>
+                  <path d="M400 272 V400" stroke-opacity="0.16"/>
+                </g>
+                <path d="M70 400 A190 190 0 0 1 450 400" stroke="url(#dome-stroke)" stroke-width="2.5" stroke-linecap="round"/>
+
+                <circle cx="260" cy="205" r="16" fill="url(#spark-glow)"/>
+                <g stroke="#fbbf24" stroke-width="2" stroke-linecap="round">
+                  <path d="M260 186 v38"/>
+                  <path d="M241 205 h38"/>
+                  <path d="M247 192 l26 26"/>
+                  <path d="M273 192 l-26 26"/>
+                </g>
+
+                <path d="M470 54 C430 78 380 104 298 180" fill="none" stroke="#818cf8" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
+                <path d="M286 210 C300 150 292 104 196 92" fill="none" stroke="#818cf8" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round" stroke-opacity="0.7"/>
+                <path d="M188 84 L188 100 L178 92 Z" fill="#818cf8"/>
+
+                <g class="animate-float">
+                  <g stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <ellipse cx="415" cy="112" rx="14" ry="9"/>
+                    <path d="M403 105 L385 86 M427 105 L445 86 M403 119 L385 126 M427 119 L445 126"/>
+                    <rect x="407" y="120" width="16" height="6" rx="1.5"/>
+                  </g>
+                  <g stroke="#22d3ee" stroke-width="2" stroke-linecap="round">
+                    <ellipse cx="385" cy="86" rx="13" ry="4"/>
+                    <ellipse cx="445" cy="86" rx="13" ry="4"/>
+                    <ellipse cx="385" cy="126" rx="13" ry="4"/>
+                    <ellipse cx="445" cy="126" rx="13" ry="4"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
           </div>
 
           <dl class="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4 reveal" style="--d:0.2s">
             <div class="card p-5">
-              <dt class="text-2xl font-bold text-white">24/7</dt>
+              <span class="mb-3 block h-1 w-8 rounded-full bg-cyan-400"></span>
+              <dt class="text-2xl font-bold text-cyan-300">24/7</dt>
               <dd class="mt-1 text-sm text-slate-400">пассивная защита</dd>
             </div>
             <div class="card p-5">
-              <dt class="text-2xl font-bold text-white">360°</dt>
+              <span class="mb-3 block h-1 w-8 rounded-full bg-violet-400"></span>
+              <dt class="text-2xl font-bold text-violet-300">360°</dt>
               <dd class="mt-1 text-sm text-slate-400">контур по проекту</dd>
             </div>
             <div class="card p-5">
-              <dt class="text-2xl font-bold text-white">1</dt>
+              <span class="mb-3 block h-1 w-8 rounded-full bg-emerald-400"></span>
+              <dt class="text-2xl font-bold text-emerald-300">1</dt>
               <dd class="mt-1 text-sm text-slate-400">подрядчик от обследования до монтажа</dd>
             </div>
             <div class="card p-5">
-              <dt class="text-2xl font-bold text-white">СП 542</dt>
+              <span class="mb-3 block h-1 w-8 rounded-full bg-amber-400"></span>
+              <dt class="text-2xl font-bold text-amber-300">СП 542</dt>
               <dd class="mt-1 text-sm text-slate-400">проект по нормативной базе</dd>
             </div>
           </dl>
@@ -74,6 +155,77 @@
               Приоритетом становится не&nbsp;только сохранность строительного контура, но&nbsp;и&nbsp;непрерывность
               процесса, защита персонала, предотвращение пожара и&nbsp;уменьшение времени восстановления.
             </p>
+            <svg viewBox="0 0 520 380" fill="none" xmlns="http://www.w3.org/2000/svg" class="mt-8 h-auto w-full max-w-md" role="img" aria-label="Вынесенный сетчатый рубеж перед зданием">
+              <defs>
+                <linearGradient id="net-glow" x1="320" y1="130" x2="320" y2="320" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#22d3ee" stop-opacity="0.12"/>
+                  <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+
+              <rect x="285" y="120" width="70" height="200" rx="10" fill="url(#net-glow)"/>
+
+              <g fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="90" y="240" width="110" height="80" rx="3"/>
+                <rect x="104" y="258" width="14" height="12" rx="1.5"/>
+                <rect x="126" y="258" width="14" height="12" rx="1.5"/>
+                <rect x="148" y="258" width="14" height="12" rx="1.5"/>
+                <rect x="104" y="280" width="14" height="12" rx="1.5"/>
+                <rect x="126" y="280" width="14" height="12" rx="1.5"/>
+                <rect x="176" y="284" width="18" height="36" rx="2"/>
+                <rect x="118" y="214" width="36" height="26" rx="8"/>
+                <path d="M130 214 h12"/>
+              </g>
+
+              <g fill="none" stroke="#22d3ee">
+                <rect x="295" y="130" width="50" height="190" stroke-width="2"/>
+              </g>
+              <g stroke="#22d3ee" stroke-width="1" stroke-opacity="0.5">
+                <line x1="295" y1="170" x2="345" y2="170"/>
+                <line x1="295" y1="210" x2="345" y2="210"/>
+                <line x1="295" y1="250" x2="345" y2="250"/>
+                <line x1="295" y1="290" x2="345" y2="290"/>
+                <line x1="305" y1="130" x2="305" y2="320"/>
+                <line x1="315" y1="130" x2="315" y2="320"/>
+                <line x1="325" y1="130" x2="325" y2="320"/>
+                <line x1="335" y1="130" x2="335" y2="320"/>
+              </g>
+              <g stroke="#67e8f9" stroke-width="2.5" stroke-linecap="round">
+                <line x1="295" y1="128" x2="295" y2="322"/>
+                <line x1="345" y1="128" x2="345" y2="322"/>
+              </g>
+
+              <line x1="70" y1="320" x2="490" y2="320" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+
+              <g stroke="#818cf8" stroke-width="1.5" stroke-linecap="round" fill="none">
+                <line x1="200" y1="352" x2="295" y2="352"/>
+                <path d="M205 347 L200 352 L205 357"/>
+                <path d="M290 347 L295 352 L290 357"/>
+              </g>
+              <text x="247" y="346" fill="#94a3b8" font-size="12" text-anchor="middle">вынос рубежа</text>
+
+              <g class="animate-float">
+                <g stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="455" cy="150" rx="11" ry="7"/>
+                  <path d="M446 144 L432 128 M464 144 L478 128 M446 156 L432 168 M464 156 L478 168"/>
+                </g>
+                <g stroke="#22d3ee" stroke-width="1.5" stroke-linecap="round">
+                  <ellipse cx="432" cy="128" rx="10" ry="3"/>
+                  <ellipse cx="478" cy="128" rx="10" ry="3"/>
+                  <ellipse cx="432" cy="168" rx="10" ry="3"/>
+                  <ellipse cx="478" cy="168" rx="10" ry="3"/>
+                </g>
+              </g>
+
+              <path d="M455 150 C420 160 390 175 352 190" fill="none" stroke="#818cf8" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
+
+              <g stroke="#fbbf24" stroke-width="2" stroke-linecap="round">
+                <path d="M348 178 v24"/>
+                <path d="M336 190 h24"/>
+                <path d="M339 181 l18 18"/>
+                <path d="M357 181 l-18 18"/>
+              </g>
+            </svg>
           </div>
           <div class="card p-6 sm:p-8 reveal" style="--d:0.1s">
             <p class="text-sm font-semibold uppercase tracking-wider text-slate-500">Цели, которые решает конструкция</p>
@@ -96,13 +248,46 @@
       <!-- ПРЕИМУЩЕСТВА -->
       <section class="border-t border-white/5 py-20 sm:py-24">
         <div class="wrap">
-          <div class="max-w-2xl reveal">
-            <p class="eyebrow">Преимущества</p>
-            <h2 class="h2 mt-3">Пассивный рубеж, рассчитанный под объект</h2>
-            <p class="mt-4 text-slate-400">
-              Конструкция сохраняет своё назначение независимо от&nbsp;обнаружения сигнала или режима работы электроники
-              и&nbsp;дополняет остальные меры безопасности.
-            </p>
+          <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div class="max-w-2xl reveal">
+              <p class="eyebrow">Преимущества</p>
+              <h2 class="h2 mt-3">Пассивный рубеж, рассчитанный под объект</h2>
+              <p class="mt-4 text-slate-400">
+                Конструкция сохраняет своё назначение независимо от&nbsp;обнаружения сигнала или режима работы электроники
+                и&nbsp;дополняет остальные меры безопасности.
+              </p>
+            </div>
+            <div class="reveal lg:justify-self-end" style="--d:0.1s">
+              <svg viewBox="0 0 360 380" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto h-auto w-full max-w-xs" role="img" aria-label="Многоуровневый защитный контур объекта">
+                <defs>
+                  <linearGradient id="shield-stroke" x1="64" y1="46" x2="296" y2="344" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#67e8f9"/>
+                    <stop offset="1" stop-color="#818cf8"/>
+                  </linearGradient>
+                  <linearGradient id="shield-fill" x1="180" y1="46" x2="180" y2="344" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#22d3ee" stop-opacity="0.10"/>
+                    <stop offset="1" stop-color="#818cf8" stop-opacity="0.04"/>
+                  </linearGradient>
+                </defs>
+
+                <path d="M180 46 C246 46 296 92 296 152 V200 C296 268 246 314 180 344 C114 314 64 268 64 200 V152 C64 92 114 46 180 46 Z" fill="url(#shield-fill)" stroke="url(#shield-stroke)" stroke-width="2.5" stroke-linejoin="round"/>
+
+                <path d="M180 92 C222 92 258 122 258 164 V196 C258 242 224 274 180 296 C136 274 102 242 102 196 V164 C102 122 138 92 180 92 Z" stroke="#22d3ee" stroke-opacity="0.35" stroke-width="1.5" stroke-linejoin="round"/>
+
+                <g stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                  <line x1="118" y1="260" x2="242" y2="260"/>
+                  <rect x="132" y="222" width="48" height="38" rx="3"/>
+                  <rect x="140" y="232" width="10" height="10" rx="1.5"/>
+                  <rect x="158" y="232" width="10" height="10" rx="1.5"/>
+                  <rect x="192" y="214" width="26" height="46" rx="8"/>
+                  <line x1="192" y1="232" x2="218" y2="232"/>
+                  <line x1="192" y1="246" x2="218" y2="246"/>
+                </g>
+
+                <circle cx="180" cy="70" r="15" fill="#22d3ee" fill-opacity="0.15" stroke="#22d3ee" stroke-width="1.5"/>
+                <path d="M173 70 l5 5 l9 -10" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
           </div>
           <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <div class="card p-6 reveal">
@@ -129,6 +314,274 @@
               <p class="h3">Сочетание мер</p>
               <p class="mt-3 text-sm leading-relaxed text-slate-400">Наиболее устойчивый результат даёт сочетание инженерных, организационных, противопожарных и технических средств.</p>
             </div>
+          </div>
+        </div>
+      </section>
+      <!-- ПРИМЕРЫ РЕШЕНИЙ -->
+      <section class="border-t border-white/5 py-20 sm:py-24">
+        <div class="wrap">
+          <div class="max-w-2xl reveal">
+            <p class="eyebrow">Примеры</p>
+            <h2 class="h2 mt-3">Как выглядят конструкции на объекте</h2>
+            <p class="mt-4 text-slate-400">Сетчатые, тросовые и комбинированные схемы — от вынесенного периметра и каркаса вокруг здания до сплошного покрытия кровли.</p>
+          </div>
+
+          <div class="mt-12 grid gap-5 md:grid-cols-2">
+            <!-- КОМПЛЕКСНАЯ ЗАЩИТА -->
+            <article class="card p-6 reveal">
+              <div class="rounded-xl bg-slate-950/70 p-4 ring-1 ring-slate-800/80">
+                <svg viewBox="0 0 360 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto h-auto w-full" role="img" aria-label="Комплексная защита: вынесенный периметр, здание и сетчатый купол">
+                  <defs>
+                    <linearGradient id="ex1-g" x1="0" y1="0" x2="1" y2="1">
+                      <stop stop-color="#22d3ee"/><stop offset="1" stop-color="#818cf8"/>
+                    </linearGradient>
+                    <radialGradient id="ex1-spark" cx="0.5" cy="0.5" r="0.5">
+                      <stop stop-color="#fbbf24"/><stop offset="1" stop-color="#fbbf24" stop-opacity="0"/>
+                    </radialGradient>
+                  </defs>
+                  <line x1="16" y1="204" x2="344" y2="204" stroke="#334155" stroke-width="2"/>
+                  <g stroke="#475569" stroke-width="1.5" stroke-dasharray="4 4" fill="none">
+                    <line x1="42" y1="204" x2="42" y2="96"/>
+                    <line x1="318" y1="204" x2="318" y2="96"/>
+                    <path d="M42 96 C 112 62 248 62 318 96"/>
+                  </g>
+                  <rect x="150" y="132" width="60" height="72" rx="2" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+                  <g stroke="#475569" stroke-width="1">
+                    <line x1="150" y1="148" x2="210" y2="148"/>
+                    <line x1="150" y1="164" x2="210" y2="164"/>
+                    <line x1="150" y1="180" x2="210" y2="180"/>
+                  </g>
+                  <path d="M140 132 C 140 80 220 80 220 132" fill="url(#ex1-g)" fill-opacity="0.10" stroke="url(#ex1-g)" stroke-width="2"/>
+                  <g stroke="#22d3ee" stroke-opacity="0.35" stroke-width="1" fill="none">
+                    <path d="M152 118 C 152 92 208 92 208 118"/>
+                    <path d="M180 84 L180 132"/>
+                    <path d="M158 90 L158 132"/>
+                    <path d="M202 90 L202 132"/>
+                  </g>
+                  <path d="M292 40 C 258 62 232 72 208 90" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+                  <g class="animate-float">
+                    <g transform="translate(296 34)">
+                      <line x1="-12" y1="0" x2="12" y2="0" stroke="#fbbf24" stroke-width="2"/>
+                      <circle cx="-12" cy="0" r="3" fill="#fbbf24"/>
+                      <circle cx="12" cy="0" r="3" fill="#fbbf24"/>
+                      <circle cx="0" cy="0" r="2.6" fill="#fbbf24"/>
+                    </g>
+                  </g>
+                  <circle cx="206" cy="88" r="16" fill="url(#ex1-spark)"/>
+                  <path d="M206 74 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" fill="#fbbf24"/>
+                </svg>
+              </div>
+              <h3 class="h3 mt-5">Комплексная защита</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-400">Несколько слоёв — вынесенный периметр, каркас и сетчатый контур над объектом. Каждый рубеж принимает свою часть воздействия.</p>
+            </article>
+            <!-- ТРОСОВОЕ ОГРАЖДЕНИЕ -->
+            <article class="card p-6 reveal" style="--d:0.05s">
+              <div class="rounded-xl bg-slate-950/70 p-4 ring-1 ring-slate-800/80">
+                <svg viewBox="0 0 360 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto h-auto w-full" role="img" aria-label="Тросовое ограждение: стойки и натянутые тросы перед зданием">
+                  <defs>
+                    <linearGradient id="ex2-g" x1="0" y1="0" x2="1" y2="0">
+                      <stop stop-color="#22d3ee"/><stop offset="1" stop-color="#818cf8"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="16" y1="204" x2="344" y2="204" stroke="#334155" stroke-width="2"/>
+                  <rect x="152" y="122" width="56" height="82" rx="2" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+                  <g stroke="#475569" stroke-width="1">
+                    <line x1="152" y1="140" x2="208" y2="140"/>
+                    <line x1="152" y1="158" x2="208" y2="158"/>
+                    <line x1="152" y1="176" x2="208" y2="176"/>
+                  </g>
+                  <g stroke="#818cf8" stroke-width="3">
+                    <line x1="70" y1="204" x2="70" y2="58"/>
+                    <line x1="150" y1="204" x2="150" y2="58"/>
+                    <line x1="230" y1="204" x2="230" y2="58"/>
+                    <line x1="310" y1="204" x2="310" y2="58"/>
+                  </g>
+                  <g stroke="url(#ex2-g)" stroke-width="1.6" fill="none">
+                    <path d="M70 82 Q 110 93 150 82 Q 190 93 230 82 Q 270 93 310 82"/>
+                    <path d="M70 114 Q 110 125 150 114 Q 190 125 230 114 Q 270 125 310 114"/>
+                    <path d="M70 146 Q 110 157 150 146 Q 190 157 230 146 Q 270 157 310 146"/>
+                  </g>
+                  <g fill="#22d3ee">
+                    <circle cx="70" cy="82" r="2.6"/><circle cx="70" cy="114" r="2.6"/><circle cx="70" cy="146" r="2.6"/>
+                    <circle cx="150" cy="82" r="2.6"/><circle cx="150" cy="114" r="2.6"/><circle cx="150" cy="146" r="2.6"/>
+                    <circle cx="230" cy="82" r="2.6"/><circle cx="230" cy="114" r="2.6"/><circle cx="230" cy="146" r="2.6"/>
+                    <circle cx="310" cy="82" r="2.6"/><circle cx="310" cy="114" r="2.6"/><circle cx="310" cy="146" r="2.6"/>
+                  </g>
+                  <path d="M40 40 C 46 62 54 76 86 88" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+                  <g class="animate-float">
+                    <g transform="translate(36 34)">
+                      <line x1="-11" y1="0" x2="11" y2="0" stroke="#fbbf24" stroke-width="2"/>
+                      <circle cx="-11" cy="0" r="3" fill="#fbbf24"/>
+                      <circle cx="11" cy="0" r="3" fill="#fbbf24"/>
+                      <circle cx="0" cy="0" r="2.6" fill="#fbbf24"/>
+                    </g>
+                  </g>
+                  <circle cx="94" cy="92" r="15" fill="#fbbf24" fill-opacity="0.15"/>
+                  <path d="M94 78 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" fill="#fbbf24"/>
+                </svg>
+              </div>
+              <h3 class="h3 mt-5">Тросовое ограждение</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-400">Силовой контур из натянутых тросов и стоек. Усилия от полотна передаются на анкеры, талрепы и несущие узлы.</p>
+            </article>
+            <!-- ЛЕСА ВОКРУГ ЗДАНИЯ -->
+            <article class="card p-6 reveal" style="--d:0.1s">
+              <div class="rounded-xl bg-slate-950/70 p-4 ring-1 ring-slate-800/80">
+                <svg viewBox="0 0 360 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto h-auto w-full" role="img" aria-label="Строительные леса вокруг здания с сетчатым контуром">
+                  <defs>
+                    <linearGradient id="ex3-g" x1="0" y1="0" x2="0" y2="1">
+                      <stop stop-color="#818cf8"/><stop offset="1" stop-color="#22d3ee"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="16" y1="204" x2="344" y2="204" stroke="#334155" stroke-width="2"/>
+                  <rect x="160" y="128" width="48" height="76" rx="2" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+                  <g stroke="#475569" stroke-width="1">
+                    <line x1="160" y1="146" x2="208" y2="146"/>
+                    <line x1="160" y1="164" x2="208" y2="164"/>
+                  </g>
+                  <g stroke="#94a3b8" stroke-width="1.5">
+                    <line x1="138" y1="204" x2="138" y2="46"/>
+                    <line x1="160" y1="204" x2="160" y2="46"/>
+                    <line x1="208" y1="204" x2="208" y2="46"/>
+                    <line x1="230" y1="204" x2="230" y2="46"/>
+                    <line x1="138" y1="62" x2="230" y2="62"/>
+                    <line x1="138" y1="98" x2="230" y2="98"/>
+                    <line x1="138" y1="134" x2="230" y2="134"/>
+                    <line x1="138" y1="170" x2="230" y2="170"/>
+                  </g>
+                  <g stroke="#94a3b8" stroke-width="1.2" stroke-opacity="0.7">
+                    <line x1="138" y1="62" x2="160" y2="98"/>
+                    <line x1="160" y1="62" x2="138" y2="98"/>
+                    <line x1="208" y1="98" x2="230" y2="134"/>
+                    <line x1="230" y1="98" x2="208" y2="134"/>
+                  </g>
+                  <path d="M138 46 C 138 8 230 8 230 46" fill="url(#ex3-g)" fill-opacity="0.10" stroke="url(#ex3-g)" stroke-width="2"/>
+                  <g stroke="#818cf8" stroke-opacity="0.35" stroke-width="1" fill="none">
+                    <path d="M150 32 C 150 14 218 14 218 32"/>
+                    <path d="M184 16 L184 46"/>
+                    <path d="M162 20 L162 46"/>
+                    <path d="M206 20 L206 46"/>
+                  </g>
+                  <path d="M300 40 C 288 64 262 78 236 88" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+                  <g class="animate-float">
+                    <g transform="translate(304 34)">
+                      <line x1="-12" y1="0" x2="12" y2="0" stroke="#fbbf24" stroke-width="2"/>
+                      <circle cx="-12" cy="0" r="3" fill="#fbbf24"/>
+                      <circle cx="12" cy="0" r="3" fill="#fbbf24"/>
+                      <circle cx="0" cy="0" r="2.6" fill="#fbbf24"/>
+                    </g>
+                  </g>
+                  <circle cx="232" cy="92" r="15" fill="#fbbf24" fill-opacity="0.15"/>
+                  <path d="M232 78 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" fill="#fbbf24"/>
+                </svg>
+              </div>
+              <h3 class="h3 mt-5">Леса вокруг здания</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-400">Независимый каркас по периметру корпуса: стойки, ригели и связи, по которым разносится сетчатое полотно.</p>
+            </article>
+            <!-- СЕТЧАТЫЙ КУПОЛ -->
+            <article class="card p-6 reveal" style="--d:0.15s">
+              <div class="rounded-xl bg-slate-950/70 p-4 ring-1 ring-slate-800/80">
+                <svg viewBox="0 0 360 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto h-auto w-full" role="img" aria-label="Сетчатый купол над кровлей или резервуаром">
+                  <defs>
+                    <linearGradient id="ex4-g" x1="0" y1="0" x2="1" y2="1">
+                      <stop stop-color="#22d3ee"/><stop offset="1" stop-color="#f472b6"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="16" y1="204" x2="344" y2="204" stroke="#334155" stroke-width="2"/>
+                  <rect x="138" y="150" width="84" height="54" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+                  <path d="M138 168 L222 168" stroke="#475569" stroke-width="1"/>
+                  <path d="M126 150 C 126 72 234 72 234 150" fill="url(#ex4-g)" fill-opacity="0.12" stroke="url(#ex4-g)" stroke-width="2"/>
+                  <g stroke="#22d3ee" stroke-opacity="0.35" stroke-width="1" fill="none">
+                    <path d="M142 136 C 142 96 218 96 218 136"/>
+                    <path d="M156 122 C 156 90 204 90 204 122"/>
+                    <path d="M180 84 L180 150"/>
+                    <path d="M148 92 L148 150"/>
+                    <path d="M212 92 L212 150"/>
+                  </g>
+                  <g stroke="#818cf8" stroke-width="2.5">
+                    <line x1="126" y1="150" x2="112" y2="204"/>
+                    <line x1="234" y1="150" x2="248" y2="204"/>
+                    <line x1="180" y1="150" x2="180" y2="204"/>
+                  </g>
+                  <path d="M60 44 C 80 72 110 88 152 98" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+                  <g class="animate-float">
+                    <g transform="translate(56 38)">
+                      <line x1="-11" y1="0" x2="11" y2="0" stroke="#fbbf24" stroke-width="2"/>
+                      <circle cx="-11" cy="0" r="3" fill="#fbbf24"/>
+                      <circle cx="11" cy="0" r="3" fill="#fbbf24"/>
+                      <circle cx="0" cy="0" r="2.6" fill="#fbbf24"/>
+                    </g>
+                  </g>
+                  <circle cx="160" cy="104" r="15" fill="#fbbf24" fill-opacity="0.15"/>
+                  <path d="M160 90 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z" fill="#fbbf24"/>
+                </svg>
+              </div>
+              <h3 class="h3 mt-5">Сетчатый купол</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-400">Пространственная оболочка над кровлей или резервуаром для перехвата удара сверху и сбоку.</p>
+            </article>
+          </div>
+
+          <div class="mt-16">
+            <div class="max-w-2xl reveal">
+              <p class="eyebrow">Галерея</p>
+              <h3 class="h3 mt-2">Реальные примеры конструкций</h3>
+            </div>
+            <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <figure class="card overflow-hidden reveal">
+                <div class="aspect-[4/3] overflow-hidden bg-slate-900">
+                  <img src="/images/kompleksnaya-zashchita-vizualizaciya.jpg" alt="Комплексная защита объекта — визуализация защитного рубежа" loading="lazy" class="h-full w-full object-cover transition duration-700 hover:scale-105" />
+                </div>
+                <figcaption class="p-4">
+                  <p class="text-sm font-semibold text-white">Комплексная защита</p>
+                  <p class="mt-1 text-xs leading-relaxed text-slate-400">Визуализация многоуровневого защитного рубежа.</p>
+                </figcaption>
+              </figure>
+              <figure class="card overflow-hidden reveal" style="--d:0.05s">
+                <div class="aspect-[4/3] overflow-hidden bg-slate-900">
+                  <img src="/images/setchatyj-kontur-logistika.webp" alt="Сетчатый контур над логистическим комплексом" loading="lazy" class="h-full w-full object-cover transition duration-700 hover:scale-105" />
+                </div>
+                <figcaption class="p-4">
+                  <p class="text-sm font-semibold text-white">Сетчатый контур</p>
+                  <p class="mt-1 text-xs leading-relaxed text-slate-400">Сплошное покрытие над логистическим комплексом.</p>
+                </figcaption>
+              </figure>
+              <figure class="card overflow-hidden reveal" style="--d:0.1s">
+                <div class="aspect-[4/3] overflow-hidden bg-slate-900">
+                  <img src="/images/avtonomnyj-karkas-zdanie.webp" alt="Автономный каркас вокруг здания" loading="lazy" class="h-full w-full object-cover transition duration-700 hover:scale-105" />
+                </div>
+                <figcaption class="p-4">
+                  <p class="text-sm font-semibold text-white">Каркас вокруг здания</p>
+                  <p class="mt-1 text-xs leading-relaxed text-slate-400">Автономный несущий каркас по периметру корпуса.</p>
+                </figcaption>
+              </figure>
+              <figure class="card overflow-hidden reveal" style="--d:0.15s">
+                <div class="aspect-[4/3] overflow-hidden bg-slate-900">
+                  <img src="/images/modulnaya-zashchitnaya-kamera.webp" alt="Модульная защитная камера" loading="lazy" class="h-full w-full object-cover transition duration-700 hover:scale-105" />
+                </div>
+                <figcaption class="p-4">
+                  <p class="text-sm font-semibold text-white">Модульная камера</p>
+                  <p class="mt-1 text-xs leading-relaxed text-slate-400">Локальная защита отдельного узла или оборудования.</p>
+                </figcaption>
+              </figure>
+              <figure class="card overflow-hidden reveal" style="--d:0.2s">
+                <div class="aspect-[4/3] overflow-hidden bg-slate-900">
+                  <img src="/images/machty-fermy-uzly.webp" alt="Мачты, фермы и узлы натяжения тросовой системы" loading="lazy" class="h-full w-full object-cover transition duration-700 hover:scale-105" />
+                </div>
+                <figcaption class="p-4">
+                  <p class="text-sm font-semibold text-white">Тросовая система</p>
+                  <p class="mt-1 text-xs leading-relaxed text-slate-400">Мачты, фермы и узлы натяжения несущего контура.</p>
+                </figcaption>
+              </figure>
+              <figure class="card overflow-hidden reveal" style="--d:0.25s">
+                <div class="aspect-[4/3] overflow-hidden bg-slate-900">
+                  <img src="/images/setchataya-konstrukciya-3-opory.jpg" alt="Сетчатая конструкция на трёх опорах" loading="lazy" class="h-full w-full object-cover transition duration-700 hover:scale-105" />
+                </div>
+                <figcaption class="p-4">
+                  <p class="text-sm font-semibold text-white">Сетчатая конструкция</p>
+                  <p class="mt-1 text-xs leading-relaxed text-slate-400">Секция на трёх опорах с натянутым полотном.</p>
+                </figcaption>
+              </figure>
+            </div>
+            <p class="mt-6 text-xs leading-relaxed text-slate-500">Иллюстративные материалы: визуализации из презентации и примеры конструкций. Фактическая компоновка и параметры определяются проектом под конкретный объект.</p>
           </div>
         </div>
       </section>
