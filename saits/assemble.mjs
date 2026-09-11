@@ -56,7 +56,7 @@ const cards = sites
   .map((s) => {
     const num = s.replace('sait-', '')
     const t = escapeHtml(titleOf(s))
-    return `      <a class="card" href="${s}/">
+    return `      <a class="card" href="${s}">
         <span class="num">Вариант ${num}</span>
         <span class="title">${t}</span>
         <span class="go">Открыть →</span>
