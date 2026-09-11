@@ -156,5 +156,20 @@ saits/
 
 ---
 
-**Статус:** Все три лендинга готовы к dev-просмотру и prod-сборке. ✅  
-**Автор:** Кодовая база сгенерирована автоматически, контент адаптирован под три разных бренда.
+## Публикация на GitHub Pages
+
+Все сайты (`sait-00` … `sait-12`) публикуются в одном репозитории через GitHub Actions:
+
+```bash
+./build.sh                         # сборка всех сайтов (dist/) + перевод путей в относительные
+node assemble.mjs saits            # сборка _site/ (хаб-страница + все сайты)
+```
+
+При пуше в ветку `main` workflow `.github/workflows/deploy-pages.yml` собирает всё и публикует на GitHub Pages.
+
+- Хаб-страница: `https://<user>.github.io/bpla-protector/`
+- Каждый сайт: `https://<user>.github.io/bpla-protector/sait-XX/`
+
+> Чтобы это заработало, включите GitHub Pages: **Settings → Pages → Source → GitHub Actions**.
+
+**Статус:** Все 13 лендингов готовы к dev-просмотру, prod-сборке и публикации на GitHub Pages. ✅
