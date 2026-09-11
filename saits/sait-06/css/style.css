@@ -301,7 +301,7 @@ footer[id] {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #f6f6f6 62%, rgba(241, 247, 255, 0) 100%);
+  background: linear-gradient(90deg, rgba(15, 18, 28, 0.72) 0%, rgba(15, 18, 28, 0.45) 40%, rgba(15, 18, 28, 0) 100%);
 }
 
 .hero__content {
@@ -314,14 +314,14 @@ footer[id] {
 
 .hero__title {
   font-size: 42px;
-  color: var(--ch);
+  color: #fff;
   max-width: 620px;
   margin-bottom: 22px;
 }
 
 .hero__text {
   font-size: 18px;
-  color: var(--gray-700);
+  color: rgba(255, 255, 255, 0.9);
   max-width: 560px;
   margin-bottom: 30px;
 }
@@ -340,7 +340,7 @@ footer[id] {
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: rgba(55, 65, 81, 0.35);
+  background: rgba(255, 255, 255, 0.55);
   border: 0;
   cursor: pointer;
   transition: background 0.25s ease, transform 0.25s ease;
@@ -1010,6 +1010,134 @@ footer[id] {
 }
 
 /* ============================================================
+   Тёмные секции (Принцип работы, Сферы применения)
+   ============================================================ */
+.section--dark {
+  background: linear-gradient(160deg, #14161f 0%, #1c2029 52%, #241a1f 100%);
+  color: #fff;
+}
+
+.section--dark .section-heading {
+  color: #fff;
+}
+
+.section--dark .section-lead {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Принцип работы */
+.how__steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+
+.how-step {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 26px 20px;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+.how-step:hover {
+  border-color: rgba(255, 118, 67, 0.45);
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-3px);
+}
+
+.how-step__num {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.how-step p {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.how__note {
+  margin-top: 26px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 24px;
+  border-radius: 14px;
+  background: linear-gradient(125deg, rgba(255, 118, 67, 0.16), rgba(234, 39, 77, 0.16));
+  border: 1px solid rgba(255, 118, 67, 0.32);
+}
+
+.how__note svg {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  color: var(--orange);
+  margin-top: 2px;
+}
+
+.how__note p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.how__note strong {
+  color: #fff;
+}
+
+/* Сферы применения */
+.sectors__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.sector {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 28px 24px;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+.sector:hover {
+  border-color: rgba(255, 118, 67, 0.45);
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-3px);
+}
+
+.sector__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--grad);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.sector__icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.sector h3 {
+  color: #fff;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.sector p {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ============================================================
    Адаптивность
    ============================================================ */
 @media (max-width: 1024px) {
@@ -1022,6 +1150,11 @@ footer[id] {
 
   .threats__grid,
   .examples__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .how__steps,
+  .sectors__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1083,7 +1216,9 @@ footer[id] {
   .steps__grid,
   .advantages__grid,
   .calc__stats,
-  .examples__grid {
+  .examples__grid,
+  .how__steps,
+  .sectors__grid {
     grid-template-columns: 1fr;
   }
 
@@ -1093,7 +1228,7 @@ footer[id] {
   }
 
   .hero__overlay {
-    background: linear-gradient(90deg, #f6f6f6 88%, rgba(241, 247, 255, 0) 100%);
+    background: linear-gradient(90deg, rgba(15, 18, 28, 0.82) 0%, rgba(15, 18, 28, 0.45) 60%, rgba(15, 18, 28, 0.05) 100%);
   }
 
   .hero__title {
