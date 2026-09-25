@@ -1,0 +1,16 @@
+{# ============================================================
+   brand.njk — логотип: метка «ФТ», имя «фортТех» с оранжевой второй «Т»
+   (подсвечивает, что это два слова) и подпись направления.
+   Один источник разметки для шапки и подвала; значения — из site.json
+   (brandParts), ссылка — на главную.
+   ============================================================ #}
+
+{% macro brandLogo() -%}
+<a class="brand" href="{{ href('index') }}">
+  <span class="brand__mark">{{ site.brandMark }}</span>
+  <span>
+    <span class="brand__name">{{ site.brandParts.head }}<span class="brand__accent">{{ site.brandParts.accent }}</span>{{ site.brandParts.tail }}</span>
+    <span class="brand__tag">{{ site.brandTag }}</span>
+  </span>
+</a>
+{%- endmacro %}

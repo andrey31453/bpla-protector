@@ -1,0 +1,10 @@
+{# ============================================================
+   breadcrumbs.njk — хлебные крошки из pages.json (группа + страница).
+   ============================================================ #}
+{% macro crumbs(pg) -%}
+<nav class="crumbs" aria-label="Хлебные крошки">
+  <a href="{{ href('index') }}">Главная</a>
+  {% if pg.group %}<span aria-hidden="true"> / </span><span>{{ pg.group }}</span>{% endif %}
+  <span aria-hidden="true"> / </span><span aria-current="page">{{ pg.nav or pg.title }}</span>
+</nav>
+{%- endmacro %}

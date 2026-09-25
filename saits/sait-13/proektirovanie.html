@@ -1,0 +1,18 @@
+{% extends "layouts/base.njk" %}
+{% from "partials/hero.njk" import hero %}
+{% from "partials/form.njk" import form %}
+{% from "macros/ui.njk" import ctaBand %}
+{% from "partials/blocks.njk" import sCards, sNodes, sLevels, sNormatives, sDocs, sTenders %}
+
+{% block content %}
+  {{ hero(data.proektirovanie.hero, page) }}
+  {{ sCards(data.proektirovanie.inputs, true, 'ishodnye') }}
+  {{ sNodes(data.proektirovanie.stages, false, 'etapy') }}
+  {{ sLevels(data.levels.block, 'index', true, 'urovni') }}
+  {{ sNormatives(data.normatives.block, 'index', false, 'normativy') }}
+  {{ sCards(data.proektirovanie.lines, true, 'linii') }}
+  {{ sDocs(data.proektirovanie.docs, false, 'dokumentaciya') }}
+  {{ sTenders(data.company.tenders, true, 'tendery') }}
+  {{ ctaBand(data.proektirovanie.cta) }}
+  {{ form('proektirovanie') }}
+{% endblock %}

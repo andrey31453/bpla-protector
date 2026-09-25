@@ -1,0 +1,68 @@
+{# ============================================================
+   header.njk — верхняя строка контактов + закреплённая шапка с меню.
+   Меню собирается из pages.json (navGroups); контакты — из site.json.
+   Десктопное меню открывается на hover/focus (CSS), мобильное — <details>.
+   ============================================================ #}
+{% import "macros/ui.njk" as ui %}
+{% from "partials/brand.njk" import brandLogo %}
+
+{% macro header(pg) -%}
+<div class="topline">
+  <div class="shell flex flex-wrap items-center justify-between gap-3 py-2">
+    <div class="flex flex-wrap items-center gap-4">
+      <span class="topline__item">{{ ui.icon('pin', 'h-3.5 w-3.5') }}{{ site.region }}</span>
+      <span class="topline__item hidden sm:inline-flex">{{ ui.icon('clock', 'h-3.5 w-3.5') }}{{ site.workhours }}</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-4">
+      <span class="topline__item hidden md:inline-flex"><a href="mailto:{{ site.email }}">{{ site.email }}</a></span>
+      <span class="topline__item"><a href="tel:{{ site.phone.href }}">{{ site.phone.display }}</a></span>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="shell flex items-center justify-between gap-6 py-3">
+    {{ brandLogo() }}
+
+    <nav class="hidden lg:flex items-center gap-6" aria-label="Основное меню">
+      {% for group in navGroups %}
+      <div class="nav-group">
+        <button class="nav-group__btn" type="button" aria-haspopup="true">{{ group.label }}{{ ui.icon('chev', 'h-3.5 w-3.5') }}</button>
+        <div class="nav-group__list">
+          {% for item in group.items %}
+          <a href="{{ href(item.slug) }}" {% if item.slug == pg.slug %}aria-current="page"{% endif %}>{{ item.nav }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </nav>
+
+    <div class="hidden lg:flex items-center gap-4">
+      <a class="hidden xl:inline-flex items-center gap-2 text-sm text-mist hover:text-flame2" href="tel:{{ site.phone.href }}">
+        {{ ui.icon('phone', 'h-4 w-4') }}{{ site.phone.display }}
+      </a>
+      <a class="btn btn--primary" href="{{ href('kontakty', 'zayavka') }}">Запросить расчёт</a>
+    </div>
+
+    {# details намеренно без `relative`: панель меню позиционируется по sticky-шапке,
+       иначе у shrink-to-fit флекс-элемента ширина схлопывается до ширины кнопки «Меню» #}
+    <details class="mnav lg:hidden">
+      <summary>Меню{{ ui.icon('chev', 'h-3.5 w-3.5') }}</summary>
+      <div class="mnav__panel">
+        <p class="mnav__title">Разделы</p>
+        <a href="{{ href('index') }}">Главная</a>
+        {% for group in navGroups %}
+        <p class="mnav__title mt-5">{{ group.label }}</p>
+        {% for item in group.items %}
+        <a href="{{ href(item.slug) }}" {% if item.slug == pg.slug %}aria-current="page"{% endif %}>{{ item.nav }}</a>
+        {% endfor %}
+        {% endfor %}
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a class="btn btn--primary" href="{{ href('kontakty', 'zayavka') }}">Запросить расчёт</a>
+          <a class="btn btn--ghost" href="tel:{{ site.phone.href }}">{{ site.phone.display }}</a>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
+{%- endmacro %}

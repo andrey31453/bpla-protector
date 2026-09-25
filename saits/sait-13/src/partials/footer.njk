@@ -1,0 +1,43 @@
+{# ============================================================
+   footer.njk — подвал: бренд, разделы из pages.json, контакты из site.json.
+   ============================================================ #}
+{% import "macros/ui.njk" as ui %}
+{% from "partials/brand.njk" import brandLogo %}
+
+{% macro footer() -%}
+<footer class="site-footer">
+  <div class="shell">
+    <div class="grid gap-10 lg:grid-cols-[1.5fr_repeat(3,1fr)]">
+      <div>
+        {{ brandLogo() }}
+        <p class="mt-5 max-w-sm text-sm text-mist">{{ site.description }}</p>
+        <ul class="mt-6 space-y-2">
+          <li><a class="inline-flex items-center gap-2" href="tel:{{ site.phone.href }}">{{ ui.icon('phone', 'h-4 w-4 text-flame') }}{{ site.phone.display }}</a></li>
+          <li><a class="inline-flex items-center gap-2" href="mailto:{{ site.email }}">{{ ui.icon('mail', 'h-4 w-4 text-flame') }}{{ site.email }}</a></li>
+          <li class="inline-flex items-center gap-2 text-sm text-mist">{{ ui.icon('clock', 'h-4 w-4 text-flame') }}{{ site.workhours }}</li>
+          <li class="inline-flex items-center gap-2 text-sm text-mist">{{ ui.icon('pin', 'h-4 w-4 text-flame') }}{{ site.address }}</li>
+        </ul>
+      </div>
+
+      {% for group in navGroups %}
+      <div>
+        <h3>{{ group.label }}</h3>
+        <ul class="space-y-2">
+          {% for item in group.items %}
+          <li><a href="{{ href(item.slug) }}">{{ item.nav }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="mt-12 border-t border-line pt-6">
+      <p class="fnote max-w-4xl">{{ site.disclaimer }}</p>
+      <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <p class="fnote">© {{ year }} {{ site.brand }} · {{ site.tagline }}</p>
+        <a class="btn btn--ghost" href="{{ href('kontakty', 'zayavka') }}">Запросить расчёт{{ ui.icon('arrow', 'h-4 w-4') }}</a>
+      </div>
+    </div>
+  </div>
+</footer>
+{%- endmacro %}

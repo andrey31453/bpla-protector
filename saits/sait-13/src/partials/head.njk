@@ -1,0 +1,37 @@
+{# ============================================================
+   head.njk — <head> страницы: meta, canonical, OG/Twitter, JSON-LD.
+   title/description берутся ТОЛЬКО из pages.json (page приходит из плагина).
+   ============================================================ #}
+{% macro head(pg) -%}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ pg.title }}</title>
+  <meta name="description" content="{{ pg.description }}">
+  <link rel="canonical" href="{{ site.baseUrl }}{{ href(pg.slug) }}">
+  <meta name="robots" content="{{ 'noindex, nofollow' if pg.noindex else 'index, follow' }}">
+  <meta name="theme-color" content="{{ site.themeColor }}">
+  <meta name="format-detection" content="telephone=no">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.brand }}">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="{{ pg.title }}">
+  <meta property="og:description" content="{{ pg.description }}">
+  <meta property="og:url" content="{{ site.baseUrl }}{{ href(pg.slug) }}">
+  <meta property="og:image" content="{{ site.baseUrl }}{{ site.ogImage }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ pg.title }}">
+  <meta name="twitter:description" content="{{ pg.description }}">
+  <meta name="twitter:image" content="{{ site.baseUrl }}{{ site.ogImage }}">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  {# Класс js ставим до отрисовки: reveal-анимации не скрывают контент без JS #}
+  <script>document.documentElement.classList.add('js');</script>
+  <script type="module" src="/src/js/main.js"></script>
+  <script type="application/ld+json">{{ jsonLd(pg) | safe }}</script>
+{%- endmacro %}

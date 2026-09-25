@@ -1,0 +1,23 @@
+{% extends "layouts/base.njk" %}
+{% from "partials/hero.njk" import hero %}
+{% from "partials/form.njk" import form %}
+{% from "macros/ui.njk" import ctaBand %}
+{% from "partials/blocks.njk" import sKpi, sCatalog, sProblem, sLines, sMaterials, sLevels, sNormatives, sCards, sDocs, sTenders, sPricesAll %}
+
+{% block content %}
+  {{ hero(data.company.hero, page) }}
+  {{ sKpi(data.company.kpi, true, 'pokazateli') }}
+  {{ sCatalog(false) }}
+  {{ sProblem(data.company.problem, true, 'zadacha') }}
+  {{ sLines(data.company.lines, false, 'linii') }}
+  {{ sMaterials(data.materials.block, true, 'materialy') }}
+  {{ sLevels(data.levels.block, 'index', false, 'urovni') }}
+  {{ sCards(data.company.process, true, 'poryadok') }}
+  {{ sCards(data.company.guarantee, false, 'garantii') }}
+  {{ sNormatives(data.normatives.block, 'index', true, 'normativy') }}
+  {{ sDocs(data.proektirovanie.docs, false, 'dokumentaciya') }}
+  {{ sTenders(data.company.tenders, true, 'tendery') }}
+  {{ sPricesAll(false) }}
+  {{ ctaBand(data.company.cta) }}
+  {{ form('index') }}
+{% endblock %}

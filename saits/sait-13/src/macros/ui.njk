@@ -1,0 +1,197 @@
+{# ============================================================
+   ui.njk — повторяемые элементы разметки с параметрами.
+   Иконки — строгие line-иконки (stroke=currentColor), без внешних библиотек.
+   ============================================================ #}
+
+{% macro icon(name, cls) -%}
+<svg class="{{ cls | default('h-6 w-6') }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+{%- if name == 'alert' -%}
+<path d="M12 3.5 21.5 20.5H2.5z"/><path d="M12 9.5v5"/><path d="M12 17.3h.01"/>
+{%- elif name == 'target' -%}
+<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3"/>
+{%- elif name == 'doc' -%}
+<path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M14 3v4.5h4.5"/><path d="M9 12.5h6M9 16h4"/>
+{%- elif name == 'shield' -%}
+<path d="M12 3 4.5 6v6c0 4.2 3.2 7.6 7.5 9 4.3-1.4 7.5-4.8 7.5-9V6z"/><path d="m9 12.2 2.2 2.3 4.3-4.5"/>
+{%- elif name == 'layers' -%}
+<path d="M12 3 3 7.5 12 12l9-4.5z"/><path d="M3 12.5 12 17l9-4.5"/><path d="M3 17 12 21.5 21 17"/>
+{%- elif name == 'gear' -%}
+<circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/>
+{%- elif name == 'cable' -%}
+<path d="M4.5 5.5c0 4.5 3 5 3 8s-3 2.5-3 5"/><path d="M19.5 5.5c0 4.5-3 5-3 8s3 2.5 3 5"/><path d="M7.5 11.5h9M7.5 14.5h9"/>
+{%- elif name == 'search' -%}
+<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 21 21"/>
+{%- elif name == 'flame' -%}
+<path d="M12 21c3.6 0 6.5-2.7 6.5-6.1 0-4.4-4.1-6.4-5.5-11.4-1.9 3.1-4.6 3.6-5.9 6.3-.8 1.6-1.1 3.2-1.1 5.1C6 18.3 8.4 21 12 21z"/><path d="M12 21c1.6 0 2.8-1.2 2.8-2.8 0-2-1.7-2.6-2.3-4.7-1 1.4-2.6 2.2-2.6 4.5 0 1.7 1.2 3 2.1 3z"/>
+{%- elif name == 'snow' -%}
+<path d="M12 2.6v18.8M3.9 7.2l16.2 9.6M20.1 7.2 3.9 16.8"/><path d="m12 6.6 2.2-2.2M12 6.6 9.8 4.4M12 17.4l2.2 2.2M12 17.4l-2.2 2.2"/>
+{%- elif name == 'window' -%}
+<rect x="3.5" y="3.5" width="17" height="17" rx="1.5"/><path d="M12 3.5v17M3.5 12h17"/>
+{%- elif name == 'building' -%}
+<path d="M4 21V5.5A1.5 1.5 0 0 1 5.5 4H14a1.5 1.5 0 0 1 1.5 1.5V21"/><path d="M15.5 9.5H19a1.5 1.5 0 0 1 1.5 1.5v10"/><path d="M2.5 21h19"/><path d="M7.5 8h2M7.5 12h2M7.5 16h2"/>
+{%- elif name == 'bridge' -%}
+<path d="M2.5 9.5h19"/><path d="M4.5 9.5v10M19.5 9.5v10M12 9.5v10"/><path d="M4.5 15.2c3.6-4.2 11.4-4.2 15 0"/>
+{%- elif name == 'tank' -%}
+<ellipse cx="12" cy="6" rx="7.5" ry="3"/><path d="M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6"/><path d="M4.5 12.2c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/>
+{%- elif name == 'crane' -%}
+<path d="M4.5 21V4.5h13M4.5 4.5 17.5 8"/><path d="M17.5 4.5v3.5"/><path d="M2.5 21h6M15.5 8v3.5h4v-3.5z"/>
+{%- elif name == 'service' -%}
+<path d="M15.4 3.6a4.6 4.6 0 0 0 5.1 6.9l-8.1 8.1a2.6 2.6 0 1 1-3.6-3.6l8-8.1a4.6 4.6 0 0 0-1.4-3.3z"/><path d="m9.2 14.8-.1-.1"/>
+{%- elif name == 'calc' -%}
+<rect x="4.5" y="3" width="15" height="18" rx="1.5"/><path d="M8 7.5h8"/><path d="M8.6 12h.01M12 12h.01M15.4 12h.01M8.6 16h.01M12 16h.01M15.4 16h.01"/>
+{%- elif name == 'card' -%}
+<rect x="2.5" y="5.5" width="19" height="13" rx="1.5"/><path d="M2.5 10h19"/><path d="M6 14.5h4"/>
+{%- elif name == 'tower' -%}
+<path d="M8 21 12 3l4 18"/><path d="M6.4 15h11.2M9.2 9h5.6"/><path d="M6 21h12"/>
+{%- elif name == 'net' -%}
+<rect x="3" y="3.5" width="18" height="17" rx="1"/><path d="M3 9h18M3 14.5h18M9 3.5v17M15 3.5v17"/>
+{%- elif name == 'radio' -%}
+<path d="M12 12h.01"/><path d="M8.6 8.6a4.8 4.8 0 0 0 0 6.8M15.4 15.4a4.8 4.8 0 0 0 0-6.8"/><path d="M5.6 5.6a9.1 9.1 0 0 0 0 12.8M18.4 18.4a9.1 9.1 0 0 0 0-12.8"/>
+{%- elif name == 'mail' -%}
+<rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>
+{%- elif name == 'phone' -%}
+<path d="M6.4 3.5h3l1.5 4-2 1.4a11.2 11.2 0 0 0 5.6 5.6l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16.6 16.6 0 0 1 4.5 5.7 2 2 0 0 1 6.4 3.5z"/>
+{%- elif name == 'clock' -%}
+<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/>
+{%- elif name == 'pin' -%}
+<path d="M12 21s6.5-5.6 6.5-10.5a6.5 6.5 0 1 0-13 0C5.5 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.4"/>
+{%- elif name == 'check' -%}
+<path d="m4.5 12.5 5 5 10-11"/>
+{%- elif name == 'arrow' -%}
+<path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5"/>
+{%- elif name == 'chev' -%}
+<path d="m6 9.5 6 6 6-6"/>
+{%- endif -%}
+</svg>
+{%- endmacro %}
+
+{# ---------- ссылки и кнопки ---------- #}
+{% macro linkTo(cta) -%}
+{%- if cta.href == 'tel' -%}tel:{{ site.phone.href }}{%- else -%}{{ cta.href }}{%- endif -%}
+{%- endmacro %}
+
+{% macro button(cta, variant) -%}
+<a class="btn {{ variant | default('btn--primary') }}" href="{{ linkTo(cta) }}">{{ cta.label }}{{ icon('arrow', 'h-4 w-4') }}</a>
+{%- endmacro %}
+
+{% macro buttons(ctaPrimary, ctaSecondary) -%}
+<div class="mt-9 flex flex-wrap gap-3">
+  {% if ctaPrimary %}{{ button(ctaPrimary, 'btn--primary') }}{% endif %}
+  {% if ctaSecondary %}{{ button(ctaSecondary, 'btn--ghost') }}{% endif %}
+</div>
+{%- endmacro %}
+
+{# ---------- заголовок секции ---------- #}
+{% macro head(b, tag) -%}
+{% if b.kicker %}<span class="kicker">{{ b.kicker }}</span>{% endif %}
+{% if b.title %}<{{ tag | default('h2') }} class="{{ 'h3 mt-4' if (tag == 'h3') else 'h2 mt-4' }}">{{ b.title }}</{{ tag | default('h2') }}>{% endif %}
+{% if b.lead %}<p class="lead mt-4 max-w-4xl">{{ b.lead }}</p>{% endif %}
+{%- endmacro %}
+
+{# ---------- таблица ---------- #}
+{% macro tbl(headRow, rows) -%}
+<div class="table-scroll mt-8">
+  <table class="tbl">
+    <thead><tr>{% for th in headRow %}<th scope="col">{{ th }}</th>{% endfor %}</tr></thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{%- endmacro %}
+
+{# ---------- списки ---------- #}
+{% macro tick(items) -%}
+<ul class="tick mt-7">
+  {% for item in items %}<li>{{ item }}</li>{% endfor %}
+</ul>
+{%- endmacro %}
+
+{% macro note(text, tone) -%}
+<p class="mt-6 border-l-2 {{ 'border-volt/60 bg-volt/5' if tone == 'accent' else 'border-flame/70 bg-flame/5' }} px-4 py-3 text-sm text-mist">{{ text }}</p>
+{%- endmacro %}
+
+{% macro chips(items) -%}
+<div class="mt-5 flex flex-wrap gap-2">
+  {% for item in items %}<span class="chip">{{ item }}</span>{% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro stats(items) -%}
+<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {% for item in items %}
+  <div class="reveal">
+    <div class="stat__value">{{ item.value }}</div>
+    <p class="stat__label">{{ item.label }}</p>
+  </div>
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{# ---------- карточки с иконками ---------- #}
+{% macro cards(items, cols) -%}
+<div class="mt-10 grid gap-4 {{ cols | default('md:grid-cols-2 lg:grid-cols-3') }}">
+  {% for item in items %}
+  <article class="panel p-6 reveal">
+    {{ icon(item.icon | default('shield'), 'h-7 w-7 text-flame') }}
+    <h3 class="h3 mt-5">{{ item.title }}</h3>
+    <p class="panel__meta mt-3">{{ item.text }}</p>
+  </article>
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{# ---------- простые текстовые карточки (без иконок) ---------- #}
+{% macro tiles(items, cols) -%}
+<div class="mt-10 grid gap-4 {{ cols | default('md:grid-cols-2 lg:grid-cols-3') }}">
+  {% for item in items %}
+  <article class="panel p-6 reveal">
+    <h3 class="h3">{{ item.title }}</h3>
+    <p class="panel__meta mt-3">{{ item.text }}</p>
+  </article>
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro docrows(items) -%}
+<div class="mt-8">
+  {% for item in items %}
+  <div class="docrow">{{ icon('doc', 'h-5 w-5') }}<span class="text-sm text-mist">{{ item }}</span></div>
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{# ---------- FAQ ---------- #}
+{% macro faq(block) -%}
+{% for item in block.items %}
+<details class="acc">
+  <summary>{{ item.q }}</summary>
+  <div class="acc__body">{{ item.a }}</div>
+</details>
+{% endfor %}
+{%- endmacro %}
+
+{# ---------- CTA-полоса ---------- #}
+{% macro ctaBand(block) -%}
+<section class="cta-band band" id="cta">
+  <div class="shell cta-band__inner">
+    <div class="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-end">
+      <div>
+        <span class="kicker">{{ block.kicker }}</span>
+        <h2 class="h2 mt-4">{{ block.title }}</h2>
+        <p class="mt-4 max-w-2xl text-[#2b1a10]">{{ block.lead }}</p>
+      </div>
+      <div class="lg:text-right">
+        <div class="flex flex-wrap gap-3 lg:justify-end">
+          <a class="btn btn--ink" href="#zayavka">{{ icon('phone', 'h-4 w-4') }}Оставить заявку</a>
+          <a class="btn btn--ink" href="tel:{{ site.phone.href }}">{{ site.phone.display }}</a>
+        </div>
+      </div>
+    </div>
+    {% if block.note %}<p class="mt-8 border-t border-[#2b1a10]/25 pt-4 text-sm text-[#3a2417]">{{ block.note }}</p>{% endif %}
+  </div>
+</section>
+{%- endmacro %}
+

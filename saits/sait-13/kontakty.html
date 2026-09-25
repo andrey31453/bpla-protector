@@ -1,0 +1,15 @@
+{% extends "layouts/base.njk" %}
+{% from "partials/hero.njk" import hero %}
+{% from "partials/form.njk" import form %}
+{% from "macros/ui.njk" import ctaBand %}
+{% from "partials/blocks.njk" import sCards, sTick, sDocs %}
+
+{% block content %}
+  {{ hero(data.kontakty.hero, page) }}
+  {{ sCards(data.kontakty.steps, true, 'poryadok') }}
+  {{ sTick(data.kontakty.whatToSend, false, 'chto-prislat') }}
+  {{ sCards(data.kontakty.formats, true, 'formaty') }}
+  {{ sDocs(data.proektirovanie.docs, false, 'dokumentaciya') }}
+  {{ ctaBand(data.kontakty.cta) }}
+  {{ form('kontakty') }}
+{% endblock %}

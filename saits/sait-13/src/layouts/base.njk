@@ -1,0 +1,17 @@
+{% from "partials/head.njk" import head %}
+{% from "partials/header.njk" import header %}
+{% from "partials/footer.njk" import footer %}
+<!doctype html>
+<html lang="ru">
+<head>
+  {{ head(page) }}
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  {{ header(page) }}
+  <main id="main">
+{% block content %}{% endblock %}
+  </main>
+  {{ footer() }}
+</body>
+</html>

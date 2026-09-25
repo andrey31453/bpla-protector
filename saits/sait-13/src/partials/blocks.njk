@@ -1,0 +1,327 @@
+{# ============================================================
+   blocks.njk — секции страниц. Каждая секция собирается из JSON-данных
+   и повторно используется на разных страницах (лендинги, каталог, услуги).
+   Фактические значения (таблицы, списки, нормы) берутся из общих файлов
+   data/materials.json, data/levels.json, data/normatives.json, data/products.json.
+   ============================================================ #}
+{% import "macros/ui.njk" as ui %}
+
+{# обёртка секции: id + тёмный/светлый фон #}
+{% macro wrap(id, light) -%}
+<section class="band {{ 'on-light' if light else 'grid-bg' }}"{% if id %} id="{{ id }}"{% endif %}>
+  <div class="shell">{{ caller() }}</div>
+</section>
+{%- endmacro %}
+
+{# ---------- 1. Проблема объекта ---------- #}
+{% macro sProblem(b, light, id) -%}
+{% call wrap(id, light) %}
+  {{ ui.head(b) }}
+  {{ ui.cards(b.items, 'md:grid-cols-2 lg:grid-cols-3') }}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 2. Узлы объекта (таблица) ---------- #}
+{% macro sNodes(b, light, id) -%}
+{% call wrap(id, light) %}
+  {{ ui.head(b) }}
+  {{ ui.tbl(b.head, b.rows) }}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 3. Типы конструкций ---------- #}
+{% macro sConstructions(b, light, id) -%}
+{% call wrap(id, light) %}
+  {{ ui.head(b) }}
+  {{ ui.cards(b.items, 'md:grid-cols-2 lg:grid-cols-3') }}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 4. Ограничения: таблица или карточки ---------- #}
+{% macro sLimits(b, light, id) -%}
+{% call wrap(id, light) %}
+  {{ ui.head(b) }}
+  {% if (b.head | length) and (b.rows | length) %}{{ ui.tbl(b.head, b.rows) }}{% endif %}
+  {% if b.items | length %}{{ ui.cards(b.items, 'md:grid-cols-2 lg:grid-cols-3') }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 5. Материалы: общая таблица + пояснения + «почему не используем» ---------- #}
+{# Внимание: переменные из {% set %} в теле макроса НЕ видны внутри его
+   собственного {% call %} — поэтому set стоит внутри блока. #}
+{% macro sMaterials(b, light, id) -%}
+{% call wrap(id, light) %}
+  {% set m = data.materials %}
+  {{ ui.head(b) }}
+  {{ ui.tbl(m.head, m.rows) }}
+  {{ ui.cards(m.notes, 'md:grid-cols-2 lg:grid-cols-3') }}
+  <div class="panel panel--accent mt-10 p-6 md:p-8">
+    <h3 class="h3">{{ m.whyNot.title }}</h3>
+    {{ ui.tick(m.whyNot.reasons) }}
+    {{ ui.note(m.whyNot.verdict, 'accent') }}
+  </div>
+  {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 6. Состав работ / услуги ---------- #}
+{% macro sServices(b, light, id) -%}
+{% call wrap(id or 'uslugi', light) %}
+  {{ ui.head(b) }}
+  <ol class="numlist mt-10">
+    {% for item in b.items %}
+    <li class="reveal">
+      <div class="flex items-center gap-3">
+        {{ ui.icon(item.icon | default('gear'), 'h-5 w-5 text-flame') }}
+        <h3 class="h3">{{ item.title }}</h3>
+      </div>
+      <p class="panel__meta mt-3">{{ item.text }}</p>
+    </li>
+    {% endfor %}
+  </ol>
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 7. Нормативная база (фильтр по scope) ---------- #}
+{% macro sNormatives(b, slug, light, id) -%}
+{% call wrap(id or 'normativy', light) %}
+  {{ ui.head(b or data.normatives.block) }}
+  <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {% for item in data.normatives.items %}
+    {% if slug == 'index' or ('all' in item.scope) or (slug in item.scope) %}
+    <article class="panel p-6 reveal">
+      <span class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-flame">{{ item.code }}</span>
+      <p class="panel__meta mt-3">{{ item.role }}</p>
+    </article>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 8. Уровни защиты по СП 542 ---------- #}
+{% macro sLevels(b, slug, light, id) -%}
+{% call wrap(id or 'urovni', light) %}
+  {{ ui.head(b or data.levels.block) }}
+  <div class="table-scroll mt-8">
+    <table class="tbl">
+      <thead><tr>{% for th in data.levels.head %}<th scope="col">{{ th }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {% for row in data.levels.rows %}
+        <tr><td>{{ row.level }}</td><td>{{ row.drone }}</td><td>{{ row.structure }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% set lnote = data.levels.notes[slug] %}
+  {% if lnote %}{{ ui.note(lnote, 'accent') }}{% endif %}
+  {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 9. Категорирование объекта ---------- #}
+{% macro sCategory(b, light, id) -%}
+{% call wrap(id or 'kategorizaciya', light) %}
+  {{ ui.head(b) }}
+  {{ ui.tbl(b.head, b.rows) }}
+  {% if b.note %}{{ ui.note(b.note, 'accent') }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 10. Сертификаты, испытания, гарантия ---------- #}
+{% macro sProof(b, light, id) -%}
+{% call wrap(id or 'podtverzhdeniya', light) %}
+  {{ ui.head(b) }}
+  {{ ui.cards(b.items, 'md:grid-cols-2 lg:grid-cols-4') }}
+  {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 11. Примеры работ / решения ---------- #}
+{% macro caseRow(label, text) -%}
+<p class="mt-4">
+  <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-flame">{{ label }}</span>
+  <span class="mt-1 block text-sm text-mist">{{ text }}</span>
+</p>
+{%- endmacro %}
+
+{% macro sCases(b, light, id) -%}
+{% call wrap(id or 'keysy', light) %}
+  {{ ui.head(b) }}
+  <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {% for c in b.items %}
+    <article class="panel p-6 reveal">
+      <h3 class="h3">{{ c.title }}</h3>
+      {{ caseRow('Задача', c.task) }}
+      {{ caseRow('Решение', c.solution) }}
+      {{ caseRow('Сроки', c.term) }}
+      {{ caseRow('Результат', c.result) }}
+    </article>
+    {% endfor %}
+  </div>
+  {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 12. Заказчики и сегменты ---------- #}
+{% macro sClients(b, light, id) -%}
+{% call wrap(id or 'zakazchiki', light) %}
+  {{ ui.head(b) }}
+  {{ ui.tiles(b.segments, 'md:grid-cols-2 lg:grid-cols-3') }}
+  {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 13. Документация по итогам работ ---------- #}
+{% macro sDocs(b, light, id) -%}
+{% call wrap(id or 'dokumentaciya', light) %}
+  {{ ui.head(b) }}
+  {{ ui.docrows(b.items) }}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 14. Тендеры и закупки ---------- #}
+{% macro sTenders(b, light, id) -%}
+{% call wrap(id or 'tendery', light) %}
+  {{ ui.head(b) }}
+  {{ ui.tick(b.items) }}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 15. Стоимость ---------- #}
+{% macro sPrices(b, light, id) -%}
+{% call wrap(id or 'ceny', light) %}
+  {{ ui.head(b) }}
+  {% if b.table %}{{ ui.tbl(b.table.head, b.table.rows) }}{% elif b.head | length %}{{ ui.tbl(b.head, b.rows) }}{% endif %}
+  {% if b.factors | length %}
+  <h3 class="h3 mt-12">Что влияет на стоимость</h3>
+  {{ ui.tick(b.factors) }}
+  {% endif %}
+  {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+  {% if b.cta %}<div class="mt-9">{{ ui.button(b.cta, 'btn--primary') }}</div>{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 16. FAQ страницы ---------- #}
+{% macro sFaq(slug, light, id) -%}
+{% if data['faq-' + slug] and (data['faq-' + slug].items | length) %}
+{% call wrap(id or 'faq', light) %}
+  {# set внутри блока call: см. пояснение у sMaterials #}
+  {% set f = data['faq-' + slug] %}
+  <span class="kicker">Частые вопросы</span>
+  <h2 class="h2 mt-4">{{ f.title }}</h2>
+  <p class="lead mt-4 max-w-4xl">{{ f.lead }}</p>
+  <div class="mt-10">{{ ui.faq(f) }}</div>
+{% endcall %}
+{% endif %}
+{%- endmacro %}
+
+{# ---------- 17. Универсальные блоки ---------- #}
+{% macro sCards(b, light, id, cols) -%}
+{% call wrap(id, light) %}
+  {{ ui.head(b) }}
+  {{ ui.cards(b.items, cols or 'md:grid-cols-2 lg:grid-cols-3') }}
+  {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# типы конструкций из всех направлений — для страницы «Конструкции и материалы» #}
+{% macro sTypesAll(b, light, id) -%}
+{% call wrap(id or 'tipy', light) %}
+  {{ ui.head(b) }}
+  <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {% for p in pages %}
+    {% set lp = data['landing-' + p.slug] %}
+    {% if lp and lp.constructions %}
+    {% for item in lp.constructions.items %}
+    <article class="panel flex flex-col p-6 reveal">
+      {{ ui.icon(item.icon | default('shield'), 'h-7 w-7 text-flame') }}
+      <h3 class="h3 mt-5">{{ item.title }}</h3>
+      <p class="panel__meta mt-3">{{ item.text }}</p>
+      <div class="mt-auto pt-5">{{ ui.chips([p.nav]) }}</div>
+    </article>
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+  </div>
+{% endcall %}
+{%- endmacro %}
+
+{% macro sTick(b, light, id) -%}
+{% call wrap(id, light) %}
+  {{ ui.head(b) }}
+  {{ ui.tick(b.items) }}
+  {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+{% endcall %}
+{%- endmacro %}
+
+{# показатели (company.kpi) #}
+{% macro sKpi(items, light, id) -%}
+{% call wrap(id, light) %}
+  {{ ui.stats(items) }}
+{% endcall %}
+{%- endmacro %}
+
+{# две линии предложения: вынесенный рубеж и локальная защита #}
+{% macro sLines(b, light, id) -%}
+{% call wrap(id or 'linii', light) %}
+  {{ ui.head(b) }}
+  <div class="mt-10 grid gap-4 md:grid-cols-2">
+    {% for item in b.items %}
+    <article class="panel panel--accent p-6 md:p-8 reveal">
+      {{ ui.icon(item.icon, 'h-8 w-8 text-flame') }}
+      <h3 class="h3 mt-5">{{ item.title }}</h3>
+      <p class="panel__meta mt-3">{{ item.lead }}</p>
+      {{ ui.tick(item.bullets) }}
+      <div class="mt-7">{{ ui.button(item.cta, 'btn--ghost') }}</div>
+    </article>
+    {% endfor %}
+  </div>
+{% endcall %}
+{%- endmacro %}
+
+{# каталог направлений из data/products.json #}
+{% macro sCatalog(light, id) -%}
+{% call wrap(id or 'napravleniya', light) %}
+  {{ ui.head(data.products.block) }}
+  <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {% for item in data.products.items %}
+    <article class="panel flex flex-col p-6 reveal">
+      {{ ui.icon(item.icon, 'h-7 w-7 text-flame') }}
+      <h3 class="h3 mt-5">{{ item.title }}</h3>
+      <p class="panel__meta mt-3">{{ item.lead }}</p>
+      {{ ui.tick(item.bullets) }}
+      {{ ui.chips(item.tags) }}
+      <div class="mt-auto border-t border-flame/30 pt-5">
+        <a class="btn btn--ghost" href="{{ href(item.slug) }}">{{ item.cta }}{{ ui.icon('arrow', 'h-4 w-4') }}</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+{% endcall %}
+{%- endmacro %}
+
+{# сводные цены по направлениям: данные берём из цен лендингов, не дублируем #}
+{% macro sPricesAll(light) -%}
+{% call wrap('ceny', light) %}
+  {{ ui.head(data.ceny.prices) }}
+  {% for p in pages %}
+  {% set lp = data['landing-' + p.slug] %}
+  {% if lp and lp.prices %}
+  <div class="mt-14">
+    <h3 class="h3">{{ p.nav }}</h3>
+    <p class="panel__meta mt-3 max-w-3xl">{{ lp.prices.lead }}</p>
+    {% if lp.prices.table %}{{ ui.tbl(lp.prices.table.head, lp.prices.table.rows) }}{% elif lp.prices.head | length %}{{ ui.tbl(lp.prices.head, lp.prices.rows) }}{% endif %}
+    {% if lp.prices.note %}{{ ui.note(lp.prices.note) }}{% endif %}
+    <div class="mt-6">
+      <a class="btn btn--ghost" href="{{ href(p.slug, 'zayavka') }}">Расчёт по этому направлению{{ ui.icon('arrow', 'h-4 w-4') }}</a>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {{ ui.note(data.ceny.prices.note, 'accent') }}
+{% endcall %}
+{%- endmacro %}
+
+

@@ -1,0 +1,18 @@
+{% extends "layouts/base.njk" %}
+{% from "partials/hero.njk" import hero %}
+{% from "partials/form.njk" import form %}
+{% from "macros/ui.njk" import ctaBand %}
+{% from "partials/blocks.njk" import sCatalog, sTypesAll, sMaterials, sLimits, sLevels, sNormatives, sCards %}
+
+{% block content %}
+  {{ hero(data.konstrukcii.hero, page) }}
+  {{ sCatalog(true) }}
+  {{ sTypesAll(data.konstrukcii.types, false, 'tipy') }}
+  {{ sMaterials(data.materials.block, true, 'materialy') }}
+  {{ sLimits(data.konstrukcii.limits, false, 'ogranicheniya') }}
+  {{ sLevels(data.levels.block, 'index', true, 'urovni') }}
+  {{ sNormatives(data.normatives.block, 'index', false, 'normativy') }}
+  {{ sCards(data.company.process, true, 'poryadok') }}
+  {{ ctaBand(data.konstrukcii.cta) }}
+  {{ form('konstrukcii') }}
+{% endblock %}

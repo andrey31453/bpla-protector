@@ -1,0 +1,63 @@
+{# ============================================================
+   form.njk — блок заявки: имя, телефон и комментарий
+   (состав полей — src/data/form.json). Раздел сайта подставляется
+   скрытым полем из pages.json, поэтому выпадающих списков в форме нет.
+   Без серверной части: нативный submit ведёт в почтовый клиент,
+   JS проверяет поля и показывает статус (прогрессивное улучшение).
+   ============================================================ #}
+{% import "macros/ui.njk" as ui %}
+
+{% macro field(item) -%}
+{% set ac = { name: 'name', phone: 'tel' } %}
+{% if item.type == 'textarea' %}
+<div class="field">
+  <label for="f-{{ item.name }}">{{ item.label }}</label>
+  <textarea id="f-{{ item.name }}" name="{{ item.name }}" rows="{{ item.rows | default(3) }}" placeholder="{{ item.placeholder }}"{% if item.required %} required{% endif %}></textarea>
+</div>
+{% else %}
+<div class="field">
+  <label for="f-{{ item.name }}">{{ item.label }}</label>
+  <input id="f-{{ item.name }}" name="{{ item.name }}" type="{{ item.type | default('text') }}" placeholder="{{ item.placeholder }}"{% if item.required %} required{% endif %} autocomplete="{{ ac[item.name] | default('off') }}">
+</div>
+{% endif %}
+{%- endmacro %}
+
+{% macro form(slug) -%}
+{% set f = data.form %}
+{% set pg = pageBySlug(slug) %}
+<section class="band" id="zayavka">
+  <div class="shell grid gap-10 lg:grid-cols-[1fr_minmax(0,430px)] lg:items-start lg:gap-14">
+    <div>
+      <span class="kicker">Обратная связь</span>
+      <h2 class="h2 mt-4">{{ f.title }}</h2>
+      <p class="lead mt-4">{{ f.lead }}</p>
+
+      <ul class="mt-8 space-y-3">
+        <li class="flex items-center gap-3 text-sm text-snow"><a class="inline-flex items-center gap-3" href="tel:{{ site.phone.href }}">{{ ui.icon('phone', 'h-5 w-5 text-flame') }}{{ site.phone.display }}</a></li>
+        <li class="flex items-center gap-3 text-sm text-snow"><a class="inline-flex items-center gap-3" href="mailto:{{ site.email }}">{{ ui.icon('mail', 'h-5 w-5 text-flame') }}{{ site.email }}</a></li>
+        <li class="flex items-center gap-3 text-sm text-mist">{{ ui.icon('clock', 'h-5 w-5 text-flame') }}{{ site.workhours }}</li>
+        <li class="flex items-center gap-3 text-sm text-mist">{{ ui.icon('pin', 'h-5 w-5 text-flame') }}{{ site.region }}</li>
+      </ul>
+
+      <p class="mt-8 max-w-md border-l-2 border-flame/60 px-4 py-3 text-sm text-mist">{{ f.offline }}</p>
+    </div>
+
+    <form class="panel panel--accent panel--form p-5 md:p-6" method="post" action="mailto:{{ site.email }}" enctype="text/plain" data-form data-form-slug="{{ slug }}">
+      {# Контекст заявки уходит в письмо скрытым полем: спрашивать тип объекта в форме не нужно #}
+      <input type="hidden" name="{{ f.hidden.name }}" value="{{ pg.nav if pg and pg.nav else f.hidden.fallback }}">
+
+      <div class="grid gap-4">
+        {% for item in f.base %}{{ field(item) }}{% endfor %}
+        {{ field({ name: f.comment.name, label: f.comment.label, type: 'textarea', rows: f.comment.rows, placeholder: f.comment.placeholder }) }}
+      </div>
+
+      <p class="form-status mt-4" data-form-status data-form-error="{{ f.error }}" role="status" aria-live="polite">{{ f.success }}</p>
+
+      <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <button class="btn btn--primary btn--wide" type="submit">{{ f.submit }}{{ ui.icon('arrow', 'h-4 w-4') }}</button>
+        <span class="form-note max-w-[22rem]">{{ f.consent }}</span>
+      </div>
+    </form>
+  </div>
+</section>
+{%- endmacro %}

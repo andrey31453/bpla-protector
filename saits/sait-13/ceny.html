@@ -1,0 +1,16 @@
+{% extends "layouts/base.njk" %}
+{% from "partials/hero.njk" import hero %}
+{% from "partials/form.njk" import form %}
+{% from "macros/ui.njk" import ctaBand %}
+{% from "partials/blocks.njk" import sCards, sPricesAll, sTenders %}
+
+{% block content %}
+  {{ hero(data.ceny.hero, page) }}
+  {{ sCards(data.ceny.intro, true, 'kak-schitaem') }}
+  {{ sPricesAll(false) }}
+  {{ sCards(data.ceny.reduce, true, 'snizhenie') }}
+  {{ sCards(data.ceny.offer, false, 'poryadok') }}
+  {{ sTenders(data.company.tenders, true, 'tendery') }}
+  {{ ctaBand(data.ceny.cta) }}
+  {{ form('ceny') }}
+{% endblock %}

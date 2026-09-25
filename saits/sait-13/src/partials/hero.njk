@@ -1,0 +1,28 @@
+{# ============================================================
+   hero.njk — первый экран: крошки, kicker, H1 с акцентом, лид,
+   список тезисов, кнопки и фактическая рамка (.hero__frame).
+   Все тексты приходят из src/data/*.json.
+   ============================================================ #}
+{% import "macros/ui.njk" as ui %}
+{% from "partials/breadcrumbs.njk" import crumbs %}
+
+{% macro hero(h, pg) -%}
+<section class="hero grid-bg">
+  <div class="shell hero__inner">
+    {% if pg.slug != 'index' %}{{ crumbs(pg) }}{% endif %}
+    <span class="kicker mt-6 block">{{ h.kicker }}</span>
+    <h1 class="h1 mt-5 max-w-5xl">
+      <span class="grad-text">{{ h.h1 }}</span>
+      {% if h.accent %}<span class="mt-3 block text-base font-semibold tracking-normal text-mist normal-case sm:text-lg">{{ h.accent }}</span>{% endif %}
+    </h1>
+    <p class="lead mt-6 max-w-3xl">{{ h.lead }}</p>
+    {% if h.bullets | length %}{{ ui.tick(h.bullets) }}{% endif %}
+    {{ ui.buttons(h.ctaPrimary, h.ctaSecondary) }}
+    {% if h.frame | length %}
+    <div class="hero__frame">
+      {% for item in h.frame %}<span>{{ item.label }}<b>{{ item.value }}</b></span>{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+{%- endmacro %}

@@ -1,0 +1,37 @@
+{# ============================================================
+   landing.njk — сборка лендинга целиком из JSON-данных страницы.
+   Порядок блоков — по каркасу из ТЗ директолога (docs/Запросы для лендингов.txt, п. 5.2):
+   первый экран → проблема → узлы → конструкции → ограничения → материалы →
+   услуги → нормативы → уровни → категорирование → подтверждения → примеры →
+   заказчики → документация → тендеры → стоимость → FAQ → CTA → форма.
+   ============================================================ #}
+{% from "macros/ui.njk" import ctaBand %}
+{% from "partials/hero.njk" import hero %}
+{% from "partials/form.njk" import form %}
+{% from "partials/blocks.njk" import sProblem, sNodes, sConstructions, sLimits, sMaterials, sServices, sNormatives, sLevels, sCategory, sProof, sCases, sClients, sDocs, sTenders, sPrices, sFaq %}
+
+{% macro landing(slug, pg) -%}
+{% set L = data['landing-' + slug] %}
+{% if L %}
+  {{ hero(L.hero, pg) }}
+  {% if L.problem %}{{ sProblem(L.problem, false, 'zadacha') }}{% endif %}
+  {% if L.nodes %}{{ sNodes(L.nodes, true, 'uzly') }}{% endif %}
+  {% if L.constructions %}{{ sConstructions(L.constructions, false, 'konstrukcii') }}{% endif %}
+  {% if L.limits %}{{ sLimits(L.limits, true, 'ogranicheniya') }}{% endif %}
+  {% if L.materials %}{{ sMaterials(L.materials, false, 'materialy') }}{% endif %}
+  {% if L.services %}{{ sServices(L.services, true, 'uslugi') }}{% endif %}
+  {% if L.normatives %}{{ sNormatives(L.normatives, slug, false, 'normativy') }}{% endif %}
+  {% if L.levels %}{{ sLevels(L.levels, slug, true, 'urovni') }}{% endif %}
+  {% if L.category %}{{ sCategory(L.category, false, 'kategorizaciya') }}{% endif %}
+  {% if L.proof %}{{ sProof(L.proof, true, 'podtverzhdeniya') }}{% endif %}
+  {% if L.cases %}{{ sCases(L.cases, false, 'keysy') }}{% endif %}
+  {% if L.clients %}{{ sClients(L.clients, true, 'zakazchiki') }}{% endif %}
+  {% if L.docs %}{{ sDocs(L.docs, false, 'dokumentaciya') }}{% endif %}
+  {% if L.tenders %}{{ sTenders(L.tenders, true, 'tendery') }}{% endif %}
+  {% if L.prices %}{{ sPrices(L.prices, false, 'ceny') }}{% endif %}
+  {{ sFaq(slug, true, 'faq') }}
+  {% if L.cta %}{{ ctaBand(L.cta) }}{% endif %}
+  {{ form(slug) }}
+{% endif %}
+{%- endmacro %}
+

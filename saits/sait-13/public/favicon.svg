@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="фортТех — защита от БПЛА">
+  <defs>
+    <linearGradient id="flame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff9c4a"/>
+      <stop offset="0.45" stop-color="#ff7a2f"/>
+      <stop offset="1" stop-color="#cf4418"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" fill="#0b0f13"/>
+  <path d="M8 8h48v34L39 59H8z" fill="url(#flame)"/>
+  <text x="13" y="42" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#14100a">ФТ</text>
+  <path d="M40 52h16" stroke="#0b0f13" stroke-width="4"/>
+</svg>

@@ -1,0 +1,19 @@
+{% extends "layouts/base.njk" %}
+{% from "partials/hero.njk" import hero %}
+{% from "partials/form.njk" import form %}
+{% from "macros/ui.njk" import ctaBand %}
+{% from "partials/blocks.njk" import sProblem, sCards, sProof, sNodes, sClients, sTick, sNormatives %}
+
+{% block content %}
+  {{ hero(data.zpb.hero, page) }}
+  {{ sProblem(data.zpb.problem, true, 'zadacha') }}
+  {{ sCards(data.zpb.lineup, false, 'lineup') }}
+  {{ sCards(data.zpb.design, true, 'konstruktiv') }}
+  {{ sProof(data.zpb.proof, false, 'podtverzhdeniya') }}
+  {{ sNodes(data.zpb.references, true, 'references') }}
+  {{ sClients(data.zpb.segments, false, 'segmenty') }}
+  {{ sTick(data.zpb.limits, true, 'granicy') }}
+  {{ sNormatives(data.normatives.block, 'podstancii', false, 'normativy') }}
+  {{ ctaBand(data.zpb.cta) }}
+  {{ form('zpb') }}
+{% endblock %}
