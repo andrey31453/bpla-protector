@@ -52,6 +52,47 @@ export function nunjucksPlugin(siteRoot) {
 		return groups
 	}
 
+	// ---------- site.webmanifest ----------
+	// Собирается из тех же данных, что <head> и JSON-LD: brand, themeColor и
+	// список файлов иконок берутся из site.json, поэтому не дублируются.
+	// start_url и scope относительные — сайт работает и из подпапки (GitHub Pages).
+	const manifest = () => {
+		const s = data.site
+		const icons = s.icons || {}
+		const rel = (path) => './' + String(path).replace(/^\//, '')
+		const png = (src, sizes, purpose) => ({
+			src: rel(src),
+			sizes,
+			type: 'image/png',
+			purpose,
+		})
+
+		return (
+			JSON.stringify(
+				{
+					name: `${s.brand} — ${s.tagline}`,
+					short_name: s.brand,
+					description: s.description,
+					lang: 'ru',
+					start_url: './',
+					scope: './',
+					display: 'standalone',
+					background_color: s.themeColor,
+					theme_color: s.themeColor,
+					icons: [
+						{ src: rel(icons.svg), sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
+						png(icons.android192, '192x192', 'any'),
+						png(icons.android512, '512x512', 'any'),
+						png(icons.maskable192, '192x192', 'maskable'),
+						png(icons.maskable512, '512x512', 'maskable'),
+					],
+				},
+				null,
+				2,
+			) + '\n'
+		)
+	}
+
 	// ---------- JSON-LD ----------
 	const jsonLd = (page) => {
 		const site = data.site
@@ -85,6 +126,7 @@ export function nunjucksPlugin(siteRoot) {
 				'email': site.email,
 				'description': site.description,
 				'areaServed': 'Россия',
+				'logo': `${base}${(site.icons || {}).android512 || ''}`,
 			},
 			{ '@type': 'BreadcrumbList', 'itemListElement': crumbItems },
 		]
@@ -204,9 +246,21 @@ export function nunjucksPlugin(siteRoot) {
 				source: sitemap(),
 			})
 			this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robots() })
+			this.emitFile({
+				type: 'asset',
+				fileName: 'site.webmanifest',
+				source: manifest(),
+			})
 		},
 
 		configureServer(server) {
+			// В dev-режиме манифест тоже генерируется из данных, а не берётся из public/
+			server.middlewares.use((req, res, next) => {
+				if (!req.url || req.url.split('?')[0] !== '/site.webmanifest') return next()
+				res.setHeader('Content-Type', 'application/manifest+json; charset=utf-8')
+				res.end(manifest())
+			})
+
 			const touch = (file) => {
 				if (file.endsWith('.njk') || file.endsWith('.json')) {
 					setup()

@@ -7,8 +7,17 @@
     </linearGradient>
   </defs>
   <rect width="64" height="64" fill="#0b0f13"/>
-    <path d="M4 4H60V43.2L43.2 60H4Z" fill="url(#flame)"/>
-    <g transform="translate(9.25 16.75) scale(1.25)" fill="#14100a">
+    <g fill="url(#flame)">
+      <path d="M8 8h18v4H12v14H8Z"/>
+      <path d="M56 8v18h-4V12H38V8Z"/>
+      <path d="M56 56H38v-4h14V38h4Z"/>
+      <path d="M8 56V38h4v14h14v4Z"/>
+      <path d="M30 8h4v6h-4Z"/>
+      <path d="M30 50h4v6h-4Z"/>
+      <path d="M8 30h6v4H8Z"/>
+      <path d="M50 30h6v4h-6Z"/>
+    </g>
+    <g transform="translate(16.36 23.72) scale(0.92)" fill="#eef2f4">
     <path fill-rule="evenodd" d="M0.5 9a7 7 0 1 0 14 0a7 7 0 1 0 -14 0ZM3.7 9a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0Z"/>
     <path d="M5.9 -1.6h3.2v21.2h-3.2ZM19.75 0h13.5v3.2h-13.5ZM24.9 0h3.2v18h-3.2Z"/>
   </g>

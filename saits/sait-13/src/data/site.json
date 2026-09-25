@@ -18,5 +18,21 @@
   "region": "Работаем по всей России",
   "ogImage": "/og-fortteh.jpg",
   "themeColor": "#0b0f13",
+  "brandColor": "#ff7a2f",
+  "icons": {
+    "_note": "Файлы фавиконов лежат в public/ и собираются скриптом favicon/build.mjs (node favicon/build.mjs). Пути здесь — единый источник для <head> (head.njk), site.webmanifest и JSON-LD, поэтому имена файлов не дублируются в разметке.",
+    "svg": "/favicon.svg",
+    "ico": "/favicon.ico",
+    "png16": "/favicon-16x16.png",
+    "png32": "/favicon-32x32.png",
+    "png48": "/favicon-48x48.png",
+    "appleTouch": "/apple-touch-icon.png",
+    "android192": "/android-chrome-192x192.png",
+    "android512": "/android-chrome-512x512.png",
+    "maskable192": "/maskable-192x192.png",
+    "maskable512": "/maskable-512x512.png",
+    "safariPinnedTab": "/safari-pinned-tab.svg",
+    "manifest": "/site.webmanifest"
+  },
   "disclaimer": "фортТех — подрядчик по обследованию, расчёту, проектированию, изготовлению, поставке и монтажу защитных конструкций. Технические характеристики изделий и материалов приводятся по документации изготовителей и протоколам испытаний. Защита от БПЛА — элемент комплексной безопасности и не заменяет организационные, противопожарные и иные меры."
 }

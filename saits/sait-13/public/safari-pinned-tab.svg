@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="фортТех — защита от БПЛА">
+  <g transform="translate(7.35 18.95) scale(1.45)" fill="#000000">
+    <path fill-rule="evenodd" d="M0.5 9a7 7 0 1 0 14 0a7 7 0 1 0 -14 0ZM3.7 9a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0Z"/>
+    <path d="M5.9 -1.6h3.2v21.2h-3.2ZM19.75 0h13.5v3.2h-13.5ZM24.9 0h3.2v18h-3.2Z"/>
+  </g>
+</svg>

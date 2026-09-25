@@ -8,8 +8,8 @@
   </defs>
   <rect width="64" height="64" fill="#0b0f13"/>
     <path d="M4 4H60V43.2L43.2 60H4Z" fill="url(#flame)"/>
-    <g transform="translate(9.25 16.75) scale(1.25)" fill="#14100a">
-    <path fill-rule="evenodd" d="M0.5 9a7 7 0 1 0 14 0a7 7 0 1 0 -14 0ZM3.7 9a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0Z"/>
-    <path d="M5.9 -1.6h3.2v21.2h-3.2ZM19.75 0h13.5v3.2h-13.5ZM24.9 0h3.2v18h-3.2Z"/>
+    <g transform="translate(5.832 11.68) scale(1.38)" fill="#14100a">
+    <path fill-rule="evenodd" d="M0.5 14a8.3 8.3 0 1 0 16.6 0a8.3 8.3 0 1 0 -16.6 0ZM5 14a3.8 3.8 0 1 0 7.6 0a3.8 3.8 0 1 0 -7.6 0Z"/>
+    <path d="M6.55 -2.25h4.5v32.5h-4.5ZM20.35 0h16.1v4.5h-16.1ZM26.15 0h4.5v28h-4.5Z"/>
   </g>
 </svg>

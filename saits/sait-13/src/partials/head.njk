@@ -24,8 +24,17 @@
   <meta name="twitter:description" content="{{ pg.description }}">
   <meta name="twitter:image" content="{{ site.baseUrl }}{{ site.ogImage }}">
 
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/favicon.svg">
+  {# Иконки: файлы собирает favicon/build.mjs, имена — из site.json (site.icons) #}
+  <link rel="icon" href="{{ site.icons.svg }}" type="image/svg+xml">
+  <link rel="icon" href="{{ site.icons.png32 }}" sizes="32x32" type="image/png">
+  <link rel="icon" href="{{ site.icons.png16 }}" sizes="16x16" type="image/png">
+  <link rel="shortcut icon" href="{{ site.icons.ico }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ site.icons.appleTouch }}">
+  <link rel="mask-icon" href="{{ site.icons.safariPinnedTab }}" color="{{ site.brandColor }}">
+  <link rel="manifest" href="{{ site.icons.manifest }}">
+  <meta name="application-name" content="{{ site.brand }}">
+  <meta name="apple-mobile-web-app-title" content="{{ site.brand }}">
+  <meta name="msapplication-TileColor" content="{{ site.themeColor }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">

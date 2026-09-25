@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Варианты фавикона — фортТех</title>
+  <style>
+    :root { --night: #0b0f13; --panel: #141c25; --line: #26313c; --mist: #8fa1ad; --snow: #eef2f4; --flame: #ff7a2f; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 32px; background: #06080a; color: var(--snow); font: 15px/1.6 Inter, system-ui, sans-serif; }
+    h1 { margin: 0 0 8px; font-size: 26px; }
+    h2 { margin: 0 0 6px; font-size: 17px; }
+    p { margin: 0 0 14px; color: var(--mist); }
+    code { font-family: ui-monospace, Menlo, monospace; color: var(--flame); font-size: 13px; }
+    .lead { max-width: 900px; margin-bottom: 28px; }
+    .badge { margin-left: 8px; padding: 2px 8px; border-radius: 99px; background: rgba(255,122,47,.16); color: var(--flame); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; vertical-align: middle; }
+    .card { margin-bottom: 22px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--panel); }
+    .card__head { padding: 18px 20px 6px; }
+    .row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 20px; padding: 18px 20px; }
+    .row--dark { background: #06080a; }
+    .row--light { background: #f2f0ea; color: #0d1214; }
+    .tile { margin: 0; text-align: center; }
+    .tile img { display: block; margin: 0 auto 6px; }
+    .tile figcaption { font-size: 11px; opacity: .6; }
+    .tab { display: inline-flex; align-items: center; gap: 8px; max-width: 360px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px 8px 0 0; background: #1b232c; }
+    .tab img { display: block; }
+    .tab__title { font-size: 12px; color: #cfd8dd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tab__x { color: var(--mist); }
+    .hint { margin: 26px 0 12px; font-size: 14px; color: var(--mist); }
+    .hint code { color: var(--snow); }
+  </style>
+</head>
+<body>
+  <h1>Варианты фавикона — фортТех</h1>
+  <div class="lead">
+    <p>Служебная страница генератора (в сборку не попадает): показывает все варианты знака в разных размерах, на тёмном и светлом фоне, плюс имитацию вкладки браузера и уже собранные файлы из <code>public/</code>.</p>
+    <p>Основной вариант сейчас — <code>v1-shield</code>. Пересобрать знак с другим основным вариантом: <code>node favicon/build.mjs --primary v3-sight</code></p>
+  </div>
+<section class="card">
+      <header class="card__head">
+        <h2>Щит-плита <code>v1-shield</code><span class="badge">основной</span></h2>
+        <p>Повторяет знак бренда из шапки: оранжевая плита со срезанным углом и монограмма «ФТ». Максимально узнаваемо рядом с логотипом.</p>
+        <span class="tab"><img src="variants/v1-shield.svg" width="16" height="16" alt=""><span class="tab__title">фортТех — Инженерная защита объектов от БПЛА</span><span class="tab__x">×</span></span>
+      </header>
+      <div class="row row--dark"><figure class="tile"><img src="variants/v1-shield.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+      <div class="row row--light"><figure class="tile"><img src="variants/v1-shield.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/v1-shield.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+    </section>
+<section class="card">
+      <header class="card__head">
+        <h2>Крепостная стена <code>v2-fort</code></h2>
+        <p>Прямая отсылка к «форту»: зубчатый бастион в оранжевом градиенте, над стеной — белая монограмма. Читается с 32 px.</p>
+        <span class="tab"><img src="variants/v2-fort.svg" width="16" height="16" alt=""><span class="tab__title">фортТех — Инженерная защита объектов от БПЛА</span><span class="tab__x">×</span></span>
+      </header>
+      <div class="row row--dark"><figure class="tile"><img src="variants/v2-fort.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+      <div class="row row--light"><figure class="tile"><img src="variants/v2-fort.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/v2-fort.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+    </section>
+<section class="card">
+      <header class="card__head">
+        <h2>Прицел <code>v3-sight</code></h2>
+        <p>Тема противодействия БПЛА: рамка-визир с засечками и монограмма в центре. Самый «охранный» знак, но деталей больше — на 16 px мельче.</p>
+        <span class="tab"><img src="variants/v3-sight.svg" width="16" height="16" alt=""><span class="tab__title">фортТех — Инженерная защита объектов от БПЛА</span><span class="tab__x">×</span></span>
+      </header>
+      <div class="row row--dark"><figure class="tile"><img src="variants/v3-sight.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+      <div class="row row--light"><figure class="tile"><img src="variants/v3-sight.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/v3-sight.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+    </section>
+<section class="card">
+      <header class="card__head">
+        <h2>Крупная монограмма <code>v4-mono</code></h2>
+        <p>Минимум деталей: большая градиентная монограмма и «фундамент» под ней. Лучше всех держится на 16 px.</p>
+        <span class="tab"><img src="variants/v4-mono.svg" width="16" height="16" alt=""><span class="tab__title">фортТех — Инженерная защита объектов от БПЛА</span><span class="tab__x">×</span></span>
+      </header>
+      <div class="row row--dark"><figure class="tile"><img src="variants/v4-mono.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+      <div class="row row--light"><figure class="tile"><img src="variants/v4-mono.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/v4-mono.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+    </section>
+<section class="card">
+      <header class="card__head">
+        <h2>Щит-плита, упрощённый <code>primary-small</code></h2>
+        <p>Тот же знак, что и основной, но штрихи монограммы толще, детали убраны: используется для иконок 16–48 px и favicon.ico.</p>
+        <span class="tab"><img src="variants/primary-small.svg" width="16" height="16" alt=""><span class="tab__title">фортТех — Инженерная защита объектов от БПЛА</span><span class="tab__x">×</span></span>
+      </header>
+      <div class="row row--dark"><figure class="tile"><img src="variants/primary-small.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+      <div class="row row--light"><figure class="tile"><img src="variants/primary-small.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/primary-small.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+    </section>
+<section class="card">
+      <header class="card__head">
+        <h2>Щит-плита, для 16 px <code>primary-tiny</code></h2>
+        <p>Отдельный знак самого мелкого размера (16 px и запись 16 в favicon.ico): монограмма крупнее и плотнее, просвет кольца «Ф» шире — при 1.38 вместо 1.05 знак не «мылится». На больших размерах не используется.</p>
+        <span class="tab"><img src="variants/primary-tiny.svg" width="16" height="16" alt=""><span class="tab__title">фортТех — Инженерная защита объектов от БПЛА</span><span class="tab__x">×</span></span>
+      </header>
+      <div class="row row--dark"><figure class="tile"><img src="variants/primary-tiny.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+      <div class="row row--light"><figure class="tile"><img src="variants/primary-tiny.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/primary-tiny.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+    </section>
+<section class="card">
+      <header class="card__head">
+        <h2>Щит-плита, maskable <code>primary-maskable</code></h2>
+        <p>Фон плиты на всю площадь, монограмма — в «безопасной зоне»: Android и iOS маскируют края иконки. Для apple-touch-icon и maskable-*.png.</p>
+        <span class="tab"><img src="variants/primary-maskable.svg" width="16" height="16" alt=""><span class="tab__title">фортТех — Инженерная защита объектов от БПЛА</span><span class="tab__x">×</span></span>
+      </header>
+      <div class="row row--dark"><figure class="tile"><img src="variants/primary-maskable.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+      <div class="row row--light"><figure class="tile"><img src="variants/primary-maskable.svg" width="16" height="16" alt=""><figcaption>16 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="24" height="24" alt=""><figcaption>24 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="32" height="32" alt=""><figcaption>32 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="48" height="48" alt=""><figcaption>48 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="64" height="64" alt=""><figcaption>64 px</figcaption></figure><figure class="tile"><img src="variants/primary-maskable.svg" width="128" height="128" alt=""><figcaption>128 px</figcaption></figure></div>
+    </section>
+  <h2 class="hint">Готовые файлы в public/</h2>
+  <section class="card"><div class="row row--dark"><figure class="tile"><img src="../public/favicon.ico" width="48" height="48" alt=""><figcaption>favicon.ico</figcaption></figure><figure class="tile"><img src="../public/favicon.svg" width="128" height="128" alt=""><figcaption>favicon.svg</figcaption></figure><figure class="tile"><img src="../public/favicon-16x16.png" width="16" height="16" alt=""><figcaption>16×16 png</figcaption></figure><figure class="tile"><img src="../public/favicon-32x32.png" width="32" height="32" alt=""><figcaption>32×32 png</figcaption></figure><figure class="tile"><img src="../public/favicon-48x48.png" width="48" height="48" alt=""><figcaption>48×48 png</figcaption></figure><figure class="tile"><img src="../public/apple-touch-icon.png" width="120" height="120" alt=""><figcaption>apple-touch 180</figcaption></figure><figure class="tile"><img src="../public/android-chrome-192x192.png" width="96" height="96" alt=""><figcaption>android 192</figcaption></figure><figure class="tile"><img src="../public/maskable-192x192.png" width="96" height="96" alt=""><figcaption>maskable 192</figcaption></figure><figure class="tile"><img src="../public/maskable-512x512.png" width="128" height="128" alt=""><figcaption>maskable 512</figcaption></figure><figure class="tile"><img src="../public/android-chrome-512x512.png" width="128" height="128" alt=""><figcaption>android 512</figcaption></figure></div></section>
+</body>
+</html>
