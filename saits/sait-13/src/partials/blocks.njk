@@ -130,6 +130,47 @@
 {% endcall %}
 {%- endmacro %}
 
+{# ---------- 6a. Этапы работ: нумерованные карточки ---------- #}
+{# Визуал блока: слева кикер, заголовок, лид и короткий список того, что
+   заказчик получает по итогу, справа — сетка карточек с порядковыми номерами.
+   Номер шага берётся из позиции в данных (loop.index), поэтому порядок этапов
+   меняется правкой одного JSON, без пересчёта номеров в разметке.
+   Секция — своя тёмная полоса с медным градиентом (вариант process-band, как
+   flame-band у галереи «Объекты»): фон и карточки заданы стилями .process-band
+   и .stepcard, светлой инверсии у блока нет. Поэтому параметр light макросу не
+   нужен и фон всегда переопределяется вариантом — как у sObjects. #}
+{% macro sProcess(b, id) -%}
+{% call wrap(id or 'poryadok', false, 'process-band') %}
+  <div class="process">
+    <div class="process__aside">
+      {{ ui.head(b) }}
+      {% if b.bullets | length %}
+      <ul class="process__points">
+        {% for point in b.bullets %}
+        <li class="process__point">
+          <span class="process__mark">{{ ui.icon('check', 'h-3 w-3') }}</span>
+          <span>{{ point }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    <ol class="process__grid">
+      {% for item in b.items %}
+      <li class="stepcard reveal">
+        <div class="stepcard__head">
+          <span class="stepcard__num">{{ ('0' + loop.index) if loop.index < 10 else loop.index }}</span>
+          {{ ui.icon(item.icon | default('gear'), 'stepcard__icon') }}
+        </div>
+        <h3 class="stepcard__title">{{ item.title }}</h3>
+        <p class="stepcard__text">{{ item.text }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+{% endcall %}
+{%- endmacro %}
+
 {# ---------- 7. Нормативная база: реестр документов с выходом на первоисточник ---------- #}
 {# Блок собран как рабочий реестр, а не как перечень кодов: сводка по количеству
    документов, деление на группы (законы и подзаконные акты / своды правил и

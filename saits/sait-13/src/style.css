@@ -574,6 +574,121 @@
     padding: 4px 6px;
   }
   .on-light .numlist li::before { border-color: #d9d5c8; color: var(--color-ember); }
+
+  /* ---------- этапы работ: нумерованные карточки ---------- */
+  /* Блок «Шесть этапов»: слева текстовая колонка (кикер, заголовок, лид и
+     список того, что получает заказчик), справа — сетка карточек с порядковыми
+     номерами. Светлых инверсий у блока нет: секция всегда идёт своей тёмной
+     полосой (вариант process-band), поэтому .on-light-правил здесь не нужно.
+     Точка внимания в блоке — номер этапа: он в медном акценте и крупнее текста
+     карточки; иконка этапа остаётся на втором плане, но подкрашена тем же
+     медным, чтобы блок держался в палитре сайта. */
+  .process { display: grid; gap: 34px; }
+  @media (min-width: 1024px) {
+    .process { grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr); gap: 56px; align-items: start; }
+    /* На широком экране текстовая колонка едет за списком этапов: пока заказчик
+       листает шесть карточек, заголовок и список результатов остаются в кадре.
+       Отступ сверху — под залипающую шапку сайта. */
+    .process__aside { position: sticky; top: 104px; }
+  }
+
+  /* Полоса блока: фон уходит от почти чёрного к тёплому свечению по краям —
+     так фон собран в образце. Повторяем схему своей палитрой: медные
+     радиальные пятна по углам, мягкий свет по верхней кромке на графитовой базе плюс едва заметная
+     «инженерная» сетка (::before), чтобы полоса не выпадала из ряда других
+     тёмных секций сайта. overflow здесь не скрываем — иначе сломается
+     position: sticky у текстовой колонки. */
+  .process-band {
+    border-block: 1px solid var(--color-line);
+    background-color: var(--color-void);
+    background-image:
+      radial-gradient(900px 580px at 100% 108%, rgba(255, 122, 47, 0.32), transparent 66%),
+      radial-gradient(780px 520px at -6% 4%, rgba(207, 68, 24, 0.26), transparent 64%),
+      radial-gradient(1200px 440px at 50% -12%, rgba(255, 122, 47, 0.14), transparent 62%),
+      radial-gradient(720px 460px at 2% 106%, rgba(207, 68, 24, 0.18), transparent 62%),
+      linear-gradient(152deg, #0a0e12 0%, #0c1116 44%, #13171b 100%);
+  }
+  .process-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(120% 100% at 50% 0%, #000 10%, transparent 74%);
+    pointer-events: none;
+  }
+  .process-band > .shell { position: relative; z-index: 1; }
+
+  .process__points { display: grid; gap: 14px; margin-top: 30px; }
+  .process__point { display: flex; gap: 12px; align-items: flex-start; font-size: 0.95rem; color: var(--color-mist); }
+  /* Отметка — залитый медный круг с тёмной галочкой, как в образце: тонкая
+     медная риска на тёмной полосе терялась, а заливка читается и как акцент,
+     и как «выполнено». */
+  .process__mark {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    border-radius: 999px;
+    background: var(--grad-flame);
+    color: #14100a;
+  }
+
+  .process__grid { display: grid; gap: 16px; }
+  @media (min-width: 768px) { .process__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
+
+  /* Карточка этапа: в образце это плитка на тон светлее фона, со скруглением и
+     почти незаметной границей. Повторяем в графитовой гамме: мягкий градиент
+     заливки с тёплым подмесом сверху, тонкая светлая рамка и внутренний блик —
+     плитка читается объёмной без тяжёлой тени. При наведении рамка и иконка
+     «загораются» медным: блок остаётся живым на ощупь. */
+  .stepcard {
+    display: flex;
+    flex-direction: column;
+    padding: 22px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    background-image:
+      linear-gradient(180deg, rgba(255, 122, 47, 0.05) 0%, rgba(255, 122, 47, 0) 58%),
+      linear-gradient(180deg, rgba(29, 39, 50, 0.88) 0%, rgba(16, 23, 32, 0.88) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .stepcard:hover {
+    border-color: rgba(255, 122, 47, 0.5);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 0 34px -18px rgba(255, 122, 47, 0.7);
+    transform: translateY(-2px);
+  }
+
+  .stepcard__head { display: flex; align-items: center; gap: 12px; }
+  .stepcard__num {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-flame);
+  }
+  /* Иконка этапа — приглушённая, но в медном акценте: держит блок в палитре
+     сайта и не спорит с номером */
+  .stepcard__icon { width: 19px; height: 19px; margin-left: auto; color: rgba(255, 122, 47, 0.45); transition: color 0.2s ease; }
+  .stepcard:hover .stepcard__icon { color: var(--color-flame2); }
+  /* Заголовок этапа — не капсом: названия длиннее обычной плитки, а строчные
+     буквы читаются легче. Наследуем приём .doc-card__name. */
+  .stepcard__title {
+    margin-top: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: var(--color-snow);
+  }
+  .stepcard__text { margin-top: 10px; font-size: 0.9rem; line-height: 1.55; color: var(--color-mist); }
 }
 
 @layer components {
