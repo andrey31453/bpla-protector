@@ -2,7 +2,7 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sKpi, sCatalog, sProblem, sLines, sMaterials, sLevels, sNormatives, sCards, sDocs, sTenders, sPricesAll, sObjects %}
+{% from "partials/blocks.njk" import sKpi, sCatalog, sProblem, sLines, sMaterials, sLevels, sNormatives, sPractice, sCards, sDocs, sTenders, sPricesAll, sObjects %}
 
 {% block content %}
   {{ hero(data.company.hero, page) }}
@@ -18,6 +18,7 @@
   {{ sCards(data.company.process, true, 'poryadok') }}
   {{ sCards(data.company.guarantee, false, 'garantii') }}
   {{ sNormatives(data.normatives.block, 'index', true, 'normativy') }}
+  {{ sPractice('praktika') }}
   {{ sDocs(data.proektirovanie.docs, false, 'dokumentaciya') }}
   {{ sTenders(data.company.tenders, true, 'tendery') }}
   {{ sPricesAll(false) }}
