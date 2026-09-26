@@ -47,14 +47,20 @@
 {% endcall %}
 {%- endmacro %}
 
-{# ---------- 5. Материалы: табы по материалам + сводная таблица + «почему не используем» ---------- #}
+{# ---------- 5. Материалы: один переключатель — материалы, сравнение и «почему не используем» ---------- #}
 {# Внимание: переменные из {% set %} в теле макроса НЕ видны внутри его
    собственного {% call %} — поэтому set стоит внутри блока.
-   Каждый материал — своя вкладка: фото (свободная лицензия, автор в подписи),
-   пояснение и параметры из общей таблицы (колонка берётся по полю col, чтобы
-   порядок материалов в данных можно было менять, не правя таблицу).
-   Все панели лежат в HTML статически, переключает только классы модуль
-   tabs.js — так текст и фото материалов индексируются без исполнения JS. #}
+   Блок собран как один переключатель (data-tabs), вкладки идут по массиву
+   data.materials.tabs, а поле kind решает, что внутри панели:
+     material — фото (свободная лицензия, автор в подписи), пояснение и
+                параметры из общей таблицы (колонка берётся по полю col, чтобы
+                порядок материалов в данных можно было менять, не правя таблицу);
+     compare  — сводная таблица по всем материалам;
+     whyNot   — разбор «почему не применяем полипропилен и поликарбонат».
+   Состав, порядок и подписи вкладок задаются только данными: новая вкладка —
+   одна запись в materials.json. Текст и таблица лежат в HTML статически, а
+   модуль tabs.js лишь переключает классы, поэтому без JS виден весь блок
+   целиком, а поиск получает таблицу и формулировки без исполнения скриптов. #}
 {% macro sMaterials(b, light, id) -%}
 {% call wrap(id, light) %}
   {% set m = data.materials %}
@@ -62,12 +68,29 @@
   <div class="tabs mt-10" data-tabs>
     <div class="tabs__list" role="tablist" aria-label="Материалы защитных конструкций">
       {% for t in m.tabs %}
-      <button type="button" class="tabs__tab" role="tab" id="mat-tab-{{ t.col }}" aria-controls="mat-panel-{{ t.col }}">{{ t.nav }}</button>
+      {# Подпись вкладки: обычно короткое nav из данных; у сравнения отдельного
+         короткого имени нет, поэтому там берём заголовок самой панели
+         (m.compare.title), чтобы формулировка не дублировалась в materials.json.
+         Флаг strong в данных делает вкладку-итог постоянно выделенной: CSS даёт
+         ей полужирный шрифт, оранжевое подчёркивание и оранжевый тон. #}
+      <button type="button" class="tabs__tab{% if t.strong %} tabs__tab--strong{% endif %}" role="tab" id="mat-tab-{{ t.id }}" aria-controls="mat-panel-{{ t.id }}">{% if t.nav %}{{ t.nav }}{% else %}{{ m[t.kind].title }}{% endif %}</button>
       {% endfor %}
     </div>
     <div class="tabs__panels">
       {% for t in m.tabs %}
-      <section class="tabs__panel" role="tabpanel" id="mat-panel-{{ t.col }}" aria-labelledby="mat-tab-{{ t.col }}">
+      <section class="tabs__panel" role="tabpanel" id="mat-panel-{{ t.id }}" aria-labelledby="mat-tab-{{ t.id }}">
+        {% if t.kind == 'compare' %}
+        {# Сводная таблица — тот же источник, что и вкладки: один факт в одном месте #}
+        <h3 class="h3">{{ m.compare.title }}</h3>
+        {% if m.compare.lead %}<p class="lead mt-3">{{ m.compare.lead }}</p>{% endif %}
+        {{ ui.tbl(m.head, m.rows) }}
+        {% elif t.kind == 'whyNot' %}
+        <div class="panel panel--accent p-6 md:p-8">
+          <h3 class="h3">{{ m.whyNot.title }}</h3>
+          {{ ui.tick(m.whyNot.reasons) }}
+          {{ ui.note(m.whyNot.verdict, 'accent') }}
+        </div>
+        {% else %}
         <div class="matpanel">
           {{ ui.media(t.photo, 'matpanel__media') }}
           <div class="matpanel__body">
@@ -80,18 +103,10 @@
             </dl>
           </div>
         </div>
+        {% endif %}
       </section>
       {% endfor %}
     </div>
-  </div>
-  {# Сводная таблица — тот же источник, что и вкладки: один факт в одном месте #}
-  <h3 class="h3 mt-14">{{ m.compare.title }}</h3>
-  {% if m.compare.lead %}<p class="lead mt-3 max-w-4xl">{{ m.compare.lead }}</p>{% endif %}
-  {{ ui.tbl(m.head, m.rows) }}
-  <div class="panel panel--accent mt-12 p-6 md:p-8">
-    <h3 class="h3">{{ m.whyNot.title }}</h3>
-    {{ ui.tick(m.whyNot.reasons) }}
-    {{ ui.note(m.whyNot.verdict, 'accent') }}
   </div>
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
 {% endcall %}
