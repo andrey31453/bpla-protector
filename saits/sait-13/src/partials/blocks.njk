@@ -12,7 +12,9 @@
      corner — уголок с пульсирующей точкой в вершине;
      glyph  — крупная контурная иконка (поле icon) у нижней кромки;
      scan   — медный луч, медленно проходящий по нижней кромке;
-     ticks  — ряд мигающих рисок у кромки.
+     ticks  — ряд мигающих рисок у кромки;
+     seal   — крупная контурная иконка (поле icon) по кромке, а ряд рисок
+              уходит на противоположную кромку, чтобы не спорить с иконкой.
    Положение задаёт поле corner: bl (низ-лево), br (низ-право), tr (верх-право).
    Слой декоративный: aria-hidden и pointer-events: none, текста не содержит. #}
 {% macro decoLayer(d) -%}
@@ -20,8 +22,9 @@
 <div class="deco deco--{{ d.kind }} deco--{{ d.corner | default('br') }}" aria-hidden="true">
   {% if d.kind == 'corner' %}<span class="deco__angle"></span><span class="deco__dot"></span>{% endif %}
   {% if d.kind == 'glyph' %}<span class="deco__glyph">{{ ui.icon(d.icon | default('target'), 'deco__svg') }}</span>{% endif %}
+  {% if d.kind == 'seal' %}<span class="deco__seal">{{ ui.icon(d.icon | default('stamp'), 'deco__seal-svg') }}</span>{% endif %}
   {% if d.kind == 'scan' %}<span class="deco__scan"></span>{% endif %}
-  {% if d.kind == 'ticks' %}<span class="deco__ticks">{% for i in range(0, 9) %}<i class="deco__tick"></i>{% endfor %}</span>{% endif %}
+  {% if d.kind == 'ticks' or d.kind == 'seal' %}<span class="deco__ticks">{% for i in range(0, 9) %}<i class="deco__tick"></i>{% endfor %}</span>{% endif %}
 </div>
 {% endif %}
 {%- endmacro %}

@@ -60,11 +60,18 @@
   --dots-speed: 72s; /* очень медленный дрейф точек */
   --deco-ink: rgba(207, 68, 24, 0.42); /* медный акцент декора */
   --deco-ink-soft: rgba(207, 68, 24, 0.2); /* контурные элементы декора */
+  --deco-seal-tone: 61, 71, 75; /* тон крупной иконки-печати — как --color-ink2: серая печать не спорит с медными акцентами */
+  --deco-seal-alpha: 0.26; /* плотность печати на широких экранах: работает фоном, а не картинкой */
+  --deco-seal-ink: rgba(var(--deco-seal-tone), var(--deco-seal-alpha));
   --deco-inset: 28px; /* отступ декора от кромки секции */
   --deco-size: 92px; /* сторона углового уголка */
   --deco-stroke: 2px; /* толщина линий декора */
   --deco-dot: 9px; /* диаметр пульсирующей точки */
   --deco-glyph: 168px; /* сторона контурной иконки */
+  --deco-seal: clamp(150px, 20vw, 250px); /* сторона крупной иконки-печати: на узких экранах сжимается, чтобы не садиться под текст */
+  --deco-seal-narrow: 124px; /* та же печать до 767 px: там текст идёт во всю ширину секции */
+  --deco-seal-alpha-narrow: 0.18; /* на телефоне печать тише: под ней могут оказаться строки текста */
+  --deco-seal-stroke: 0.6; /* толщина контура крупной иконки, в единицах viewBox (иконка рисуется 24×24) */
   --deco-drift: 10px; /* амплитуда «дыхания» глифа */
   --deco-speed: 6.5s; /* период пульса и дыхания */
   --deco-scan-speed: 11s; /* проход луча по кромке */
@@ -1181,6 +1188,37 @@
     50% { transform: translate3d(0, calc(var(--deco-drift) * -1), 0); opacity: 1; }
   }
 
+  /* Крупная иконка-«печать» по кромке: тот же медленный «вдох», что у глифа,
+     но крупнее — блок закупок читается как документация с печатью. Иконка
+     чуть уходит за кромку, поэтому работает фоном, а не картинкой. */
+  .deco__seal { position: absolute; color: var(--deco-seal-ink); animation: deco-float var(--deco-speed) ease-in-out infinite; }
+  .deco__seal-svg { width: var(--deco-seal); height: var(--deco-seal); stroke-width: var(--deco-seal-stroke); }
+  .deco--bl .deco__seal { left: calc(var(--deco-inset) * -1); bottom: calc(var(--deco-inset) * -0.5); }
+  .deco--br .deco__seal { right: calc(var(--deco-inset) * -1); bottom: calc(var(--deco-inset) * -0.5); }
+  .deco--tr .deco__seal { right: calc(var(--deco-inset) * -1); top: calc(var(--deco-inset) * -0.5); }
+
+  /* Риски при крупной иконке переезжают на противоположную кромку: у `.deco--br`
+     они по умолчанию справа, то есть там же, где теперь иконка. Противоположную
+     сторону обязательно обнуляем (`auto`), иначе absolute-элемент растянется
+     между двух кромок. */
+  .deco--seal.deco--bl .deco__ticks { left: auto; right: var(--deco-inset); }
+  .deco--seal.deco--br .deco__ticks { left: var(--deco-inset); right: auto; }
+  .deco--seal.deco--tr .deco__ticks { left: var(--deco-inset); right: auto; top: auto; bottom: 0; align-items: flex-end; }
+
+  /* До 767 px текст занимает всю ширину секции и подходит к нижней кромке
+     вплотную, поэтому крупную печать там уменьшаем, уводим за угол сильнее и
+     гасим: остаётся намёк на документ с печатью, но контур не пересекает строки.
+     Тон берём тот же (--deco-seal-tone), меняется только плотность и размер. */
+  @media (max-width: 767px) {
+    .deco--seal {
+      --deco-seal: var(--deco-seal-narrow);
+      --deco-seal-ink: rgba(var(--deco-seal-tone), var(--deco-seal-alpha-narrow));
+    }
+    .deco--seal.deco--bl .deco__seal { left: calc(var(--deco-inset) * -1.4); bottom: calc(var(--deco-inset) * -1.2); }
+    .deco--seal.deco--br .deco__seal { right: calc(var(--deco-inset) * -1.4); bottom: calc(var(--deco-inset) * -1.2); }
+    .deco--seal.deco--tr .deco__seal { right: calc(var(--deco-inset) * -1.4); top: calc(var(--deco-inset) * -1.2); }
+  }
+
   /* Медный луч, пересекающий секцию по нижней кромке: за цикл проходит слева
      направо и гаснет — подсказка направления, а не украшение ради движения. */
   .deco__scan {
@@ -1221,7 +1259,7 @@
      статичными метками. Пульсирующее кольцо скрываем, чтобы точка не читалась
      «сломанной» без анимации. */
   @media (prefers-reduced-motion: reduce) {
-    .on-light::before, .deco__dot::after, .deco__glyph, .deco__scan, .deco__tick { animation: none; }
+    .on-light::before, .deco__dot::after, .deco__glyph, .deco__seal, .deco__scan, .deco__tick { animation: none; }
     .deco__dot::after { opacity: 0; }
   }
 }
