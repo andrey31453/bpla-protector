@@ -47,16 +47,48 @@
 {% endcall %}
 {%- endmacro %}
 
-{# ---------- 5. Материалы: общая таблица + пояснения + «почему не используем» ---------- #}
+{# ---------- 5. Материалы: табы по материалам + сводная таблица + «почему не используем» ---------- #}
 {# Внимание: переменные из {% set %} в теле макроса НЕ видны внутри его
-   собственного {% call %} — поэтому set стоит внутри блока. #}
+   собственного {% call %} — поэтому set стоит внутри блока.
+   Каждый материал — своя вкладка: фото (свободная лицензия, автор в подписи),
+   пояснение и параметры из общей таблицы (колонка берётся по полю col, чтобы
+   порядок материалов в данных можно было менять, не правя таблицу).
+   Все панели лежат в HTML статически, переключает только классы модуль
+   tabs.js — так текст и фото материалов индексируются без исполнения JS. #}
 {% macro sMaterials(b, light, id) -%}
 {% call wrap(id, light) %}
   {% set m = data.materials %}
   {{ ui.head(b) }}
+  <div class="tabs mt-10" data-tabs>
+    <div class="tabs__list" role="tablist" aria-label="Материалы защитных конструкций">
+      {% for t in m.tabs %}
+      <button type="button" class="tabs__tab" role="tab" id="mat-tab-{{ t.col }}" aria-controls="mat-panel-{{ t.col }}">{{ t.nav }}</button>
+      {% endfor %}
+    </div>
+    <div class="tabs__panels">
+      {% for t in m.tabs %}
+      <section class="tabs__panel" role="tabpanel" id="mat-panel-{{ t.col }}" aria-labelledby="mat-tab-{{ t.col }}">
+        <div class="matpanel">
+          {{ ui.media(t.photo, 'matpanel__media') }}
+          <div class="matpanel__body">
+            <h3 class="matpanel__title">{{ ui.icon(t.icon, 'h-5 w-5 text-flame') }}<span>{{ m.head[t.col] }}</span></h3>
+            <p class="matpanel__text">{{ t.text }}</p>
+            <dl class="spec">
+              {% for row in m.rows %}
+              <div class="spec__row"><dt>{{ row[0] }}</dt><dd>{{ row[t.col] }}</dd></div>
+              {% endfor %}
+            </dl>
+          </div>
+        </div>
+      </section>
+      {% endfor %}
+    </div>
+  </div>
+  {# Сводная таблица — тот же источник, что и вкладки: один факт в одном месте #}
+  <h3 class="h3 mt-14">{{ m.compare.title }}</h3>
+  {% if m.compare.lead %}<p class="lead mt-3 max-w-4xl">{{ m.compare.lead }}</p>{% endif %}
   {{ ui.tbl(m.head, m.rows) }}
-  {{ ui.cards(m.notes, 'md:grid-cols-2 lg:grid-cols-3') }}
-  <div class="panel panel--accent mt-10 p-6 md:p-8">
+  <div class="panel panel--accent mt-12 p-6 md:p-8">
     <h3 class="h3">{{ m.whyNot.title }}</h3>
     {{ ui.tick(m.whyNot.reasons) }}
     {{ ui.note(m.whyNot.verdict, 'accent') }}
@@ -313,20 +345,28 @@
 {% endcall %}
 {%- endmacro %}
 
+{# карточка линии предложения: фото сверху, под ним иконка, заголовок, лид,
+   список и кнопка. Обе линии собираются одной карточкой, поэтому идут в
+   одинаковом порядке и читаются как пара. #}
+{% macro lineCard(item) -%}
+<article class="linecard reveal">
+  {{ ui.media(item.photo, 'linecard__media') }}
+  <div class="linecard__body">
+    {% if item.icon %}{{ ui.icon(item.icon, 'h-8 w-8 text-flame') }}{% endif %}
+    <h3 class="h3{{ ' mt-5' if item.icon else '' }}">{{ item.title }}</h3>
+    <p class="panel__meta mt-3">{{ item.lead | default(item.text) }}</p>
+    {% if item.bullets %}{{ ui.tick(item.bullets) }}{% endif %}
+    {% if item.cta %}<div class="mt-7">{{ ui.button(item.cta, 'btn--ghost') }}</div>{% endif %}
+  </div>
+</article>
+{%- endmacro %}
+
 {# две линии предложения: вынесенный рубеж и локальная защита #}
 {% macro sLines(b, light, id) -%}
 {% call wrap(id or 'linii', light) %}
   {{ ui.head(b) }}
   <div class="mt-10 grid gap-4 md:grid-cols-2">
-    {% for item in b.items %}
-    <article class="panel panel--accent p-6 md:p-8 reveal">
-      {{ ui.icon(item.icon, 'h-8 w-8 text-flame') }}
-      <h3 class="h3 mt-5">{{ item.title }}</h3>
-      <p class="panel__meta mt-3">{{ item.lead }}</p>
-      {{ ui.tick(item.bullets) }}
-      <div class="mt-7">{{ ui.button(item.cta, 'btn--ghost') }}</div>
-    </article>
-    {% endfor %}
+    {% for item in b.items %}{{ lineCard(item) }}{% endfor %}
   </div>
 {% endcall %}
 {%- endmacro %}

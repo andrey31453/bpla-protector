@@ -418,6 +418,88 @@
   .on-light .tabs__tab:hover { border-color: #c9c4b6; color: var(--color-ember); }
   .on-light .tabs__panel { border-color: #dcd8cb; }
 
+  /* ---------- табы материалов: фото + параметры на плите ---------- */
+  /* Материалы различаются визуально, поэтому каждый получил свою вкладку с
+     фотографией, пояснением и параметрами из общей таблицы. Плита тёмная при
+     любом фоне секции: на светлой секции это акцент, на тёмной — приподнятая
+     карточка. Фото со свободной лицензией, автор и лицензия — в подписи к
+     кадру (обязательно для CC BY / CC BY-SA). */
+  .media {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: 3px;
+    background: var(--color-void);
+  }
+  .media__img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+  .media__credit {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 18px 12px 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    color: rgba(238, 242, 244, 0.8);
+    background: linear-gradient(180deg, transparent, rgba(6, 8, 10, 0.88));
+  }
+  .media__credit a { text-decoration: underline; text-decoration-color: rgba(238, 242, 244, 0.35); text-underline-offset: 2px; }
+  .media__credit a:hover { color: var(--color-flame2); text-decoration-color: var(--color-flame2); }
+
+  .matpanel {
+    display: grid;
+    gap: 22px;
+    padding: 16px;
+    border: 1px solid var(--color-line);
+    border-radius: 3px;
+    background-image: var(--grad-ink);
+    /* Плита тёмная в любом окружении, а на светлой секции .on-light задаёт
+       тёмный цвет текста — поэтому цвет задаём явно, иначе заголовок сольётся
+       с фоном. */
+    color: var(--color-snow);
+  }
+  @media (min-width: 900px) {
+    .matpanel {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 28px;
+      padding: 22px;
+      align-items: start;
+    }
+  }
+  .matpanel__title { display: flex; align-items: center; gap: 10px; color: var(--color-snow); }
+  .matpanel__text { margin-top: 12px; color: var(--color-mist); font-size: 0.95rem; }
+  .spec { margin-top: 20px; }
+  .spec__row {
+    display: grid;
+    gap: 2px 16px;
+    padding: 10px 0;
+    border-top: 1px solid var(--color-line);
+    font-size: 0.88rem;
+  }
+  @media (min-width: 560px) { .spec__row { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+  .spec__row dt { color: var(--color-mist); }
+  .spec__row dd { margin: 0; color: var(--color-snow); font-weight: 600; }
+  .spec__row:last-child { border-bottom: 1px solid var(--color-line); }
+
+  /* ---------- карточки линий предложения ---------- */
+  /* Карточка линии: фото сверху, под ним иконка, заголовок, лид, список и
+     кнопка. Пропорция 4:3 подобрана под кадры раздела — объект и изделие
+     попадают в кадр целиком; под кадром идёт подпись автора и лицензии. */
+  .linecard {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255, 122, 47, 0.4);
+    border-radius: 3px;
+    background-image: var(--grad-flame-soft), var(--grad-ink);
+  }
+  .linecard__media { border: 0; border-bottom: 1px solid var(--color-line); border-radius: 0; }
+  .linecard__media .media__img { aspect-ratio: 4 / 3; }
+  .linecard__body { padding: 22px; }
+
   /* ---------- списки ---------- */
   .tick { display: grid; gap: 10px; }
   .tick li { position: relative; padding-left: 26px; color: var(--color-mist); font-size: 0.95rem; }

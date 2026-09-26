@@ -203,6 +203,17 @@
 </figure>
 {%- endmacro %}
 
+{# ---------- фото с подписью и атрибуцией ---------- #}
+{# Для CC BY и CC BY-SA атрибуция обязательна: показываем автора, лицензию и
+   ссылку на страницу файла-первоисточника. У CC0 атрибуция не требуется, но
+   указываем её для прозрачности. Ссылка ведёт на Wikimedia Commons. #}
+{% macro media(item, cls) -%}
+<figure class="media{{ (' ' + cls) if cls else '' }}">
+  <img class="media__img" src="{{ item.src }}" alt="{{ item.alt }}" width="{{ item.width }}" height="{{ item.height }}" loading="lazy" decoding="async">
+  {% if item.credit %}<figcaption class="media__credit">{% if item.creditUrl %}<a href="{{ item.creditUrl }}" target="_blank" rel="noopener">{{ item.credit }}</a>{% else %}{{ item.credit }}{% endif %}</figcaption>{% endif %}
+</figure>
+{%- endmacro %}
+
 {# ---------- FAQ ---------- #}
 {% macro faq(block) -%}
 {% for item in block.items %}
