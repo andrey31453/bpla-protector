@@ -2,7 +2,7 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sProblem, sCards, sProof, sNodes, sClients, sTick, sNormatives %}
+{% from "partials/blocks.njk" import sProblem, sCards, sProof, sNodes, sClients, sTick, sNormatives, sPractice %}
 
 {% block content %}
   {{ hero(data.zpb.hero, page) }}
@@ -14,6 +14,7 @@
   {{ sClients(data.zpb.segments, false, 'segmenty') }}
   {{ sTick(data.zpb.limits, true, 'granicy') }}
   {{ sNormatives(data.normatives.block, 'podstancii', false, 'normativy') }}
+  {{ sPractice('praktika') }}
   {{ ctaBand(data.zpb.cta) }}
   {{ form('zpb') }}
 {% endblock %}

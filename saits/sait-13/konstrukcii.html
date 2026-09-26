@@ -2,7 +2,7 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sCatalog, sTypesAll, sMaterials, sLimits, sLevels, sNormatives, sCards, sObjects %}
+{% from "partials/blocks.njk" import sCatalog, sTypesAll, sMaterials, sLimits, sLevels, sNormatives, sPractice, sCards, sObjects %}
 
 {% block content %}
   {{ hero(data.konstrukcii.hero, page) }}
@@ -14,6 +14,7 @@
   {{ sLimits(data.konstrukcii.limits, false, 'ogranicheniya') }}
   {{ sLevels(data.levels.block, 'index', true, 'urovni') }}
   {{ sNormatives(data.normatives.block, 'index', false, 'normativy') }}
+  {{ sPractice('praktika') }}
   {{ sCards(data.company.process, true, 'poryadok') }}
   {{ ctaBand(data.konstrukcii.cta) }}
   {{ form('konstrukcii') }}

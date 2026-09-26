@@ -176,23 +176,45 @@
   {% endfor %}
   {% if n.summary.note %}{{ ui.note(n.summary.note, 'accent') }}{% endif %}
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
-  {# Патентная чистота, экспертиза, закупки и допуск на объект: отвечает на вопрос
-     «а пройдёт ли это у нас на согласовании и проверке». #}
-  {% set p = n.practice %}
-  <div class="panel panel--accent panel--practice mt-12 p-6 md:p-8">
-    <span class="kicker">{{ p.kicker }}</span>
-    <h3 class="h3 mt-4">{{ p.title }}</h3>
-    <p class="lead mt-4 max-w-4xl">{{ p.lead }}</p>
-    <div class="practice-grid mt-8">
-      {% for item in p.items %}
-      <div class="practice reveal">
-        {{ ui.icon(item.icon | default('doc'), 'h-6 w-6 text-flame') }}
-        <h4 class="practice__title">{{ item.title }}</h4>
-        <p class="panel__meta mt-2">{{ item.text }}</p>
-      </div>
-      {% endfor %}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 7б. Патентная чистота и согласования ---------- #}
+{# Секция идёт оранжевой полосой (.flame-band) от края до края — тем же акцентом,
+   что CTA-полоса и галерея объектов. Внутри две зоны: слева на оранжевом текст
+   (kicker, заголовок, лид, примечание), справа — белый «лист» нумерованных
+   пунктов. Оранжевый работает цветным корешком дела, а не рамкой вокруг белого
+   пятна, поэтому лист прижат к правому краю сетки, а не висит в её середине.
+   Пункты идут строками с тонкими разделителями: четыре вложенные рамки при
+   таком объёме текста давали лишний визуальный шум. Отвечает на вопрос
+   «а пройдёт ли это у нас на согласовании и проверке».
+   Данные — data/normatives.json (practice): состав пунктов и формулировки
+   правятся в одном месте. #}
+{% macro sPractice(id) -%}
+{% call wrap(id, false, 'flame-band') %}
+  {% set p = data.normatives.practice %}
+  <div class="practice-split">
+    <div class="practice-intro">
+      <span class="kicker">{{ p.kicker }}</span>
+      {# Секция самостоятельная, поэтому заголовок — h2 (визуальный размер берём классом h3) #}
+      <h2 class="h3 mt-4">{{ p.title }}</h2>
+      <p class="lead mt-4">{{ p.lead }}</p>
+      {% if p.note %}<p class="note practice-intro__note">{{ p.note }}</p>{% endif %}
     </div>
-    {{ ui.note(p.note, 'accent') }}
+    <ol class="panel panel--practice practice-sheet">
+      {% for item in p.items %}
+      <li class="practice reveal">
+        <span class="practice__num">{{ ('0' + loop.index) if loop.index < 10 else loop.index }}</span>
+        <div class="practice__body">
+          <div class="practice__head">
+            {{ ui.icon(item.icon | default('doc'), 'h-5 w-5 practice__icon') }}
+            <h3 class="practice__title">{{ item.title }}</h3>
+          </div>
+          <p class="practice__text">{{ item.text }}</p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
   </div>
 {% endcall %}
 {%- endmacro %}

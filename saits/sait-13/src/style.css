@@ -889,20 +889,70 @@
   .on-light .doc-card__src { color: var(--color-steel); }
   .btn--sm { padding: 10px 14px; font-size: 11px; letter-spacing: 0.12em; }
 
-  /* Панель про патентную чистоту и согласования: четыре карточки внутри акцентной панели */
-  .panel--practice { background: var(--grad-flame-soft); }
-  .practice-grid { display: grid; gap: 14px; }
-  @media (min-width: 760px) { .practice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .practice {
-    display: grid;
-    align-content: start;
-    padding: 18px;
-    border: 1px solid var(--color-line);
-    border-radius: 2px;
-    background: rgba(6, 8, 10, 0.4);
+  /* ---------- патентная чистота и согласования ---------- */
+  /* Секция идёт оранжевой полосой (.flame-band) от края до края — как CTA и
+     галерея объектов, чтобы блок читался акцентом, а не «ещё одной светлой
+     секцией». Внутри — две зоны: слева на оранжевом текст (kicker, заголовок,
+     лид, примечание), справа тёмная панель с нумерованными пунктами. Оранжевый
+     работает цветным корешком дела, а не рамкой вокруг белого пятна, поэтому
+     панель прижата к правому краю сетки, а не висит в середине оранжевого поля.
+     Вертикальной линии между колонками нет: на оранжевом она читалась швом
+     поверх фоновой сетки, а колонки и без неё разделены цветом панели, её
+     тенью и полем между ними.
+     Пункты идут строками с тонкими разделителями: четыре вложенные рамки при
+     таком объёме текста давали лишний визуальный шум. */
+  .practice-split { display: grid; gap: 26px; }
+  .practice-intro { display: flex; flex-direction: column; align-items: flex-start; }
+  /* Примечание — «сноска» оранжевой колонки: на широком экране прижато к её
+     низу, поэтому колонка не выглядит оборванной рядом с высоким списком.
+     Линия та же, что разделяет пункты, — 4px.
+     Курсив отбивает примечание от лида как обещание-оговорку («документы
+     направим по запросу»), а не как ещё один абзац описания */
+  .practice-intro__note {
+    margin-top: 26px;
+    padding-top: 16px;
+    border-top: 4px solid rgba(20, 16, 10, 0.45);
+    font-size: 0.9rem;
+    font-style: italic;
   }
-  .practice__title { margin-top: 12px; font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; text-transform: none; color: var(--color-snow); }
-  .on-light .practice { border-color: var(--color-sand2); background: rgba(255, 255, 255, 0.72); }
-  .on-light .practice__title { color: var(--color-ink); }
+
+  /* Тёмная панель: список пунктов — светлым по графиту. На яркой оранжевой
+     полосе такая панель читается как «дело» в тёмной обложке, а тень
+     приподнимает её над полосой — тот же приём, что у карточек галереи
+     объектов на оранжевом. Текст всё равно остаётся контрастным: если блок
+     когда-нибудь поставят в светлую секцию, панель останется тёмной. */
+  .panel--practice,
+  .on-light .panel--practice {
+    background-color: var(--color-panel);
+    background-image: var(--grad-ink);
+    border: 1px solid var(--color-line);
+    border-radius: 3px;
+    color: var(--color-snow);
+    padding: 22px 24px;
+    box-shadow: 0 24px 46px -28px rgba(58, 26, 8, 0.75);
+  }
+  @media (min-width: 768px) { .panel--practice, .on-light .panel--practice { padding: 28px 34px; } }
+
+  /* Разделители пунктов — толстая линия 4px: на графите она видна без рамок
+     и держит ритм списка лучше тонких бордюров */
+  .practice { display: grid; grid-template-columns: 46px minmax(0, 1fr); column-gap: 20px; padding: 20px 0; border-top: 4px solid var(--color-line2); }
+  .practice:first-child { padding-top: 4px; border-top: 0; }
+  .practice:last-child { padding-bottom: 4px; }
+  .practice__num { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: var(--color-flame2); }
+  .practice__head { display: flex; align-items: center; gap: 10px; }
+  .practice__icon { flex: none; color: var(--color-flame); }
+  .practice__title { font-size: 0.97rem; font-weight: 600; letter-spacing: -0.01em; text-transform: none; color: var(--color-snow); }
+  .practice__text { margin-top: 8px; font-size: 0.9rem; color: var(--color-mist); }
+
+  @media (max-width: 639px) {
+    .panel--practice, .on-light .panel--practice { padding: 20px; }
+    .practice { grid-template-columns: minmax(0, 1fr); row-gap: 10px; padding: 16px 0; }
+  }
+  @media (min-width: 1024px) {
+    .practice-split { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.28fr); gap: 0; align-items: stretch; }
+    .practice-intro { height: 100%; padding-right: 40px; }
+    .practice-intro__note { margin-top: auto; }
+    .practice-sheet { margin-left: 40px; }
+  }
 }
 

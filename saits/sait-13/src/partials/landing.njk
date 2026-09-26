@@ -10,7 +10,7 @@
 {% from "macros/ui.njk" import ctaBand %}
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
-{% from "partials/blocks.njk" import sProblem, sNodes, sConstructions, sLimits, sMaterials, sServices, sNormatives, sLevels, sCategory, sProof, sCases, sClients, sDocs, sTenders, sPrices, sFaq, sObjects %}
+{% from "partials/blocks.njk" import sProblem, sNodes, sConstructions, sLimits, sMaterials, sServices, sNormatives, sPractice, sLevels, sCategory, sProof, sCases, sClients, sDocs, sTenders, sPrices, sFaq, sObjects %}
 
 {% macro landing(slug, pg) -%}
 {% set L = data['landing-' + slug] %}
@@ -26,7 +26,7 @@
   {% if L.limits %}{{ sLimits(L.limits, true, 'ogranicheniya') }}{% endif %}
   {% if L.materials %}{{ sMaterials(L.materials, false, 'materialy') }}{% endif %}
   {% if L.services %}{{ sServices(L.services, true, 'uslugi') }}{% endif %}
-  {% if L.normatives %}{{ sNormatives(L.normatives, slug, false, 'normativy') }}{% endif %}
+  {% if L.normatives %}{{ sNormatives(L.normatives, slug, false, 'normativy') }}{{ sPractice('praktika') }}{% endif %}
   {% if L.levels %}{{ sLevels(L.levels, slug, true, 'urovni') }}{% endif %}
   {% if L.category %}{{ sCategory(L.category, false, 'kategorizaciya') }}{% endif %}
   {% if L.proof %}{{ sProof(L.proof, true, 'podtverzhdeniya') }}{% endif %}
