@@ -421,21 +421,14 @@
 
   .site-header { position: sticky; top: 0; z-index: 50; background: rgba(9, 12, 16, 0.86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-line); }
   .brand { display: inline-flex; align-items: center; gap: 12px; }
-  .brand__mark {
-    width: 40px;
-    height: 40px;
-    display: grid;
-    place-items: center;
-    background: var(--grad-flame);
-    color: #14100a;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.02em;
-    clip-path: polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%);
-  }
-  .brand__name { font-weight: 700; font-size: 1.12rem; letter-spacing: -0.02em; text-transform: uppercase; }
-  /* вторая «Т» в «фортТех» — оранжевая, видно границу двух слов */
+  /* Знак «три плиты»: высота привязана к кеглю имени (знак в 3,04 раза выше
+     прописной буквы, как в исходном логотипе), ширина — по пропорции 104:137.
+     color — цвет двух боковых плит (белые на тёмном фоне): пути берут его через
+     fill="currentColor". Правая плита — акцентная, оранжевая. */
+  .brand__mark { display: block; height: 40px; width: auto; aspect-ratio: 104 / 137; color: var(--color-snow); }
+  .brand__mark .brand__mark-accent { fill: var(--color-flame); }
+  .brand__name { font-weight: 700; font-size: 1.12rem; letter-spacing: -0.02em; }
+  /* второе слово в «фортТех» — оранжевое, видно границу двух слов */
   .brand__accent { color: var(--color-flame); }
   .brand__tag { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-mist); }
 

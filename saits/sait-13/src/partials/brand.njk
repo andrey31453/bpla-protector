@@ -1,13 +1,31 @@
 {# ============================================================
-   brand.njk — логотип: метка «ФТ», имя «фортТех» с оранжевой второй «Т»
-   (подсвечивает, что это два слова) и подпись направления.
-   Один источник разметки для шапки и подвала; значения — из site.json
-   (brandParts), ссылка — на главную.
+   brand.njk — логотип: знак «три плиты» и имя «фортТех», у которого оранжевым
+   выделено второе слово. Один источник разметки для шапки и подвала; значения —
+   из site.json (brandParts), ссылка — на главную.
+
+   Геометрия знака здесь НЕ описана: пути лежат в src/data/site.json
+   (site.brandMark) — оттуда же их берёт генератор иконок favicon/build.mjs.
+   Поэтому логотип и фавикон не могут разойтись: один источник, один знак.
+   Знак тот же, что в фавиконе (public/favicon.svg) — там он без фона и с теми же
+   пропорциями и зазорами. Здесь знак стоит на тёмном фоне, поэтому плиты белые
+   (fill="currentColor" + color от .brand__mark), а в иконке на светлой панели
+   браузера они тёмные (см. favicon/build.mjs).
    ============================================================ #}
 
 {% macro brandLogo() -%}
+{#- Знак: три плиты на общей базе. Пути приходят из site.brandMark.paths — тот же
+    источник, что у иконок, поэтому пропорции и зазоры совпадают с фавиконом.
+    Две боковые плиты — белые: цвет берут из fill="currentColor", а color задан в
+    .brand__mark (--color-snow), потому что шапка и подвал тёмные. Без этого плиты
+    рисовались бы чёрными (значение fill по умолчанию) и пропадали на тёмном фоне.
+    Правая плита — акцентная: в исходном логотипе была синяя, стала фирменной
+    оранжевой (.brand__mark-accent). -#}
 <a class="brand" href="{{ href('index') }}">
-  <span class="brand__mark">{{ site.brandMark }}</span>
+  <svg class="brand__mark" viewBox="{{ site.brandMark.viewBox }}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="{{ site.brandMark.paths.sideLeft }}"/>
+    <path fill="currentColor" d="{{ site.brandMark.paths.middle }}"/>
+    <path class="brand__mark-accent" d="{{ site.brandMark.paths.sideRight }}"/>
+  </svg>
   <span>
     <span class="brand__name">{{ site.brandParts.head }}<span class="brand__accent">{{ site.brandParts.accent }}</span>{{ site.brandParts.tail }}</span>
     <span class="brand__tag">{{ site.brandTag }}</span>

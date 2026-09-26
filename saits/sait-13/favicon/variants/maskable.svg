@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="фортТех — защита от БПЛА">
-  <style>.mark__side { fill: #0b0f13 } .mark__accent { fill: #ff7a2f } @media (prefers-color-scheme: dark) { .mark__side { fill: #eef2f4 } }</style>
-    <g transform="translate(13.28 7.34) scale(0.36)">
+  <style>.mark__side { fill: #eef2f4 } .mark__accent { fill: #ff7a2f }</style>
+    <rect width="64" height="64" fill="#0b0f13"/>
+    <g transform="translate(16.92 12.135) scale(0.29)">
     <path class="mark__side" d="M0 35.5L28 17.5V129.5L0 122Z"/>
     <path class="mark__side" d="M36 11.7L52 0L68 7.1V125.3L52 137L36 129.9Z"/>
     <path class="mark__accent" d="M76 7.5L104 15V101.5L76 119.5Z"/>
