@@ -164,6 +164,31 @@
 </div>
 {%- endmacro %}
 
+{# ---------- карточка нормативного документа ---------- #}
+{# Официальное название, роль документа в проекте и кнопка к тексту.
+   button по умолчанию ведёт на первоисточник (kind: 'source') — открываем в
+   новой вкладке; kind: 'file' — локальный PDF с сайта; остальные случаи —
+   форма заявки: редакцию с изменениями выдаём вместе с расчётом. #}
+{% macro docCard(item) -%}
+<article class="panel doc-card p-6 reveal">
+  <span class="doc-card__code">{{ item.code }}</span>
+  {% if item.name %}<h4 class="doc-card__name">{{ item.name }}</h4>{% endif %}
+  <p class="panel__meta mt-3">{{ item.role }}</p>
+  <div class="doc-card__foot">
+    {% if item.doc.kind == 'source' %}
+    <a class="btn btn--ghost btn--sm" href="{{ item.doc.href }}" target="_blank" rel="noopener">{{ icon('doc', 'h-4 w-4') }}Скачать документ</a>
+    <span class="doc-card__src">{{ item.doc.source }}</span>
+    {% elif item.doc.kind == 'file' %}
+    <a class="btn btn--ghost btn--sm" href="{{ item.doc.href }}" download>{{ icon('doc', 'h-4 w-4') }}Скачать PDF</a>
+    <span class="doc-card__src">{{ item.doc.source | default('файл с сайта') }}</span>
+    {% else %}
+    <a class="btn btn--ghost btn--sm" href="#zayavka">{{ icon('mail', 'h-4 w-4') }}Запросить редакцию</a>
+    <span class="doc-card__src">вышлем с расчётом</span>
+    {% endif %}
+  </div>
+</article>
+{%- endmacro %}
+
 {# ---------- фотография объекта (галерея «Объекты») ---------- #}
 {# width/height берём из данных: браузер резервирует место до загрузки файла,
    loading="lazy" — фото идут ниже первого экрана и не тормозят отрисовку. #}

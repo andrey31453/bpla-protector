@@ -701,3 +701,82 @@
     html { scroll-behavior: auto; }
   }
 }
+@layer components {
+  /* ---------- нормативная база: сводка, группы, карточки документов ---------- */
+  /* Сводка: сколько документов относится к этому направлению и откуда берутся
+     тексты. Строка «серьёзности» блока — по ней видно объём базы до чтения. */
+  .docmeta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 2px 14px;
+    padding: 16px 18px;
+    border: 1px solid var(--color-line);
+    border-left: 2px solid var(--color-flame);
+    border-radius: 2px;
+    background: rgba(6, 8, 10, 0.45);
+  }
+  /* иконка слева от двух строк: счётчик и расшифровка базы */
+  .docmeta > svg { grid-row: 1 / span 2; }
+  .docmeta__count { grid-column: 2; font-size: 0.95rem; color: var(--color-snow); }
+  .docmeta__count b { margin-right: 6px; font-size: 1.35rem; font-weight: 700; color: var(--color-flame2); }
+  .docmeta__total { grid-column: 2; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-mist); }
+  .docmeta__src { grid-column: 2; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--color-line); font-size: 0.78rem; color: var(--color-mist); }
+  .on-light .docmeta { border-color: var(--color-sand2); border-left-color: var(--color-ember); background: #fff; }
+  .on-light .docmeta__count { color: var(--color-ink); }
+  .on-light .docmeta__count b { color: var(--color-ember); }
+  .on-light .docmeta__total, .on-light .docmeta__src { color: var(--color-steel); }
+  .on-light .docmeta__src { border-color: var(--color-sand2); }
+
+  /* Группа документов: линейка с названием группы и счётчиком, под ней — сетка */
+  .docgroup { margin-top: 46px; }
+  .docgroup__head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--color-line); }
+  .docgroup__title { font-size: clamp(0.98rem, 1.5vw, 1.18rem); }
+  .docgroup__count {
+    margin-left: auto;
+    padding: 3px 10px;
+    border: 1px solid rgba(255, 122, 47, 0.45);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--color-flame2);
+  }
+  .docgroup__note { margin-top: 12px; max-width: 72ch; font-size: 0.88rem; color: var(--color-mist); }
+  .on-light .docgroup__head { border-color: var(--color-sand2); }
+  .on-light .docgroup__note { color: var(--color-ink2); }
+
+  .docgrid { display: grid; gap: 16px; margin-top: 24px; }
+  @media (min-width: 700px) { .docgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1180px) { .docgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  /* Карточка документа: код, официальное название, роль и кнопка к тексту.
+     Кнопка прижата к низу, поэтому в строке они выстраиваются по одной линии. */
+  .doc-card { display: flex; flex-direction: column; }
+  .doc-card__code { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-flame); }
+  .doc-card__name { margin-top: 10px; font-size: 0.97rem; font-weight: 600; line-height: 1.28; letter-spacing: -0.01em; text-transform: none; color: var(--color-snow); }
+  .doc-card__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: auto; padding-top: 18px; border-top: 1px solid var(--color-line); }
+  .doc-card__foot > .panel__meta { width: 100%; }
+  .doc-card__src { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-mist); }
+  .on-light .doc-card__name { color: var(--color-ink); }
+  .on-light .doc-card__foot { border-color: var(--color-sand2); }
+  .on-light .doc-card__src { color: var(--color-steel); }
+  .btn--sm { padding: 10px 14px; font-size: 11px; letter-spacing: 0.12em; }
+
+  /* Панель про патентную чистоту и согласования: четыре карточки внутри акцентной панели */
+  .panel--practice { background: var(--grad-flame-soft); }
+  .practice-grid { display: grid; gap: 14px; }
+  @media (min-width: 760px) { .practice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .practice {
+    display: grid;
+    align-content: start;
+    padding: 18px;
+    border: 1px solid var(--color-line);
+    border-radius: 2px;
+    background: rgba(6, 8, 10, 0.4);
+  }
+  .practice__title { margin-top: 12px; font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; text-transform: none; color: var(--color-snow); }
+  .on-light .practice { border-color: var(--color-sand2); background: rgba(255, 255, 255, 0.72); }
+  .on-light .practice__title { color: var(--color-ink); }
+}
+

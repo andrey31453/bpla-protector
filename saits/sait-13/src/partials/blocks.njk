@@ -83,21 +83,70 @@
 {% endcall %}
 {%- endmacro %}
 
-{# ---------- 7. Нормативная база (фильтр по scope) ---------- #}
+{# ---------- 7. Нормативная база: реестр документов с выходом на первоисточник ---------- #}
+{# Блок собран как рабочий реестр, а не как перечень кодов: сводка по количеству
+   документов, деление на группы (законы и подзаконные акты / своды правил и
+   стандарты / отраслевые документы), официальное название, роль документа в
+   проекте и кнопка к тексту. Кнопка ведёт на первоисточник (ФГИС Росстандарта,
+   официальный портал опубликования правовых актов, справочная правовая
+   система); там, где карточки в открытом доступе нет, — на форму заявки:
+   редакцию с изменениями выдаём вместе с расчётом.
+   Под списком — панель о патентной чистоте, экспертизе, закупках и допуске на
+   объект: расширяет тему документов до того, что заказчик видит на проверке.
+   Все данные, порядок групп и формулировки — data/normatives.json (_note). #}
 {% macro sNormatives(b, slug, light, id) -%}
 {% call wrap(id or 'normativy', light) %}
-  {{ ui.head(b or data.normatives.block) }}
-  <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-    {% for item in data.normatives.items %}
+  {% set n = data.normatives %}
+  {{ ui.head(b or n.block) }}
+  {# отбор по scope выполняем один раз: этот же список идёт и в сводку, и в группы #}
+  {% set shown = [] %}
+  {% for item in n.items %}
     {% if slug == 'index' or ('all' in item.scope) or (slug in item.scope) %}
-    <article class="panel p-6 reveal">
-      <span class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-flame">{{ item.code }}</span>
-      <p class="panel__meta mt-3">{{ item.role }}</p>
-    </article>
+      {% set shown = shown.concat([item]) %}
     {% endif %}
-    {% endfor %}
+  {% endfor %}
+  <div class="docmeta mt-8">
+    {{ ui.icon('doc', 'h-5 w-5 text-flame') }}
+    <p class="docmeta__count"><b>{{ shown | length }}</b> {{ n.summary.countLabel }}</p>
+    <p class="docmeta__total">{{ n.items | length }} {{ n.summary.totalLabel }}</p>
+    <p class="docmeta__src">{{ n.summary.sourceLabel }}</p>
   </div>
+  {% set grouped = shown | groupby('group') %}
+  {% for g in n.groups %}
+    {% set gitems = grouped[g.key] | default([]) %}
+    {% if gitems | length %}
+    <div class="docgroup">
+      <div class="docgroup__head">
+        <h3 class="docgroup__title">{{ g.title }}</h3>
+        <span class="docgroup__count">{{ gitems | length }}</span>
+      </div>
+      <p class="docgroup__note">{{ g.note }}</p>
+      <div class="docgrid">
+        {% for item in gitems %}{{ ui.docCard(item) }}{% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+  {% if n.summary.note %}{{ ui.note(n.summary.note, 'accent') }}{% endif %}
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+  {# Патентная чистота, экспертиза, закупки и допуск на объект: отвечает на вопрос
+     «а пройдёт ли это у нас на согласовании и проверке». #}
+  {% set p = n.practice %}
+  <div class="panel panel--accent panel--practice mt-12 p-6 md:p-8">
+    <span class="kicker">{{ p.kicker }}</span>
+    <h3 class="h3 mt-4">{{ p.title }}</h3>
+    <p class="lead mt-4 max-w-4xl">{{ p.lead }}</p>
+    <div class="practice-grid mt-8">
+      {% for item in p.items %}
+      <div class="practice reveal">
+        {{ ui.icon(item.icon | default('doc'), 'h-6 w-6 text-flame') }}
+        <h4 class="practice__title">{{ item.title }}</h4>
+        <p class="panel__meta mt-2">{{ item.text }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {{ ui.note(p.note, 'accent') }}
+  </div>
 {% endcall %}
 {%- endmacro %}
 
