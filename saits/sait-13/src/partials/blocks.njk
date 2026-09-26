@@ -13,18 +13,48 @@
      glyph  — крупная контурная иконка (поле icon) у нижней кромки;
      scan   — медный луч, медленно проходящий по нижней кромке;
      ticks  — ряд мигающих рисок у кромки;
-     seal   — крупная контурная иконка (поле icon) по кромке, а ряд рисок
-              уходит на противоположную кромку, чтобы не спорить с иконкой.
+     seal   — иллюстрация «бланк с печатью» (см. sealPlate ниже) по кромке,
+              а ряд рисок уходит на противоположную кромку, чтобы не спорить
+              с иллюстрацией.
    Положение задаёт поле corner: bl (низ-лево), br (низ-право), tr (верх-право).
    Слой декоративный: aria-hidden и pointer-events: none, текста не содержит. #}
+
+{# Иллюстрация «бланк с печатью» для декора kind=seal. Пропорции взяты с
+   референса заказчика: скруглённый лист с загнутым углом и четырьмя строками
+   текста, поверх правого нижнего угла — печать из двух колец с галочкой.
+   Рисуется контуром в viewBox 132×168 (лист по пропорции А4, ниже кромки листа
+   остаётся место для выступающих колец печати), поэтому токен --deco-seal
+   задаёт высоту, а ширину CSS выводит из отношения 132/168.
+   Последняя строка короче и обрывается до кольца печати, чтобы линии не
+   складывались в сетку. Толщины — от токена --deco-seal-stroke (единицы
+   viewBox), печать и галочка кратны ему и не «жирнеют» при смене размера. #}
+{% macro sealPlate() -%}
+<svg class="deco__seal-svg" viewBox="0 0 132 168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {# лист: скруглённый прямоугольник со срезанным верхним правым углом #}
+  <path class="deco__seal-line" d="M24 8h66l26 26v108a16 16 0 0 1-16 16H24a16 16 0 0 1-16-16V24a16 16 0 0 1 16-16Z"/>
+  {# загнутый угол: скруглённый клапан между срезом и листом #}
+  <path class="deco__seal-line" d="M90 8c0 12 1 18 6 22 5 4 12 4 20 4"/>
+  {# строки текста: последняя короче и обрывается до кольца печати #}
+  <path class="deco__seal-line" d="M28 58h70M28 78h64M28 98h58M28 118h20"/>
+  {# печать: два кольца и галочка, центр — у правого нижнего угла листа.
+     Кольца выступают за нижнюю кромку листа, поэтому viewBox выше листа (168) #}
+  <circle class="deco__seal-ring" cx="85" cy="132" r="30"/>
+  <circle class="deco__seal-ring" cx="85" cy="132" r="19"/>
+  <path class="deco__seal-check" d="M72 132l7.5 7.5 20-14.8"/>
+</svg>
+{%- endmacro %}
+
 {% macro decoLayer(d) -%}
 {% if d and d.kind %}
 <div class="deco deco--{{ d.kind }} deco--{{ d.corner | default('br') }}" aria-hidden="true">
   {% if d.kind == 'corner' %}<span class="deco__angle"></span><span class="deco__dot"></span>{% endif %}
   {% if d.kind == 'glyph' %}<span class="deco__glyph">{{ ui.icon(d.icon | default('target'), 'deco__svg') }}</span>{% endif %}
-  {% if d.kind == 'seal' %}<span class="deco__seal">{{ ui.icon(d.icon | default('stamp'), 'deco__seal-svg') }}</span>{% endif %}
+  {% if d.kind == 'seal' %}
+  {# дуги за печатью идут первыми: печать рисуется поверх них, как на референсе #}
+  <span class="deco__seal"><span class="deco__rings" aria-hidden="true"><i class="deco__ring deco__ring--near"></i><i class="deco__ring deco__ring--far"></i><i class="deco__ring-dot"></i></span>{{ sealPlate() }}</span>
+  {% endif %}
   {% if d.kind == 'scan' %}<span class="deco__scan"></span>{% endif %}
-  {% if d.kind == 'ticks' or d.kind == 'seal' %}<span class="deco__ticks">{% for i in range(0, 9) %}<i class="deco__tick"></i>{% endfor %}</span>{% endif %}
+  {% if d.kind == 'ticks' or d.kind == 'seal' %}<span class="deco__ticks">{% for i in range(0, 11) %}<i class="deco__tick"></i>{% endfor %}</span>{% endif %}
 </div>
 {% endif %}
 {%- endmacro %}
