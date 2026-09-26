@@ -109,20 +109,21 @@
 </ul>
 {%- endmacro %}
 
+{# tone: 'accent' (лайм), 'ink' (тёмный — для оранжевой полосы), иначе медь #}
 {% macro note(text, tone) -%}
-<p class="mt-6 border-l-2 {{ 'border-volt/60 bg-volt/5' if tone == 'accent' else 'border-flame/70 bg-flame/5' }} px-4 py-3 text-sm text-mist">{{ text }}</p>
+<p class="note mt-6 border-l-2 px-4 py-3 text-sm {{ 'border-volt/60 bg-volt/5' if tone == 'accent' else ('border-ink/40 bg-ink/5' if tone == 'ink' else 'border-flame/70 bg-flame/5') }}">{{ text }}</p>
 {%- endmacro %}
 
-{% macro chips(items) -%}
-<div class="mt-5 flex flex-wrap gap-2">
+{% macro chips(items, cls) -%}
+<div class="{{ cls | default('mt-5') }} flex flex-wrap gap-2">
   {% for item in items %}<span class="chip">{{ item }}</span>{% endfor %}
 </div>
 {%- endmacro %}
 
 {% macro stats(items) -%}
-<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
   {% for item in items %}
-  <div class="reveal">
+  <div class="stat reveal">
     <div class="stat__value">{{ item.value }}</div>
     <p class="stat__label">{{ item.label }}</p>
   </div>
@@ -161,6 +162,20 @@
   <div class="docrow">{{ icon('doc', 'h-5 w-5') }}<span class="text-sm text-mist">{{ item }}</span></div>
   {% endfor %}
 </div>
+{%- endmacro %}
+
+{# ---------- фотография объекта (галерея «Объекты») ---------- #}
+{# width/height берём из данных: браузер резервирует место до загрузки файла,
+   loading="lazy" — фото идут ниже первого экрана и не тормозят отрисовку. #}
+{% macro shot(item) -%}
+<figure class="shot reveal">
+  <img class="shot__img" src="{{ item.img }}" alt="{{ item.alt }}" width="{{ item.width }}" height="{{ item.height }}" loading="lazy" decoding="async">
+  <figcaption class="shot__cap">
+    <span class="shot__title">{{ item.title }}</span>
+    <p class="panel__meta">{{ item.text }}</p>
+    {{ chips(item.tags, 'shot__tags') }}
+  </figcaption>
+</figure>
 {%- endmacro %}
 
 {# ---------- FAQ ---------- #}

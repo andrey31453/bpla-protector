@@ -25,6 +25,7 @@
   /* Текст */
   --color-mist: #8fa1ad;
   --color-snow: #eef2f4;
+  --color-steel: #6b7378; /* нейтральный серый подписей на светлых карточках (образец 6.png) */
 
   /* Акценты: медь/янтарь + точечный лайм */
   --color-flame: #ff7a2f;
@@ -179,6 +180,11 @@
     border-color: rgba(255, 122, 47, 0.4);
   }
   .panel__meta { color: var(--color-mist); font-size: 0.9rem; }
+  /* Примечание под блоком: цвет задаём классом, а не утилитой text-mist —
+     слои @layer components идут после base, но до utilities, поэтому перебить
+     утилиту из components нельзя, а на светлой секции нужен ink2. */
+  .note { color: var(--color-mist); }
+  .on-light .note { color: var(--color-ink2); }
   .muted { color: var(--color-mist); }
   .on-light .muted { color: var(--color-ink2); }
 
@@ -203,6 +209,52 @@
   .corner {
     clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
   }
+}
+
+@layer components {
+  /* ---------- фотогалерея объектов ---------- */
+  /* Карточки повторяют панели: тонкая рамка, медная риска сверху, тёмный фон.
+     Пропорции картинок не фиксируем — они заданы width/height в разметке,
+     поэтому фото не обрезается, а подписи выравниваются по flex. */
+  .shots { display: grid; gap: 16px; }
+  @media (min-width: 640px) { .shots { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .shots { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  .shot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: 3px;
+    background-image: var(--grad-ink);
+  }
+  .shot::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 46px;
+    height: 2px;
+    background: var(--grad-flame);
+  }
+  /* Плитка: фон карточки, пока фото не декодировано (чёрный прямоугольник на
+     оранжевой полосе читался как «дыра» в макете), и единое соотношение кадра
+     8:5 — родное для большинства фотографий. Так в строке плитки получают
+     одинаковую высоту, подписи выравниваются по сетке, а фото не искажается. */
+  .shot__img { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; background: var(--color-panel); }
+  .shot__cap { display: flex; flex: 1; flex-direction: column; padding: 18px; }
+  .shot__title { font-size: 1.02rem; font-weight: 600; letter-spacing: -0.01em; color: var(--color-snow); }
+  .shot__cap > .panel__meta { margin-top: 8px; }
+  /* теги прижаты к низу карточки, чтобы подписи в строке читались ровно */
+  .shot__tags { margin-top: auto; padding-top: 18px; }
+  .on-light .shot { background-image: none; background: #fff; border-color: var(--color-sand2); }
+  .on-light .shot__img { background: var(--color-sand2); }
+  .on-light .shot__title { color: var(--color-ink); }
+  /* На оранжевой полосе карточка тёмная (базовый вид .shot) — тень приподнимает
+     её над ярким фоном, иначе рамка карточки сливается с полосой. */
+  .flame-band .shot { box-shadow: 0 20px 40px -22px rgba(58, 26, 8, 0.65); }
 }
 
 @layer components {
@@ -252,7 +304,23 @@
   .chip--accent { border-color: rgba(255, 122, 47, 0.45); color: var(--color-flame2); background: rgba(255, 122, 47, 0.08); }
   .on-light .chip { background: #fff; border-color: #d9d5c8; color: var(--color-ink2); }
 
-  /* ---------- цифры ---------- */
+  /* ---------- карточки цифр (KPI) ---------- */
+  /* Окантовка по образцу 6.png: скруглённая карточка с тонкой рамкой и мягкой
+     тенью, цифра и подпись — по центру. Это самый «мягкий» элемент сайта,
+     поэтому радиус держим отдельной переменной: остальные панели по-прежнему
+     прямоугольные (3px), и при желании правка делается в одном месте. */
+  .stat {
+    --stat-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px 20px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--stat-radius);
+    background-image: var(--grad-ink);
+  }
   .stat__value {
     font-family: var(--font-mono);
     font-size: clamp(1.5rem, 3vw, 2.1rem);
@@ -263,9 +331,18 @@
     background-clip: text;
     color: transparent;
   }
-  .stat__label { margin-top: 6px; font-size: 0.86rem; color: var(--color-mist); }
-  .on-light .stat__label { color: var(--color-ink2); }
-  .on-light .stat__value { background: linear-gradient(112deg, #cf4418, #7a2a12); -webkit-background-clip: text; background-clip: text; }
+  .stat__label { margin-top: 10px; font-size: 0.875rem; line-height: 1.45; color: var(--color-mist); }
+  /* На светлой секции — белые карточки с рамкой и мягкой тенью, как на образце */
+  .on-light .stat {
+    background-image: none;
+    background: #fff;
+    border-color: #e8e5db;
+    box-shadow: 0 10px 24px -16px rgba(13, 18, 20, 0.22);
+  }
+  /* Подпись — нейтрально-серый, как на образце; моноширинная цифра остаётся
+     фирменным числовым акцентом сайта. */
+  .on-light .stat__label { color: var(--color-steel); }
+  .on-light .stat__value { background: linear-gradient(112deg, #e8452a, #cf4418); -webkit-background-clip: text; background-clip: text; }
 
   /* ---------- таблицы ---------- */
   .table-scroll { overflow-x: auto; border: 1px solid var(--color-line); border-radius: 3px; background: rgba(16, 23, 32, 0.7); }
@@ -288,6 +365,58 @@
   .on-light .tbl th { background: #ece9de; color: var(--color-ember); border-color: #dcd8cb; }
   .on-light .tbl td { border-color: #e7e3d7; }
   .on-light .tbl td:first-child { color: var(--color-ink); }
+
+  /* ---------- табы: ориентиры стоимости по направлениям ---------- */
+  /* Пять таблиц цен подряд занимали несколько экранов, поэтому на странице
+     «Стоимость» (и в таком же блоке главной) направления собраны в один блок
+     с переключателем. Все панели лежат в HTML статически — переключатель лишь
+     показывает нужную. Без JS (нет класса js) виден весь список, а полоса
+     переключателя скрыта: контент важнее, чем «красивый» нерабочий контрол.
+     Если js есть, но модуль tabs.js не запустился, CSS показывает первую
+     панель — блок не остаётся пустым. */
+  .tabs__list { display: none; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .tabs__list::-webkit-scrollbar { display: none; }
+  html.js .tabs__list { display: flex; }
+  /* На узких экранах пять названий направлений не влезают: полосу прокручиваем
+     по горизонтали и выводим за отступы контейнера, чтобы крайняя плитка не
+     обрезалась на полуслове (страница при этом не «едет»). */
+  @media (max-width: 767px) {
+    .tabs__list { margin-inline: -20px; padding-inline: 20px; scroll-padding-inline: 20px; }
+  }
+  @media (min-width: 768px) { .tabs__list { flex-wrap: wrap; overflow: visible; } }
+
+  .tabs__tab {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+    border: 1px solid var(--color-line);
+    border-radius: 2px;
+    background: rgba(20, 28, 37, 0.5);
+    color: var(--color-mist);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+  }
+  .tabs__tab:hover { border-color: var(--color-line2); color: var(--color-flame2); }
+  .tabs__tab[aria-selected="true"] { border-color: transparent; background: var(--grad-flame); color: #14100a; }
+  /* Полоса прокручивается: обводку фокуса держим внутри кнопки, иначе её срежет край */
+  .tabs__tab:focus-visible { outline-offset: -3px; }
+
+  .tabs__panels { margin-top: 26px; }
+  .tabs__panel { border-top: 1px solid var(--color-line); padding-top: 26px; }
+  /* лид панели держим той же ширины, что лид секции (у ui.head это max-w-4xl) */
+  .tabs__panel > .lead { max-width: 56rem; }
+  html.js .tabs__panel:first-child { display: block; }
+  html.js .tabs.is-tabs-ready .tabs__panel { display: none; }
+  html.js .tabs.is-tabs-ready .tabs__panel.is-active { display: block; }
+
+  .on-light .tabs__tab { background: rgba(255, 255, 255, 0.6); border-color: #dcd8cb; color: var(--color-ink2); }
+  .on-light .tabs__tab:hover { border-color: #c9c4b6; color: var(--color-ember); }
+  .on-light .tabs__panel { border-color: #dcd8cb; }
 
   /* ---------- списки ---------- */
   .tick { display: grid; gap: 10px; }
@@ -355,14 +484,17 @@
   .crumbs a:hover { color: var(--color-flame2); }
   .crumbs span[aria-current] { color: var(--color-snow); }
 
-  /* ---------- CTA-полоса ---------- */
-  .cta-band {
+  /* ---------- оранжевая полоса: CTA и фотогалерея объектов ---------- */
+  /* Один фон на две секции. Галерея «Объекты» стоит сразу под светлым блоком
+     цифр, поэтому оформлена так же, как CTA-полоса: это акцент, а не «ещё одна
+     светлая секция». */
+  .cta-band, .flame-band {
     position: relative;
     overflow: hidden;
     background: var(--grad-flame);
     color: #14100a;
   }
-  .cta-band::before {
+  .cta-band::before, .flame-band::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -372,7 +504,12 @@
     background-size: 56px 56px;
     opacity: 0.5;
   }
-  .cta-band__inner { position: relative; z-index: 1; }
+  .cta-band__inner, .flame-band > .shell { position: relative; z-index: 1; }
+  /* Тексты на оранжевом: лид и примечание — почти чёрные, kicker приглушённый,
+     иначе медный акцент теряется на медном фоне. */
+  .flame-band .kicker { color: #3a2417; }
+  .flame-band .kicker::before { background: rgba(20, 16, 10, 0.5); }
+  .flame-band .lead, .flame-band .note { color: #2b1a10; }
 
   /* ---------- FAQ ---------- */
   .acc { border-top: 1px solid var(--color-line); }
@@ -471,7 +608,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 12px;
+    padding: 12px 14px;
     border: 1px solid var(--color-line2);
     cursor: pointer;
     font-family: var(--font-mono);
@@ -482,19 +619,50 @@
   }
   .mnav > summary::-webkit-details-marker { display: none; }
   .mnav[open] > summary { border-color: var(--color-flame); color: var(--color-flame2); }
+  /* Панель занимает остаток экрана под шапкой и делится на две части:
+     прокручиваемый список разделов и закреплённый низ с кнопками. Так край
+     панели не режет пункт списка пополам, а «Запросить расчёт» виден сразу —
+     раньше кнопка уезжала за пределы панели и её надо было искать прокруткой. */
   .mnav__panel {
     position: absolute;
     left: 0;
     right: 0;
     top: 100%;
-    max-height: 74vh;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 100%);
+    max-height: calc(100dvh - 100%);
+    overflow: hidden;
     background: #0d1218;
     border-bottom: 1px solid var(--color-line);
-    padding: 18px 20px 26px;
+  }
+  /* Высоту списка ограничиваем только единицами окна, без процентов: у панели
+     высота auto, поэтому процент в max-height не разрешается. 300px — верхняя
+     строка контактов + шапка + низ панели с кнопками с запасом (на узких
+     экранах верхняя строка переносится и становится выше): список при этом
+     прокручивается, а кнопки целиком остаются на экране. */
+  .mnav__scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: calc(100vh - 300px);
+    max-height: calc(100dvh - 300px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 18px 20px 10px;
   }
   .mnav__title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-flame); margin-bottom: 10px; }
-  .mnav__panel a { display: block; padding: 10px 0; border-bottom: 1px solid var(--color-line); font-size: 1rem; }
+  .mnav__scroll a { display: block; padding: 10px 0; border-bottom: 1px solid var(--color-line); font-size: 1rem; }
+  .mnav__foot { position: relative; flex: 0 0 auto; display: grid; gap: 10px; padding: 14px 20px 18px; border-top: 1px solid var(--color-line); background: #0b0f14; }
+  .mnav__foot .btn { width: 100%; }
+  /* Шторка над кнопками: край прокручиваемого списка читается как «дальше есть
+     ещё», а не как обрезанный край панели */
+  .mnav__foot::before { content: ""; position: absolute; left: 0; right: 0; top: -28px; height: 28px; background: linear-gradient(180deg, rgba(13, 18, 24, 0), #0d1218); pointer-events: none; }
+  /* Когда модуль mobile-nav измерил нижнюю границу шапки (--mnav-top), панель
+     растягивается ровно до низа окна: под ней не выглядывает страница, а список
+     занимает всю свободную высоту. Без JS работает запасной вариант выше:
+     панель по высоте контента, кнопки всё равно видны целиком. */
+  .site-header.is-mnav-measured .mnav__panel { height: calc(100vh - var(--mnav-top, 300px)); height: calc(100dvh - var(--mnav-top, 300px)); max-height: none; }
+  .site-header.is-mnav-measured .mnav__scroll { max-height: none; }
 
   /* ---------- подвал ---------- */
   .site-footer { border-top: 1px solid var(--color-line); background: #080b0e; padding-block: 48px 28px; }

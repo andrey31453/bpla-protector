@@ -2,11 +2,14 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sKpi, sCatalog, sProblem, sLines, sMaterials, sLevels, sNormatives, sCards, sDocs, sTenders, sPricesAll %}
+{% from "partials/blocks.njk" import sKpi, sCatalog, sProblem, sLines, sMaterials, sLevels, sNormatives, sCards, sDocs, sTenders, sPricesAll, sObjects %}
 
 {% block content %}
   {{ hero(data.company.hero, page) }}
   {{ sKpi(data.company.kpi, true, 'pokazateli') }}
+  {# ОБЪЕКТЫ: оранжевая фотогалерея сразу после блока цифр — «как это выглядит
+     на объектах» до каталога направлений. #}
+  {{ sObjects(data.objects.block, 'obekty') }}
   {{ sCatalog(false) }}
   {{ sProblem(data.company.problem, true, 'zadacha') }}
   {{ sLines(data.company.lines, false, 'linii') }}

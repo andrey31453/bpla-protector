@@ -49,15 +49,19 @@
     <details class="mnav lg:hidden">
       <summary>Меню{{ ui.icon('chev', 'h-3.5 w-3.5') }}</summary>
       <div class="mnav__panel">
-        <p class="mnav__title">Разделы</p>
-        <a href="{{ href('index') }}">Главная</a>
-        {% for group in navGroups %}
-        <p class="mnav__title mt-5">{{ group.label }}</p>
-        {% for item in group.items %}
-        <a href="{{ href(item.slug) }}" {% if item.slug == pg.slug %}aria-current="page"{% endif %}>{{ item.nav }}</a>
-        {% endfor %}
-        {% endfor %}
-        <div class="mt-6 flex flex-wrap gap-3">
+        {# Прокручивается только список разделов, кнопки закреплены внизу панели:
+           так «Запросить расчёт» виден сразу, а пункт списка не режется краем. #}
+        <div class="mnav__scroll">
+          <p class="mnav__title">Разделы</p>
+          <a href="{{ href('index') }}">Главная</a>
+          {% for group in navGroups %}
+          <p class="mnav__title mt-5">{{ group.label }}</p>
+          {% for item in group.items %}
+          <a href="{{ href(item.slug) }}" {% if item.slug == pg.slug %}aria-current="page"{% endif %}>{{ item.nav }}</a>
+          {% endfor %}
+          {% endfor %}
+        </div>
+        <div class="mnav__foot">
           <a class="btn btn--primary" href="{{ href('kontakty', 'zayavka') }}">Запросить расчёт</a>
           <a class="btn btn--ghost" href="tel:{{ site.phone.href }}">{{ site.phone.display }}</a>
         </div>

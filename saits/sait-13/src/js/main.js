@@ -7,12 +7,14 @@
 //   ============================================================
 import { initReveal } from './modules/reveal.js'
 import { initMobileNav } from './modules/mobile-nav.js'
+import { initTabs } from './modules/tabs.js'
 import { initPhoneMask } from './modules/phone-mask.js'
 import { initForm } from './modules/form.js'
 
 const MODULES = [
   ['reveal', initReveal],
   ['mobile-nav', initMobileNav],
+  ['tabs', initTabs],
   ['phone-mask', initPhoneMask],
   ['form', initForm],
 ]

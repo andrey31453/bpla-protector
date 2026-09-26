@@ -6,9 +6,10 @@
    ============================================================ #}
 {% import "macros/ui.njk" as ui %}
 
-{# обёртка секции: id + тёмный/светлый фон #}
-{% macro wrap(id, light) -%}
-<section class="band {{ 'on-light' if light else 'grid-bg' }}"{% if id %} id="{{ id }}"{% endif %}>
+{# обёртка секции: id + тёмный/светлый фон.
+   variant переопределяет фон целиком — например 'flame-band' (оранжевая полоса, как CTA). #}
+{% macro wrap(id, light, variant) -%}
+<section class="band {{ variant or ('on-light' if light else 'grid-bg') }}"{% if id %} id="{{ id }}"{% endif %}>
   <div class="shell">{{ caller() }}</div>
 </section>
 {%- endmacro %}
@@ -302,25 +303,61 @@
 {% endcall %}
 {%- endmacro %}
 
-{# сводные цены по направлениям: данные берём из цен лендингов, не дублируем #}
+{# сводные цены по направлениям: данные берём из цен лендингов, не дублируем.
+   Пять таблиц подряд занимали несколько экранов, поэтому направления собраны в
+   один блок с переключателем: имена направлений — по одной записи pages.json,
+   содержимое панели — из landing-<slug>.json (поле prices).
+   Разметка остаётся статической: в HTML лежат все панели целиком, поэтому
+   таблицы и ссылки видны поиску без исполнения JS. Классы переключает модуль
+   tabs.js; без него (нет класса js) панели показываются списком, как раньше. #}
 {% macro sPricesAll(light) -%}
 {% call wrap('ceny', light) %}
   {{ ui.head(data.ceny.prices) }}
-  {% for p in pages %}
-  {% set lp = data['landing-' + p.slug] %}
-  {% if lp and lp.prices %}
-  <div class="mt-14">
-    <h3 class="h3">{{ p.nav }}</h3>
-    <p class="panel__meta mt-3 max-w-3xl">{{ lp.prices.lead }}</p>
-    {% if lp.prices.table %}{{ ui.tbl(lp.prices.table.head, lp.prices.table.rows) }}{% elif lp.prices.head | length %}{{ ui.tbl(lp.prices.head, lp.prices.rows) }}{% endif %}
-    {% if lp.prices.note %}{{ ui.note(lp.prices.note) }}{% endif %}
-    <div class="mt-6">
-      <a class="btn btn--ghost" href="{{ href(p.slug, 'zayavka') }}">Расчёт по этому направлению{{ ui.icon('arrow', 'h-4 w-4') }}</a>
+  <div class="tabs mt-10" data-tabs>
+    <div class="tabs__list" role="tablist" aria-label="Направления защиты">
+      {% for p in pages %}
+      {% set lp = data['landing-' + p.slug] %}
+      {% if lp and lp.prices %}
+      <button type="button" class="tabs__tab" role="tab" id="ceny-tab-{{ p.slug }}" aria-controls="ceny-panel-{{ p.slug }}">{{ p.nav }}</button>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="tabs__panels">
+      {% for p in pages %}
+      {% set lp = data['landing-' + p.slug] %}
+      {% if lp and lp.prices %}
+      <section class="tabs__panel" role="tabpanel" id="ceny-panel-{{ p.slug }}" aria-labelledby="ceny-tab-{{ p.slug }}">
+        <p class="lead">{{ lp.prices.lead }}</p>
+        {% if lp.prices.table %}{{ ui.tbl(lp.prices.table.head, lp.prices.table.rows) }}{% elif lp.prices.head | length %}{{ ui.tbl(lp.prices.head, lp.prices.rows) }}{% endif %}
+        {% if lp.prices.note %}{{ ui.note(lp.prices.note) }}{% endif %}
+        <div class="mt-6">
+          <a class="btn btn--ghost" href="{{ href(p.slug, 'zayavka') }}">Расчёт по этому направлению{{ ui.icon('arrow', 'h-4 w-4') }}</a>
+        </div>
+      </section>
+      {% endif %}
+      {% endfor %}
     </div>
   </div>
-  {% endif %}
-  {% endfor %}
   {{ ui.note(data.ceny.prices.note, 'accent') }}
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 18. Объекты: как выглядят защитные конструкции на объектах (галерея) ---------- #}
+{# Набор фотографий лежит в data/objects.json. Направление может передать свой
+   набор (например data['landing-mosty'].objects): тогда items берутся из него,
+   а data.objects.block остаётся набором по умолчанию.
+   Секция стоит в верху страницы сразу после блока цифр, поэтому оформлена
+   оранжевой полосой — тем же фоном, что и CTA («Пришлите данные по объекту»):
+   два светлых блока подряд сливались бы, а так галерея читается как акцент. #}
+{% macro sObjects(b, id) -%}
+{% call wrap(id or 'obekty', false, 'flame-band') %}
+  {# set внутри блока call: см. пояснение у sMaterials #}
+  {% set o = b if b else data.objects.block %}
+  {{ ui.head(o) }}
+  <div class="shots mt-10">
+    {% for item in o.items %}{{ ui.shot(item) }}{% endfor %}
+  </div>
+  {% if o.note %}{{ ui.note(o.note, 'ink') }}{% endif %}
 {% endcall %}
 {%- endmacro %}
 

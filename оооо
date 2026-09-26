@@ -1,0 +1,1 @@
+sleep 90; cat /tmp/probe-out/runtabs2.log; ls -la /tmp/probe-out | grep -E 'cw-tabs-390|cw-tabsoff-390|tabs-390.png|tabsoff-390.png'

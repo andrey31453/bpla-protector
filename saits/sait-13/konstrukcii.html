@@ -2,11 +2,13 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sCatalog, sTypesAll, sMaterials, sLimits, sLevels, sNormatives, sCards %}
+{% from "partials/blocks.njk" import sCatalog, sTypesAll, sMaterials, sLimits, sLevels, sNormatives, sCards, sObjects %}
 
 {% block content %}
   {{ hero(data.konstrukcii.hero, page) }}
   {{ sCatalog(true) }}
+  {# ОБЪЕКТЫ: оранжевая фотогалерея в верху страницы — как на главной #}
+  {{ sObjects(data.objects.block, 'obekty') }}
   {{ sTypesAll(data.konstrukcii.types, false, 'tipy') }}
   {{ sMaterials(data.materials.block, true, 'materialy') }}
   {{ sLimits(data.konstrukcii.limits, false, 'ogranicheniya') }}
