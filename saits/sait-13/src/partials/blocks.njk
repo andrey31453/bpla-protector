@@ -295,15 +295,26 @@
 {%- endmacro %}
 
 {# ---------- 7. Нормативная база: реестр документов с выходом на первоисточник ---------- #}
-{# Блок собран как рабочий реестр, а не как перечень кодов: сводка по количеству
-   документов, деление на группы (законы и подзаконные акты / своды правил и
-   стандарты / отраслевые документы), официальное название, роль документа в
-   проекте и кнопка к тексту. Кнопка ведёт на первоисточник (ФГИС Росстандарта,
-   официальный портал опубликования правовых актов, справочная правовая
-   система); там, где карточки в открытом доступе нет, — на форму заявки:
-   редакцию с изменениями выдаём вместе с расчётом.
-   Под списком — панель о патентной чистоте, экспертизе, закупках и допуске на
-   объект: расширяет тему документов до того, что заказчик видит на проверке.
+{# Блок собран как рабочий реестр, а не как перечень кодов: деление на группы
+   (законы и подзаконные акты / своды правил и стандарты / отраслевые
+   документы), официальное название, роль документа в проекте и кнопка к тексту.
+   Три группы подряд растягивали секцию на несколько экранов, поэтому группы
+   собраны в один переключатель (data-tabs) — как материалы и цены. Разметка
+   остаётся статической: в HTML лежат все панели целиком, поэтому документы и
+   ссылки видны поиску без исполнения JS, а без JS виден весь список подряд.
+   Подписи вкладок и счётчик на них берутся из data/normatives.json (groups),
+   новая группа — одна запись в groups плюс ключ group у нужных документов.
+   Заголовок панели дублирует подпись вкладки только для случая без JS: при
+   работающем переключателе он скрыт (см. .docpanel__head в style.css), и имя
+   панели даёт вкладка.
+   Над вкладками — строка-комментарий о составе базы (тихий курсив вместо плашки
+   со счётчиком: счётчики уже стоят на вкладках).
+   Надстройка ниже — панель о патентной чистоте, экспертизе, закупках и допуске
+   на объект: расширяет тему документов до того, что заказчик видит на проверке.
+   Кнопка карточки ведёт на первоисточник (ФГИС Росстандарта, официальный портал
+   опубликования правовых актов, справочная правовая система); там, где карточки
+   в открытом доступе нет, — на форму заявки: редакцию с изменениями выдаём
+   вместе с расчётом.
    Все данные, порядок групп и формулировки — data/normatives.json (_note). #}
 {% macro sNormatives(b, slug, light, id) -%}
 {% call wrap(id or 'normativy', light, none, b.deco, bgNormatives) %}
@@ -316,28 +327,41 @@
       {% set shown = shown.concat([item]) %}
     {% endif %}
   {% endfor %}
-  <div class="docmeta mt-8">
-    {{ ui.icon('doc', 'h-5 w-5 text-flame') }}
-    <p class="docmeta__count"><b>{{ shown | length }}</b> {{ n.summary.countLabel }}</p>
-    <p class="docmeta__total">{{ n.items | length }} {{ n.summary.totalLabel }}</p>
-    <p class="docmeta__src">{{ n.summary.sourceLabel }}</p>
-  </div>
+  {# Сводка о составе базы — тихий курсив-комментарий: счётчики по группам уже
+     видны на вкладках, поэтому крупное число над переключателем не нужно.
+     Общее число документов показываем только там, где оно отличается от числа
+     по направлению, иначе строка дублировала бы один и тот же счётчик. #}
+  {% set docsShown = shown | length %}
+  {% set docsTotal = n.items | length %}
+  <p class="note note--comment mt-6">{{ docsShown }} {{ n.summary.countLabel }}{% if docsShown != docsTotal %}, {{ docsTotal }} {{ n.summary.totalLabel }}{% endif %}. {{ n.summary.sourceLabel }}</p>
   {% set grouped = shown | groupby('group') %}
-  {% for g in n.groups %}
-    {% set gitems = grouped[g.key] | default([]) %}
-    {% if gitems | length %}
-    <div class="docgroup">
-      <div class="docgroup__head">
-        <h3 class="docgroup__title">{{ g.title }}</h3>
-        <span class="docgroup__count">{{ gitems | length }}</span>
-      </div>
-      <p class="docgroup__note">{{ g.note }}</p>
-      <div class="docgrid">
-        {% for item in gitems %}{{ ui.docCard(item) }}{% endfor %}
-      </div>
+  <div class="tabs mt-8" data-tabs>
+    <div class="tabs__list" role="tablist" aria-label="{{ n.block.tabsLabel }}">
+      {% for g in n.groups %}
+      {% set gitems = grouped[g.key] | default([]) %}
+      {% if gitems | length %}
+      <button type="button" class="tabs__tab" role="tab" id="{{ id or 'normativy' }}-tab-{{ g.key }}" aria-controls="{{ id or 'normativy' }}-panel-{{ g.key }}">{{ g.title }}<span class="tabs__count">{{ gitems | length }}</span></button>
+      {% endif %}
+      {% endfor %}
     </div>
-    {% endif %}
-  {% endfor %}
+    <div class="tabs__panels">
+      {% for g in n.groups %}
+      {% set gitems = grouped[g.key] | default([]) %}
+      {% if gitems | length %}
+      <section class="tabs__panel" role="tabpanel" id="{{ id or 'normativy' }}-panel-{{ g.key }}" aria-labelledby="{{ id or 'normativy' }}-tab-{{ g.key }}">
+        <div class="docpanel__head">
+          <h3 class="docpanel__title">{{ g.title }}</h3>
+          <span class="docpanel__count">{{ gitems | length }}</span>
+        </div>
+        <p class="docpanel__note">{{ g.note }}</p>
+        <div class="docgrid">
+          {% for item in gitems %}{{ ui.docCard(item) }}{% endfor %}
+        </div>
+      </section>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
   {% if n.summary.note %}{{ ui.note(n.summary.note, 'accent') }}{% endif %}
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
 {% endcall %}
