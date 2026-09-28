@@ -44,6 +44,69 @@
 </svg>
 {%- endmacro %}
 
+{# Схема «контур защиты над объектом» — фоновый слой блока нормативов: три кольца
+   зоны вокруг объекта, купол защитного контура над зданием с линиями этажей и
+   пунктирная траектория подлёта с точкой. Геометрия перенесена с референса
+   заказчика; координаты даны в viewBox 560×560 с центральной осью 280.
+   Слой намеренно бледный (токен --bg-scheme-opacity) и уходит под контент
+   секции (z-index: -1), поэтому работает фактурой фона, а не иллюстрацией;
+   оформление — классы .bg-scheme* в style.css. Кольца и купол рисуются
+   нейтральным серым и медью — читаются на любом фоне, а здание зависит от
+   фона секции: на тёмных секциях лендингов --color-snow, на светлой главной
+   (.on-light) — --color-steel, иначе белый контур на песке исчезает.
+   Декоративный и статичный: aria-hidden, без анимации, текста не содержит. #}
+{% macro bgScheme() -%}
+<div class="bg-scheme" aria-hidden="true">
+  <svg class="bg-scheme__svg" viewBox="0 0 560 560" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    {# кольца зоны вокруг объекта: самый тихий слой схемы #}
+    <g class="bg-scheme__ring">
+      <circle cx="280" cy="280" r="254"/>
+      <circle cx="280" cy="280" r="198"/>
+      <circle cx="280" cy="280" r="142"/>
+    </g>
+    {# купол защитного контура над зданием и его образующие #}
+    <path class="bg-scheme__contour" d="M128 300 C 128 150, 432 150, 432 300"/>
+    <path class="bg-scheme__contour" d="M280 300 V156"/>
+    <path class="bg-scheme__contour" d="M156 232 H404"/>
+    <path class="bg-scheme__contour" d="M192 300 V190"/>
+    <path class="bg-scheme__contour" d="M368 300 V190"/>
+    {# здание: контур, линии этажей и вертикальные оси #}
+    <rect class="bg-scheme__object" x="152" y="300" width="256" height="208" rx="8"/>
+    <path class="bg-scheme__object" d="M152 348 H408M152 396 H408M152 444 H408"/>
+    <path class="bg-scheme__object" d="M216 300 V508M344 300 V508"/>
+    {# траектория подлёта с точкой на ней и центр контура #}
+    <path class="bg-scheme__path" d="M452 118 C 430 160, 360 180, 300 178"/>
+    <circle class="bg-scheme__dot" cx="452" cy="118" r="7"/>
+    <circle class="bg-scheme__dot" cx="280" cy="300" r="6"/>
+  </svg>
+</div>
+{%- endmacro %}
+
+{# Фоновые шкалы того же блока нормативов: четыре ряда горизонтальных серых рисок
+   по полям секции — сверху слева, снизу справа и двумя шкалами у боковых кромок.
+   Разметка переиспользует декор сайта (.deco__ticks + .deco__tick), а вид задают
+   классы --a…--d и токены --bg-ticks-* в style.css; длина шкал разная, чтобы ряды
+   не читались четырьмя одинаковыми. Слой — под контентом (z-index: -1),
+   декоративный: aria-hidden, без текста, pointer-events выключены. #}
+{% macro bgTicks() -%}
+<div class="bg-ticks" aria-hidden="true">
+  <span class="deco__ticks deco__ticks--a">{% for i in range(0, 5) %}<i class="deco__tick"></i>{% endfor %}</span>
+  <span class="deco__ticks deco__ticks--b">{% for i in range(0, 5) %}<i class="deco__tick"></i>{% endfor %}</span>
+  <span class="deco__ticks deco__ticks--c">{% for i in range(0, 8) %}<i class="deco__tick"></i>{% endfor %}</span>
+  <span class="deco__ticks deco__ticks--d">{% for i in range(0, 4) %}<i class="deco__tick"></i>{% endfor %}</span>
+</div>
+{%- endmacro %}
+
+{# Фоновый слой блока нормативов целиком: бледная схема «контур защиты» и четыре
+   шкалы рисок. Отдаётся в wrap (см. ниже) как макрос, а не рисуется внутри
+   caller, потому что .shell — тоже система координат (.on-light > .shell
+   position: relative), и внутри него слои прижались бы к колонке контента,
+   а не к кромкам секции. Текста не содержит, aria-hidden внутри макросов. #}
+{% macro bgNormatives() -%}
+{{ bgScheme() }}
+{{ bgTicks() }}
+{%- endmacro %}
+
 {% macro decoLayer(d) -%}
 {% if d and d.kind %}
 <div class="deco deco--{{ d.kind }} deco--{{ d.corner | default('br') }}" aria-hidden="true">
@@ -61,9 +124,14 @@
 
 {# обёртка секции: id + тёмный/светлый фон.
    variant переопределяет фон целиком — например 'flame-band' (оранжевая полоса, как CTA).
-   deco — необязательный угловой декор светлой секции (см. decoLayer выше). #}
-{% macro wrap(id, light, variant, deco) -%}
+   deco — необязательный угловой декор светлой секции (см. decoLayer выше).
+   bg — необязательный макрос фонового слоя секции. Рендерится до .shell (вне него),
+   поэтому слой позиционируется от самой секции: у .band position: relative, а
+   .on-light > .shell тоже сдвигает систему координат, и внутри .shell фоновый
+   слой прижался бы к колонке контента, а не к кромкам секции. #}
+{% macro wrap(id, light, variant, deco, bg) -%}
 <section class="band {{ variant or ('on-light' if light else 'grid-bg') }}"{% if id %} id="{{ id }}"{% endif %}>
+  {% if bg %}{{ bg() }}{% endif %}
   <div class="shell">{{ caller() }}</div>
   {{ decoLayer(deco) }}
 </section>
@@ -238,7 +306,7 @@
    объект: расширяет тему документов до того, что заказчик видит на проверке.
    Все данные, порядок групп и формулировки — data/normatives.json (_note). #}
 {% macro sNormatives(b, slug, light, id) -%}
-{% call wrap(id or 'normativy', light, none, b.deco) %}
+{% call wrap(id or 'normativy', light, none, b.deco, bgNormatives) %}
   {% set n = data.normatives %}
   {{ ui.head(b or n.block) }}
   {# отбор по scope выполняем один раз: этот же список идёт и в сводку, и в группы #}
