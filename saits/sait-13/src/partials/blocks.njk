@@ -5,6 +5,8 @@
    data/materials.json, data/levels.json, data/normatives.json, data/products.json.
    ============================================================ #}
 {% import "macros/ui.njk" as ui %}
+{% from "partials/plan.njk" import sitePlan %}
+{% from "partials/ctxbg.njk" import ctxBg %}
 
 {# Декор светлой секции: выборочные угловые акценты. Включается полем deco
    у конкретного блока данных, поэтому соседние светлые секции декора не
@@ -290,6 +292,69 @@
       </li>
       {% endfor %}
     </ol>
+  </div>
+{% endcall %}
+{%- endmacro %}
+
+{# ---------- 6b. Контекст объекта: схема площадки и что учитываем ---------- #}
+{# Блок «Вокруг конструкции продолжается работа». Композиция и подписи строк
+   пришли с сайта-прототипа saits/sait-03 по разовому разрешению владельца
+   (исключение из п.1 AGENTS.md — только этот блок, соседние сайты не читались).
+   Дальше блок сделан своими средствами:
+     • секция светлая (.on-light), а схема лежит на отдельной серой подложке
+       (--color-cement) — холодный серый на песочном фоне читается как
+       техническая подложка и даёт секции то самое «разнообразие», не ломая
+       светлую полосу сайта;
+     • схема площадки нарисована заново в палитре сайта (partials/plan.njk),
+       геометрия прототипа не переносилась;
+     • строки — пересказ наших источников (docs/texts/01 и docs/texts/05):
+       проезды, трассы коммуникаций, зона обслуживания, несущая способность,
+       свет, вентиляция, эвакуация. Чисел и обещаний результата нет.
+   Все подписи, строки и легенда — data/context.json, поэтому блок ставится на
+   любую страницу одной строкой, как остальные секции.
+   Фон секции — свой слой (partials/ctxbg.njk, макрос ctxBg): бледный съёмочный
+   инструмент у правой кромки плюс более плотная точечная фактура участка
+   (см. «контекст объекта» в style.css). Слой идёт параметром bg у wrap, то есть
+   рендерится вне .shell и позиционируется от кромок секции.
+   Раскладка: до 1024px одна колонка и текст идёт первым (схема — ниже, как
+   приложение к тексту), от 1024px — две колонки: подложка слева, текст справа.
+   Порядок задан грид-координатами, поэтому в разметке текст остаётся первым
+   и на десктопе (иначе на узком экране чтение начиналось бы со схемы). #}
+{% macro sContext(b, light, id) -%}
+{% call wrap(id or 'kontekst', light, none, b.deco, ctxBg) %}
+  <div class="context">
+    <div class="context__copy">
+      {{ ui.head(b) }}
+      {% if b.rows | length %}
+      <ol class="context__rows">
+        {% for row in b.rows %}
+        <li class="context__row reveal">
+          <span class="context__num">{{ ('0' + loop.index) if loop.index < 10 else loop.index }}</span>
+          <div>
+            <h3 class="context__title">{{ row.title }}</h3>
+            <p class="context__text">{{ row.text }}</p>
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+      {% endif %}
+      {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+    </div>
+    <figure class="context__visual reveal">
+      <figcaption class="context__caption">
+        <span>{{ b.plan.caption }}</span>
+        <span class="context__hint" aria-hidden="true">{{ ui.icon('chev', 'h-4 w-4') }}</span>
+      </figcaption>
+      <div class="context__scene">{{ sitePlan(b.plan) }}</div>
+      <div class="context__legend">
+        {% for item in b.plan.legend %}
+        <span class="context__legend-item">
+          {% if item.kind != 'scale' %}<i class="context__swatch context__swatch--{{ item.kind }}" aria-hidden="true"></i>{% endif %}
+          {{ item.label }}
+        </span>
+        {% endfor %}
+      </div>
+    </figure>
   </div>
 {% endcall %}
 {%- endmacro %}

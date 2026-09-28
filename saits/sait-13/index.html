@@ -2,7 +2,7 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sKpi, sCatalog, sProblem, sLines, sMaterials, sLevels, sNormatives, sProcess, sPractice, sCards, sDocs, sTenders, sPricesAll, sObjects %}
+{% from "partials/blocks.njk" import sKpi, sCatalog, sProblem, sLines, sMaterials, sLevels, sNormatives, sProcess, sPractice, sCards, sDocs, sTenders, sPricesAll, sObjects, sContext %}
 
 {% block content %}
   {{ hero(data.company.hero, page) }}
@@ -10,6 +10,11 @@
   {# ОБЪЕКТЫ: оранжевая фотогалерея сразу после блока цифр — «как это выглядит
      на объектах» до каталога направлений. #}
   {{ sObjects(data.objects.block, 'obekty') }}
+  {# КОНТЕКСТ ОБЪЕКТА: светлая секция с серой подложкой — что уже происходит на
+     площадке (люди, проезды, обслуживание, существующие конструкции). Стоит
+     между оранжевой галереей объектов и тёмным каталогом: полосы чередуются,
+     а мысль идёт от «как это выглядит» к «с чего начинается разговор». #}
+  {{ sContext(data.context.block, true, 'kontekst') }}
   {{ sCatalog(false) }}
   {{ sProblem(data.company.problem, true, 'zadacha') }}
   {{ sLines(data.company.lines, false, 'linii') }}

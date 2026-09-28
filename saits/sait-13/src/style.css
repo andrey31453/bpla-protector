@@ -41,6 +41,14 @@
 	--color-ink: #0d1214;
 	--color-ink2: #3d474b;
 
+	/* Серая подложка блока «Контекст объекта»: холодный серый на песочной секции
+	   читается как техническая подложка, а не как ещё один бежевый блок.
+	   cement — сама подложка, cement2 — поле площадки на схеме (светлее подложки),
+	   cement-line — полоса проезда и контур подложки. */
+	--color-cement: #e8ecee;
+	--color-cement2: #f6f8f8;
+	--color-cement-line: #d3d9dd;
+
 	--font-display:
 		'Inter', ui-sans-serif, system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
 	--font-mono:
@@ -121,6 +129,56 @@
 	   внутренние отбивки карточки — правка в одном месте. */
 	--level-gap: 16px; /* шаг между плитками и отбивка блока характеристик от заголовка */
 	--level-tight: 6px; /* отбивка подписи уровня от заголовка и подписи от значения */
+
+	/* Блок «Контекст объекта»: условная схема площадки на серой подложке.
+	   Схема — SVG с viewBox 640×480, поэтому её величины безразмерные: это
+	   толщины линий, шаг штриховки и штрих в единицах viewBox, а цвета берутся
+	   из палитры сайта. Отступы и высота подложки заданы здесь, чтобы блок
+	   переносился на другую страницу без правок правил. */
+	--plan-ink: var(
+		--color-steel
+	); /* контур площадки, оси здания и оборудование: нейтральный серый */
+	--plan-thin: 1; /* волосяные линии схемы: оси здания, осевая проезда */
+	--plan-line: 1.4; /* контур площадки, здание, оборудование, точки */
+	--plan-bold: 2.2; /* пунктир обсуждаемой зоны, маршрут, угловые засечки */
+	--plan-road: 26; /* ширина полосы проезда */
+	--plan-dash: 9 7; /* штрих обсуждаемой зоны, осевой проезда и маршрута */
+	--plan-ring-dash: 6 6; /* штрих условных зон контроля */
+	--plan-hatch-ink: rgba(
+		207,
+		68,
+		24,
+		0.3
+	); /* штриховка обсуждаемой зоны: медь в четверть силы, чтобы не спорить с контуром */
+	--context-plate-pad: clamp(18px, 2.4vw, 30px); /* поле подложки вокруг схемы и подписей */
+	--context-plate-h: clamp(360px, 42vw, 520px); /* высота подложки от 1024px */
+	--plate-radius: 3px; /* скругление серой подложки: тот же радиус, что у панелей сайта */
+	--context-gap: clamp(28px, 4vw, 56px); /* поле между подложкой и текстом */
+	--context-row-gap: 1.1rem; /* отбивка строки «что учитываем» по вертикали */
+
+	/* Точечная фактура того же блока: точки стоят плотнее и заметнее общей
+	   фактуры светлых секций (--dots-*), поэтому секция читается как поле
+	   чертежа, а не как ровный песочный лист. Значения живут здесь, а на
+	   секции блока подставляются в общие --dots-* (см. «контекст объекта» в
+	   конце файла), поэтому базовое правило .on-light::before не дублируется.
+	   Шаг используется и размером сетки, и смещением за цикл дрейфа, так что
+	   движение точек остаётся бесшовным. */
+	--ctx-dots-ink: rgba(13, 18, 20, 0.13); /* тон точки: тот же графит, что у общей фактуры, но плотнее */
+	--ctx-dots-step: 15px; /* шаг точечной сетки блока */
+	--ctx-dots-r: 1.15px; /* радиус точки в блоке */
+	--ctx-dots-r-fade: 1.3px; /* край точки в градиенте — чуть больше радиуса */
+
+	/* Фоновый знак блока: бледный съёмочный инструмент у правой кромки секции
+	   (макрос ctxBg в partials/ctxbg.njk). Толщины и штрих даны в единицах
+	   viewBox 240×240, потому что SVG масштабируется целиком. */
+	--bg-survey: clamp(210px, 26vw, 380px); /* сторона знака */
+	--bg-survey-inset: clamp(20px, 3.4vw, 64px); /* отступ знака от верхней кромки секции */
+	--bg-survey-shift: clamp(44px, 6.6vw, 98px); /* насколько знак уходит за правую кромку */
+	--bg-survey-opacity: 0.2; /* бледность слоя: знак читается как фактура фона, а не как иллюстрация */
+	--bg-survey-stroke: 1.4; /* толщина контура корпуса и ног */
+	--bg-survey-stroke-thin: 1; /* волосяные линии: ось, сетка нитей, упоры, растяжка */
+	--bg-survey-dash: 7 6; /* штрих растяжки между ногами */
+	--bg-survey-solid: 46%; /* докуда маска держит знак плотным: дальше он гаснет к тексту */
 
 	/* Фоновые шкалы блока нормативов: четыре ряда горизонтальных рисок по полям
 	   секции. Это тот же приём, что и декор .deco__ticks, но риски лежат
@@ -2561,5 +2619,309 @@
 		.deco__dot::after {
 			opacity: 0;
 		}
+	}
+}
+
+@layer components {
+	/* ---------- контекст объекта: схема площадки на серой подложке ---------- */
+	/* Блок «Вокруг конструкции продолжается работа». Композиция пришла с
+     сайта-прототипа (разовое исключение владельца из п.1 AGENTS.md), исполнение
+     своё: секция светлая, а схема лежит на отдельной серой подложке — холодный
+     серый на песочной секции читается как техническая подложка и даёт ряду
+     светлых секций разнообразие, не вводя второй акцентный цвет. Схема
+     нарисована заново (partials/plan.njk) и красится только отсюда: цвета — из
+     палитры сайта, толщины, штрихи и шаг штриховки — из токенов --plan-*.
+     Раскладка: до 1024px одна колонка, текст первым, схема ниже как приложение
+     к тексту; от 1024px — две колонки, подложка слева. Порядок задан
+     грид-координатами, поэтому в разметке текст всегда первый и на узком экране
+     чтение начинается с заголовка, а не со схемы. */
+
+	/* Фоновая фактура и фоновый знак блока. Своя плотность точек: значения
+	   --ctx-dots-* подставляются в общие --dots-*, которыми уже пользуется
+	   .on-light::before, поэтому второй слой точек не появляется — секция
+	   просто получает более плотную сетку. Селектор идёт через :has(.context),
+	   потому что настраивать нужно именно ту секцию, в которой стоит блок:
+	   у ::before секции фон и фактура, а .context лежит внутри .shell. */
+	.band:has(.context) {
+		--dots-ink: var(--ctx-dots-ink);
+		--dots-step: var(--ctx-dots-step);
+		--dots-r: var(--ctx-dots-r);
+		--dots-r-fade: var(--ctx-dots-r-fade);
+	}
+
+	/* Знак «съёмочный инструмент»: слой лежит под контентом секции (у .band
+	   свой stacking context, поэтому z-index: -1 остаётся поверх её фона и под
+	   текстом — так же устроен .bg-scheme блока нормативов). Текста не несёт,
+	   информации не передаёт, поэтому он декоративный: aria-hidden в разметке,
+	   pointer-events выключены, порог 3:1 «UI / graphics» к нему не применяется.
+	   За правую кромку знак уходит на --bg-survey-shift, лишнее срезает
+	   overflow, так что по горизонтали страница не едет. Маска гасит знак к
+	   левой кромке: у текста остаётся чистое поле, а сам знак читается как
+	   метка, входящая из-за края. */
+	.bg-survey {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		overflow: hidden;
+		pointer-events: none;
+	}
+	.bg-survey__svg {
+		position: absolute;
+		top: var(--bg-survey-inset);
+		right: calc(var(--bg-survey-shift) * -1);
+		width: var(--bg-survey);
+		height: var(--bg-survey);
+		opacity: var(--bg-survey-opacity);
+		mask-image: linear-gradient(
+			270deg,
+			var(--mask-solid) var(--bg-survey-solid),
+			transparent 100%
+		);
+	}
+	.bg-survey__body,
+	.bg-survey__leg,
+	.bg-survey__thin,
+	.bg-survey__brace {
+		stroke: var(--color-ember);
+	}
+	.bg-survey__body {
+		stroke-width: calc(var(--bg-survey-stroke) * 1.15);
+	}
+	.bg-survey__leg {
+		stroke-width: var(--bg-survey-stroke);
+	}
+	.bg-survey__thin,
+	.bg-survey__brace {
+		stroke-width: var(--bg-survey-stroke-thin);
+	}
+	.bg-survey__brace {
+		stroke-dasharray: var(--bg-survey-dash);
+	}
+
+	.context {
+		display: grid;
+		gap: var(--context-gap);
+	}
+
+	@media (min-width: 1024px) {
+		.context {
+			grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+		}
+		.context__visual {
+			grid-column: 1;
+			grid-row: 1;
+		}
+		.context__copy {
+			grid-column: 2;
+			grid-row: 1;
+		}
+	}
+
+	/* Подложка схемы: серая плита. На широком экране тянется по высоте
+     текстовой колонки (грид по умолчанию stretch), но не ниже токена — у
+     короткого текста схема всё равно остаётся крупной. */
+	.context__visual {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 1.1rem;
+		margin: 0;
+		padding: var(--context-plate-pad);
+		background: var(--color-cement);
+		border: 1px solid var(--color-cement-line);
+		border-radius: var(--plate-radius);
+	}
+	@media (min-width: 1024px) {
+		.context__visual {
+			min-height: var(--context-plate-h);
+		}
+	}
+	.context__caption {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		font-weight: 600;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--color-ink2);
+	}
+	.context__hint {
+		display: inline-flex;
+		color: var(--color-ember-ink);
+	}
+	.context__scene {
+		display: flex;
+		flex: 1;
+		align-items: center;
+		justify-content: center;
+	}
+	.context__legend {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem 1.4rem;
+		font-size: 0.72rem;
+		color: var(--color-ink2);
+	}
+	.context__legend-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	/* Образцы легенды повторяют то, чем нарисованы элементы схемы: штриховку
+     обсуждаемой зоны, массив здания и точку обследования. Размеры — в em,
+     поэтому образцы масштабируются вместе с подписью. */
+	.context__swatch {
+		display: inline-block;
+		flex: none;
+		width: 1.7em;
+		height: 1em;
+		border-radius: 1px;
+	}
+	.context__swatch--zone {
+		border: 1px dashed var(--color-ember-ink);
+		background-image: repeating-linear-gradient(
+			38deg,
+			var(--plan-hatch-ink) 0 0.13em,
+			transparent 0.13em 0.42em
+		);
+	}
+	.context__swatch--building {
+		border: 1px solid var(--plan-ink);
+		background: var(--color-cement2);
+	}
+	.context__swatch--marker {
+		width: 1em;
+		border: 0.12em solid var(--color-cement2);
+		border-radius: 50%;
+		background: var(--color-ember);
+	}
+
+	/* Строки «что учитываем»: номер в медном акценте, между строками —
+     волосяной разделитель (на светлой секции он из --color-sand2). */
+	.context__rows {
+		margin-top: clamp(1.4rem, 2.6vw, 2rem);
+	}
+	.context__row {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 1rem;
+		padding-block: var(--context-row-gap);
+		border-top: 1px solid var(--color-sand2);
+	}
+	.context__row:first-child {
+		padding-top: 0;
+		border-top: 0;
+	}
+	.context__num {
+		padding-top: 0.2em;
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		color: var(--color-ember-ink);
+	}
+	.context__title {
+		font-size: clamp(1rem, 1.3vw, 1.15rem);
+		font-weight: 600;
+		color: var(--color-ink);
+	}
+	.context__text {
+		margin-top: 0.45em;
+		max-width: 46ch;
+		font-size: 0.92rem;
+		line-height: 1.65;
+		color: var(--color-ink2);
+	}
+
+	/* ---------- условная схема площадки ---------- */
+	.plan {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+	.plan__ground {
+		fill: var(--color-cement2);
+	}
+	.plan__frame {
+		fill: none;
+		stroke: var(--plan-ink);
+		stroke-width: var(--plan-line);
+	}
+	.plan__corners {
+		fill: none;
+		stroke: var(--color-ember-ink);
+		stroke-width: var(--plan-bold);
+		stroke-linecap: square;
+	}
+	.plan__road {
+		fill: none;
+		stroke: var(--color-cement-line);
+		stroke-width: var(--plan-road);
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+	.plan__road-line {
+		fill: none;
+		stroke: var(--plan-ink);
+		stroke-width: var(--plan-thin);
+		stroke-dasharray: var(--plan-dash);
+	}
+	.plan__hatch {
+		stroke: var(--plan-hatch-ink);
+		stroke-width: var(--plan-line);
+	}
+	.plan__zone {
+		fill: url(#plan-hatch);
+	}
+	.plan__zone-edge {
+		fill: none;
+		stroke: var(--color-ember-ink);
+		stroke-width: var(--plan-bold);
+		stroke-dasharray: var(--plan-dash);
+	}
+	.plan__building {
+		fill: var(--color-cement);
+		stroke: var(--plan-ink);
+		stroke-width: var(--plan-line);
+	}
+	.plan__cell {
+		fill: none;
+		stroke: var(--plan-ink);
+		stroke-width: var(--plan-thin);
+		opacity: 0.65;
+	}
+	.plan__unit {
+		fill: var(--color-cement2);
+		stroke: var(--plan-ink);
+		stroke-width: var(--plan-thin);
+	}
+	.plan__ring {
+		fill: none;
+		stroke: var(--plan-ink);
+		stroke-width: var(--plan-thin);
+		stroke-dasharray: var(--plan-ring-dash);
+		opacity: 0.85;
+	}
+	.plan__marker {
+		fill: var(--color-ember);
+		stroke: var(--color-cement2);
+		stroke-width: var(--plan-line);
+	}
+	.plan__route {
+		fill: none;
+		stroke: var(--color-ember);
+		stroke-width: var(--plan-bold);
+		stroke-dasharray: var(--plan-dash);
+		stroke-linecap: round;
+	}
+	.plan__arrow {
+		fill: none;
+		stroke: var(--color-ember);
+		stroke-width: var(--plan-bold);
+		stroke-linecap: round;
+		stroke-linejoin: round;
 	}
 }
