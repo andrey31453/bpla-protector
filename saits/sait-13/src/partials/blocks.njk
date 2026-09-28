@@ -6,17 +6,72 @@
    ============================================================ #}
 {% import "macros/ui.njk" as ui %}
 
+{# Декор светлой секции: выборочные угловые акценты. Включается полем deco
+   у конкретного блока данных, поэтому соседние светлые секции декора не
+   получают. Варианты (kind):
+     corner — уголок с пульсирующей точкой в вершине;
+     glyph  — крупная контурная иконка (поле icon) у нижней кромки;
+     scan   — медный луч, медленно проходящий по нижней кромке;
+     ticks  — ряд мигающих рисок у кромки;
+     seal   — иллюстрация «бланк с печатью» (см. sealPlate ниже) по кромке,
+              а ряд рисок уходит на противоположную кромку, чтобы не спорить
+              с иллюстрацией.
+   Положение задаёт поле corner: bl (низ-лево), br (низ-право), tr (верх-право).
+   Слой декоративный: aria-hidden и pointer-events: none, текста не содержит. #}
+
+{# Иллюстрация «бланк с печатью» для декора kind=seal. Пропорции взяты с
+   референса заказчика: скруглённый лист с загнутым углом и четырьмя строками
+   текста, поверх правого нижнего угла — печать из двух колец с галочкой.
+   Рисуется контуром в viewBox 132×168 (лист по пропорции А4, ниже кромки листа
+   остаётся место для выступающих колец печати), поэтому токен --deco-seal
+   задаёт высоту, а ширину CSS выводит из отношения 132/168.
+   Последняя строка короче и обрывается до кольца печати, чтобы линии не
+   складывались в сетку. Толщины — от токена --deco-seal-stroke (единицы
+   viewBox), печать и галочка кратны ему и не «жирнеют» при смене размера. #}
+{% macro sealPlate() -%}
+<svg class="deco__seal-svg" viewBox="0 0 132 168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {# лист: скруглённый прямоугольник со срезанным верхним правым углом #}
+  <path class="deco__seal-line" d="M24 8h66l26 26v108a16 16 0 0 1-16 16H24a16 16 0 0 1-16-16V24a16 16 0 0 1 16-16Z"/>
+  {# загнутый угол: скруглённый клапан между срезом и листом #}
+  <path class="deco__seal-line" d="M90 8c0 12 1 18 6 22 5 4 12 4 20 4"/>
+  {# строки текста: последняя короче и обрывается до кольца печати #}
+  <path class="deco__seal-line" d="M28 58h70M28 78h64M28 98h58M28 118h20"/>
+  {# печать: два кольца и галочка, центр — у правого нижнего угла листа.
+     Кольца выступают за нижнюю кромку листа, поэтому viewBox выше листа (168) #}
+  <circle class="deco__seal-ring" cx="85" cy="132" r="30"/>
+  <circle class="deco__seal-ring" cx="85" cy="132" r="19"/>
+  <path class="deco__seal-check" d="M72 132l7.5 7.5 20-14.8"/>
+</svg>
+{%- endmacro %}
+
+{% macro decoLayer(d) -%}
+{% if d and d.kind %}
+<div class="deco deco--{{ d.kind }} deco--{{ d.corner | default('br') }}" aria-hidden="true">
+  {% if d.kind == 'corner' %}<span class="deco__angle"></span><span class="deco__dot"></span>{% endif %}
+  {% if d.kind == 'glyph' %}<span class="deco__glyph">{{ ui.icon(d.icon | default('target'), 'deco__svg') }}</span>{% endif %}
+  {% if d.kind == 'seal' %}
+  {# дуги за печатью идут первыми: печать рисуется поверх них, как на референсе #}
+  <span class="deco__seal"><span class="deco__rings" aria-hidden="true"><i class="deco__ring deco__ring--near"></i><i class="deco__ring deco__ring--far"></i><i class="deco__ring-dot"></i></span>{{ sealPlate() }}</span>
+  {% endif %}
+  {% if d.kind == 'scan' %}<span class="deco__scan"></span>{% endif %}
+  {% if d.kind == 'ticks' or d.kind == 'seal' %}<span class="deco__ticks">{% for i in range(0, 11) %}<i class="deco__tick"></i>{% endfor %}</span>{% endif %}
+</div>
+{% endif %}
+{%- endmacro %}
+
 {# обёртка секции: id + тёмный/светлый фон.
-   variant переопределяет фон целиком — например 'flame-band' (оранжевая полоса, как CTA). #}
-{% macro wrap(id, light, variant) -%}
+   variant переопределяет фон целиком — например 'flame-band' (оранжевая полоса, как CTA).
+   deco — необязательный угловой декор светлой секции (см. decoLayer выше). #}
+{% macro wrap(id, light, variant, deco) -%}
 <section class="band {{ variant or ('on-light' if light else 'grid-bg') }}"{% if id %} id="{{ id }}"{% endif %}>
   <div class="shell">{{ caller() }}</div>
+  {{ decoLayer(deco) }}
 </section>
 {%- endmacro %}
 
 {# ---------- 1. Проблема объекта ---------- #}
 {% macro sProblem(b, light, id) -%}
-{% call wrap(id, light) %}
+{% call wrap(id, light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.cards(b.items, 'md:grid-cols-2 lg:grid-cols-3') }}
 {% endcall %}
@@ -24,7 +79,7 @@
 
 {# ---------- 2. Узлы объекта (таблица) ---------- #}
 {% macro sNodes(b, light, id) -%}
-{% call wrap(id, light) %}
+{% call wrap(id, light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.tbl(b.head, b.rows) }}
 {% endcall %}
@@ -32,7 +87,7 @@
 
 {# ---------- 3. Типы конструкций ---------- #}
 {% macro sConstructions(b, light, id) -%}
-{% call wrap(id, light) %}
+{% call wrap(id, light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.cards(b.items, 'md:grid-cols-2 lg:grid-cols-3') }}
 {% endcall %}
@@ -40,7 +95,7 @@
 
 {# ---------- 4. Ограничения: таблица или карточки ---------- #}
 {% macro sLimits(b, light, id) -%}
-{% call wrap(id, light) %}
+{% call wrap(id, light, none, b.deco) %}
   {{ ui.head(b) }}
   {% if (b.head | length) and (b.rows | length) %}{{ ui.tbl(b.head, b.rows) }}{% endif %}
   {% if b.items | length %}{{ ui.cards(b.items, 'md:grid-cols-2 lg:grid-cols-3') }}{% endif %}
@@ -62,7 +117,7 @@
    модуль tabs.js лишь переключает классы, поэтому без JS виден весь блок
    целиком, а поиск получает таблицу и формулировки без исполнения скриптов. #}
 {% macro sMaterials(b, light, id) -%}
-{% call wrap(id, light) %}
+{% call wrap(id, light, none, b.deco) %}
   {% set m = data.materials %}
   {{ ui.head(b) }}
   <div class="tabs mt-10" data-tabs>
@@ -114,7 +169,7 @@
 
 {# ---------- 6. Состав работ / услуги ---------- #}
 {% macro sServices(b, light, id) -%}
-{% call wrap(id or 'uslugi', light) %}
+{% call wrap(id or 'uslugi', light, none, b.deco) %}
   {{ ui.head(b) }}
   <ol class="numlist mt-10">
     {% for item in b.items %}
@@ -183,7 +238,7 @@
    объект: расширяет тему документов до того, что заказчик видит на проверке.
    Все данные, порядок групп и формулировки — data/normatives.json (_note). #}
 {% macro sNormatives(b, slug, light, id) -%}
-{% call wrap(id or 'normativy', light) %}
+{% call wrap(id or 'normativy', light, none, b.deco) %}
   {% set n = data.normatives %}
   {{ ui.head(b or n.block) }}
   {# отбор по scope выполняем один раз: этот же список идёт и в сводку, и в группы #}
@@ -262,7 +317,7 @@
 
 {# ---------- 8. Уровни защиты по СП 542 ---------- #}
 {% macro sLevels(b, slug, light, id) -%}
-{% call wrap(id or 'urovni', light) %}
+{% call wrap(id or 'urovni', light, none, b.deco) %}
   {{ ui.head(b or data.levels.block) }}
   <div class="table-scroll mt-8">
     <table class="tbl">
@@ -282,7 +337,7 @@
 
 {# ---------- 9. Категорирование объекта ---------- #}
 {% macro sCategory(b, light, id) -%}
-{% call wrap(id or 'kategorizaciya', light) %}
+{% call wrap(id or 'kategorizaciya', light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.tbl(b.head, b.rows) }}
   {% if b.note %}{{ ui.note(b.note, 'accent') }}{% endif %}
@@ -291,7 +346,7 @@
 
 {# ---------- 10. Сертификаты, испытания, гарантия ---------- #}
 {% macro sProof(b, light, id) -%}
-{% call wrap(id or 'podtverzhdeniya', light) %}
+{% call wrap(id or 'podtverzhdeniya', light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.cards(b.items, 'md:grid-cols-2 lg:grid-cols-4') }}
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
@@ -307,7 +362,7 @@
 {%- endmacro %}
 
 {% macro sCases(b, light, id) -%}
-{% call wrap(id or 'keysy', light) %}
+{% call wrap(id or 'keysy', light, none, b.deco) %}
   {{ ui.head(b) }}
   <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
     {% for c in b.items %}
@@ -326,7 +381,7 @@
 
 {# ---------- 12. Заказчики и сегменты ---------- #}
 {% macro sClients(b, light, id) -%}
-{% call wrap(id or 'zakazchiki', light) %}
+{% call wrap(id or 'zakazchiki', light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.tiles(b.segments, 'md:grid-cols-2 lg:grid-cols-3') }}
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
@@ -335,7 +390,7 @@
 
 {# ---------- 13. Документация по итогам работ ---------- #}
 {% macro sDocs(b, light, id) -%}
-{% call wrap(id or 'dokumentaciya', light) %}
+{% call wrap(id or 'dokumentaciya', light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.docrows(b.items) }}
 {% endcall %}
@@ -343,7 +398,7 @@
 
 {# ---------- 14. Тендеры и закупки ---------- #}
 {% macro sTenders(b, light, id) -%}
-{% call wrap(id or 'tendery', light) %}
+{% call wrap(id or 'tendery', light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.tick(b.items) }}
 {% endcall %}
@@ -351,7 +406,7 @@
 
 {# ---------- 15. Стоимость ---------- #}
 {% macro sPrices(b, light, id) -%}
-{% call wrap(id or 'ceny', light) %}
+{% call wrap(id or 'ceny', light, none, b.deco) %}
   {{ ui.head(b) }}
   {% if b.table %}{{ ui.tbl(b.table.head, b.table.rows) }}{% elif b.head | length %}{{ ui.tbl(b.head, b.rows) }}{% endif %}
   {% if b.factors | length %}
@@ -366,7 +421,7 @@
 {# ---------- 16. FAQ страницы ---------- #}
 {% macro sFaq(slug, light, id) -%}
 {% if data['faq-' + slug] and (data['faq-' + slug].items | length) %}
-{% call wrap(id or 'faq', light) %}
+{% call wrap(id or 'faq', light, none, data['faq-' + slug].deco) %}
   {# set внутри блока call: см. пояснение у sMaterials #}
   {% set f = data['faq-' + slug] %}
   <span class="kicker">Частые вопросы</span>
@@ -379,7 +434,7 @@
 
 {# ---------- 17. Универсальные блоки ---------- #}
 {% macro sCards(b, light, id, cols) -%}
-{% call wrap(id, light) %}
+{% call wrap(id, light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.cards(b.items, cols or 'md:grid-cols-2 lg:grid-cols-3') }}
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
@@ -388,7 +443,7 @@
 
 {# типы конструкций из всех направлений — для страницы «Конструкции и материалы» #}
 {% macro sTypesAll(b, light, id) -%}
-{% call wrap(id or 'tipy', light) %}
+{% call wrap(id or 'tipy', light, none, b.deco) %}
   {{ ui.head(b) }}
   <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
     {% for p in pages %}
@@ -409,7 +464,7 @@
 {%- endmacro %}
 
 {% macro sTick(b, light, id) -%}
-{% call wrap(id, light) %}
+{% call wrap(id, light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.tick(b.items) }}
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
@@ -441,7 +496,7 @@
 
 {# две линии предложения: вынесенный рубеж и локальная защита #}
 {% macro sLines(b, light, id) -%}
-{% call wrap(id or 'linii', light) %}
+{% call wrap(id or 'linii', light, none, b.deco) %}
   {{ ui.head(b) }}
   <div class="mt-10 grid gap-4 md:grid-cols-2">
     {% for item in b.items %}{{ lineCard(item) }}{% endfor %}
@@ -451,7 +506,7 @@
 
 {# каталог направлений из data/products.json #}
 {% macro sCatalog(light, id) -%}
-{% call wrap(id or 'napravleniya', light) %}
+{% call wrap(id or 'napravleniya', light, none, data.products.block.deco) %}
   {{ ui.head(data.products.block) }}
   <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
     {% for item in data.products.items %}
@@ -478,7 +533,7 @@
    таблицы и ссылки видны поиску без исполнения JS. Классы переключает модуль
    tabs.js; без него (нет класса js) панели показываются списком, как раньше. #}
 {% macro sPricesAll(light) -%}
-{% call wrap('ceny', light) %}
+{% call wrap('ceny', light, none, data.ceny.prices.deco) %}
   {{ ui.head(data.ceny.prices) }}
   <div class="tabs mt-10" data-tabs>
     <div class="tabs__list" role="tablist" aria-label="Направления защиты">
