@@ -14,8 +14,11 @@
   {{ sProblem(data.company.problem, true, 'zadacha') }}
   {{ sLines(data.company.lines, false, 'linii') }}
   {{ sMaterials(data.materials.block, true, 'materialy') }}
-  {{ sLevels(data.levels.block, 'index', false, 'urovni') }}
+  {# Порядок: сначала «Шесть этапов» — как мы работаем, затем уровни защиты по СП 542.
+     Уровни на главной идут оранжевой полосой с тёмными плитками: это акцент,
+     а таблица осталась на страницах-справочниках («Конструкции», «Проектирование»). #}
   {{ sProcess(data.company.process, 'poryadok') }}
+  {{ sLevels(data.levels.block, 'index', false, 'urovni', 'flame') }}
   {{ sCards(data.company.guarantee, false, 'garantii') }}
   {{ sNormatives(data.normatives.block, 'index', true, 'normativy') }}
   {{ sPractice('praktika') }}

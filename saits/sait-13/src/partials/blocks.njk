@@ -408,21 +408,60 @@
 {%- endmacro %}
 
 {# ---------- 8. Уровни защиты по СП 542 ---------- #}
-{% macro sLevels(b, slug, light, id) -%}
-{% call wrap(id or 'urovni', light, none, b.deco) %}
-  {{ ui.head(b or data.levels.block) }}
+{# Один источник — data/levels.json, две подачи:
+   • по умолчанию таблица на секции страницы (светлой или тёмной);
+   • variant 'flame' — оранжевая полоса (.flame-band), как у патентной чистоты
+     и CTA, а строки собраны в тёмные плитки — ступени шкалы уровней. Ставится
+     там, где блок должен читаться акцентом (главная), а не ещё одной таблицей.
+   Плитка берёт поверхность у .panel--practice: она уже сделана для тёмных
+   «обложек» на оранжевом, поэтому плитки идут одной семьёй с панелью патентной
+   чистоты, а медная риска .panel::before даёт каждой свой акцент. Плитка
+   максимального уровня дополнительно акцентная (.panel--accent): у блока
+   должен быть главный, а не четыре равные карточки.
+   labels из data/levels.json — подписи к колонкам таблицы и к строкам плитки:
+   один источник на две подачи, чтобы формулировки не разъезжались. #}
+{% macro sLevels(b, slug, light, id, variant) -%}
+{% call wrap(id or 'urovni', light, 'flame-band' if variant == 'flame' else none, b.deco) %}
+  {# set внутри блока call: переменные, объявленные до него, внутри call не видны —
+     то же правило отмечено выше у sMaterials #}
+  {% set L = data.levels %}
+  {{ ui.head(b or L.block) }}
+  {% if variant == 'flame' %}
+  <ol class="levels mt-10">
+    {% for row in L.rows %}
+    <li class="panel panel--practice levelcard reveal{{ ' panel--accent' if row.num == '1' }}">
+      <h3 class="levelcard__title">{{ row.num }}-й уровень</h3>
+      <span class="levelcard__rank">{{ row.rank }}</span>
+      <dl class="levelcard__specs">
+        <div class="levelcard__spec">
+          <dt class="levelcard__label">{{ L.labels.drone }}</dt>
+          <dd class="levelcard__value">{{ row.drone }}</dd>
+        </div>
+        <div class="levelcard__spec">
+          <dt class="levelcard__label">{{ L.labels.structure }}</dt>
+          <dd class="levelcard__value">{{ row.structure }}</dd>
+        </div>
+      </dl>
+    </li>
+    {% endfor %}
+  </ol>
+  {% else %}
   <div class="table-scroll mt-8">
     <table class="tbl">
-      <thead><tr>{% for th in data.levels.head %}<th scope="col">{{ th }}</th>{% endfor %}</tr></thead>
+      <thead><tr>{% for th in [L.labels.level, L.labels.drone, L.labels.structure] %}<th scope="col">{{ th }}</th>{% endfor %}</tr></thead>
       <tbody>
-        {% for row in data.levels.rows %}
-        <tr><td>{{ row.level }}</td><td>{{ row.drone }}</td><td>{{ row.structure }}</td></tr>
+        {% for row in L.rows %}
+        <tr><td>{{ row.num }}-й ({{ row.rank }})</td><td>{{ row.drone }}</td><td>{{ row.structure }}</td></tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
-  {% set lnote = data.levels.notes[slug] %}
-  {% if lnote %}{{ ui.note(lnote, 'accent') }}{% endif %}
+  {% endif %}
+  {% set lnote = L.notes[slug] %}
+  {# На оранжевой полосе примечание не выводим: оно встаёт по низу полосы, а там
+     градиент уходит в тёмную медь (#cf4418) — мелкий текст на ней не добирает
+     AA. Оговорку о том, что уровень определяется расчётом, несёт лид блока. #}
+  {% if lnote and variant != 'flame' %}{{ ui.note(lnote, 'accent') }}{% endif %}
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
 {% endcall %}
 {%- endmacro %}
