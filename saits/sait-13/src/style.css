@@ -5,6 +5,10 @@
    Стилизация — Tailwind CSS v4 (@import + @theme), утилиты в разметке.
    ============================================================ */
 @import 'tailwindcss';
+/* Звёздная подложка блока заявки: рисунок поля собирает генератор
+   stars/build.mjs, правила слоёв лежат в src/stars.css, токены — ниже
+   в :root (группа --stars-*), фон секции — у .band--stars. */
+@import './stars.css';
 
 @source "../*.html";
 @source "./layouts/**/*.njk";
@@ -198,6 +202,48 @@
 	--bg-ticks-gap: 11px; /* шаг между рисками в шкале */
 	--bg-ticks-inset: 24px; /* отступ шкалы от кромки секции */
 
+	/* Звёздная подложка блока «Заявка на расчёт» (src/stars.css, рисунок —
+	   данные генератора stars/build.mjs). Полоса --stars-band задаёт высоту
+	   рисунка и одновременно шаг бесшовного дрейфа: дубль поля лежит ровно
+	   на эту высоту ниже, поэтому прокрутка уходит без шва. Скорости разные —
+	   слои разъезжаются по глубине; бледность держит звёзды фоном, чтобы
+	   заголовок и контакты оставались сильнее неба. Оттенки — из палитры:
+	   --color-snow и --color-mist для звёзд, --color-flame для редких искр.
+	   Порядок групп повторяет порядок слоёв в LAYERS генератора: от дальнего
+	   (--stars-far-*) к ближнему (--stars-giant-*), поэтому самый крупный
+	   слой идёт последним. */
+	--stars-band: 1400px; /* высота рисунка; она же шаг бесшовного дрейфа */
+	--stars-far-size: 1px;
+	--stars-far-speed: 240s;
+	--stars-far-opacity: 0.5;
+	--stars-far-tint: var(--color-mist);
+	--stars-mid-size: 1px;
+	--stars-mid-speed: 180s;
+	--stars-mid-opacity: 0.72;
+	--stars-mid-tint: var(--color-snow);
+	--stars-near-size: 2px;
+	--stars-near-speed: 130s;
+	--stars-near-opacity: 0.9;
+	--stars-near-tint: var(--color-snow);
+	--stars-spark-size: 3px;
+	--stars-spark-speed: 96s;
+	--stars-spark-opacity: 0.85;
+	--stars-spark-tint: var(--color-flame);
+	/* Крупные звёзды: самый крупный и самый быстрый слой — ближний план поля.
+	   Их мало (18 на полосу) и они разрежены, поэтому 4 px читаются как
+	   отдельные яркие точки, а не как пятна; --color-snow держит их белыми,
+	   чтобы тёплый акцент остался за формой и искрами. */
+	--stars-giant-size: 4px;
+	--stars-giant-speed: 72s;
+	--stars-giant-opacity: 0.92;
+	--stars-giant-tint: var(--color-snow);
+	--stars-glow: rgba(
+		255,
+		122,
+		47,
+		0.09
+	); /* тёплое зарево у верхней кромки секции: тот же приём, что у фона body */
+
 	--dots-r: 1px; /* радиус точки фактуры */
 	--dots-r-fade: 1.1px; /* край точки в градиенте — чуть больше радиуса */
 	--mask-solid: #000; /* непрозрачный цвет маски: значима только альфа */
@@ -315,6 +361,17 @@
 		background-size: 72px 72px;
 		mask-image: radial-gradient(120% 90% at 50% 0%, #000 20%, transparent 78%);
 		pointer-events: none;
+	}
+
+	/* Ночное небо секции заявки: тёплое зарево у верхней кромки продолжает
+	   свет формы, а поле звёзд лежит отдельным слоем (см. .stars-bg в
+	   src/stars.css — там же объяснение, почему слой под контентом). */
+	.band--stars {
+		background-image: radial-gradient(
+			120% 86% at 74% -12%,
+			var(--stars-glow),
+			transparent 60%
+		);
 	}
 
 	/* ---------- типографика ---------- */

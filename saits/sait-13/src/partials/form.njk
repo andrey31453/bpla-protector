@@ -4,6 +4,12 @@
    скрытым полем из pages.json, поэтому выпадающих списков в форме нет.
    Без серверной части: нативный submit ведёт в почтовый клиент,
    JS проверяет поля и показывает статус (прогрессивное улучшение).
+
+   Секция идёт «ночным небом»: поле звёзд лежит декоративным слоем под
+   контентом (классы .stars-bg / .stars в src/stars.css, рисунок собирает
+   генератор stars/build.mjs). Подводки и примечания про отказ формы в
+   блоке нет намеренно — вместо них контакты набраны крупнее, а порядок
+   действий объясняет сама форма.
    ============================================================ #}
 {% import "macros/ui.njk" as ui %}
 
@@ -25,21 +31,33 @@
 {% macro form(slug) -%}
 {% set f = data.form %}
 {% set pg = pageBySlug(slug) %}
-<section class="band" id="zayavka">
+<section class="band band--stars" id="zayavka">
+  {# Подложка блока: поле звёзд. Слой декоративный — текста не несёт,
+     поэтому aria-hidden в разметке и pointer-events: none в CSS, а
+     z-index: -1 внутри stacking context секции держит звёзды под контентом. #}
+  <div class="stars-bg" aria-hidden="true">
+    <div class="stars stars--far"></div>
+    <div class="stars stars--mid"></div>
+    <div class="stars stars--near"></div>
+    <div class="stars stars--spark"></div>
+    {# Самый крупный слой идёт последним: порядок DOM = порядок наложения,
+       поэтому редкие крупные звёзды не перекрываются мелкими. #}
+    <div class="stars stars--giant"></div>
+  </div>
   <div class="shell grid gap-10 lg:grid-cols-[1fr_minmax(0,430px)] lg:items-start lg:gap-14">
     <div>
       <span class="kicker">Обратная связь</span>
       <h2 class="h2 mt-4">{{ f.title }}</h2>
-      <p class="lead mt-4">{{ f.lead }}</p>
 
-      <ul class="mt-8 space-y-3">
-        <li class="flex items-center gap-3 text-sm text-snow"><a class="inline-flex items-center gap-3" href="tel:{{ site.phone.href }}">{{ ui.icon('phone', 'h-5 w-5 text-flame') }}{{ site.phone.display }}</a></li>
-        <li class="flex items-center gap-3 text-sm text-snow"><a class="inline-flex items-center gap-3" href="mailto:{{ site.email }}">{{ ui.icon('mail', 'h-5 w-5 text-flame') }}{{ site.email }}</a></li>
-        <li class="flex items-center gap-3 text-sm text-mist">{{ ui.icon('clock', 'h-5 w-5 text-flame') }}{{ site.workhours }}</li>
-        <li class="flex items-center gap-3 text-sm text-mist">{{ ui.icon('pin', 'h-5 w-5 text-flame') }}{{ site.region }}</li>
+      {# Контакты крупнее обычного текста: после того как подводку убрали,
+         это главное в колонке, и её нужно прочитать раньше, чем началась
+         форма. Значения — из site.json, размер — из шкалы Tailwind. #}
+      <ul class="mt-9 space-y-4 text-base md:text-lg">
+        <li><a class="inline-flex items-center gap-4 font-medium text-snow transition-colors hover:text-flame" href="tel:{{ site.phone.href }}">{{ ui.icon('phone', 'h-5 w-5 shrink-0 text-flame md:h-6 md:w-6') }}{{ site.phone.display }}</a></li>
+        <li><a class="inline-flex items-center gap-4 font-medium text-snow transition-colors hover:text-flame" href="mailto:{{ site.email }}">{{ ui.icon('mail', 'h-5 w-5 shrink-0 text-flame md:h-6 md:w-6') }}{{ site.email }}</a></li>
+        <li class="flex items-center gap-4 text-mist">{{ ui.icon('clock', 'h-5 w-5 shrink-0 text-flame md:h-6 md:w-6') }}{{ site.workhours }}</li>
+        <li class="flex items-center gap-4 text-mist">{{ ui.icon('pin', 'h-5 w-5 shrink-0 text-flame md:h-6 md:w-6') }}{{ site.region }}</li>
       </ul>
-
-      <p class="mt-8 max-w-md border-l-2 border-flame/60 px-4 py-3 text-sm text-mist">{{ f.offline }}</p>
     </div>
 
     <form class="panel panel--accent panel--form p-5 md:p-6" method="post" action="mailto:{{ site.email }}" enctype="text/plain" data-form data-form-slug="{{ slug }}">

@@ -6,7 +6,8 @@
   "description": "фортТех — инженерная защита объектов от БПЛА и противоосколочные блоки. Статический сайт: Nunjucks + Tailwind CSS v4 + Vite (MPA).",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=./",
+    "build": "npm run stars && vite build --base=./",
+    "stars": "node stars/build.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {
