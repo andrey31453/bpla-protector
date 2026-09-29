@@ -7,11 +7,12 @@
     },
     "h1": "Защита объектов от БПЛА",
     "accent": "под ключ",
-    "_heroNote": "Первый экран короткий: служебный кикер убран, его место занял ряд этапов (steps) — «обследование, проект, изготовление, монтаж» внутри H1, перед акцентом «под ключ»; описание (lead) убрано. Тезисы (bullets) и фактическая рамка (frame) убраны раньше: те же данные стоят в полосе комплекса работ (features) под баннером и в карточках состава работ (about). Кадр — из docs/images/web-technobarrier/13-zok-hero.webp (источник — technobarrier.ru, сайт-пример из docs/images/README.md), браузерная копия: public/images/hero/zok-podstanciya.webp.",
+    "_heroNote": "Первый экран короткий: служебный кикер убран, его место занял ряд этапов (steps) — «обследование, проект, изготовление, монтаж» внутри H1, перед акцентом «под ключ»; описание (lead) убрано. Тезисы (bullets) и фактическая рамка (frame) убраны раньше: те же данные стоят в полосе комплекса работ (features) под баннером и в карточках состава работ (about). Кадр — из docs/images/web-technobarrier/13-zok-hero.webp (источник — technobarrier.ru, сайт-пример из docs/images/README.md), браузерная копия: public/images/hero/zok-podstanciya.webp. Затемнение на главной выключено по правке владельца: photo.scrim = \"none\" — баннер и так стоит тёмным, а общий набор затемнения превращал его в почти чёрное поле (в hero.njk это класс .hero--photo-none, правило — в style.css). Остальные страницы затемняются как раньше.",
     "photo": {
       "src": "/images/hero/zok-podstanciya.webp",
       "width": 1672,
-      "height": 941
+      "height": 941,
+      "scrim": "none"
     },
     "ctaPrimary": { "label": "Запросить расчёт", "href": "#zayavka" },
     "ctaSecondary": { "label": "Направления защиты", "href": "#napravleniya" }
