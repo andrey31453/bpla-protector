@@ -1,5 +1,9 @@
 {# ============================================================
    footer.njk — подвал: бренд, разделы из pages.json, контакты из site.json.
+
+   Колонок две группы: navGroups (разделы шапки) и footerGroups — колонки,
+   которых в шапке нет, их собирает плагин по полю footerGroup в pages.json.
+   Так «О компании» стоит в подвале и не занимает место в верхнем меню.
    ============================================================ #}
 {% import "macros/ui.njk" as ui %}
 {% from "partials/brand.njk" import brandLogo %}
@@ -7,7 +11,11 @@
 {% macro footer() -%}
 <footer class="site-footer">
   <div class="shell">
-    <div class="grid gap-10 lg:grid-cols-[1.5fr_repeat(3,1fr)]">
+    {# Колонок пять: бренд + три группы разделов (navGroups) + «Компания»
+       (footerGroups). Класс задан литералом, потому что Tailwind собирает
+       утилиты по тексту шаблона: появится четвёртая группа разделов или ещё
+       одна колонка подвала — число в repeat() меняется здесь же. #}
+    <div class="grid gap-10 lg:grid-cols-[1.5fr_repeat(4,1fr)]">
       <div>
         {{ brandLogo() }}
         <p class="mt-5 max-w-sm text-sm text-mist">{{ site.description }}</p>
@@ -20,6 +28,18 @@
       </div>
 
       {% for group in navGroups %}
+      <div>
+        <h3>{{ group.label }}</h3>
+        <ul class="space-y-2">
+          {% for item in group.items %}
+          <li><a href="{{ href(item.slug) }}">{{ item.nav }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+
+      {# Колонки подвала, которых нет в шапке (pages.json → footerGroup) #}
+      {% for group in footerGroups %}
       <div>
         <h3>{{ group.label }}</h3>
         <ul class="space-y-2">

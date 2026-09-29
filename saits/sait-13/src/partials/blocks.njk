@@ -589,6 +589,7 @@
 {% call wrap(id or 'dokumentaciya', light, none, b.deco) %}
   {{ ui.head(b) }}
   {{ ui.docrows(b.items) }}
+  {% if b.cta %}<div class="mt-9">{{ ui.button(b.cta, 'btn--primary') }}</div>{% endif %}
 {% endcall %}
 {%- endmacro %}
 
@@ -634,6 +635,7 @@
   {{ ui.head(b) }}
   {{ ui.cards(b.items, cols or 'md:grid-cols-2 lg:grid-cols-3') }}
   {% if b.note %}{{ ui.note(b.note) }}{% endif %}
+  {% if b.cta %}<div class="mt-9">{{ ui.button(b.cta, 'btn--primary') }}</div>{% endif %}
 {% endcall %}
 {%- endmacro %}
 
@@ -839,11 +841,11 @@
         {{ b.titleSuffix }}
       </h2>
       <p class="lead mt-4">{{ b.lead }}</p>
-      {# Кнопка без цели: страницы «О компании» на сайте нет, поэтому это не
-         ссылка и не кнопка, а только её вид — перехода не обещаем. Курсор и
-         реакция на наведение погашены (.about__cta в style.css). Когда страница
-         появится, тег меняется на <a href="...">, и правило уходит. #}
-      <span class="btn btn--ink about__cta">{{ b.cta }}</span>
+      {# Кнопка «Подробнее о компании» ведёт на страницу o-kompanii.html: href и
+         подпись приходят из company.about.cta, как у остальных кнопок сайта.
+         Пока страницы не было, кнопка была <span> без цели с погашенным
+         наведением — это правило убрано из style.css вместе с её появлением. #}
+      {{ ui.button(b.cta, 'btn--ink about__cta') }}
     </div>
     <div class="catcards">
       {% for item in b.items %}

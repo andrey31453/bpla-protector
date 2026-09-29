@@ -52,6 +52,24 @@ export function nunjucksPlugin(siteRoot) {
 		return groups
 	}
 
+	// footerGroup — колонка подвала, которой нет в шапке. Нужна там, где раздел
+	// не должен попадать в верхнее меню (так сделана «О компании»: её ссылка
+	// живёт в подвале и в кнопке на главной). Страница получает group: null и
+	// footerGroup: '<подпись колонки>'; порядок пунктов — как в pages.json.
+	const footerGroupList = () => {
+		const groups = []
+		for (const page of pageList()) {
+			if (!page.nav || !page.footerGroup) continue
+			let group = groups.find((g) => g.label === page.footerGroup)
+			if (!group) {
+				group = { label: page.footerGroup, items: [] }
+				groups.push(group)
+			}
+			group.items.push(page)
+		}
+		return groups
+	}
+
 	// ---------- site.webmanifest ----------
 	// Собирается из тех же данных, что <head> и JSON-LD: brand, themeColor и
 	// список файлов иконок берутся из site.json, поэтому не дублируются.
@@ -182,6 +200,7 @@ export function nunjucksPlugin(siteRoot) {
 		env.addGlobal('data', data)
 		env.addGlobal('pages', pageList())
 		env.addGlobal('navGroups', groupList())
+		env.addGlobal('footerGroups', footerGroupList())
 		env.addGlobal('pageBySlug', findPage)
 		env.addGlobal('href', linkTo)
 		env.addGlobal('jsonLd', jsonLd)
