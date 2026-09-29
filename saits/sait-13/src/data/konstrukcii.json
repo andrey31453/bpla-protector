@@ -19,6 +19,13 @@
       { "label": "Покрытие каркаса", "value": "горячее цинкование по ГОСТ 9.307" },
       { "label": "Ограничение по горючести", "value": "п. 9.2.3 СП 542: на взрывопожароопасных объектах горючие сетки не применяем" }
     ],
+    "_heroNote": "Кадр — из docs/images/human-choise/zashchita-obektov-ot-bpla-dronov-8.webp (1152 × 896): решётчатый каркас с полотном над оборудованием — то, из чего собирается конструкция. Для первого экрана обрезан по центру до 16:9. Браузерная копия: public/images/hero/konstrukcii-karkas.webp (1152 × 648, WebP q80).",
+    "photo": {
+      "src": "/images/hero/konstrukcii-karkas.webp",
+      "width": 1152,
+      "height": 648,
+      "scrim": "strong"
+    },
     "ctaPrimary": { "label": "Подобрать конструкцию", "href": "#zayavka" },
     "ctaSecondary": { "label": "Каталог направлений", "href": "#napravleniya" }
   },

@@ -20,6 +20,13 @@
       { "label": "Срок реализации", "value": "от 10 дней" },
       { "label": "Гарантия", "value": "по договору; 5 лет — стандарт, 10+ лет при соответствующих материалах" }
     ],
+    "_heroNote": "Кадр — из docs/images/web-technobarrier/15-service-konstrukcii.webp (1200 × 800): склад под крупным сетчатым навесом на мачтах с оттяжками, вид с воздуха в сумерках (источник — сайт-пример technobarrier.ru, та же оговорка по правам, что у кадров obekty/). Для первого экрана обрезан по центру до 16:9. Браузерная копия: public/images/hero/zdaniya-sklad.webp (1200 × 675, WebP q80).",
+    "photo": {
+      "src": "/images/hero/zdaniya-sklad.webp",
+      "width": 1200,
+      "height": 675,
+      "scrim": "strong"
+    },
     "ctaPrimary": { "label": "Запросить расчёт", "href": "#zayavka" },
     "ctaSecondary": { "label": "Что защищаем", "href": "#uzly" }
   },
