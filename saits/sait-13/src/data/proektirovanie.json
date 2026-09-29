@@ -19,6 +19,13 @@
       { "label": "Обе линии", "value": "проект совмещает вынесенный рубеж ЗОК и локальные блоки ЗПБ" },
       { "label": "Сроки", "value": "зависят от объёма объекта и полноты исходных данных" }
     ],
+    "_heroNote": "Кадр — из docs/images/web-technobarrier/16-service-ugrozy.webp (1200 × 800): рабочее место проектировщика — чертёж на столе и схема объекта на экране (источник — сайт-пример technobarrier.ru, та же оговорка по правам, что у кадров obekty/). Для первого экрана обрезан по центру до 16:9. Браузерная копия: public/images/hero/proektirovanie-proekt.webp (1200 × 675, WebP q80).",
+    "photo": {
+      "src": "/images/hero/proektirovanie-proekt.webp",
+      "width": 1200,
+      "height": 675,
+      "scrim": "strong"
+    },
     "ctaPrimary": { "label": "Заказать проектирование", "href": "#zayavka" },
     "ctaSecondary": { "label": "Состав проекта", "href": "#etapy" }
   },

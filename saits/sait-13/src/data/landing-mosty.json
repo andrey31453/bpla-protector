@@ -19,6 +19,13 @@
       { "label": "Полный комплекс", "value": "от 2 500 ₽/м²" },
       { "label": "Срок службы конструкций", "value": "10–20 лет" }
     ],
+    "_heroNote": "Кадр — из docs/images/dop/drone-passive-protection-3.jpg (1200 × 675): аэросъёмка площадки с протяжёнными полотнами над рядами объектов, в небе дроны. Кадра моста или путепровода в каталоге docs/images/ нет, поэтому первый экран показывает протяжённые линейные рубежи; когда появится своя съёмка моста, кадр меняется правкой этих трёх полей. Кадр уже 16:9, обрезка не нужна. Браузерная копия: public/images/hero/mosty-linejnyj-obekt.webp (WebP q80).",
+    "photo": {
+      "src": "/images/hero/mosty-linejnyj-obekt.webp",
+      "width": 1200,
+      "height": 675,
+      "scrim": "strong"
+    },
     "ctaPrimary": { "label": "Запросить расчёт", "href": "#zayavka" },
     "ctaSecondary": { "label": "Состав работ", "href": "#uslugi" }
   },

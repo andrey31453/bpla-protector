@@ -20,6 +20,13 @@
       { "label": "Срок службы конструкций", "value": "10–20 лет" },
       { "label": "Регион работ", "value": "по всей России" }
     ],
+    "_heroNote": "Кадр — из docs/images/human-choise/tank-engineered-360.jpg (1535 × 1024): резервуар под сетчатым контуром на независимых опорах. Для первого экрана обрезан по центру до 16:9. Браузерная копия: public/images/hero/npz-rezervuarnyj-park.webp (1535 × 863, WebP q80).",
+    "photo": {
+      "src": "/images/hero/npz-rezervuarnyj-park.webp",
+      "width": 1535,
+      "height": 863,
+      "scrim": "strong"
+    },
     "ctaPrimary": { "label": "Запросить расчёт", "href": "#zayavka" },
     "ctaSecondary": { "label": "Типы конструкций", "href": "#konstrukcii" }
   },

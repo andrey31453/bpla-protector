@@ -17,6 +17,13 @@
       { "label": "Выезд на объект", "value": "обследование, обмеры и фотофиксация по согласованию" },
       { "label": "Для тендеров", "value": "комплект документов и технические формулировки для закупки" }
     ],
+    "_heroNote": "Кадр — из docs/images/dop/neftebaza1.jpg (1200 × 675): вид изнутри сетчатого контура над резервуарным парком. Кадр уже 16:9, обрезка не нужна. Браузерная копия: public/images/hero/kontakty-obekt.webp (WebP q80).",
+    "photo": {
+      "src": "/images/hero/kontakty-obekt.webp",
+      "width": 1200,
+      "height": 675,
+      "scrim": "strong"
+    },
     "ctaPrimary": { "label": "Заполнить заявку", "href": "#zayavka" },
     "ctaSecondary": { "label": "Позвонить", "href": "tel" }
   },

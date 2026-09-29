@@ -29,6 +29,13 @@
 			{ "label": "Срок службы конструкций", "value": "10–20 лет" },
 			{ "label": "Регион работ", "value": "по всей России" }
 		],
+		"_heroNote": "Кадр — из docs/images/human-choise/substation-engineered-360.jpg (1672 × 941): ОРУ под сетчатым контуром на решётчатых опорах. Кадр уже 16:9, обрезка не нужна. Браузерная копия: public/images/hero/podstancii-oru.webp (WebP q80).",
+		"photo": {
+			"src": "/images/hero/podstancii-oru.webp",
+			"width": 1672,
+			"height": 941,
+			"scrim": "strong"
+		},
 		"ctaPrimary": { "label": "Запросить расчёт", "href": "#zayavka" },
 		"ctaSecondary": { "label": "Типы конструкций", "href": "#konstrukcii" }
 	},
