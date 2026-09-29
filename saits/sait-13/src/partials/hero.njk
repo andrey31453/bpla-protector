@@ -1,21 +1,51 @@
 {# ============================================================
-   hero.njk — первый экран: крошки, kicker, H1 с акцентом, лид,
-   список тезисов, кнопки и фактическая рамка (.hero__frame).
-   Все тексты приходят из src/data/*.json.
+   hero.njk — первый экран: крошки, кикер, H1 с рядом этапов и
+   акцентной строкой, лид, список тезисов, кнопки и фактическая
+   рамка (.hero__frame). Все тексты приходят из src/data/*.json.
+
+   Ряд этапов (steps) — исключение из общего порядка: это не служебный
+   кикер над заголовком, а продолжение самого заголовка, поэтому он
+   выводится внутри <h1> между его строкой и акцентом «под ключ».
+   У главной кикера нет вовсе.
+
+   Если у первого экрана есть поле photo, кадр ложится слоем под контентом
+   (.hero__bg) и секция получает класс .hero--photo: тогда вместо фоновой
+   инженерной сетки работает фотография с градиентным затемнением
+   (токены --hero-photo-scrim-x/y). Без photo первый экран остаётся
+   прежним: тёмная секция с сеткой.
+
+   Ряд комплекса работ (features) первым экраном больше не выводится: он стал
+   отдельной секцией .feat-band — см. sFeatures в partials/blocks.njk.
    ============================================================ #}
 {% import "macros/ui.njk" as ui %}
 {% from "partials/breadcrumbs.njk" import crumbs %}
 
 {% macro hero(h, pg) -%}
-<section class="hero grid-bg">
+<section class="hero{{ ' hero--photo' if h.photo else ' grid-bg' }}{{ ' hero--steps' if h.steps }}">
+  {% if h.photo %}
+  {# Кадр первого экрана: слой декоративный (alt пустой), затемнение — ::before #}
+  <div class="hero__bg" aria-hidden="true">
+    <img class="hero__bg-img" src="{{ h.photo.src }}" alt="" width="{{ h.photo.width }}" height="{{ h.photo.height }}" fetchpriority="high" decoding="async">
+  </div>
+  {% endif %}
   <div class="shell hero__inner">
     {% if pg.slug != 'index' %}{{ crumbs(pg) }}{% endif %}
-    <span class="kicker mt-6 block">{{ h.kicker }}</span>
+    {% if not h.steps and h.kicker %}<span class="kicker mt-6 block">{{ h.kicker }}</span>{% endif %}
     <h1 class="h1 mt-5 max-w-5xl">
-      <span class="grad-text">{{ h.h1 }}</span>
-      {% if h.accent %}<span class="mt-3 block text-base font-semibold tracking-normal text-mist normal-case sm:text-lg">{{ h.accent }}</span>{% endif %}
+      <span>{{ h.h1 }}</span>
+      {% if h.steps %}
+      {# Ряд этапов стоит между строкой заголовка и акцентом: «Защита объектов
+         от БПЛА → обследование, проект, изготовление, монтаж → под ключ».
+         Внутри h1 лежат span-ы, а не <ul>: в заголовке разрешён только фразовый
+         контент. Точки-маркеры перед пунктами рисует ::before у
+         .hero-steps__item, слова — данные hero.steps.items (company.json) #}
+      <span class="hero-steps">
+        {% for step in h.steps.items %}<span class="hero-steps__item">{{ step }}</span>{% endfor %}
+      </span>
+      {% endif %}
+      {% if h.accent %}<span class="hero__accent">{{ h.accent }}</span>{% endif %}
     </h1>
-    <p class="lead mt-6 max-w-3xl">{{ h.lead }}</p>
+    {% if h.lead %}<p class="lead mt-6 max-w-3xl">{{ h.lead }}</p>{% endif %}
     {% if h.bullets | length %}{{ ui.tick(h.bullets) }}{% endif %}
     {{ ui.buttons(h.ctaPrimary, h.ctaSecondary) }}
     {% if h.frame | length %}

@@ -121,8 +121,10 @@
 </div>
 {%- endmacro %}
 
-{% macro stats(items) -%}
-<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+{# карточки-цифры: значение + подпись. cls — внешние отступы (например mt-10 под
+   заголовком секции); по умолчанию отступов нет — их даёт сама секция. #}
+{% macro stats(items, cls) -%}
+<div class="{{ (cls + ' ') if cls else '' }}grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
   {% for item in items %}
   <div class="stat reveal">
     <div class="stat__value">{{ item.value }}</div>
@@ -130,6 +132,25 @@
   </div>
   {% endfor %}
 </div>
+{%- endmacro %}
+
+{# ---------- ряд комплекса работ с иконками ---------- #}
+{# Иконка, короткое название и подпись под ним — полоса «Полный комплекс»
+   (вставляется из blocks.njk, секция .feat-band, оформление — .featstrip-* в
+   style.css). Разметка — список: без CSS он остаётся обычным перечнем, ничего
+   не ломая. #}
+{% macro featureRow(items) -%}
+<ul class="featstrip__row">
+  {% for item in items %}
+  <li class="featstrip-item">
+    {{ icon(item.icon | default('shield'), 'featstrip-item__icon') }}
+    <span>
+      <span class="featstrip-item__title">{{ item.title }}</span>
+      {% if item.text %}<span class="featstrip-item__text">{{ item.text }}</span>{% endif %}
+    </span>
+  </li>
+  {% endfor %}
+</ul>
 {%- endmacro %}
 
 {# ---------- карточки с иконками ---------- #}
@@ -212,6 +233,43 @@
 <figure class="media{{ (' ' + cls) if cls else '' }}">
   <img class="media__img" src="{{ item.src }}" alt="{{ item.alt }}" width="{{ item.width }}" height="{{ item.height }}" loading="lazy" decoding="async">
   {% if item.credit %}<figcaption class="media__credit">{% if item.creditUrl %}<a href="{{ item.creditUrl }}" target="_blank" rel="noopener">{{ item.credit }}</a>{% else %}{{ item.credit }}{% endif %}</figcaption>{% endif %}
+</figure>
+{%- endmacro %}
+
+{% macro cardMedia(item, num) -%}
+{# ---------- кадр карточки компетенции («О компании») ---------- #}
+{# Кадр описывает тему блока, а не наш объект, поэтому подписи под фото нет —
+   текст блока идёт рядом.
+   Кадр лежит фоном фигуры (.catcard__media, background-size: cover в style.css),
+   а не отдельным <img>: путь из данных пишется прямо на элементе. Так его и надо
+   писать — в атрибуте style, а не через посредство CSS-переменной: относительный
+   url() внутри var() браузер разыменовывает не от страницы, а от того файла
+   стилей, где переменная применена, то есть от assets/style-*.css, и путь вида
+   images/… превращается в assets/images/… — картинки отдавали 404 (проверено в
+   Chrome: у фигуры выходил background-image на assets/images/kompetencii/…).
+   В атрибуте style база — сама страница, поэтому путь верный. Абсолютный
+   /images/… на сборке переводится в относительный: Vite дописывает его от base
+   (--base=./), затем относительные пути проверяет saits/fix-paths.mjs.
+   Описание кадра из данных (item.alt) сохраняется: у фона нет alt, поэтому оно
+   становится доступным именем самой фигуры (role="img" + aria-label) — тот же
+   текст, что раньше читался у <img>.
+   Номер карточки (num) — позиция пункта в данных: в sAbout сюда уходит loop.index,
+   так что цифра всегда совпадает с порядком карточек, а перестановка пунктов в
+   company.about.items сразу переставляет и номера. Отдельного поля «номер» в
+   данных нет намеренно: один факт — в одном месте (п.4.2).
+   Цифра стоит ПОВЕРХ кадра, внутри <figure>: фигура — ближайший позиционированный
+   родитель (.catcard__media, position: relative), поэтому номер прижат к её
+   левому верхнему углу и не съезжает при смене паддингов карточки. Под цифрой
+   лежит её собственная подложка (.catcard__num::before — непрозрачная плитка
+   --color-void): тени у номера нет (по правке владельца подъём получил сам кадр,
+   box-shadow у .catcard__media), а одна верхняя вуаль кадра AA не держала —
+   кадры у карточек разные, и на светлых фон попадал в тон меди (замер: худший
+   пиксель от 1.00:1). С плиткой фон под цифрой один и тот же на всех кадрах и
+   ширинах, поэтому контраст 4.29:1 и не зависит от кадра. Замеры и подробности
+   см. в комментариях к --media-scrim, .catcard__media и .catcard__num
+   в style.css. #}
+<figure class="catcard__media" role="img" aria-label="{{ item.alt }}" style="background-image: url('{{ item.img }}')">
+  {% if num %}<span class="catcard__num">{{ ('0' + num) if num < 10 else num }}</span>{% endif %}
 </figure>
 {%- endmacro %}
 

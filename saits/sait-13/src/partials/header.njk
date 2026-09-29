@@ -1,25 +1,17 @@
 {# ============================================================
-   header.njk — верхняя строка контактов + закреплённая шапка с меню.
+   header.njk — закреплённая шапка: логотип, меню и контакты.
    Меню собирается из pages.json (navGroups); контакты — из site.json.
    Десктопное меню открывается на hover/focus (CSS), мобильное — <details>.
+
+   Верхней строки контактов над шапкой нет: телефон — главный контакт на сайте,
+   поэтому он стоит в шапке крупно и рядом с кнопкой заявки (как на референсе
+   заказчика), а регион, режим работы и e-mail остаются в подвале и в блоке
+   заявки — там же, где и были, из того же site.json.
    ============================================================ #}
 {% import "macros/ui.njk" as ui %}
 {% from "partials/brand.njk" import brandLogo %}
 
 {% macro header(pg) -%}
-<div class="topline">
-  <div class="shell flex flex-wrap items-center justify-between gap-3 py-2">
-    <div class="flex flex-wrap items-center gap-4">
-      <span class="topline__item">{{ ui.icon('pin', 'h-3.5 w-3.5') }}{{ site.region }}</span>
-      <span class="topline__item hidden sm:inline-flex">{{ ui.icon('clock', 'h-3.5 w-3.5') }}{{ site.workhours }}</span>
-    </div>
-    <div class="flex flex-wrap items-center gap-4">
-      <span class="topline__item hidden md:inline-flex"><a href="mailto:{{ site.email }}">{{ site.email }}</a></span>
-      <span class="topline__item"><a href="tel:{{ site.phone.href }}">{{ site.phone.display }}</a></span>
-    </div>
-  </div>
-</div>
-
 <header class="site-header">
   <div class="shell flex items-center justify-between gap-6 py-3">
     {{ brandLogo() }}
@@ -37,11 +29,14 @@
       {% endfor %}
     </nav>
 
-    <div class="hidden lg:flex items-center gap-4">
-      <a class="hidden xl:inline-flex items-center gap-2 text-sm text-mist hover:text-flame2" href="tel:{{ site.phone.href }}">
-        {{ ui.icon('phone', 'h-4 w-4') }}{{ site.phone.display }}
+    {# Правый блок: телефон крупно и над кнопкой заявки (как на референсе
+       заказчика). Значения — из site.json, ссылка — tel:. Кнопка здесь
+       контурная: акцент шапки — номер, а не кнопка. #}
+    <div class="header-contacts hidden lg:flex flex-col items-end gap-2">
+      <a class="header-phone" href="tel:{{ site.phone.href }}">
+        {{ ui.icon('phone', 'header-phone__icon') }}{{ site.phone.display }}
       </a>
-      <a class="btn btn--primary" href="{{ href('kontakty', 'zayavka') }}">Запросить расчёт</a>
+      <a class="btn btn--ghost btn--sm header-cta" href="{{ href('kontakty', 'zayavka') }}">Запросить расчёт</a>
     </div>
 
     {# details намеренно без `relative`: панель меню позиционируется по sticky-шапке,
@@ -63,7 +58,7 @@
         </div>
         <div class="mnav__foot">
           <a class="btn btn--primary" href="{{ href('kontakty', 'zayavka') }}">Запросить расчёт</a>
-          <a class="btn btn--ghost" href="tel:{{ site.phone.href }}">{{ site.phone.display }}</a>
+          <a class="btn btn--ghost mnav-phone" href="tel:{{ site.phone.href }}">{{ site.phone.display }}</a>
         </div>
       </div>
     </details>

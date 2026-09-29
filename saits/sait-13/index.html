@@ -2,20 +2,33 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sKpi, sCatalog, sProblem, sLines, sMaterials, sLevels, sNormatives, sProcess, sPractice, sCards, sDocs, sTenders, sPricesAll, sObjects, sContext %}
+{% from "partials/blocks.njk" import sAbout, sFeatures, sCatalog, sProblem, sLines, sMaterials, sLevels, sKpi, sNormatives, sProcess, sPractice, sCards, sDocs, sTenders, sPricesAll, sObjects, sContext %}
 
 {% block content %}
   {{ hero(data.company.hero, page) }}
-  {{ sKpi(data.company.kpi, true, 'pokazateli') }}
-  {# ОБЪЕКТЫ: оранжевая фотогалерея сразу после блока цифр — «как это выглядит
-     на объектах» до каталога направлений. #}
-  {{ sObjects(data.objects.block, 'obekty') }}
-  {# КОНТЕКСТ ОБЪЕКТА: светлая секция с серой подложкой — что уже происходит на
-     площадке (люди, проезды, обслуживание, существующие конструкции). Стоит
-     между оранжевой галереей объектов и тёмным каталогом: полосы чередуются,
-     а мысль идёт от «как это выглядит» к «с чего начинается разговор». #}
-  {{ sContext(data.context.block, true, 'kontekst') }}
+  {# ПОЛНЫЙ КОМПЛЕКС: чёрная полоса с пятью пунктами работ — сразу под баннером,
+     отдельной секцией (раньше ряд иконок был частью первого экрана) #}
+  {{ sFeatures(data.company.features, 'kompleks') }}
+  {# О КОМПАНИИ: короткий рассказ о компании и белые карточки состава работ сразу
+     под полосой комплекса. Строки показателей здесь больше нет: цифры
+     (company.kpi) вынесены отдельной секцией sKpi и стоят ниже, после «Уровни
+     защиты» — в этой секции остаются только рассказ и компетенции. #}
+  {{ sAbout(data.company.about, 'o-kompanii') }}
+  {# КАТАЛОГ НАПРАВЛЕНИЙ: «Что защищаем и как» — сразу после секции о компании.
+     Раньше здесь стояла оранжевая фотогалерея; блоки поменяли местами по просьбе
+     владельца, поэтому сначала идёт предмет разговора (направления и что в них
+     входит), а «как это выглядит на объектах» — ниже. Полосы от обмена не
+     сливаются: светлая секция о компании → тёмный каталог → светлый контекст →
+     оранжевая галерея → светлая «Задача». #}
   {{ sCatalog(false) }}
+  {# КОНТЕКСТ ОБЪЕКТА: светлая секция с серой подложкой — что уже происходит на
+     площадке (люди, проезды, обслуживание, существующие конструкции). Делит
+     тёмный каталог и оранжевую галерею: полосы чередуются, а мысль идёт от
+     «что защищаем» к «как это выглядит». #}
+  {{ sContext(data.context.block, true, 'kontekst') }}
+  {# ОБЪЕКТЫ: оранжевая фотогалерея — после «Контекста объекта» и перед «Задачей».
+     Раньше стояла выше каталога направлений: блоки поменяли местами. #}
+  {{ sObjects(data.objects.block, 'obekty') }}
   {{ sProblem(data.company.problem, true, 'zadacha') }}
   {{ sLines(data.company.lines, false, 'linii') }}
   {{ sMaterials(data.materials.block, true, 'materialy') }}
@@ -24,6 +37,11 @@
      а таблица осталась на страницах-справочниках («Конструкции», «Проектирование»). #}
   {{ sProcess(data.company.process, 'poryadok') }}
   {{ sLevels(data.levels.block, 'index', false, 'urovni', 'flame') }}
+  {# ПОКАЗАТЕЛИ: полоса цифр (company.kpi.items) отдельной светлой секцией сразу
+     после уровней — первый показатель про уровень защиты по СП 542, поэтому цифры
+     продолжают тему уровней. Раньше эта строка замыкала секцию «О компании».
+     Заголовок полосы (company.kpi.kicker и title) выводит сам sKpi. #}
+  {{ sKpi(data.company.kpi, true, 'pokazateli') }}
   {{ sCards(data.company.guarantee, false, 'garantii') }}
   {{ sNormatives(data.normatives.block, 'index', true, 'normativy') }}
   {{ sPractice('praktika') }}
