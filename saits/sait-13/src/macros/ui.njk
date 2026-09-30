@@ -306,9 +306,14 @@
        панелью (.cta-key в style.css) — приём панели практики: на яркой
        оранжевой полосе тёмная «обложка» читается как главное. Панель есть
        только там, где в данных заполнен keyNote; обычное примечание блока
-       (block.note) остаётся мелкой строкой под линейкой. #}
+       (block.note) остаётся мелкой строкой под линейкой.
+       Ключевой фрагмент сообщения («один подрядчик на весь комплекс»)
+       выделяется фильтром accent: в keyNote он помечен парой **…**, фильтр
+       собирает из пары <strong class="cta-key__hi">, вид — в style.css. Цвет и
+       вес фрагмента держит сайт, а не данные: правка палитры не требует
+       трогать тексты. #}
     {% if block.keyNote %}
-    <p class="cta-key">{{ icon('shield', 'cta-key__icon') }}<span>{{ block.keyNote }}</span></p>
+    <p class="cta-key">{{ icon('shield', 'cta-key__icon') }}<span>{{ block.keyNote | accent('cta-key__hi') }}</span></p>
     {% endif %}
     {% if block.note %}<p class="mt-8 border-t border-[#2b1a10]/25 pt-4 text-sm text-[#3a2417]">{{ block.note }}</p>{% endif %}
   </div>

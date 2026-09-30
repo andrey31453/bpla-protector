@@ -189,6 +189,17 @@ export function nunjucksPlugin(siteRoot) {
 		return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })
 	}
 
+	// ---------- экранирование ----------
+	// Нужно фильтру accent: он возвращает готовую разметку и поэтому обходит
+	// автоэкранирование Nunjucks, так что текст из данных экранируем сами.
+	const escapeHtml = (value) =>
+		String(value)
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;')
+			.replace(/'/g, '&#39;')
+
 	// ---------- окружение Nunjucks ----------
 	const setup = () => {
 		data = loadData()
@@ -205,6 +216,27 @@ export function nunjucksPlugin(siteRoot) {
 		env.addGlobal('href', linkTo)
 		env.addGlobal('jsonLd', jsonLd)
 		env.addGlobal('year', new Date().getFullYear())
+
+		// ---------- акцент внутри текста из данных ----------
+		// Фрагмент, который на странице выделен акцентом, помечается в JSON парой
+		// звёздочек: «Работаем по договору: … — **один подрядчик на весь комплекс**.»
+		// Фильтр accent превращает пару в <strong> с классом из аргумента
+		// ({{ cta.keyNote | accent('cta-key__hi') }}), остальной текст экранирует и
+		// отдаёт готовую разметку: в данных остаётся читаемая строка, а не HTML.
+		// Так выделение описано данными (п. 4.2 правил проекта), а вид фрагмента —
+		// классом в style.css, а не разметкой в шаблоне.
+		env.addFilter('accent', (value, className = '') => {
+			const attrs = className ? ` class="${escapeHtml(className)}"` : ''
+			const html = String(value ?? '')
+				.split(/\*\*(.+?)\*\*/s)
+				.map((part, index) =>
+					index % 2
+						? `<strong${attrs}>${escapeHtml(part)}</strong>`
+						: escapeHtml(part)
+				)
+				.join('')
+			return new nunjucks.runtime.SafeString(html)
+		})
 	}
 
 	setup()
