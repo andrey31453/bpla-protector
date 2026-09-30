@@ -2,10 +2,17 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sCards, sNodes, sLevels, sNormatives, sPractice, sDocs, sTenders %}
+{% from "partials/blocks.njk" import sCards, sNodes, sLevels, sNormatives, sPractice, sDocs, sTenders, sFeatures, sBrief %}
 
 {% block content %}
   {{ hero(data.proektirovanie.hero, page) }}
+  {# ПАРАМЕТРЫ И ЗАДАЧИ ПРОЕКТИРОВАНИЯ: тёмная полоса параметров (бывшая
+     фактическая рамка первого экрана, hero.frame → facts) сразу под баннером,
+     затем светлая сводка — лид и перечень задач проектирования (бывшие
+     hero.lead и hero.bullets → works) со знаком-глифом в углу секции. Обе
+     секции — из proektirovanie.json. #}
+  {{ sFeatures(data.proektirovanie.facts, 'parametry') }}
+  {{ sBrief(data.proektirovanie.works, true, 'raboty') }}
   {{ sCards(data.proektirovanie.inputs, true, 'ishodnye') }}
   {{ sNodes(data.proektirovanie.stages, false, 'etapy') }}
   {{ sLevels(data.levels.block, 'index', true, 'urovni') }}

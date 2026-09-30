@@ -303,6 +303,44 @@
 	--bg-ticks-gap: 11px; /* шаг между рисками в шкале */
 	--bg-ticks-inset: 24px; /* отступ шкалы от кромки секции */
 
+	/* Фоновый знак секции работ (sBrief, лендинги): крупная бледная контурная
+	   иконка в углу секции — знак из общего набора ui.icon (макрос bgGlyph в
+	   partials/blocks.njk). Иконка, угол и размер приходят данными, поле bg у
+	   блока works (works.bg = { icon, corner, size }): по правке владельца у
+	   каждого направления свой знак объекта и своё место в секции — мост у
+	   нижней правой кромки, резервуар у левой, здание у верхней правой, окно у
+	   верхней левой.
+	   Угла четыре, и разводятся они по геометрии секции: колонка текста
+	   начинается у самой левой кромки, лид ограничен max-w-4xl, строки перечня
+	   короткие. Поэтому у левых углов знак всегда мелкий и больше уходит за
+	   кромку (--bg-glyph-sm и --bg-glyph-shift-sm): в кадр входит только часть
+	   контура, а строки остаются чистыми. В правых углах размер крупный по
+	   умолчанию, мелкий включается полем size: "sm".
+	   Размер дан клампом: знак — единственный декор секции и на широком экране
+	   должен занимать угол, а не пол-секции; нижняя граница клампа держит знак
+	   в стороне от строк перечня на узких экранах. Толщина контура задана в
+	   единицах viewBox 24×24, потому что иконка набора масштабируется целиком:
+	   с фиксированным значением штрих «жирнел» бы вместе с размером. Бледность —
+	   opacity слоя, как у схемы нормативов (--bg-scheme-opacity) и знака
+	   обследования (--bg-survey-opacity).
+	   Цвет знака — нейтральный серый --color-steel (тот же серый, что у декора
+	   светлых секций в .bg-scheme), а не акцентный --color-ember: акцент секции
+	   держат кикер и кнопки, а знак должен читаться фактурой фона и не спорить
+	   с ними. Замер рендера mosty.html (окно 1440×900, headless Chrome): самый
+	   тёмный пиксель штриха rgb(209, 209, 206) против фона секции rgb(245, 244,
+	   239) — 1.39:1; на прежнем --color-ember при opacity 0.18 было 1.48:1
+	   (штрих уходил в тёплый rgb(219, 199, 189)). Порог 3:1 «UI / graphics»
+	   здесь не применяется: слой декоративный (aria-hidden), информации не несёт
+	   и контент не перекрывает. */
+	--bg-glyph: clamp(240px, 34vw, 560px); /* сторона знака у правых углов */
+	--bg-glyph-sm: clamp(180px, 21vw, 340px); /* сторона мелкого знака: левые углы и поле size: "sm" */
+	--bg-glyph-inset: clamp(20px, 3.4vw, 56px); /* насколько знак уходит за нижнюю (или верхнюю) кромку */
+	--bg-glyph-shift: clamp(40px, 5.6vw, 86px); /* насколько знак уходит за правую кромку */
+	--bg-glyph-shift-sm: clamp(110px, 13vw, 220px); /* уход за левую кромку: в кадр входит не больше (--bg-glyph-sm − этот отступ), поэтому строки перечня остаются свободными */
+	--bg-glyph-opacity: 0.14; /* бледность слоя: знак читается фактурой фона, а не картинкой */
+	--bg-glyph-stroke: 0.22; /* толщина контура в единицах viewBox 24×24 */
+	--bg-glyph-solid: 42%; /* докуда маска держит знак плотным: дальше он гаснет к тексту */
+
 	/* Звёздная подложка блока «Заявка на расчёт» (src/stars.css, рисунок —
 	   данные генератора stars/build.mjs). Полоса --stars-band задаёт высоту
 	   рисунка и одновременно шаг бесшовного дрейфа: дубль поля лежит ровно
@@ -1635,32 +1673,6 @@
 		margin-top: clamp(0.5rem, 1vw, 0.95rem);
 		font-size: clamp(1.6rem, 3.6vw, 2.6rem);
 	}
-	.hero__frame {
-		margin-top: 34px;
-		border: 1px solid var(--color-line);
-		border-left: 3px solid var(--color-flame);
-		background: rgba(16, 23, 32, 0.72);
-		padding: 16px 18px;
-		display: grid;
-		gap: 8px;
-		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-	}
-	.hero__frame span {
-		font-family: var(--font-mono);
-		font-size: 11px;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: var(--color-mist);
-	}
-	.hero__frame b {
-		color: var(--color-snow);
-		font-weight: 600;
-		letter-spacing: -0.01em;
-		display: block;
-		font-size: 0.98rem;
-		text-transform: none;
-		font-family: var(--font-display);
-	}
 
 	/* ---------- хлебные крошки ---------- */
 	.crumbs {
@@ -1769,6 +1781,20 @@
 		height: 20px;
 		margin-top: 2px;
 		color: var(--color-flame);
+	}
+	/* Ключевой фрагмент сообщения — «один подрядчик на весь комплекс» — ведёт
+     себя как акцент панели: жирнее её текста и цветом --color-flame, тем же,
+     что у риски и иконки. Фрагмент помечен в данных парой **…** (фильтр accent
+     в nunjucks-plugin.mjs), класс приходит из макроса ctaBand.
+     Вес 700 — самый тяжёлый из загруженных начертаний Inter (400/500/600/700),
+     поэтому браузер не синтезирует жирность; набранные панелью 600 остаются
+     фоном для акцента. Цвет фрагмента — токен, не хардкод.
+     Контраст замерен скриптом contrast.py: --color-flame (#ff7a2f) на
+     --color-panel (#141c25) — 6.61:1, выше порога AA 4.5:1 для текста (та же
+     пара, что у иконки панели). Нейтральный текст панели даёт 15.25:1. */
+	.cta-key__hi {
+		color: var(--color-flame);
+		font-weight: 700;
 	}
 	@media (min-width: 768px) {
 		.cta-key {
@@ -3104,6 +3130,86 @@
 		stroke-dasharray: var(--bg-survey-dash);
 	}
 
+	/* Крупный контурный знак секции работ: иконка из общего набора (ui.icon,
+	   макрос bgGlyph) вместо собственного рисунка — контур уже проверен в
+	   наборе, а масштаб и толщину задают токены --bg-glyph-*.
+	   Слой лежит под контентом секции (z-index: -1; у .band свой stacking
+	   context, поэтому знак остаётся поверх её фона и под текстом — так же
+	   устроены .bg-scheme и .bg-survey). Декоративный: aria-hidden в разметке,
+	   pointer-events выключены, статичный, текста не несёт, поэтому порог 3:1
+	   «UI / graphics» к нему не применяется.
+	   Знак стоит в углу секции: класс .bg-glyph--br / --bl / --tr / --tl
+	   приходит данными (works.bg.corner). Правые углы — там, куда не доходят
+	   лид (max-w-4xl) и строки перечня, поэтому контур читается фактурой угла;
+	   у левых в кадр входит только часть знака — колонка текста начинается у
+	   самой кромки. За кромки знак уходит на --bg-glyph-inset и
+	   --bg-glyph-shift(-sm), лишнее срезает overflow, так что по горизонтали
+	   страница не едет.
+	   Цвет — нейтральный серый --color-steel, а не акцентный --color-ember:
+	   цветной контур перетягивал внимание с кикера и кнопок секции.
+	   Маска гасит знак к тексту (направление градиента — «от кромки к тексту»):
+	   плотный угол остаётся у кромки, к заголовку контур сходит на нет. */
+	.bg-glyph {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		overflow: hidden;
+		pointer-events: none;
+	}
+	.bg-glyph__svg {
+		position: absolute;
+		width: var(--bg-glyph);
+		height: var(--bg-glyph);
+		color: var(--color-steel);
+		opacity: var(--bg-glyph-opacity);
+		stroke-width: var(--bg-glyph-stroke);
+	}
+	/* Мелкий знак: левые углы (там начинается колонка текста) и правые с полем
+	   size: "sm". Селекторы углов идут до правил положения — размер и место
+	   задаются независимо. */
+	.bg-glyph--bl .bg-glyph__svg,
+	.bg-glyph--tl .bg-glyph__svg,
+	.bg-glyph--sm .bg-glyph__svg {
+		width: var(--bg-glyph-sm);
+		height: var(--bg-glyph-sm);
+	}
+	.bg-glyph--br .bg-glyph__svg {
+		bottom: calc(var(--bg-glyph-inset) * -1);
+		right: calc(var(--bg-glyph-shift) * -1);
+		mask-image: linear-gradient(
+			315deg,
+			var(--mask-solid) var(--bg-glyph-solid),
+			transparent 100%
+		);
+	}
+	.bg-glyph--bl .bg-glyph__svg {
+		bottom: calc(var(--bg-glyph-inset) * -1);
+		left: calc(var(--bg-glyph-shift-sm) * -1);
+		mask-image: linear-gradient(
+			45deg,
+			var(--mask-solid) var(--bg-glyph-solid),
+			transparent 100%
+		);
+	}
+	.bg-glyph--tr .bg-glyph__svg {
+		top: calc(var(--bg-glyph-inset) * -1);
+		right: calc(var(--bg-glyph-shift) * -1);
+		mask-image: linear-gradient(
+			225deg,
+			var(--mask-solid) var(--bg-glyph-solid),
+			transparent 100%
+		);
+	}
+	.bg-glyph--tl .bg-glyph__svg {
+		top: calc(var(--bg-glyph-inset) * -1);
+		left: calc(var(--bg-glyph-shift-sm) * -1);
+		mask-image: linear-gradient(
+			135deg,
+			var(--mask-solid) var(--bg-glyph-solid),
+			transparent 100%
+		);
+	}
+
 	.context {
 		display: grid;
 		gap: var(--context-gap);
@@ -3396,24 +3502,12 @@
 	.hero--photo.grid-bg::before {
 		display: none;
 	}
-	/* Текст над кадром — только светлый: лид берёт --color-fog. Замер рендера
-	   после правки слоёв (o-kompanii.html, окна 1440×1500 и 390×1800, headless
-	   Chrome, текст прозрачный, худший пиксель по прямоугольнику): лид 10.01:1
-	   (1440 px) и 9.44:1 (390 px), ряд пунктов --color-mist 5.62–5.84:1 и
-	   5.70–5.97:1 — AA проходит. */
-	.hero--photo .lead {
-		color: var(--color-fog);
-	}
-	/* Тезисы первого экрана над кадром — тоже --color-fog: у --color-mist на
-	   фотографии тот же расчёт, что и у лида выше, и AA он не держит. */
-	.hero--photo .tick li {
-		color: var(--color-fog);
-	}
-	/* Крошки над кадром: та же причина, что у лида и тезисов — мелкий текст
-	   (11 px) над фотографией берёт --color-fog, а не --color-mist. Текущая
-	   страница остаётся --color-snow. Подписи фактической рамки (.hero__frame
-	   span) в этот список не входят: они стоят на своей тёмной подложке
-	   (rgba(16, 23, 32, 0.72)), а не на кадре. */
+	/* Крошки над кадром берут --color-fog, а не --color-mist: мелкий текст
+	   (11 px) на фотографии AA не держит. Замер рендера (o-kompanii.html,
+	   окна 1440×1500 и 390×1800, headless Chrome, текст прозрачный, худший
+	   пиксель по прямоугольнику) давал по этой зоне 9.4–10.0:1 и для лида,
+	   который стоял здесь до переноса в светлую секцию works. Над кадром
+	   теперь остались крошки, H1 и кнопки. */
 	.hero--photo .crumbs {
 		color: var(--color-fog);
 	}
