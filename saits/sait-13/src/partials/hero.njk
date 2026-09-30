@@ -41,6 +41,13 @@
 {% from "partials/breadcrumbs.njk" import crumbs %}
 
 {% macro hero(h, pg) -%}
+{# Первая точка шкалы разделов — сам первый экран: якорь у него из разметки
+   base.njk (<main id="main">), подпись — короткое имя страницы из pages.json
+   (nav, то же, что стоит в верхнем меню), а если его у страницы нет — название
+   страницы (H1). H1 здесь не годится как основная подпись: на внутренних
+   страницах это целая строка, и подложка шкалы разъезжалась бы по ширине.
+   Остальные точки регистрируют себя сами: см. railAdd в nunjucks-plugin.mjs. #}
+{{ railAdd('main', pg.nav or h.h1) }}
 <section class="hero{{ ' hero--photo' if h.photo else ' grid-bg' }}{{ ' hero--photo-strong' if h.photo and h.photo.scrim == 'strong' }}{{ ' hero--photo-none' if h.photo and h.photo.scrim == 'none' }}{{ ' hero--steps' if h.steps }}">
   {% if h.photo %}
   {# Кадр первого экрана: слой декоративный (alt пустой), затемнение — ::before #}

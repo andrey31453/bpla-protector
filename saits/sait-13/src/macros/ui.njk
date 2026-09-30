@@ -285,6 +285,10 @@
 
 {# ---------- CTA-полоса ---------- #}
 {% macro ctaBand(block) -%}
+{# Точка шкалы разделов для полосы CTA: якорь — "cta" из разметки ниже, подпись —
+   кикер полосы. Полоса не проходит через общую обёртку секций (wrap), поэтому
+   регистрируется здесь сама — см. railAdd в nunjucks-plugin.mjs. #}
+{{ railAdd('cta', block.kicker) }}
 <section class="cta-band band" id="cta">
   <div class="shell cta-band__inner">
     <div class="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-end">
