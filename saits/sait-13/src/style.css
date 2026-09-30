@@ -1660,6 +1660,61 @@
 		color: #2b1a10;
 	}
 
+	/* ---------- ключевое сообщение CTA-полосы ---------- */
+	/* В CTA-полосе есть сообщение важнее её заголовка — условие работы:
+     «обследование, проект, изготовление, монтаж и документация — один
+     подрядчик на весь комплекс» (company.cta.keyNote и o-kompanii.cta.keyNote,
+     правка владельца). Строкой примечания оно терялось: мелкий кегль, тонкая
+     линейка, тот же вес, что у служебных оговорок. Поэтому оно выведено
+     отдельной тёмной панелью на оранжевой полосе — тот же приём, что у панели
+     практики (.panel--practice): на яркой полосе тёмная «обложка» читается как
+     главное, а тень приподнимает её над полосой. Цвета — из токенов: текст
+     --color-snow на --color-panel, риска слева и иконка — --color-flame.
+     Контраст замерен скриптом contrast.py: 15.25:1 для текста (порог AA
+     4.5:1), 6.61:1 для иконки (для графики порог 3:1). Панель выводится
+     только при заполненном keyNote, поэтому на страницах, где в полосе стоит
+     обычное примечание (лендинги, контакты, конструкции, цены, ЗПБ, СЭС),
+     вид полосы не меняется.
+     Значения заданы в px намеренно: в дизайн-системе сайта токены заведены для
+     цвета и типографики, а отступы/радиусы компонентов живут в style.css в px
+     (то же у .panel--practice и .panel), поэтому блок исключён из проверки
+     линтера тем же приёмом, что stars.css и правила страницы o-kompanii. */
+	/* ds-allow-hardcode:start */
+	.cta-key {
+		display: flex;
+		align-items: flex-start;
+		gap: 12px;
+		max-width: 92ch;
+		margin-top: 32px;
+		padding: 16px 18px;
+		background-color: var(--color-panel);
+		border-left: 4px solid var(--color-flame);
+		border-radius: 3px;
+		box-shadow: 0 24px 46px -28px rgba(58, 26, 8, 0.75);
+		color: var(--color-snow);
+		font-size: 1rem;
+		font-weight: 600;
+		line-height: 1.45;
+	}
+	.cta-key__icon {
+		flex: none;
+		width: 20px;
+		height: 20px;
+		margin-top: 2px;
+		color: var(--color-flame);
+	}
+	@media (min-width: 768px) {
+		.cta-key {
+			padding: 20px 26px;
+			font-size: 1.125rem;
+		}
+		.cta-key__icon {
+			width: 24px;
+			height: 24px;
+		}
+	}
+	/* ds-allow-hardcode:end */
+
 	/* ---------- FAQ ---------- */
 	.acc {
 		border-top: 1px solid var(--color-line);

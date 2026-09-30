@@ -46,8 +46,14 @@
   {{ sNormatives(data.normatives.block, 'index', true, 'normativy') }}
   {{ sPractice('praktika') }}
   {{ sDocs(data.proektirovanie.docs, false, 'dokumentaciya') }}
+  {# CTA-ПОЛОСА: оранжевая полоса сразу после документации — по просьбе владельца.
+     Раньше стояла в самом низу, между ценами и формой, и читалась как ещё одна
+     подводка к заявке; после документации она закрывает тему «что заказчик
+     получает на руки» прямым призывом. Полосы чередуются и дальше:
+     документация (тёмная) → CTA (оранжевая) → тендеры (светлая) → цены (тёмная)
+     → форма (ночное небо). #}
+  {{ ctaBand(data.company.cta) }}
   {{ sTenders(data.company.tenders, true, 'tendery') }}
   {{ sPricesAll(false) }}
-  {{ ctaBand(data.company.cta) }}
   {{ form('index') }}
 {% endblock %}
