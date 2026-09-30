@@ -38,6 +38,70 @@ export function nunjucksPlugin(siteRoot) {
 		(slug === 'index' ? '/' : `/${slug}.html`) +
 		(hash ? `#${String(hash).replace(/^#/, '')}` : '')
 
+	// ---------- шкала разделов (.rail) ----------
+	// Состав шкалы собирается во время рендера страницы: каждая секция
+	// регистрирует себя в момент вывода — общая обёртка секций wrap
+	// (partials/blocks.njk), полоса CTA (macros/ui.njk) и первый экран
+	// (partials/hero.njk). Поэтому точки стоят ровно в том порядке, в каком
+	// секции идут на странице, и состав шкалы не дублируется вторым перечнем,
+	// который надо править при каждой перестановке блоков.
+	//
+	// Подпись точки — первый заголовок секции в её же разметке: кикер, а если
+	// кикера нет — ближайший h1–h3 (у полосы параметров заголовок sr-only).
+	// Исключение одно — первая точка: у баннера подпись короче, это имя страницы
+	// из pages.json (nav), потому что H1 на внутренних страницах набран целой
+	// строкой (см. partials/hero.njk). Разметку отдаёт сама секция, поэтому
+	// подпись точки и заголовок на странице — одно и то же значение, а не два
+	// похожих текста.
+	//
+	// Рендер страницы идёт в два прохода (transformIndexHtml): первый собирает
+	// состав шкалы, его вывод отбрасывается, второй — окончательный, в нём шкала
+	// уже знает свои точки. Регистрация работает только в первом проходе, иначе
+	// список точек удвоился бы.
+	const rail = { collecting: false, items: [] }
+
+	// Сущности, которые Nunjucks оставляет в разметке: подпись точки идёт в
+	// HTML как текст, поэтому их надо вернуть в символы, а не экранировать
+	// второй раз. Разметка внутри заголовка (span-ы этапов у баннера)
+	// отбрасывается: подпись — строка, а не фрагмент вёрстки.
+	const railEntities = {
+		'&nbsp;': ' ',
+		'&laquo;': '«',
+		'&raquo;': '»',
+		'&mdash;': '—',
+		'&ndash;': '–',
+		'&hellip;': '…',
+		'&quot;': '"',
+		'&#39;': "'",
+		'&lt;': '<',
+		'&gt;': '>',
+		'&amp;': '&',
+	}
+	const railText = (source) => {
+		const raw = String(source || '')
+		// Строка без тегов — уже готовая подпись; в разметке ищем заголовок
+		const inner = raw.includes('<')
+			? (
+					/<span class="kicker">([\s\S]*?)<\/span>/.exec(raw) ||
+					/<h[1-3][^>]*>([\s\S]*?)<\/h[1-3]>/.exec(raw) ||
+					['']
+				)[1]
+			: raw
+		return String(inner)
+			.replace(/&[a-z#0-9]+;/gi, (entity) => railEntities[entity.toLowerCase()] || entity)
+			.replace(/<[^>]*>/g, ' ')
+			.replace(/\s+/g, ' ')
+			.trim()
+	}
+	const railAdd = (id, source) => {
+		if (!rail.collecting || !id) return ''
+		const label = railText(source)
+		if (!label) return ''
+		rail.items.push({ id: String(id), label })
+		return ''
+	}
+	const railItems = () => rail.items
+
 	const groupList = () => {
 		const groups = []
 		for (const page of pageList()) {
@@ -214,6 +278,8 @@ export function nunjucksPlugin(siteRoot) {
 		env.addGlobal('footerGroups', footerGroupList())
 		env.addGlobal('pageBySlug', findPage)
 		env.addGlobal('href', linkTo)
+		env.addGlobal('railAdd', railAdd)
+		env.addGlobal('railItems', railItems)
 		env.addGlobal('jsonLd', jsonLd)
 		env.addGlobal('year', new Date().getFullYear())
 
@@ -284,9 +350,15 @@ export function nunjucksPlugin(siteRoot) {
 						.replace(/^\//, '')
 						.replace(/\.html$/, '') || 'index'
 				const page = findPage(slug)
-				return render(html, {
-					page: page || { slug, title: '', description: '' },
-				})
+				const locals = { page: page || { slug, title: '', description: '' } }
+				// Два прохода (см. rail выше): первый собирает состав шкалы
+				// разделов, его разметку выбрасываем, второй отдаёт страницу
+				// со шкалой, которая уже знает свои точки.
+				rail.collecting = true
+				rail.items = []
+				render(html, locals)
+				rail.collecting = false
+				return render(html, locals)
 			},
 		},
 

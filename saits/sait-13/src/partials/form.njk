@@ -31,6 +31,10 @@
 {% macro form(slug) -%}
 {% set f = data.form %}
 {% set pg = pageBySlug(slug) %}
+{# Точка шкалы разделов: секция заявки рисует обёртку сама, а не через общую
+   обёртку секций (wrap), поэтому регистрируется здесь. Подпись — кикер формы,
+   то же значение, что стоит над её заголовком (см. nunjucks-plugin.mjs). #}
+{{ railAdd('zayavka', f.kicker) }}
 <section class="band band--stars" id="zayavka">
   {# Подложка блока: поле звёзд. Слой декоративный — текста не несёт,
      поэтому aria-hidden в разметке и pointer-events: none в CSS, а
@@ -46,7 +50,7 @@
   </div>
   <div class="shell grid gap-10 lg:grid-cols-[1fr_minmax(0,430px)] lg:items-start lg:gap-14">
     <div>
-      <span class="kicker">Обратная связь</span>
+      <span class="kicker">{{ f.kicker }}</span>
       <h2 class="h2 mt-4">{{ f.title }}</h2>
 
       {# Контакты крупнее обычного текста: после того как подводку убрали,

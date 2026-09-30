@@ -1,6 +1,7 @@
 {% from "partials/head.njk" import head %}
 {% from "partials/header.njk" import header %}
 {% from "partials/footer.njk" import footer %}
+{% from "partials/rail.njk" import rail %}
 <!doctype html>
 <html lang="ru">
 <head>
@@ -10,6 +11,13 @@
 <body>
   {{ header(page) }}
   <main id="main">
+  {# ШКАЛА РАЗДЕЛОВ: «счётчик блоков» страницы у левой кромки окна — точка на
+     секцию, активная становится медной, при наведении открывается тёмная
+     подложка с подписями. Стоит первой в <main> и подключена здесь, поэтому
+     есть на каждой странице сайта; состав точек собирается на сборке из самих
+     секций (см. nunjucks-plugin.mjs), а на странице с одной секцией не
+     выводится. #}
+  {{ rail() }}
 {% block content %}{% endblock %}
   </main>
   {{ footer() }}

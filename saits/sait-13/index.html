@@ -5,6 +5,11 @@
 {% from "partials/blocks.njk" import sAbout, sFeatures, sCatalog, sProblem, sLines, sMaterials, sLevels, sKpi, sNormatives, sProcess, sPractice, sCards, sDocs, sTenders, sPricesAll, sObjects, sContext %}
 
 {% block content %}
+  {# ШКАЛА РАЗДЕЛОВ («счётчик блоков» у левой кромки окна) приходит из base.njk —
+     она есть на каждой странице сайта. Точку даёт каждая секция, а подпись точки —
+     первый заголовок самой секции: и то и другое собирается на сборке
+     (см. nunjucks-plugin.mjs), поэтому отдельного перечня блоков здесь больше нет
+     и порядок точек всегда совпадает с порядком секций ниже. #}
   {{ hero(data.company.hero, page) }}
   {# ПОЛНЫЙ КОМПЛЕКС: чёрная полоса с пятью пунктами работ — сразу под баннером,
      отдельной секцией (раньше ряд иконок был частью первого экрана) #}

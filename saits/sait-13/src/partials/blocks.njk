@@ -156,11 +156,20 @@
    bgArg — необязательные данные этого слоя: макрос вызывается как bg(bgArg).
    Слои, которые параметров не принимают (ctxBg, bgNormatives, bgTicks), лишний
    аргумент игнорируют; он нужен там, где слой настраивается данными (bgGlyph:
-   иконка, угол и размер — поле bg у блока works). #}
+   иконка, угол и размер — поле bg у блока works).
+
+   Разметку секции считаем один раз в переменную body: её же отдаём шкале
+   разделов (railAdd). Секция регистрирует себя в момент вывода, поэтому точки
+   шкалы стоят в порядке секций страницы, а подпись точки — первый заголовок
+   самой секции (кикер, иначе h1–h3). Так состав шкалы не дублируется вторым
+   перечнем, который пришлось бы править при каждой перестановке блоков —
+   см. nunjucks-plugin.mjs. #}
 {% macro wrap(id, light, variant, deco, bg, bgArg) -%}
+{%- set body = caller() -%}
+{{ railAdd(id, body) }}
 <section class="band {{ variant or ('on-light' if light else 'grid-bg') }}"{% if id %} id="{{ id }}"{% endif %}>
   {% if bg %}{{ bg(bgArg) }}{% endif %}
-  <div class="shell">{{ caller() }}</div>
+  <div class="shell">{{ body }}</div>
   {{ decoLayer(deco) }}
 </section>
 {%- endmacro %}
