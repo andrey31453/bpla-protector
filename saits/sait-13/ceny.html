@@ -2,10 +2,16 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sCards, sPricesAll, sTenders %}
+{% from "partials/blocks.njk" import sCards, sPricesAll, sTenders, sFeatures, sBrief %}
 
 {% block content %}
   {{ hero(data.ceny.hero, page) }}
+  {# ПАРАМЕТРЫ И УСЛОВИЯ РАСЧЁТА: тёмная полоса параметров (бывшая фактическая рамка
+     первого экрана, hero.frame → facts) сразу под баннером, затем светлая сводка —
+     лид и перечень условий расчёта (бывшие hero.lead и hero.bullets → works) со
+     знаком-глифом в углу секции. Обе секции — из ceny.json. #}
+  {{ sFeatures(data.ceny.facts, 'parametry') }}
+  {{ sBrief(data.ceny.works, true, 'raboty') }}
   {{ sCards(data.ceny.intro, true, 'kak-schitaem') }}
   {{ sPricesAll(false) }}
   {{ sCards(data.ceny.reduce, true, 'snizhenie') }}

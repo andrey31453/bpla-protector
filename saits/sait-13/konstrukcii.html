@@ -2,10 +2,16 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sCatalog, sTypesAll, sMaterials, sLimits, sLevels, sNormatives, sPractice, sProcess, sObjects %}
+{% from "partials/blocks.njk" import sCatalog, sTypesAll, sMaterials, sLimits, sLevels, sNormatives, sPractice, sProcess, sObjects, sFeatures, sBrief %}
 
 {% block content %}
   {{ hero(data.konstrukcii.hero, page) }}
+  {# ПАРАМЕТРЫ И ПРИНЦИП ПОДБОРА: тёмная полоса параметров (бывшая фактическая рамка
+     первого экрана, hero.frame → facts) сразу под баннером, затем светлая сводка —
+     лид и перечень принципов подбора (бывшие hero.lead и hero.bullets → works) со
+     знаком-глифом в углу секции. Обе секции — из konstrukcii.json. #}
+  {{ sFeatures(data.konstrukcii.facts, 'parametry') }}
+  {{ sBrief(data.konstrukcii.works, true, 'raboty') }}
   {{ sCatalog(true) }}
   {# ОБЪЕКТЫ: оранжевая фотогалерея в верху страницы — как на главной #}
   {{ sObjects(data.objects.block, 'obekty') }}

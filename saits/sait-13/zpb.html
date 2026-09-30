@@ -2,10 +2,16 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sProblem, sCards, sProof, sNodes, sClients, sTick, sNormatives, sPractice %}
+{% from "partials/blocks.njk" import sProblem, sCards, sProof, sNodes, sClients, sTick, sNormatives, sPractice, sFeatures, sBrief %}
 
 {% block content %}
   {{ hero(data.zpb.hero, page) }}
+  {# ПАРАМЕТРЫ И СВОЙСТВА ЛИНИИ: тёмная полоса параметров (бывшая фактическая
+     рамка первого экрана, hero.frame → facts) сразу под баннером, затем светлая
+     сводка — лид и перечень свойств линии (бывшие hero.lead и hero.bullets →
+     works) со знаком-глифом в углу секции. Обе секции — из zpb.json. #}
+  {{ sFeatures(data.zpb.facts, 'parametry') }}
+  {{ sBrief(data.zpb.works, true, 'raboty') }}
   {{ sProblem(data.zpb.problem, true, 'zadacha') }}
   {{ sCards(data.zpb.lineup, false, 'lineup') }}
   {{ sCards(data.zpb.design, true, 'konstruktiv') }}

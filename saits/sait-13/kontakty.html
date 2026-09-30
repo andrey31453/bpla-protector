@@ -2,10 +2,16 @@
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
 {% from "macros/ui.njk" import ctaBand %}
-{% from "partials/blocks.njk" import sCards, sTick, sDocs %}
+{% from "partials/blocks.njk" import sCards, sTick, sDocs, sFeatures, sBrief %}
 
 {% block content %}
   {{ hero(data.kontakty.hero, page) }}
+  {# ПАРАМЕТРЫ И УСЛОВИЯ ОБРАЩЕНИЯ: тёмная полоса параметров (бывшая фактическая рамка
+     первого экрана, hero.frame → facts) сразу под баннером, затем светлая сводка —
+     лид и условия обращения (бывшие hero.lead и hero.bullets → works) со знаком-глифом
+     в углу секции. Обе секции — из kontakty.json. #}
+  {{ sFeatures(data.kontakty.facts, 'parametry') }}
+  {{ sBrief(data.kontakty.works, true, 'raboty') }}
   {{ sCards(data.kontakty.steps, true, 'poryadok') }}
   {{ sTick(data.kontakty.whatToSend, false, 'chto-prislat') }}
   {{ sCards(data.kontakty.formats, true, 'formaty') }}
