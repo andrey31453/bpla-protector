@@ -13,7 +13,10 @@
   {{ sPractice('praktika') }}
   {{ sCards(data.proektirovanie.lines, true, 'linii') }}
   {{ sDocs(data.proektirovanie.docs, false, 'dokumentaciya') }}
-  {{ sTenders(data.company.tenders, true, 'tendery') }}
+  {# CTA-полоса: сразу после документации — по просьбе владельца (раньше стояла
+     между тендерами и формой). Полосы чередуются: документация (тёмная) →
+     CTA (оранжевая) → тендеры (светлая) → форма (ночное небо). #}
   {{ ctaBand(data.proektirovanie.cta) }}
+  {{ sTenders(data.company.tenders, true, 'tendery') }}
   {{ form('proektirovanie') }}
 {% endblock %}
