@@ -5,17 +5,30 @@
    услуги → нормативы → уровни → категорирование → подтверждения → примеры →
    заказчики → документация → тендеры → стоимость → FAQ → CTA → форма.
    Дополнительно (в ТЗ блоков нет) под первым экраном может идти оранжевая
-   фотогалерея объектов — включается записью objects в data/landing-<slug>.json.
+   фотогалерея объектов — включается записью objects в data/landing-<slug>.json,
+   а также тёмная полоса параметров (facts → sFeatures, та же, что «Полный
+   комплекс» на главной) и светлая сводка работ (works → sBrief).
    ============================================================ #}
 {% from "macros/ui.njk" import ctaBand %}
 {% from "partials/hero.njk" import hero %}
 {% from "partials/form.njk" import form %}
-{% from "partials/blocks.njk" import sProblem, sNodes, sConstructions, sLimits, sMaterials, sServices, sNormatives, sPractice, sLevels, sCategory, sProof, sCases, sClients, sDocs, sTenders, sPrices, sFaq, sObjects %}
+{% from "partials/blocks.njk" import sProblem, sNodes, sConstructions, sLimits, sMaterials, sServices, sNormatives, sPractice, sLevels, sCategory, sProof, sCases, sClients, sDocs, sTenders, sPrices, sFaq, sObjects, sFeatures, sBrief %}
 
 {% macro landing(slug, pg) -%}
 {% set L = data['landing-' + slug] %}
 {% if L %}
   {{ hero(L.hero, pg) }}
+  {# ПАРАМЕТРЫ ОБЪЕКТА: тёмная полоса сразу под баннером — бывшая фактическая
+     рамка первого экрана (hero.frame): типовые объекты, материалы, ориентиры
+     стоимости, срок службы. Идёт той же полосой «Полный комплекс», что на
+     главной (sFeatures): чёрная подложка (--color-void) и ряд пунктов с иконками.
+     Включается записью facts в data/landing-<slug>.json. Порядок блоков ТЗ это не
+     меняет: сама секция в каркасе п.5.2 не описана. #}
+  {% if L.facts %}{{ sFeatures(L.facts, 'kompleks') }}{% endif %}
+  {# ЧТО ДЕЛАЕМ НА ОБЪЕКТЕ: светлая секция под полосой параметров — вводный лид и
+     перечень этапов работ (бывшие hero.lead и hero.bullets). Включается записью
+     works в data/landing-<slug>.json. #}
+  {% if L.works %}{{ sBrief(L.works, true, 'raboty') }}{% endif %}
   {# ОБЪЕКТЫ: оранжевая фотогалерея сразу под первым экраном. В ТЗ такого блока
      нет — это наш дополнительный блок, порядок блоков ТЗ он не меняет.
      Показывается, если у направления есть свой набор фото (L.objects). #}
