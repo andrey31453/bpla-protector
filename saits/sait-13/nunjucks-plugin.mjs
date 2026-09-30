@@ -38,6 +38,29 @@ export function nunjucksPlugin(siteRoot) {
 		(slug === 'index' ? '/' : `/${slug}.html`) +
 		(hash ? `#${String(hash).replace(/^#/, '')}` : '')
 
+	// pick('company.about.kicker') — значение из src/data по пути через точку.
+	// Нужен шкале разделов (partials/rail.njk): подпись точки обязана совпадать с
+	// малым заголовком секции, поэтому берём то же поле, из которого рисуется сам
+	// заголовок, а не второй экземпляр текста рядом с ним. Несуществующий путь —
+	// ошибка сборки: пустая подпись или подпись «не от той секции» хуже, чем
+	// остановка с понятным сообщением.
+	const pick = (path) => {
+		const parts = String(path || '')
+			.split('.')
+			.filter((part) => part)
+		if (!parts.length) throw new Error('pick(): пустой путь к данным')
+		let value = data
+		for (const part of parts) {
+			if (value == null || typeof value !== 'object' || !(part in value)) {
+				throw new Error(
+					`pick(): в src/data нет пути «${path}» — не найден шаг «${part}»`
+				)
+			}
+			value = value[part]
+		}
+		return value
+	}
+
 	const groupList = () => {
 		const groups = []
 		for (const page of pageList()) {
@@ -203,6 +226,7 @@ export function nunjucksPlugin(siteRoot) {
 		env.addGlobal('footerGroups', footerGroupList())
 		env.addGlobal('pageBySlug', findPage)
 		env.addGlobal('href', linkTo)
+		env.addGlobal('pick', pick)
 		env.addGlobal('jsonLd', jsonLd)
 		env.addGlobal('year', new Date().getFullYear())
 	}

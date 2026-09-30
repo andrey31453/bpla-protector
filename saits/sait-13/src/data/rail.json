@@ -1,0 +1,30 @@
+{
+  "_note": "Шкала разделов главной страницы — «счётчик блоков» у левой кромки окна (partials/rail.njk, стили .rail в style.css). Одна запись = одна точка. id — якорь секции в разметке главной: hero это <main id=\"main\">, поэтому у первой точки main, остальные — секции .band с id (см. порядок вызовов в index.html). kicker — путь через точку к малому заголовку секции в src/data; значение достаёт фильтр pick (nunjucks-plugin.mjs), поэтому подпись точки и заголовок на странице — одно и то же значение, а не два похожих текста. Путь проверяется на сборке: опечатка останавливает билд сообщением о ненайденном шаге. Там, где своего кикера у секции нет, в kicker стоит путь к другому её заголовку: у первого экрана роль малого заголовка играет название страницы в баннере (company.hero.h1), у полосы комплекса — sr-only h2 (company.features.title). Порядок записей ОБЯЗАН совпадать с порядком секций в index.html: при перестановке блоков порядок здесь правится вручную. Шкала есть только у главной: у внутренних страниц другой набор секций. Активную точку отмечает модуль src/js/modules/rail.js (класс is-active + aria-current), сам он ничего не рендерит — ссылки и подписи лежат в HTML и работают без JS.",
+  "sections": {
+    "index": {
+      "label": "Разделы страницы",
+      "items": [
+        { "id": "main", "kicker": "company.hero.h1" },
+        { "id": "kompleks", "kicker": "company.features.title" },
+        { "id": "o-kompanii", "kicker": "company.about.kicker" },
+        { "id": "napravleniya", "kicker": "products.block.kicker" },
+        { "id": "kontekst", "kicker": "context.block.kicker" },
+        { "id": "obekty", "kicker": "objects.block.kicker" },
+        { "id": "zadacha", "kicker": "company.problem.kicker" },
+        { "id": "linii", "kicker": "company.lines.kicker" },
+        { "id": "materialy", "kicker": "materials.block.kicker" },
+        { "id": "poryadok", "kicker": "company.process.kicker" },
+        { "id": "urovni", "kicker": "levels.block.kicker" },
+        { "id": "pokazateli", "kicker": "company.kpi.kicker" },
+        { "id": "garantii", "kicker": "company.guarantee.kicker" },
+        { "id": "normativy", "kicker": "normatives.block.kicker" },
+        { "id": "praktika", "kicker": "normatives.practice.kicker" },
+        { "id": "dokumentaciya", "kicker": "proektirovanie.docs.kicker" },
+        { "id": "cta", "kicker": "company.cta.kicker" },
+        { "id": "tendery", "kicker": "company.tenders.kicker" },
+        { "id": "ceny", "kicker": "ceny.prices.kicker" },
+        { "id": "zayavka", "kicker": "form.kicker" }
+      ]
+    }
+  }
+}

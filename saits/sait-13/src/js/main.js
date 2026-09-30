@@ -10,6 +10,7 @@ import { initMobileNav } from './modules/mobile-nav.js'
 import { initTabs } from './modules/tabs.js'
 import { initPhoneMask } from './modules/phone-mask.js'
 import { initForm } from './modules/form.js'
+import { initRail } from './modules/rail.js'
 
 const MODULES = [
   ['reveal', initReveal],
@@ -17,6 +18,7 @@ const MODULES = [
   ['tabs', initTabs],
   ['phone-mask', initPhoneMask],
   ['form', initForm],
+  ['rail', initRail],
 ]
 
 function boot() {
