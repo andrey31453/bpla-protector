@@ -74,6 +74,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Пароль берётся из секрета с именем, указанным в saits/sait-XX/hosting.json
+      # (passwordSecret). Проверяем его до установки lftp и сборки: иначе деплой
+      # падает только на шаге выкладки, потратив время на сборку сайта.
+      - name: Check secret ${{ matrix.secret }}
+        env:
+          HOSTING_PASSWORD: ${{ secrets[matrix.secret] }}
+        run: |
+          if [ -z "${HOSTING_PASSWORD:-}" ]; then
+            echo "::error::Секрет «${{ matrix.secret }}» не найден. Добавьте его в Settings → Secrets and variables → Actions → Secrets (repository secret, не environment): имя — ${{ matrix.secret }}."
+            exit 1
+          fi
+          echo "Секрет «${{ matrix.secret }}» на месте"
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:

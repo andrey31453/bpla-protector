@@ -199,13 +199,18 @@ saits/sait-13/hosting.json     # адрес хостинга, логин, кат
 
 Паролей в репозитории нет: репозиторий публичный, поэтому в конфиге указано
 только **имя GitHub-секрета** (`passwordSecret`), а сам пароль лежит в
-**Settings → Secrets and variables → Actions**.
+**Settings → Secrets and variables → Actions → Secrets** — именно repository
+secret: job выкладки не привязан к environment, поэтому environment-секрет он
+не увидит. Если секрета нет, деплой останавливается с сообщением
+«Не задан пароль для «sait-XX»».
 
 Порядок для нового сайта:
 
 1. Скопируйте `saits/hosting.example.json` в `saits/sait-XX/hosting.json` и
    заполните адрес, логин FTP, имя секрета и каталог документ-рута (`remoteDir`).
-2. Добавьте GitHub-секрет с этим именем и паролем FTP.
+2. Добавьте GitHub-секрет с этим именем и паролем FTP (**Secrets** на вкладке
+   `Actions`, не `Environments`). Проверить: workflow `Deploy to hosting (main)`
+   на шаге «Check secret …» пишет, на месте ли секрет, ещё до сборки сайта.
 3. Отдельной командой владельца «обнови мейн» обновите `main` из `develop`
    (`git merge --ff-only origin/develop`) — workflow `Deploy to hosting (main)`
    соберёт сайт и выложит его зеркалом (`mirror -R`) в `remoteDir`: файлы из

@@ -37,12 +37,15 @@ if ! command -v lftp >/dev/null 2>&1; then
 fi
 
 if [ ! -f "$HOSTING_DIST/index.html" ]; then
-  err "Нет собранного сайта: $HOSTING_DIST/index.html — сначала соберите его: ./build.sh $SITE"
+  err "Нет собранного сайта: ${HOSTING_DIST}/index.html — сначала соберите его: ./build.sh ${SITE}"
   exit 1
 fi
 
+# Подстановки в сообщениях — в фигурных скобках: в некоторых локалях (macOS,
+# bash 3.2 + C.UTF-8) байты русской кавычки « прилипают к имени переменной и
+# `set -u` роняет скрипт на «unbound variable» вместо понятного текста.
 if [ -z "${HOSTING_PASSWORD:-}" ]; then
-  err "Не задан пароль для «$HOSTING_SITE». Положите его в GitHub-секрет «$HOSTING_SECRET» (Settings → Secrets and variables → Actions) или запустите локально: HOSTING_PASSWORD=… ./hosting-deploy.sh $SITE"
+  err "Не задан пароль для «${HOSTING_SITE}». Положите его в GitHub-секрет «${HOSTING_SECRET}» (Settings → Secrets and variables → Actions → Secrets, именно repository secret) или запустите локально: HOSTING_PASSWORD=… ./hosting-deploy.sh ${SITE}"
   exit 1
 fi
 
@@ -65,8 +68,8 @@ if [ "$HOSTING_PROTOCOL" = "ftps" ]; then
   SSL_FORCE="yes"
 fi
 
-log "$HOSTING_SITE → $HOSTING_PROTOCOL://$HOSTING_HOST:$HOSTING_PORT/$HOSTING_REMOTE_DIR"
-log "источник: $HOSTING_DIST"
+log "${HOSTING_SITE} → ${HOSTING_PROTOCOL}://${HOSTING_HOST}:${HOSTING_PORT}/${HOSTING_REMOTE_DIR}"
+log "источник: ${HOSTING_DIST}"
 
 # Пароль передаётся переменной окружения LFTP_PASSWORD и включается ключом
 # --env-password: без него lftp спросит пароль интерактивно и деплой в CI
@@ -86,4 +89,4 @@ LFTP_COMMANDS+="; mirror -R $DELETE_FLAG --parallel=4 --verbose=1 $EXCLUDES $HOS
 
 LFTP_PASSWORD="$HOSTING_PASSWORD" lftp -u "$HOSTING_USER" --env-password "$HOSTING_HOST:$HOSTING_PORT" -e "$LFTP_COMMANDS"
 
-log "Готово: $HOSTING_SITE выложен${HOSTING_PUBLIC_URL:+ — $HOSTING_PUBLIC_URL}"
+log "Готово: ${HOSTING_SITE} выложен${HOSTING_PUBLIC_URL:+ — ${HOSTING_PUBLIC_URL}}"
