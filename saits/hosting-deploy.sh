@@ -68,16 +68,22 @@ fi
 log "$HOSTING_SITE → $HOSTING_PROTOCOL://$HOSTING_HOST:$HOSTING_PORT/$HOSTING_REMOTE_DIR"
 log "источник: $HOSTING_DIST"
 
-LFTP_PASSWORD="$HOSTING_PASSWORD" lftp -u "$HOSTING_USER" "$HOSTING_HOST:$HOSTING_PORT" -e "
-set cmd:fail-exit yes
-set net:max-retries 3
-set net:timeout 25
-set ftp:passive-mode true
-set ftp:use-mlsd true
-set ssl:verify-certificate $HOSTING_VERIFY_CERT
-set ftp:ssl-force $SSL_FORCE
-set ftp:ssl-protect-data $SSL_FORCE
-mirror -R $DELETE_FLAG --parallel=4 --verbose=1 $EXCLUDES $HOSTING_DIST $HOSTING_REMOTE_DIR
-"
+# Пароль передаётся переменной окружения LFTP_PASSWORD и включается ключом
+# --env-password: без него lftp спросит пароль интерактивно и деплой в CI
+# зависнет на запросе ввода. В аргументах командной строки пароль не светится.
+#
+# Команды идут одной строкой через ";": многострочный -e lftp завершает пустой
+# командой ("Ambiguous command") и возвращает ошибку, хотя файлы уже переданы.
+LFTP_COMMANDS="set cmd:fail-exit yes"
+LFTP_COMMANDS+="; set net:max-retries 3"
+LFTP_COMMANDS+="; set net:timeout 25"
+LFTP_COMMANDS+="; set ftp:passive-mode true"
+LFTP_COMMANDS+="; set ftp:use-mlsd true"
+LFTP_COMMANDS+="; set ssl:verify-certificate $HOSTING_VERIFY_CERT"
+LFTP_COMMANDS+="; set ftp:ssl-force $SSL_FORCE"
+LFTP_COMMANDS+="; set ftp:ssl-protect-data $SSL_FORCE"
+LFTP_COMMANDS+="; mirror -R $DELETE_FLAG --parallel=4 --verbose=1 $EXCLUDES $HOSTING_DIST $HOSTING_REMOTE_DIR"
+
+LFTP_PASSWORD="$HOSTING_PASSWORD" lftp -u "$HOSTING_USER" --env-password "$HOSTING_HOST:$HOSTING_PORT" -e "$LFTP_COMMANDS"
 
 log "Готово: $HOSTING_SITE выложен${HOSTING_PUBLIC_URL:+ — $HOSTING_PUBLIC_URL}"
