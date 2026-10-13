@@ -1,0 +1,15 @@
+{
+  "_note": "Шаблон для нового сайта: скопируйте в saits/sait-XX/hosting.json и заполните. Пока файла нет — сайт собирается только для GitHub Pages (ветка develop) и на хостинг не выкладывается. Ключи: enabled — выключает выкладку, не удаляя файл; protocol — ftps (явный TLS на 21-м, как у текущего хостинга) или ftp; host/port — адрес панели/сервера; user — логин FTP; passwordSecret — ИМЯ GitHub-секрета с паролем (пароль в репозитории не хранится, репозиторий публичный); remoteDir — каталог документ-рута внутри FTP-аккаунта; verifyCertificate — проверять сертификат сервера; delete — удалять на хостинге то, чего нет в dist/; exclude — что не зеркалировать и не удалять (служебные каталоги панели); publicUrl — адрес сайта, попадает в отчёт workflow.",
+
+  "enabled": true,
+  "protocol": "ftps",
+  "host": "isp.arbat.pro",
+  "port": 21,
+  "user": "forttex_ftp",
+  "passwordSecret": "FORTTEX_FTP_PASSWORD",
+  "remoteDir": "web",
+  "verifyCertificate": true,
+  "delete": true,
+  "exclude": ["error/*", "stats/*"],
+  "publicUrl": "https://forttex.ru/"
+}

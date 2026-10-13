@@ -156,20 +156,75 @@ saits/
 
 ---
 
-## Публикация на GitHub Pages
+## Ветки и две площадки публикации
 
-Все сайты (`sait-00` … `sait-12`) публикуются в одном репозитории через GitHub Actions:
+Пуш ветки — это сразу публикация. В репозитории две площадки, и у каждой своя
+ветка-источник:
+
+| Ветка | Что собирается | Workflow | Куда попадает |
+| --- | --- | --- | --- |
+| `develop` | все сайты `sait-*` + хаб-страница | `.github/workflows/deploy-pages.yml` | витрина на GitHub Pages: хаб `https://<user>.github.io/bpla-protector/`, сайты `…/sait-XX/` |
+| `main` | только сайты со своим `hosting.json` | `.github/workflows/deploy-hosting.yml` | боевой хостинг этих сайтов (FTP/FTPS) |
+
+Логика простая: в `develop` попадает всё, что нужно посмотреть; в `main`
+мержится только готовое, и оттуда оно уезжает на хостинг. Сайты без
+`hosting.json` на хостинг не едут — они остаются на витрине Pages.
+
+Сборка сайтов локально — та же, что в CI:
 
 ```bash
-./build.sh                         # сборка всех сайтов (dist/) + перевод путей в относительные
-node assemble.mjs saits            # сборка _site/ (хаб-страница + все сайты)
+./build.sh                         # все сайты (dist/) + перевод путей в относительные
+./build.sh sait-13                 # только один сайт
+node assemble.mjs saits            # _site/ (хаб-страница + все сайты) — для витрины Pages
 ```
 
-При пуше в ветку `main` workflow `.github/workflows/deploy-pages.yml` собирает всё и публикует на GitHub Pages.
+> Чтобы витрина заработала, включите GitHub Pages: **Settings → Pages → Source → GitHub Actions**.
+> Если Pages не деплоится из `develop`, разрешите ветку в **Settings → Environments → github-pages → Deployment branches**.
 
-- Хаб-страница: `https://<user>.github.io/bpla-protector/`
-- Каждый сайт: `https://<user>.github.io/bpla-protector/sait-XX/`
+## Выкладка на хостинг
 
-> Чтобы это заработало, включите GitHub Pages: **Settings → Pages → Source → GitHub Actions**.
+Выкладывается только тот сайт, у которого в его папке лежит `hosting.json`.
+Пример-шаблон — `saits/hosting.example.json`, живой конфиг — `saits/sait-13/hosting.json`.
 
-**Статус:** Все 13 лендингов готовы к dev-просмотру, prod-сборке и публикации на GitHub Pages. ✅
+```
+saits/sait-13/hosting.json     # адрес хостинга, логин, каталог, имя секрета с паролем
+```
+
+Паролей в репозитории нет: репозиторий публичный, поэтому в конфиге указано
+только **имя GitHub-секрета** (`passwordSecret`), а сам пароль лежит в
+**Settings → Secrets and variables → Actions**.
+
+Порядок для нового сайта:
+
+1. Скопируйте `saits/hosting.example.json` в `saits/sait-XX/hosting.json` и
+   заполните адрес, логин FTP, имя секрета и каталог документ-рута (`remoteDir`).
+2. Добавьте GitHub-секрет с этим именем и паролем FTP.
+3. Смержите сайт в `main` — workflow `Deploy to hosting (main)` соберёт сайт и
+   выложит его зеркалом (`mirror -R`) в `remoteDir`: файлы из `dist/` ложатся
+   как есть, а лишнее из прошлых сборок удаляется.
+
+Проверка и ручной запуск:
+
+```bash
+cd saits
+node hosting-list.mjs                    # какие сайты умеют выкладываться на хостинг
+node hosting-list.mjs --matrix           # то же в виде JSON для workflow
+HOSTING_PASSWORD=… ./hosting-deploy.sh sait-13   # выкладка вручную (нужен lftp)
+```
+
+Разовый запуск из GitHub: **Actions → Deploy to hosting (main) → Run workflow**
+(можно указать один сайт, например `sait-13`).
+
+Что важно знать про конфиг:
+
+- `remoteDir` — путь документ-рута внутри FTP-аккаунта. У сайта `sait-13` это
+  `web` (внутри лежат `stats/`, `error/`, `standard_index.html` панели) — именно
+  этот каталог отдаётся доменом `forttex.ru`.
+- `exclude` — что не зеркалим и не удаляем на хостинге (служебные каталоги
+  панели). Всё остальное приводится к состоянию `dist/`.
+- `protocol: ftps` — явный TLS поверх 21-го порта; `ftp` — без шифрования.
+- `verifyCertificate: false` — отключает проверку сертификата (например, если
+  сертификат выпущен не на имя хоста FTP).
+
+**Статус:** все 13 лендингов собираются и публикуются на витрине Pages из
+ветки `develop`; `sait-13` (фортТех) настроен на выкладку на хостинг из `main`.

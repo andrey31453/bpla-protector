@@ -1,8 +1,11 @@
 name: Deploy to GitHub Pages
 
+# Витрина всех вариантов лендингов. Рабочая ветка — develop: сюда попадают все
+# сборки сайтов, здесь их и смотрит команда. Боевая выкладка на хостинг живёт
+# в ветке main — .github/workflows/deploy-hosting.yml.
 on:
   push:
-    branches: [main]
+    branches: [develop]
   workflow_dispatch:
 
 permissions:

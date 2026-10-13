@@ -1,0 +1,17 @@
+{
+  "_note": "Выкладка сайта на хостинг. Читается скриптами saits/hosting-list.mjs и saits/hosting-deploy.sh, запускается workflow .github/workflows/deploy-hosting.yml при пуше в ветку main. Пароля здесь нет и быть не может (репозиторий публичный): в passwordSecret лежит только имя GitHub-секрета, в котором пароль хранится в Settings → Secrets and variables → Actions. Шаблон для новых сайтов — saits/hosting.example.json, порядок настройки — в saits/README.md, раздел «Выкладка на хостинг».",
+  "_remoteDirNote": "remoteDir — путь до документ-рута сайта внутри FTP-аккаунта. У этого аккаунта FTP-корень это каталог сайта, а документ-рут в нём — web/ (там лежат stats/, error/, standard_index.html панели ISPConfig). Проверено листингом FTP 13.10.2026.",
+  "_excludeNote": "exclude — что НЕ зеркалим и НЕ удаляем на хостинге: служебные каталоги панели в документ-руте. Остальное выкладывается ровно как в dist/, лишнее из прошлых сборок удаляется (delete: true).",
+
+  "enabled": true,
+  "protocol": "ftps",
+  "host": "isp.arbat.pro",
+  "port": 21,
+  "user": "forttex_ftp",
+  "passwordSecret": "FORTTEX_FTP_PASSWORD",
+  "remoteDir": "web",
+  "verifyCertificate": true,
+  "delete": true,
+  "exclude": ["error/*", "stats/*"],
+  "publicUrl": "https://forttex.ru/"
+}

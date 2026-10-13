@@ -1,0 +1,102 @@
+name: Deploy to hosting (main)
+
+# Боевая выкладка: push в ветку main выкладывает на хостинг сайты, у которых
+# есть свой конфиг saits/sait-XX/hosting.json. Сайты без конфига на хостинг не
+# едут — они живут только на витрине GitHub Pages (ветка develop,
+# .github/workflows/deploy-pages.yml).
+#
+# Пароли FTP в репозитории не хранятся: в каждом hosting.json указано только
+# имя GitHub-секрета (passwordSecret). Перед первым запуском добавьте секрет:
+# Settings → Secrets and variables → Actions → New repository secret.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      site:
+        description: 'Один сайт, например sait-13. Пусто — все сайты с hosting.json'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+# Параллельные выкладки на хостинг не запускаем: FTP-зеркало должно идти по
+# одному, а прерванный деплой оставил бы хостинг в промежуточном состоянии.
+concurrency:
+  group: hosting-deploy
+  cancel-in-progress: false
+
+jobs:
+  list:
+    name: Список сайтов с хостингом
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.sites.outputs.matrix }}
+      count: ${{ steps.sites.outputs.count }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Find sites with hosting.json
+        id: sites
+        env:
+          ONLY_SITE: ${{ inputs.site }}
+        run: |
+          if [ -n "$ONLY_SITE" ]; then
+            matrix=$(node saits/hosting-list.mjs --matrix --site "$ONLY_SITE")
+          else
+            matrix=$(node saits/hosting-list.mjs --matrix)
+          fi
+          count=$(node -e 'process.stdout.write(String(JSON.parse(process.argv[1]).include.length))' "$matrix")
+          {
+            echo "matrix<<JSON_END"
+            echo "$matrix"
+            echo "JSON_END"
+          } >> "$GITHUB_OUTPUT"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "Сайтов на выкладку: $count"
+
+  deploy:
+    name: ${{ matrix.site }}
+    needs: list
+    if: needs.list.outputs.count != '0'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.list.outputs.matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Build ${{ matrix.site }}
+        run: ./saits/build.sh ${{ matrix.site }}
+
+      - name: Upload ${{ matrix.site }} to hosting
+        env:
+          HOSTING_PASSWORD: ${{ secrets[matrix.secret] }}
+        run: ./saits/hosting-deploy.sh ${{ matrix.site }}
+
+      - name: Summary
+        if: success()
+        run: |
+          {
+            echo "### ${{ matrix.site }} выложен на хостинг"
+            if [ -n "${{ matrix.url }}" ]; then
+              echo ""
+              echo "${{ matrix.url }}"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

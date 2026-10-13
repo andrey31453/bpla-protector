@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 // fix-paths.mjs — переводит корневые абсолютные пути в относительные,
 // чтобы сайты корректно открывались из подпапки (GitHub Pages).
-// Запуск: node fix-paths.mjs <saits_dir>
+// Запуск: node fix-paths.mjs <saits_dir> [sait-XX …]
+// Без списка сайтов обходит все saits/sait-*/dist, со списком — только их.
 import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs'
 import { join, resolve, dirname, relative, sep } from 'node:path'
 
 const SAITS_DIR = resolve(process.argv[2] || '.')
+const ONLY_SITES = process.argv.slice(3)
 const EXT = new Set(['.html', '.htm', '.css', '.svg', '.xml'])
 
 function walk(dir, out = []) {
@@ -53,7 +55,8 @@ function fix(s, prefix) {
 }
 
 let changed = 0
-for (const site of readdirSync(SAITS_DIR)) {
+const targets = ONLY_SITES.length > 0 ? ONLY_SITES : readdirSync(SAITS_DIR)
+for (const site of targets) {
   const dist = join(SAITS_DIR, site, 'dist')
   let st
   try {
