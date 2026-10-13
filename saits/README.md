@@ -166,9 +166,16 @@ saits/
 | `develop` | все сайты `sait-*` + хаб-страница | `.github/workflows/deploy-pages.yml` | витрина на GitHub Pages: хаб `https://<user>.github.io/bpla-protector/`, сайты `…/sait-XX/` |
 | `main` | только сайты со своим `hosting.json` | `.github/workflows/deploy-hosting.yml` | боевой хостинг этих сайтов (FTP/FTPS) |
 
-Логика простая: в `develop` попадает всё, что нужно посмотреть; в `main`
-мержится только готовое, и оттуда оно уезжает на хостинг. Сайты без
-`hosting.json` на хостинг не едут — они остаются на витрине Pages.
+Логика простая: тикет закрывается в `develop` — туда попадает всё, что нужно посмотреть; `main` обновляется **отдельной командой владельца «обнови мейн»**, и только оттуда готовое уезжает на хостинг. Сайты без `hosting.json` на хостинг не едут — они остаются на витрине Pages.
+
+```bash
+# закрытие тикета (обновляет витрину Pages)
+git push -u origin <своя ветка>          # затем PR в develop или fast-forward в develop
+
+# отдельная команда владельца «обнови мейн» (боевая выкладка на хостинг)
+git fetch origin && git switch main && git pull --ff-only
+git merge --ff-only origin/develop && git push origin main
+```
 
 Сборка сайтов локально — та же, что в CI:
 
@@ -199,9 +206,10 @@ saits/sait-13/hosting.json     # адрес хостинга, логин, кат
 1. Скопируйте `saits/hosting.example.json` в `saits/sait-XX/hosting.json` и
    заполните адрес, логин FTP, имя секрета и каталог документ-рута (`remoteDir`).
 2. Добавьте GitHub-секрет с этим именем и паролем FTP.
-3. Смержите сайт в `main` — workflow `Deploy to hosting (main)` соберёт сайт и
-   выложит его зеркалом (`mirror -R`) в `remoteDir`: файлы из `dist/` ложатся
-   как есть, а лишнее из прошлых сборок удаляется.
+3. Отдельной командой владельца «обнови мейн» обновите `main` из `develop`
+   (`git merge --ff-only origin/develop`) — workflow `Deploy to hosting (main)`
+   соберёт сайт и выложит его зеркалом (`mirror -R`) в `remoteDir`: файлы из
+   `dist/` ложатся как есть, а лишнее из прошлых сборок удаляется.
 
 Проверка и ручной запуск:
 

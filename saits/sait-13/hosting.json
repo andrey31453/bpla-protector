@@ -12,6 +12,6 @@
   "remoteDir": "web",
   "verifyCertificate": true,
   "delete": true,
-  "exclude": ["error/*", "stats/*"],
+  "exclude": ["error/*", "stats/*", "standard_index.html"],
   "publicUrl": "https://forttex.ru/"
 }

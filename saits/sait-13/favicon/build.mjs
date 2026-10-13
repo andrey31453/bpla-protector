@@ -38,7 +38,7 @@ const SITE_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const FAVICON_DIR = join(SITE_DIR, 'favicon')
 const VARIANTS_DIR = join(FAVICON_DIR, 'variants')
 const PUBLIC_DIR = join(SITE_DIR, 'public')
-const TMP_DIR = join(tmpdir(), 'fortteh-favicon')
+const TMP_DIR = join(tmpdir(), 'forttex-favicon')
 
 const argv = process.argv.slice(2)
 const has = (name) => argv.includes(name)

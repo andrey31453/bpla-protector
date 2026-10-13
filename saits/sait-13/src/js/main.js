@@ -26,7 +26,7 @@ function boot() {
     try {
       init()
     } catch (error) {
-      console.warn(`[fortteh] модуль «${name}» не запустился`, error)
+      console.warn(`[forttex] модуль «${name}» не запустился`, error)
     }
   }
 }

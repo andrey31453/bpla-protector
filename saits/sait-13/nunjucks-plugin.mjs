@@ -339,7 +339,7 @@ export function nunjucksPlugin(siteRoot) {
 	}
 
 	return {
-		name: 'fortteh-nunjucks',
+		name: 'forttex-nunjucks',
 		enforce: 'pre',
 
 		transformIndexHtml: {
