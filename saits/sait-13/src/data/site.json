@@ -29,6 +29,14 @@
   "ogImage": "/og-forttex.jpg",
   "themeColor": "#0b0f13",
   "brandColor": "#ff7a2f",
+  "analytics": {
+    "_note": "Счётчики аналитики — единственный источник: номер счётчика и адрес загрузчика живут здесь, в разметке не хардкодятся. Разметку выводит src/partials/metrika.njk, который вызывает layouts/base.njk после подвала, поэтому сниппет есть на каждой странице сайта. Нужно отключить счётчик (локальная сборка, копия сайта на другом домене) — уберите блок yandexMetrika или поставьте пустое id: шаблон тогда ничего не выведет.",
+    "yandexMetrika": {
+      "id": 113702403,
+      "scriptUrl": "https://mc.yandex.ru/metrika/tag.js",
+      "watchUrl": "https://mc.yandex.ru/watch/"
+    }
+  },
   "icons": {
     "_note": "Файлы фавиконов лежат в public/ и собираются скриптом favicon/build.mjs (node favicon/build.mjs). Пути здесь — единый источник для <head> (head.njk), site.webmanifest и JSON-LD, поэтому имена файлов не дублируются в разметке.",
     "svg": "/favicon.svg",

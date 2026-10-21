@@ -26,7 +26,7 @@ saits/sait-13/
 ├─ index.html, mosty.html, ...       # тонкие обёртки: {% extends %} + уникальные блоки
 ├─ vite.config.js                    # MPA-входы, порт 8013
 ├─ src/layouts/base.njk
-├─ src/partials/{head,header,footer,cta,breadcrumbs,page-hero,jsonld,brand}.njk
+├─ src/partials/{head,header,footer,metrika,cta,breadcrumbs,page-hero,jsonld,brand}.njk
 ├─ src/macros/*.njk                  # карточки, таблицы, KPI, FAQ, материалы
 ├─ src/data/*.json                   # весь контент и цифры — единственный источник
 ├─ src/js/{main.js,modules/*.js}     # мобильное меню, табы, аккордеон, маска, форма
@@ -39,5 +39,6 @@ saits/sait-13/
 
 - **Правим данные, а не разметку.** Тексты, цены, KPI, FAQ, кейсы, карточки, `title`/`description` — в `src/data/`. Ничего из этого в `.html` не хардкодится.
 - **Контакты и домен — один файл.** Телефон, e-mail, адрес, `baseUrl` и OG-картинка живут в `src/data/site.json` и подставляются во все страницы, шапку, подвал, CTA и JSON-LD. Меняются там же, в разметке не хардкодятся.
+- **Яндекс.Метрика — на всех страницах из одного места.** Номер счётчика (`113702403`) и адреса загрузчика/пикселя — в `src/data/site.json` → `analytics.yandexMetrika`, разметка сниппета — в `src/partials/metrika.njk`, вызов — в `src/layouts/base.njk` после подвала. Поэтому код есть на любой странице сайта, включая новые: достаточно `{% extends "layouts/base.njk" %}`, копировать сниппет в `*.html` не нужно. Отключить счётчик (локальная сборка, копия сайта на другом домене) — убрать блок `yandexMetrika` или оставить пустое `id`.
 - **Фотографии.** Кадры первых экранов и галереи «Объекты» взяты из `docs/images/` — это временные изображения, их заменяем своими снимками (`docs/images/README.md`).
 - **Цифры — только из `docs/`.** Свои характеристики, сроки и гарантии не выдумываем: `AGENTS.md`, п.2.

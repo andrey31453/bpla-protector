@@ -2,6 +2,7 @@
 {% from "partials/header.njk" import header %}
 {% from "partials/footer.njk" import footer %}
 {% from "partials/rail.njk" import rail %}
+{% from "partials/metrika.njk" import metrika %}
 <!doctype html>
 <html lang="ru">
 <head>
@@ -21,5 +22,10 @@
 {% block content %}{% endblock %}
   </main>
   {{ footer() }}
+  {# СЧЁТЧИК ЯНДЕКС.МЕТРИКИ: подключён в базовом макете, поэтому сниппет стоит
+     на каждой странице сайта. Номер счётчика и адреса — в site.json
+     (analytics.yandexMetrika), сама разметка — в partials/metrika.njk.
+     Стоит последним в <body>: загрузчик асинхронный, отрисовку не задерживает. #}
+  {{ metrika() }}
 </body>
 </html>
