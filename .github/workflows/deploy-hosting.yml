@@ -1,13 +1,19 @@
 name: Deploy to hosting (main)
 
-# Боевая выкладка: push в ветку main выкладывает на хостинг сайты, у которых
-# есть свой конфиг saits/sait-XX/hosting.json. Сайты без конфига на хостинг не
-# едут — они живут только на витрине GitHub Pages (ветка develop,
+# Боевая выкладка: push в ветку main выкладывает на боевой сервер сайты, у
+# которых есть свой конфиг saits/sait-XX/hosting.json. Сайты без конфига на
+# сервер не едут — они живут только на витрине GitHub Pages (ветка develop,
 # .github/workflows/deploy-pages.yml).
 #
-# Пароли FTP в репозитории не хранятся: в каждом hosting.json указано только
-# имя GitHub-секрета (passwordSecret). Перед первым запуском добавьте секрет:
+# Транспорт задаётся полем transport в конфиге сайта:
+#   ssh      — rsync поверх SSH в документ-рут nginx (основной вариант),
+#   ftp/ftps — зеркало lftp (прошлый хостинг, оставлено для отката).
+#
+# Учётные данные в репозитории не хранятся: в hosting.json указано только имя
+# GitHub-секрета (passwordSecret или sshKeySecret). Перед первым запуском:
 # Settings → Secrets and variables → Actions → New repository secret.
+# Необязательно: Variable SSH_KNOWN_HOSTS — отпечаток ключа сервера (вывод
+# `ssh-keyscan -p 22 177.177.212.73`). Если задан, ssh доверяет только ему.
 on:
   push:
     branches: [main]
@@ -21,8 +27,8 @@ on:
 permissions:
   contents: read
 
-# Параллельные выкладки на хостинг не запускаем: FTP-зеркало должно идти по
-# одному, а прерванный деплой оставил бы хостинг в промежуточном состоянии.
+# Параллельные выкладки не запускаем: зеркало должно идти по одному, а
+# прерванный деплой оставил бы сервер в промежуточном состоянии.
 concurrency:
   group: hosting-deploy
   cancel-in-progress: false
@@ -74,14 +80,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Пароль берётся из секрета с именем, указанным в saits/sait-XX/hosting.json
-      # (passwordSecret). Проверяем его до установки lftp и сборки: иначе деплой
-      # падает только на шаге выкладки, потратив время на сборку сайта.
+      # Секрет берётся по имени, указанному в saits/sait-XX/hosting.json
+      # (passwordSecret или sshKeySecret). Проверяем его до установки
+      # инструментов и сборки: иначе деплой падает только на выкладке, потратив
+      # время на сборку сайта.
       - name: Check secret ${{ matrix.secret }}
         env:
-          HOSTING_PASSWORD: ${{ secrets[matrix.secret] }}
+          HOSTING_CREDENTIAL: ${{ secrets[matrix.secret] }}
         run: |
-          if [ -z "${HOSTING_PASSWORD:-}" ]; then
+          if [ -z "${HOSTING_CREDENTIAL:-}" ]; then
             echo "::error::Секрет «${{ matrix.secret }}» не найден. Добавьте его в Settings → Secrets and variables → Actions → Secrets (repository secret, не environment): имя — ${{ matrix.secret }}."
             exit 1
           fi
@@ -92,24 +99,42 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install lftp
+      # Инструменты под транспорт выкладки: ssh-варианту нужны rsync и sshpass
+      # (пароль через SSHPASS), ftp-варианту — lftp.
+      - name: Install tools (ssh)
+        if: matrix.transport == 'ssh'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq rsync sshpass
+
+      - name: Install tools (ftp)
+        if: matrix.transport != 'ssh'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
+      # Стейдж-сборка: адрес и индексация берутся из конфига, чтобы site.json
+      # оставался единственным источником данных, а боевой домен не попадал в
+      # canonical и sitemap, пока площадка живёт по IP.
       - name: Build ${{ matrix.site }}
+        env:
+          SITE_STAGING: ${{ matrix.staging && '1' || '' }}
+          SITE_BASE_URL: ${{ matrix.baseUrl }}
         run: ./saits/build.sh ${{ matrix.site }}
 
       - name: Upload ${{ matrix.site }} to hosting
         env:
-          HOSTING_PASSWORD: ${{ secrets[matrix.secret] }}
+          HOSTING_CREDENTIAL: ${{ secrets[matrix.secret] }}
+          SSH_KNOWN_HOSTS: ${{ vars.SSH_KNOWN_HOSTS }}
         run: ./saits/hosting-deploy.sh ${{ matrix.site }}
 
       - name: Summary
         if: success()
         run: |
           {
-            echo "### ${{ matrix.site }} выложен на хостинг"
+            echo "### ${{ matrix.site }} выложен на сервер"
             if [ -n "${{ matrix.url }}" ]; then
               echo ""
               echo "${{ matrix.url }}"
+            fi
+            if [ "${{ matrix.staging }}" = "true" ]; then
+              echo ""
+              echo "Сборка стейджа: страницы noindex, robots.txt закрыт, счётчик Метрики не выводится."
             fi
           } >> "$GITHUB_STEP_SUMMARY"

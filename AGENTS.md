@@ -13,7 +13,7 @@
 - работа с remote и чужими ветками на удалённом репозитории: создание/удаление/переименование удалённых веток, смена upstream, `git remote add/set-url/rename/rm`, `git config --global` для remote;
 - публикации и деплой в обход процедуры: `npm publish`, `gh-pages`, `gh release create`, `gh workflow run`, ручной запуск `.github/workflows/deploy-pages.yml` и `.github/workflows/deploy-hosting.yml`, прямые вызовы Pages/деплой-API и `gh api .../merges`, `.../dispatches`, `.../git/refs`.
 
-Почему осторожно: в репозитории две ветки-источника публикации. Пуш в `develop` запускает GitHub Actions `.github/workflows/deploy-pages.yml`, который собирает все сайты и публикует `saits/_site` на GitHub Pages — это витрина вариантов. Пуш в `main` запускает `.github/workflows/deploy-hosting.yml`, который собирает сайты, у которых в их папке есть `hosting.json`, и выкладывает их на боевой хостинг по FTP/FTPS (сейчас это `saits/sait-13` → `forttex.ru`). То есть закрытие тикета в `develop` обновляет витрину, а обновление `main` командой «обнови мейн» — это сразу боевая выкладка на хостинг, а не обновление Pages.
+Почему осторожно: в репозитории две ветки-источника публикации. Пуш в `develop` запускает GitHub Actions `.github/workflows/deploy-pages.yml`, который собирает все сайты и публикует `saits/_site` на GitHub Pages — это витрина вариантов. Пуш в `main` запускает `.github/workflows/deploy-hosting.yml`, который собирает сайты, у которых в их папке есть `hosting.json`, и выкладывает их на боевой сервер по SSH (`rsync` в документ-рут nginx; сейчас это `saits/sait-13`). То есть закрытие тикета в `develop` обновляет витрину, а обновление `main` командой «обнови мейн» — это сразу боевая выкладка на хостинг, а не обновление Pages.
 
 Разрешено всегда, без спроса:
 
@@ -213,7 +213,7 @@ saits/sait-XX/
 - [ ] Палитра, типографика, отступы, радиусы и длительности взяты из токенов сайта; хардкод-цветов и px/мс вне токенов нет (`python3 local/skills/ux-ui-agent-skills/scripts/lint_hardcodes.py`).
 - [ ] Контраст проверен скриптом, а не «на глаз»: WCAG 2.2 AA (`scripts/contrast.py`); у интерактивных элементов есть hover/focus/active/disabled; эмодзи нет (`scripts/check_no_emoji.py`) — см. п.6.
 - [ ] Публикация выполнена строго по процедуре: закрытие тикета — пуш своей ветки и PR в `develop` с мержем без конфликтов либо прямой fast-forward в `develop` (шаг 3а п.0.2); `main` обновлён только отдельной командой «обнови мейн» (п.0.3) и совпадает с `origin/main`; чужие ветки и ручной деплой не трогались — см. п.0, п.0.2, п.0.3.
-- [ ] Если сайт публикуется на хостинг: паролей в репозитории нет — в `saits/sait-XX/hosting.json` только имя GitHub-секрета (`passwordSecret`), сам пароль в Settings → Secrets and variables → Actions; витрина Pages собирается из `develop`, боевая выкладка на хостинг — из `main`.
+- [ ] Если сайт публикуется на боевой сервер: учётных данных в репозитории нет — в `saits/sait-XX/hosting.json` только имя GitHub-секрета с паролем или ключом деплоя (`passwordSecret` / `sshKeySecret`), сами данные в Settings → Secrets and variables → Actions; витрина Pages собирается из `develop`, боевая выкладка на сервер — из `main`.
 - [ ] Заголовки написаны без точки в конце.
 
 ## 5. ТЗ директолога: структура лендингов и запросы — `docs/Запросы для лендингов.txt`

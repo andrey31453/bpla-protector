@@ -164,7 +164,7 @@ saits/
 | Ветка | Что собирается | Workflow | Куда попадает |
 | --- | --- | --- | --- |
 | `develop` | все сайты `sait-*` + хаб-страница | `.github/workflows/deploy-pages.yml` | витрина на GitHub Pages: хаб `https://<user>.github.io/bpla-protector/`, сайты `…/sait-XX/` |
-| `main` | только сайты со своим `hosting.json` | `.github/workflows/deploy-hosting.yml` | боевой хостинг этих сайтов (FTP/FTPS) |
+| `main` | только сайты со своим `hosting.json` | `.github/workflows/deploy-hosting.yml` | боевой сервер этих сайтов (SSH/rsync в документ-рут nginx) |
 
 Логика простая: тикет закрывается в `develop` — туда попадает всё, что нужно посмотреть; `main` обновляется **отдельной командой владельца «обнови мейн»**, и только оттуда готовое уезжает на хостинг. Сайты без `hosting.json` на хостинг не едут — они остаются на витрине Pages.
 
@@ -188,41 +188,50 @@ node assemble.mjs saits            # _site/ (хаб-страница + все с
 > Чтобы витрина заработала, включите GitHub Pages: **Settings → Pages → Source → GitHub Actions**.
 > Если Pages не деплоится из `develop`, разрешите ветку в **Settings → Environments → github-pages → Deployment branches**.
 
-## Выкладка на хостинг
+## Выкладка на сервер
 
 Выкладывается только тот сайт, у которого в его папке лежит `hosting.json`.
-Пример-шаблон — `saits/hosting.example.json`, живой конфиг — `saits/sait-13/hosting.json`.
+Пример-шаблон — `saits/hosting.example.json`, живой конфиг — `saits/sait-13/hosting.json`,
+подробная инструкция по серверу — `saits/sait-13/deploy/README.md`.
 
 ```
-saits/sait-13/hosting.json     # адрес хостинга, логин, каталог, имя секрета с паролем
+saits/sait-13/hosting.json     # адрес сервера, логин, каталог, имя секрета
 ```
 
-Паролей в репозитории нет: репозиторий публичный, поэтому в конфиге указано
-только **имя GitHub-секрета** (`passwordSecret`), а сам пароль лежит в
+Транспорт задаётся полем `transport`:
+
+| `transport` | Как выкладывается | Инструменты |
+| --- | --- | --- |
+| `ssh` | `rsync -az --delete` в документ-рут nginx на нашем VPS, затем проверка `curl` | `rsync`, `ssh`, `sshpass` (пароль) |
+| `ftp` / `ftps` | зеркало `lftp` (прошлый хостинг, оставлено для отката) | `lftp` |
+
+Учётных данных в репозитории нет: репозиторий публичный, поэтому в конфиге
+указано только **имя GitHub-секрета** — `passwordSecret` (пароль) или
+`sshKeySecret` (приватный ключ), а сами данные лежат в
 **Settings → Secrets and variables → Actions → Secrets** — именно repository
 secret: job выкладки не привязан к environment, поэтому environment-секрет он
-не увидит. Если секрета нет, деплой останавливается с сообщением
-«Не задан пароль для «sait-XX»».
+не увидит. Если секрета нет, деплой останавливается до сборки, на шаге
+«Check secret …».
 
 Порядок для нового сайта:
 
 1. Скопируйте `saits/hosting.example.json` в `saits/sait-XX/hosting.json` и
-   заполните адрес, логин FTP, имя секрета и каталог документ-рута (`remoteDir`).
-2. Добавьте GitHub-секрет с этим именем и паролем FTP (**Secrets** на вкладке
-   `Actions`, не `Environments`). Проверить: workflow `Deploy to hosting (main)`
-   на шаге «Check secret …» пишет, на месте ли секрет, ещё до сборки сайта.
+   заполните `transport`, адрес, логин, имя секрета и документ-рут (`remoteDir`).
+2. Добавьте GitHub-секрет с этим именем (**Secrets** на вкладке `Actions`, не
+   `Environments`). Необязательно: **Variable** `SSH_KNOWN_HOSTS` с выводом
+   `ssh-keyscan -p 22 <ip>` — тогда ssh доверяет только этому ключу сервера.
 3. Отдельной командой владельца «обнови мейн» обновите `main` из `develop`
    (`git merge --ff-only origin/develop`) — workflow `Deploy to hosting (main)`
-   соберёт сайт и выложит его зеркалом (`mirror -R`) в `remoteDir`: файлы из
-   `dist/` ложатся как есть, а лишнее из прошлых сборок удаляется.
+   соберёт сайт и выложит его: `dist/` ложится в документ-рут как есть, лишнее
+   из прошлых сборок удаляется (`delete: true`).
 
 Проверка и ручной запуск:
 
 ```bash
 cd saits
-node hosting-list.mjs                    # какие сайты умеют выкладываться на хостинг
-node hosting-list.mjs --matrix           # то же в виде JSON для workflow
-HOSTING_PASSWORD=… ./hosting-deploy.sh sait-13   # выкладка вручную (нужен lftp)
+node hosting-list.mjs                             # какие сайты умеют выкладываться
+node hosting-list.mjs --matrix                    # то же в виде JSON для workflow
+HOSTING_CREDENTIAL=… ./hosting-deploy.sh sait-13  # выкладка вручную
 ```
 
 Разовый запуск из GitHub: **Actions → Deploy to hosting (main) → Run workflow**
@@ -230,14 +239,20 @@ HOSTING_PASSWORD=… ./hosting-deploy.sh sait-13   # выкладка вручн
 
 Что важно знать про конфиг:
 
-- `remoteDir` — путь документ-рута внутри FTP-аккаунта. У сайта `sait-13` это
-  `web` (внутри лежат `stats/`, `error/`, `standard_index.html` панели) — именно
-  этот каталог отдаётся доменом `forttex.ru`.
-- `exclude` — что не зеркалим и не удаляем на хостинге (служебные каталоги
-  панели). Всё остальное приводится к состоянию `dist/`.
-- `protocol: ftps` — явный TLS поверх 21-го порта; `ftp` — без шифрования.
-- `verifyCertificate: false` — отключает проверку сертификата (например, если
-  сертификат выпущен не на имя хоста FTP).
+- `remoteDir` — для `ssh` это абсолютный путь документ-рута nginx
+  (`/var/www/site`); для `ftp` — каталог внутри FTP-аккаунта. Относительный
+  путь с транспортом `ssh` отклоняется: сайт оказался бы не там.
+- `delete` / `exclude` — приводить ли каталог к состоянию `dist/` и что из
+  него не трогать (для `ftp` — служебные каталоги панели).
+- `publicUrl` — адрес, по которому сайт открыт; по нему же проверка после
+  выкладки и ссылка в отчёте workflow.
+- `staging: true` + `stagingBaseUrl` — площадка ещё не на боевом домене:
+  сборка получает `SITE_STAGING=1` и `SITE_BASE_URL`, страницы выходят с
+  `noindex, nofollow`, `robots.txt` закрыт, счётчик Метрики не выводится, а
+  canonical/OG/sitemap указывают на временный адрес. Домен приехал — `false`,
+  `stagingBaseUrl` убрать, `publicUrl` заменить на боевой адрес.
+- `verifyCertificate` — только для `ftp/ftps`: проверять сертификат сервера.
 
-**Статус:** все 13 лендингов собираются и публикуются на витрине Pages из
-ветки `develop`; `sait-13` (фортТех) настроен на выкладку на хостинг из `main`.
+**Статус:** все лендинги собираются и публикуются на витрине Pages из ветки
+`develop`; `sait-13` (фортТех) выкладывается на собственный VPS (nginx, SSH)
+из `main` и сейчас работает в режиме стейджа — домен к серверу ещё не прикреплён.

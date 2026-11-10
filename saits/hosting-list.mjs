@@ -22,10 +22,26 @@ import { fileURLToPath } from 'node:url'
 const SAITS_DIR = dirname(fileURLToPath(import.meta.url))
 
 // Обязательные поля конфига сайта. Без них деплой не соберётся.
-const REQUIRED = ['host', 'user', 'passwordSecret', 'remoteDir']
+const REQUIRED = ['host', 'user', 'remoteDir']
 
-// Поля, которых в конфиге быть не должно: пароль живёт только в секрете.
-const FORBIDDEN = ['password', 'pass', 'passwordFtp', 'ftpPassword']
+// Транспорт выкладки: ssh — rsync поверх SSH в документ-рут nginx на нашем
+// сервере; ftp/ftps — зеркало lftp (прошлый хостинг, оставлено для отката).
+const TRANSPORTS = ['ssh', 'ftp', 'ftps']
+
+// Поля, которых в конфиге быть не должно: учётные данные живут только в секрете.
+const FORBIDDEN = [
+  'password',
+  'pass',
+  'passwordFtp',
+  'ftpPassword',
+  'sshKey',
+  'privateKey',
+  'keyFile',
+  'passphrase',
+]
+
+// Имя поля с секретом зависит от того, чем авторизуемся на сервере.
+const SECRET_FIELDS = { password: 'passwordSecret', key: 'sshKeySecret' }
 
 function fail(message) {
   console.error(`[hosting-list] ${message}`)
@@ -89,19 +105,71 @@ function loadConfig(site) {
     if (!cfg[key]) fail(`${file}: не задано обязательное поле "${key}"`)
   }
 
+  // transport — новый ключ. Старые конфиги без него читаются по protocol,
+  // поэтому перевод сайта с FTP на SSH не ломает остальные сайты.
+  const transport = cfg.transport
+    ? String(cfg.transport)
+    : cfg.protocol === 'ftp'
+      ? 'ftp'
+      : 'ftps'
+  if (!TRANSPORTS.includes(transport)) {
+    fail(`${file}: неизвестный transport "${transport}" — допустимо: ${TRANSPORTS.join(', ')}`)
+  }
+
+  // Ровно один секрет: имя поля показывает, чем авторизуемся на сервере.
+  const secretFields = Object.values(SECRET_FIELDS).filter((key) => cfg[key])
+  if (secretFields.length === 0) {
+    fail(
+      `${file}: не задано имя GitHub-секрета — укажите "${SECRET_FIELDS.password}" (пароль) или "${SECRET_FIELDS.key}" (SSH-ключ). Сам секрет в репозитории не хранится`,
+    )
+  }
+  if (secretFields.length > 1) {
+    fail(`${file}: заданы оба секрета (${secretFields.join(', ')}) — оставьте один`)
+  }
+  const secretField = secretFields[0]
+  const secretKind = secretField === SECRET_FIELDS.key ? 'key' : 'password'
+
+  if (transport !== 'ssh' && secretKind !== 'password') {
+    fail(`${file}: ключ деплоя поддерживается только для transport "ssh"`)
+  }
+
+  // Для ssh remoteDir — абсолютный путь документ-рута: относительный путь уехал
+  // бы в домашний каталог пользователя, и сайт оказался бы не там.
+  const remoteDir = String(cfg.remoteDir)
+  if (transport === 'ssh' && !remoteDir.startsWith('/')) {
+    fail(
+      `${file}: для transport "ssh" поле remoteDir должно быть абсолютным путём, например /var/www/site`,
+    )
+  }
+
+  // Стейдж: площадка ещё не на боевом домене. Тогда адрес для canonical/OG/
+  // sitemap берётся из stagingBaseUrl, а сборка дополнительно включает noindex,
+  // закрытый robots.txt и отключённый счётчик Метрики (см. nunjucks-plugin.mjs).
+  const staging = cfg.staging === true
+  const stagingBaseUrl = String(cfg.stagingBaseUrl || cfg.publicUrl || '').replace(/\/+$/, '')
+  if (staging && !stagingBaseUrl) {
+    fail(
+      `${file}: включён staging, но не задан stagingBaseUrl — адрес, по которому сайт открыт сейчас`,
+    )
+  }
+
   return {
     site,
     file,
-    protocol: cfg.protocol === 'ftp' ? 'ftp' : 'ftps',
+    transport,
+    protocol: transport === 'ssh' ? '' : transport,
     host: String(cfg.host),
-    port: Number(cfg.port || 21),
+    port: Number(cfg.port || (transport === 'ssh' ? 22 : 21)),
     user: String(cfg.user),
-    secret: String(cfg.passwordSecret),
-    remoteDir: String(cfg.remoteDir).replace(/^\/+|\/+$/g, '') || '.',
+    secret: String(cfg[secretField]),
+    secretKind,
+    remoteDir: transport === 'ssh' ? remoteDir : remoteDir.replace(/^\/+|\/+$/g, '') || '.',
     verifyCertificate: cfg.verifyCertificate !== false,
     delete: cfg.delete !== false,
     exclude: Array.isArray(cfg.exclude) ? cfg.exclude.map(String) : [],
     publicUrl: cfg.publicUrl ? String(cfg.publicUrl) : '',
+    staging,
+    stagingBaseUrl,
     dist: join(SAITS_DIR, site, 'dist'),
   }
 }
@@ -114,16 +182,20 @@ function shellQuote(value) {
 function envFormat(cfg) {
   const values = {
     HOSTING_SITE: cfg.site,
+    HOSTING_TRANSPORT: cfg.transport,
     HOSTING_PROTOCOL: cfg.protocol,
     HOSTING_HOST: cfg.host,
     HOSTING_PORT: String(cfg.port),
     HOSTING_USER: cfg.user,
     HOSTING_SECRET: cfg.secret,
+    HOSTING_SECRET_KIND: cfg.secretKind,
     HOSTING_REMOTE_DIR: cfg.remoteDir,
     HOSTING_VERIFY_CERT: cfg.verifyCertificate ? 'yes' : 'no',
     HOSTING_DELETE: cfg.delete ? 'yes' : 'no',
     HOSTING_EXCLUDE: cfg.exclude.join(' '),
     HOSTING_PUBLIC_URL: cfg.publicUrl,
+    HOSTING_STAGING: cfg.staging ? 'yes' : 'no',
+    HOSTING_STAGING_BASE_URL: cfg.stagingBaseUrl,
     HOSTING_DIST: cfg.dist,
     HOSTING_CONFIG: cfg.file,
   }
@@ -137,10 +209,12 @@ function helpFormat() {
     'usage: node hosting-list.mjs [--matrix | --json | --format env] [--site sait-XX]',
     '',
     '  (без аргументов)             список сайтов с hosting.json',
-    '  --matrix                     JSON для strategy.matrix (site, secret, url)',
+    '  --matrix                     JSON для strategy.matrix (site, transport, secret, url, staging)',
     '  --json                       JSON-конфигурация сайта или всех сайтов',
     '  --format env --site sait-XX  shell-переменные HOSTING_* для деплой-скрипта',
     '',
+    'Транспорт выкладки задаётся в конфиге: transport "ssh" (rsync поверх SSH',
+    'в документ-рут nginx) или "ftp"/"ftps" (зеркало lftp).',
     'Конфиг сайта: saits/sait-XX/hosting.json (шаблон — saits/hosting.example.json).',
   ].join('\n')
 }
@@ -172,7 +246,15 @@ if (configs.length === 0) {
 }
 
 if (args.mode === 'matrix') {
-  const include = configs.map((cfg) => ({ site: cfg.site, secret: cfg.secret, url: cfg.publicUrl }))
+  const include = configs.map((cfg) => ({
+    site: cfg.site,
+    transport: cfg.transport,
+    secret: cfg.secret,
+    secretKind: cfg.secretKind,
+    url: cfg.publicUrl,
+    staging: cfg.staging,
+    baseUrl: cfg.stagingBaseUrl,
+  }))
   console.log(JSON.stringify({ include }))
 } else if (args.mode === 'env') {
   if (configs.length !== 1) fail('--format env требует ровно один сайт: добавьте --site sait-XX')
@@ -181,9 +263,13 @@ if (args.mode === 'matrix') {
   console.log(JSON.stringify(configs.length === 1 ? configs[0] : configs, null, 2))
 } else {
   const rows = configs.map((cfg) => {
-    const target = `${cfg.protocol}://${cfg.host}:${cfg.port}/${cfg.remoteDir}`
+    const target =
+      cfg.transport === 'ssh'
+        ? `ssh://${cfg.host}:${cfg.port}${cfg.remoteDir}`
+        : `${cfg.protocol}://${cfg.host}:${cfg.port}/${cfg.remoteDir}`
     const url = cfg.publicUrl ? `, ${cfg.publicUrl}` : ''
-    return `  ${cfg.site}  →  ${target}  (секрет ${cfg.secret}${url})`
+    const stage = cfg.staging ? ', стейдж (noindex)' : ''
+    return `  ${cfg.site}  →  ${target}  (секрет ${cfg.secret}${url}${stage})`
   })
   console.log(`[hosting-list] сайтов с хостингом: ${configs.length}`)
   console.log(rows.join('\n'))

@@ -264,9 +264,30 @@ export function nunjucksPlugin(siteRoot) {
 			.replace(/"/g, '&quot;')
 			.replace(/'/g, '&#39;')
 
+	// ---------- площадка сборки: прод или стейдж ----------
+	// Домен боевого сайта ещё не прикреплён к серверу, поэтому адрес площадки и
+	// режим индексации можно переопределить окружением при сборке — их выставля-
+	// ет workflow .github/workflows/deploy-hosting.yml из saits/sait-XX/hosting.json:
+	//   SITE_BASE_URL — адрес, по которому сайт открыт сейчас (canonical, OG,
+	//                   sitemap.xml, robots.txt, JSON-LD);
+	//   SITE_STAGING=1 — стейдж: страницы noindex, robots.txt закрыт, счётчик
+	//                   Метрики не выводится (см. partials/metrika.njk).
+	// Источником правды остаётся src/data/site.json (п. 4.2 правил проекта):
+	// окружение только подменяет значения для не-боевой сборки, а сборка без
+	// переменных даёт тот же результат, что и раньше.
+	const applySiteEnv = () => {
+		const baseUrl = String(process.env.SITE_BASE_URL || data.site.baseUrl || '').replace(
+			/\/+$/,
+			''
+		)
+		const staging = String(process.env.SITE_STAGING || '') === '1'
+		data.site = { ...data.site, baseUrl, staging }
+	}
+
 	// ---------- окружение Nunjucks ----------
 	const setup = () => {
 		data = loadData()
+		applySiteEnv()
 		env = new nunjucks.Environment(
 			new nunjucks.FileSystemLoader([srcDir], { noCache: true }),
 			{ autoescape: true, trimBlocks: true, lstripBlocks: true }
@@ -335,6 +356,11 @@ export function nunjucksPlugin(siteRoot) {
 
 	const robots = () => {
 		const base = String(data.site.baseUrl).replace(/\/$/, '')
+		// Стейдж живёт по временному адресу и в поиск попадать не должен:
+		// закрываем весь сайт целиком, ссылку на sitemap не даём.
+		if (data.site.staging) {
+			return `User-agent: *\nDisallow: /\n`
+		}
 		return `User-agent: *\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`
 	}
 

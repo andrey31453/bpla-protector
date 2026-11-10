@@ -8,7 +8,7 @@
   <title>{{ pg.title }}</title>
   <meta name="description" content="{{ pg.description }}">
   <link rel="canonical" href="{{ site.baseUrl }}{{ href(pg.slug) }}">
-  <meta name="robots" content="{{ 'noindex, nofollow' if pg.noindex else 'index, follow' }}">
+  <meta name="robots" content="{{ 'noindex, nofollow' if (pg.noindex or site.staging) else 'index, follow' }}">
   <meta name="theme-color" content="{{ site.themeColor }}">
   <meta name="format-detection" content="telephone=no">
 
