@@ -233,11 +233,28 @@ log "nginx перезагружен"
 # ---------- 4. Проверка результата ----------
 # Запросы идут на 127.0.0.1 с --resolve: проверяется именно этот сервер, а не
 # DNS и не промежуточный прокси.
+#
+# `systemctl reload nginx` возвращает управление раньше, чем новые воркеры
+# начнут обслуживать запросы, поэтому первая попытка может попасть на старый
+# конфиг (например, http отдаст 200 вместо 301). Поэтому код читается с
+# повторами: до 5 попыток с интервалом 1 с, $4 — ожидаемый код.
+http_code() {
+  local scheme="$1" host="$2" port="$3" expect="$4" code=""
+  for _ in 1 2 3 4 5; do
+    code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 \
+      --resolve "${host}:${port}:127.0.0.1" "${scheme}://${host}/" || true)"
+    case "$code" in
+      $expect) break ;;
+    esac
+    sleep 1
+  done
+  printf '%s' "$code"
+}
+
 log "Проверка HTTPS локально (--resolve на 127.0.0.1)"
 checks_ok=1
 
-https_code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 \
-  --resolve "${DOMAIN}:443:127.0.0.1" "https://${DOMAIN}/" || true)"
+https_code="$(http_code https "$DOMAIN" 443 '200')"
 if [ "$https_code" = "200" ]; then
   printf '   https://%s/ — 200\n' "$DOMAIN"
 else
@@ -245,8 +262,7 @@ else
   checks_ok=0
 fi
 
-redirect_code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 \
-  --resolve "${DOMAIN}:80:127.0.0.1" "http://${DOMAIN}/" || true)"
+redirect_code="$(http_code http "$DOMAIN" 80 '301')"
 if [ "$redirect_code" = "301" ]; then
   printf '   http://%s/ — 301 на HTTPS\n' "$DOMAIN"
 else
@@ -254,9 +270,11 @@ else
   checks_ok=0
 fi
 
-www_code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 \
-  --resolve "${WWW}:443:127.0.0.1" "https://${WWW}/" || true)"
+www_code="$(http_code https "$WWW" 443 '301')"
 printf '   https://%s/ — код %s (ожидался 301 → https://%s/)\n' "$WWW" "${www_code:-000}" "$DOMAIN"
+if [ "$www_code" != "301" ]; then
+  checks_ok=0
+fi
 
 served_end="$(echo | openssl s_client -connect 127.0.0.1:443 -servername "$DOMAIN" 2>/dev/null |
   openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2 || true)"
