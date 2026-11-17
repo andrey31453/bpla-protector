@@ -7,7 +7,8 @@
 #      с адресом сервера из hosting.json;
 #   2) сервер по IP: отвечает ли nginx по HTTP (то есть запущен ли он
 #      и открыт ли 80-й порт в firewall);
-#   3) домен: http и https — привязка, сертификат, редирект;
+#   3) домен: http и https — редирект, ответ, коды;
+#   3a) сертификат: имена (SAN), срок годности, полнота цепочки;
 #   4) закрытие от индексации: X-Robots-Tag и robots.txt — стейдж это
 #      или боевой режим (поле staging в hosting.json);
 #   5) canonical в отданном index.html — какой адрес сайт считает своим.
@@ -132,9 +133,11 @@ esac
 if [ "$ip_code" != "000" ]; then
   https_ip_code="$(http_code "https://${HOSTING_HOST}/")"
   if [ "$https_ip_code" = "000" ]; then
-    warn "https://${HOSTING_HOST}/ не отвечает — сертификата на IP нет и не будет: HTTPS включается только для домена (certbot --nginx -d ${DOMAIN})"
+    ok "https://${HOSTING_HOST}/ не отвечает — так и задумано: сертификат выдан на ${DOMAIN}, по IP его нет и не будет (блок :443 default_server в nginx/site.conf закрывает соединение)"
+  elif [ "$https_ip_code" = "444" ]; then
+    ok "https://${HOSTING_HOST}/ отвечает 444 — по IP сайт закрыт намеренно (сертификата на адрес не выдают)"
   else
-    ok "https://${HOSTING_HOST}/ отвечает кодом ${https_ip_code}"
+    warn "https://${HOSTING_HOST}/ отвечает кодом ${https_ip_code}, а по IP сайт отдаваться не должен: проверьте блок :443 default_server в nginx/site.conf"
   fi
 fi
 
@@ -144,18 +147,60 @@ domain_http="$(http_code "http://${DOMAIN}/")"
 domain_https="$(http_code "https://${DOMAIN}/")"
 case "$domain_https" in
   200) ok "https://${DOMAIN}/ отвечает 200 — домен и сертификат на месте" ;;
-  000) bad "https://${DOMAIN}/ не открывается: либо DNS ещё не привёл к серверу (проверка 1), либо сертификата нет — на сервере certbot --nginx -d ${DOMAIN} -d www.${DOMAIN}. Проверка 2 покажет, жив ли сам сервер" ;;
+  000) bad "https://${DOMAIN}/ не открывается: либо DNS ещё не привёл к серверу (проверка 1), либо сертификат не установлен — на сервере deploy/install-tls.sh (README, раздел 5). Проверка 2 покажет, жив ли сам сервер" ;;
   *) bad "https://${DOMAIN}/ ответил кодом ${domain_https}: смотрите nginx и сертификат на сервере (nginx -t, tail /var/log/nginx/site.error.log)" ;;
 esac
 if [ "$domain_http" = "301" ] || [ "$domain_http" = "308" ]; then
-  ok "http://${DOMAIN}/ редиректит на HTTPS (${domain_http}) — как и должно быть после переезда"
+  ok "http://${DOMAIN}/ редиректит на HTTPS (${domain_http})"
 elif [ "$domain_http" = "200" ] && [ "$domain_https" = "200" ]; then
-  warn "http://${DOMAIN}/ отвечает 200 без редиректа на HTTPS — включите редирект (certbot --nginx это делает сам)"
+  warn "http://${DOMAIN}/ отвечает 200 без редиректа на HTTPS — включите редирект: блок :80 для ${DOMAIN} в nginx/site.conf (install-tls.sh ставит его сам)"
 elif [ "$domain_http" = "000" ]; then
   warn "http://${DOMAIN}/ не отвечает"
 else
   warn "http://${DOMAIN}/ ответил кодом ${domain_http}"
 fi
+
+# ---------- 3a. Сертификат домена ----------
+# Проверяется тот сертификат, который реально отдаёт сервер в рукопожатии:
+# имена (SAN), срок годности и полнота цепочки. Доверие к цепочке проверяют
+# браузеры, а вот «сертификат не на тот домен» и «истёк» ловятся здесь.
+step "3a. Сертификат ${DOMAIN}"
+if [ "$domain_https" = "000" ]; then
+  warn "проверить сертификат нельзя: https://${DOMAIN}/ не отвечает (смотрите проверку 3)"
+elif ! command -v openssl >/dev/null 2>&1; then
+  warn "openssl не найден — сертификат не проверен (Debian: apt-get install -y openssl, macOS: brew install openssl)"
+else
+  tls_dump="$(echo | openssl s_client -connect "${DOMAIN}:443" -servername "$DOMAIN" -showcerts 2>/dev/null || true)"
+  leaf_pem="$(printf '%s\n' "$tls_dump" |
+    awk '/-----BEGIN CERTIFICATE-----/ { on = 1 } on { print } /-----END CERTIFICATE-----/ { if (on) exit }')"
+  if [ -z "$leaf_pem" ]; then
+    bad "рукопожатие с ${DOMAIN}:443 не отдало сертификат — смотрите /var/log/nginx/site.error.log и вывод: openssl s_client -connect ${DOMAIN}:443 -servername ${DOMAIN}"
+  else
+    cert_subject="$(printf '%s\n' "$leaf_pem" | openssl x509 -noout -subject 2>/dev/null | sed 's/^subject=//')"
+    cert_end="$(printf '%s\n' "$leaf_pem" | openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2)"
+    cert_san="$(printf '%s\n' "$leaf_pem" | openssl x509 -noout -ext subjectAltName 2>/dev/null |
+      tr '\n' ' ' | sed 's/.*Subject Alternative Name:[[:space:]]*//')"
+
+    case "${cert_san} ${cert_subject}" in
+      *"DNS:${DOMAIN}"* | *"CN=${DOMAIN}"*) ok "сертификат выписан на ${DOMAIN}: ${cert_subject}" ;;
+      *) bad "сертификат не покрывает ${DOMAIN}: subject «${cert_subject}», SAN «${cert_san:-нет}» — браузер покажет ошибку. Поставить правильный: deploy/install-tls.sh (README, раздел 5)" ;;
+    esac
+
+    if printf '%s\n' "$leaf_pem" | openssl x509 -noout -checkend 2592000 >/dev/null 2>&1; then
+      ok "действует до ${cert_end} — больше 30 дней в запасе"
+    else
+      bad "сертификат истекает ${cert_end} (меньше 30 дней): перевыпустить и повторить deploy/install-tls.sh на сервере (README, раздел 5)"
+    fi
+
+    chain_count="$(printf '%s\n' "$tls_dump" | grep -c -- '-----BEGIN CERTIFICATE-----')"
+    if [ "${chain_count:-0}" -ge 2 ]; then
+      ok "цепочка не обрывается: сервер отдаёт ${chain_count} сертификата (лист и промежуточные) — браузер построит цепочку"
+    else
+      bad "сервер отдаёт только лист без промежуточного сертификата — браузеры могут не построить цепочку: переустановить deploy/install-tls.sh"
+    fi
+  fi
+fi
+
 
 # ---------- 4. Индексация и стейдж ----------
 step "4. Закрытие от индексации (staging: ${HOSTING_STAGING})"
@@ -177,7 +222,7 @@ if [ "$HOSTING_STAGING" = "yes" ]; then
   elif [ "$ip_code" = "000" ]; then
     warn "проверить X-Robots-Tag нельзя: ${probe_url} не ответил (сначала проверка 2)"
   else
-    bad "X-Robots-Tag нет, а staging: true — стейдж-адрес попадёт в поиск. Проверьте строку add_header X-Robots-Tag в nginx/site.conf на сервере"
+    bad "X-Robots-Tag нет, а staging: true — стейдж-адрес попадёт в поиск. Проверьте строку add_header X-Robots-Tag в nginx/site-common.conf на сервере (применить: install-tls.sh без аргументов)"
   fi
   case "$robots_state" in
     closed) ok "robots.txt закрыт: ${robots_txt}" ;;
@@ -188,7 +233,7 @@ else
   if [ "$ip_code" = "000" ]; then
     warn "проверить X-Robots-Tag нельзя: ${probe_url} не ответил (сначала проверка 2)"
   elif [ -n "$robots_header" ]; then
-    bad "на боевом режиме стоит ${robots_header#*: } — уберите строку add_header X-Robots-Tag из nginx/site.conf"
+    bad "на боевом режиме стоит ${robots_header#*: } — уберите строку add_header X-Robots-Tag из nginx/site-common.conf и примените конфиг (install-tls.sh без аргументов)"
   else
     ok "X-Robots-Tag нет — индексация открыта"
   fi
@@ -221,9 +266,9 @@ fi
 # ---------- итог ----------
 step "Итог"
 if [ "$problems" -eq 0 ]; then
-  printf 'Всё на месте: DNS смотрит на сервер, сайт отдаётся, режим индексации соответствует staging.\n'
+  printf 'Всё на месте: DNS смотрит на сервер, сайт отдаётся по HTTPS, сертификат годен, режим индексации соответствует staging.\n'
   exit 0
 fi
 printf 'Проблем: %s. Что делать по каждой — saits/sait-13/deploy/README.md, раздел «Диагностика».\n' "$problems"
-printf 'Порядок переезда: DNS → bootstrap/nginx → certbot → staging: false (README, разделы 1–5).\n'
+printf 'Порядок переезда: DNS → bootstrap.sh → install-tls.sh (сертификат) → staging: false (README, разделы 1–5).\n'
 exit 1
