@@ -88,11 +88,15 @@ GitHub Actions, поэтому секреты — **в GitHub, не в GitLab**:
 ## 3. Как выкладывается
 
 1. Пуш в `main` (команда владельца «обнови мейн»).
-2. Workflow собирает сайт с `SITE_STAGING=1` и `SITE_BASE_URL` из
-   `hosting.json` (`stagingBaseUrl` — сейчас `https://zok.pro`).
+2. Workflow собирает сайт в production-режиме: при `staging: false` переменная
+   `SITE_STAGING` не устанавливается, а `SITE_BASE_URL` берётся из
+   `publicUrl` (`https://zok.pro/`).
 3. `saits/hosting-deploy.sh` льёт `dist/` в `/var/www/site` через
    `rsync -az --delete` и затем проверяет `curl`-ом, что `publicUrl`
    отвечает (сейчас `https://zok.pro/`, с проверкой сертификата).
+   Для `sait-13` production-workflow также синхронизирует `deploy/` в
+   `/root/deploy` и запускает `install-tls.sh` без аргументов: сертификат не
+   переустанавливается, а конфигурация nginx проверяется и перечитывается.
    Не ответил — деплой красный, а не «вроде выложилось».
 
 Ручной запуск с машины разработчика:
@@ -118,8 +122,8 @@ git revert <плохой-коммит>     # в своей ветке
 ## 5. Переезд на домен zok.pro
 
 Боевой адрес сайта — `https://zok.pro`. Домен привязан (A → `177.177.212.73`),
-HTTPS включается сертификатом GlobalSign, но сайт пока закрыт от индексации
-(`staging: true`). Переезд — три шага, каждый проверяемый.
+HTTPS включён сертификатом GlobalSign, production-режим и индексация открыты.
+Workflow также применяет nginx-конфигурацию после каждой production-выкладки.
 
 **Шаг 1. DNS — сделано 17.11.2026.** `A` `zok.pro` и `www.zok.pro` →
 `177.177.212.73` (NS — `ns3/ns4/ns8.nic.ru`; раньше домен смотрел на парковку
@@ -206,19 +210,21 @@ nginx -t && systemctl reload nginx
 конфиг (`install-tls.sh` без аргументов) и проверить
 `systemctl list-timers | grep certbot`.
 
-**Шаг 3. Снять стейдж-закрытие и пересобрать.** Только после того, как
-`https://zok.pro` открывается:
+**Шаг 3. Снять стейдж-закрытие и пересобрать.** HTTPS уже включён, поэтому
+достаточно:
 
 1. `nginx/site-common.conf`: удалить строку
-   `add_header X-Robots-Tag "noindex, nofollow" always;`, затем на сервере
-   применить правки без аргументов: `bash /root/deploy/install-tls.sh` (он
-   сделает бэкап, `nginx -t`, reload).
+   `add_header X-Robots-Tag "noindex, nofollow" always;`. Production-workflow
+   применит этот файл автоматически после выкладки, сделает бэкап, выполнит
+   `nginx -t` и reload. Для ручного применения используется
+   `bash /root/deploy/install-tls.sh`.
 2. `saits/sait-13/hosting.json`: `"staging": false`, строку `stagingBaseUrl`
    удалить, `publicUrl` → `"https://zok.pro/"`.
 3. `src/data/site.json` — `baseUrl` уже `https://zok.pro` (canonical, OG,
    sitemap, JSON-LD берут его оттуда; на стейдже его подменяет `SITE_BASE_URL`).
 4. Закоммитить и выложить («обнови мейн») — сборка без `SITE_STAGING` вернёт
-   `index, follow`, открытый `robots.txt` и счётчик Метрики.
+   `index, follow`, открытый `robots.txt` и счётчик Метрики, а workflow применит
+   nginx-конфигурацию без старого `X-Robots-Tag`.
 
 **Проверка после переезда:**
 
@@ -245,16 +251,16 @@ curl -s https://zok.pro/ | grep -c 'mc.yandex.ru'    # 1 или больше
 ## 6. Проверка после выкладки
 
 ```bash
-curl -I http://177.177.212.73/            # 200, X-Robots-Tag: noindex
+curl -I http://177.177.212.73/            # 200, IP закрыт от индексации
 curl -sI https://zok.pro/ | head -1       # 200, Strict-Transport-Security
-curl -s http://177.177.212.73/robots.txt  # на стейдже: Disallow: /
+curl -s https://zok.pro/robots.txt        # Allow: / и Sitemap: https://zok.pro/sitemap.xml
 curl -I https://zok.pro/assets/…          # expires 1y
 curl -sI https://177.177.212.73/ -k       # соединение сбрасывается: по IP сайта нет
 ```
 
-Пока `staging: true`, в страницах стоит `noindex, nofollow`, счётчик Метрики
-не выводится, а `robots.txt` закрыт целиком — тестовый адрес не попадёт в
-поиск и в статистику.
+В production HTML содержит `index, follow`, `robots.txt` открыт, а счётчик
+Метрики выводится на всех страницах. Режим `staging: true` сохраняется только
+как предусмотренный конфигурацией сценарий для временной площадки.
 
 ## 7. Диагностика: почему домен не открывается
 
@@ -279,9 +285,9 @@ curl -sI https://177.177.212.73/ -k       # соединение сбрасыв�
 3. **Сделано 12.11.2026:** выкладка сайта — `./saits/hosting-deploy.sh sait-13`,
    `http://177.177.212.73/` отвечает 200 (раздел 3). В общем случае её делает
    workflow из `main` после команды «обнови мейн».
-4. **Осталось:** `install-tls.sh` с сертификатом GlobalSign (раздел 5, шаг 2),
-   затем `staging: false`, `publicUrl` → `https://zok.pro/`, снять
-   `X-Robots-Tag` и пересобрать (раздел 5, шаг 3).
+4. **Сделано:** HTTPS с сертификатом GlobalSign, `staging: false`,
+   `publicUrl` → `https://zok.pro/`, снятие `X-Robots-Tag` и production-сборка
+   (раздел 5, шаг 3).
 
 Когда все четыре шага пройдены, `check-live.sh` печатает «Всё на месте» и
 выходит с кодом 0.

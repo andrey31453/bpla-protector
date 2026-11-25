@@ -124,6 +124,63 @@ jobs:
           SSH_KNOWN_HOSTS: ${{ vars.SSH_KNOWN_HOSTS }}
         run: ./saits/hosting-deploy.sh ${{ matrix.site }}
 
+      # Сайт sait-13 использует nginx вне document root. После выкладки статики
+      # синхронизируем deploy/ и применяем конфигурацию без переустановки TLS:
+      # install-tls.sh без аргументов сохраняет сертификат, проверяет nginx -t
+      # и делает reload. Иначе старый X-Robots-Tag оставался бы на VPS после
+      # удаления строки из репозитория.
+      - name: Apply nginx config ${{ matrix.site }}
+        if: matrix.site == 'sait-13' && matrix.transport == 'ssh' && matrix.staging != true
+        env:
+          HOSTING_CREDENTIAL: ${{ secrets[matrix.secret] }}
+          SSH_KNOWN_HOSTS: ${{ vars.SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          site_dir="saits/${{ matrix.site }}"
+          tmp_files=()
+          cleanup() {
+            for file in "${tmp_files[@]+${tmp_files[@]}}"; do
+              rm -f "$file"
+            done
+          }
+          trap cleanup EXIT
+
+          ssh_opts=(
+            -p '${{ matrix.port }}'
+            -o ConnectTimeout=20
+            -o ServerAliveInterval=15
+            -o ServerAliveCountMax=3
+            -o NumberOfPasswordPrompts=1
+          )
+          if [ -n "${SSH_KNOWN_HOSTS:-}" ]; then
+            known_hosts_file="$(mktemp)"
+            tmp_files+=("$known_hosts_file")
+            printf '%s\n' "$SSH_KNOWN_HOSTS" >"$known_hosts_file"
+            ssh_opts+=(-o StrictHostKeyChecking=yes -o UserKnownHostsFile="$known_hosts_file")
+          else
+            ssh_opts+=(-o StrictHostKeyChecking=accept-new)
+          fi
+
+          if [ '${{ matrix.secretKind }}' = 'key' ]; then
+            key_file="$(mktemp)"
+            tmp_files+=("$key_file")
+            printf '%s\n' "$HOSTING_CREDENTIAL" >"$key_file"
+            chmod 600 "$key_file"
+            ssh_opts+=(-i "$key_file" -o IdentitiesOnly=yes -o BatchMode=yes)
+            rsync_ssh="ssh ${ssh_opts[*]}"
+            remote_cmd=(ssh "${ssh_opts[@]}" '${{ matrix.user }}@${{ matrix.host }}')
+          else
+            command -v sshpass >/dev/null 2>&1
+            export SSHPASS="$HOSTING_CREDENTIAL"
+            ssh_opts+=(-o PreferredAuthentications=password -o PubkeyAuthentication=no)
+            rsync_ssh="sshpass -e ssh ${ssh_opts[*]}"
+            remote_cmd=(sshpass -e ssh "${ssh_opts[@]}" '${{ matrix.user }}@${{ matrix.host }}')
+          fi
+
+          "${remote_cmd[@]}" "mkdir -p /root/deploy"
+          rsync -az -e "$rsync_ssh" "$site_dir/deploy/" '${{ matrix.user }}@${{ matrix.host }}:/root/deploy/'
+          "${remote_cmd[@]}" 'bash /root/deploy/install-tls.sh'
+
       - name: Summary
         if: success()
         run: |
