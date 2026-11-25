@@ -3,7 +3,7 @@
 
   "_transportNote": "transport: ssh — сборка уезжает rsync-ом поверх SSH в документ-рут nginx на нашем VPS (этот вариант); ftp/ftps — зеркало lftp, прошлый хостинг, оставлено на случай отката.",
   "_remoteDirNote": "remoteDir для ssh — абсолютный путь документ-рута nginx на сервере. Сайт отдаётся целиком из этой папки: каждая выкладка приводит её к состоянию dist/ (delete: true), служебных подкаталогов нет — nginx и его конфиги лежат вне документ-рута.",
-  "_stagingNote": "staging: true — сайт ещё закрыт от индексации. Домен zok.pro привязан (A → 177.177.212.73) и HTTPS работает по сертификату GlobalSign (deploy/install-tls.sh), поэтому canonical/OG/sitemap уже указывают на https://zok.pro, но страницы выходят с noindex, robots.txt закрыт, а счётчик Метрики не выводится. Открытие индексации: убрать add_header X-Robots-Tag из nginx/site-common.conf (применить конфиг: install-tls.sh без аргументов), затем здесь staging → false, stagingBaseUrl убрать — и пересобрать. Порядок — deploy/README.md, раздел 5, шаг 3.",
+  "_stagingNote": "Сайт опубликован в production-режиме: домен zok.pro привязан (A → 177.177.212.73), HTTPS работает по сертификату GlobalSign (deploy/install-tls.sh), canonical/OG/sitemap указывают на https://zok.pro, страницы индексируются, счётчик Метрики включён.",
   "_publicUrlNote": "publicUrl — адрес, по которому деплой проверяет, что сайт реально открылся (curl после rsync, с проверкой сертификата). HTTPS на сервере включает saits/sait-13/deploy/install-tls.sh; до его запуска здесь остаётся http://177.177.212.73/.",
   "_checkNote": "Ничего не открывается? Запустите ./saits/sait-13/deploy/check-live.sh: он сравнит A-запись домена с host, проверит ответ по IP, редирект http → https, сертификат (имена, срок, цепочку) и стейдж-закрытие. Замер 17.11.2026: сервер подготовлен (bootstrap.sh выполнен 12.11.2026: nginx, ufw 22/80/443, fail2ban), сайт выложен в /var/www/site и http://177.177.212.73/ отвечает 200, A zok.pro и www.zok.pro → 177.177.212.73, сертификат GlobalSign AlphaSSL действует до 04.06.2027. Осталось выполнить install-tls.sh с сертификатом — до этого порт 443 на сервере не слушается. Строка ftps://isp.arbat.pro в логах CI означает, что собирался прежний конфиг из main: прошлый хостинг мёртв (имя не резолвится), нужна выкладка версии из ветки переезда.",
 
@@ -17,7 +17,6 @@
   "delete": true,
   "exclude": [],
   "publicUrl": "https://zok.pro/",
-  "staging": true,
-  "stagingBaseUrl": "https://zok.pro"
+  "staging": false
 }
 
