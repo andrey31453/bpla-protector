@@ -14,7 +14,7 @@
 # файлами сертификата — конфиг nginx и сертификат ставит install-tls.sh,
 # вручную в /etc/nginx ничего не копируется:
 #
-#   scp -r saits/sait-13/deploy zok_pro.crt zok_pro.key root@177.177.212.73:/root/
+#   scp -r saits/sait-13/deploy saits/sait-13/mail-form zok_pro.crt zok_pro.key root@177.177.212.73:/root/
 #   ssh root@177.177.212.73 \
 #     'TLS_CERT=/root/zok_pro.crt TLS_KEY=/root/zok_pro.key bash /root/deploy/bootstrap.sh'
 #

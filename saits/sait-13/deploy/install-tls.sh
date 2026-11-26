@@ -51,6 +51,7 @@ CA_FILE="${CA_FILE:-/etc/ssl/certs/ca-certificates.crt}"
 DEPLOY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONF_SRC="${DEPLOY_DIR}/nginx/site.conf"
 COMMON_SRC="${DEPLOY_DIR}/nginx/site-common.conf"
+MAIL_DIR="${MAIL_DIR:-${DEPLOY_DIR}/../mail-form}"
 
 CERT_SRC="${1:-}"
 KEY_SRC="${2:-}"
@@ -71,7 +72,7 @@ die() {
 command -v nginx >/dev/null 2>&1 || die "nginx не установлен: сначала deploy/bootstrap.sh"
 command -v openssl >/dev/null 2>&1 || die "openssl не установлен: apt-get install -y openssl"
 
-for f in "$CONF_SRC" "$COMMON_SRC"; do
+for f in "$CONF_SRC" "$COMMON_SRC" "$MAIL_DIR/deploy/nginx.conf"; do
   [ -f "$f" ] || die "не найден ${f} — копируйте каталог deploy целиком"
 done
 
@@ -205,9 +206,11 @@ install -d -m 755 "$NGINX_SITES_AVAILABLE" "$NGINX_SITES_ENABLED" "$NGINX_SNIPPE
 install -d -m 755 /var/www/acme
 backup_file "${NGINX_SITES_AVAILABLE}/site.conf" "${BACKUP_DIR}/site.conf"
 backup_file "${NGINX_SNIPPETS}/site-common.conf" "${BACKUP_DIR}/site-common.conf"
+backup_file "${NGINX_SNIPPETS}/site-lead.conf" "${BACKUP_DIR}/site-lead.conf"
 
 install -m 644 -o root -g root "$CONF_SRC" "${NGINX_SITES_AVAILABLE}/site.conf"
 install -m 644 -o root -g root "$COMMON_SRC" "${NGINX_SNIPPETS}/site-common.conf"
+install -m 644 -o root -g root "$MAIL_DIR/deploy/nginx.conf" "${NGINX_SNIPPETS}/site-lead.conf"
 ln -sfn "${NGINX_SITES_AVAILABLE}/site.conf" "${NGINX_SITES_ENABLED}/site.conf"
 # Заглушка Debian отвечает на любой Host и перехватила бы запросы к сайту.
 rm -f "${NGINX_SITES_ENABLED}/default"
@@ -220,6 +223,11 @@ if ! nginx -t; then
   fi
   if [ -f "${BACKUP_DIR}/site-common.conf" ]; then
     cp -a "${BACKUP_DIR}/site-common.conf" "${NGINX_SNIPPETS}/site-common.conf"
+  fi
+  if [ -f "${BACKUP_DIR}/site-lead.conf" ]; then
+    cp -a "${BACKUP_DIR}/site-lead.conf" "${NGINX_SNIPPETS}/site-lead.conf"
+  else
+    rm -f "${NGINX_SNIPPETS}/site-lead.conf"
   fi
   nginx -t || true
   err "конфиг откачен; причина выше (частые: порт 443 занят другой службой, нет файла сертификата)"

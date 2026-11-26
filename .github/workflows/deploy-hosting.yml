@@ -179,6 +179,7 @@ jobs:
 
           "${remote_cmd[@]}" "mkdir -p /root/deploy"
           rsync -az -e "$rsync_ssh" "$site_dir/deploy/" '${{ matrix.user }}@${{ matrix.host }}:/root/deploy/'
+          rsync -az -e "$rsync_ssh" "$site_dir/mail-form/" '${{ matrix.user }}@${{ matrix.host }}:/root/mail-form/'
           "${remote_cmd[@]}" 'bash /root/deploy/install-tls.sh'
 
       - name: Summary

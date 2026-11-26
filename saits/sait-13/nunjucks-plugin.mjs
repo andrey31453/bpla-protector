@@ -12,6 +12,7 @@
 import nunjucks from 'nunjucks'
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { loadForm, mailAssets } from './mail-form/build.mjs'
 
 export function nunjucksPlugin(siteRoot) {
 	const srcDir = join(siteRoot, 'src')
@@ -29,6 +30,7 @@ export function nunjucksPlugin(siteRoot) {
 				readFileSync(join(dataDir, file), 'utf8')
 			)
 		}
+		out.form = loadForm()
 		return out
 	}
 
@@ -389,6 +391,9 @@ export function nunjucksPlugin(siteRoot) {
 		},
 
 		generateBundle() {
+			for (const asset of mailAssets(data.site, data.form)) {
+				this.emitFile({ type: 'asset', ...asset })
+			}
 			this.emitFile({
 				type: 'asset',
 				fileName: 'sitemap.xml',
