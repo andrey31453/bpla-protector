@@ -129,7 +129,7 @@ jobs:
       # install-tls.sh без аргументов сохраняет сертификат, проверяет nginx -t
       # и делает reload. Иначе старый X-Robots-Tag оставался бы на VPS после
       # удаления строки из репозитория.
-      - name: Apply nginx config ${{ matrix.site }}
+      - name: Prepare PHP mail and apply nginx config ${{ matrix.site }}
         if: matrix.site == 'sait-13' && matrix.transport == 'ssh' && matrix.staging != true
         env:
           HOSTING_CREDENTIAL: ${{ secrets[matrix.secret] }}
@@ -180,7 +180,9 @@ jobs:
           "${remote_cmd[@]}" "mkdir -p /root/deploy"
           rsync -az -e "$rsync_ssh" "$site_dir/deploy/" '${{ matrix.user }}@${{ matrix.host }}:/root/deploy/'
           rsync -az -e "$rsync_ssh" "$site_dir/mail-form/" '${{ matrix.user }}@${{ matrix.host }}:/root/mail-form/'
+          "${remote_cmd[@]}" 'MAIL_DOMAIN=zok.pro bash /root/mail-form/deploy/setup.sh'
           "${remote_cmd[@]}" 'bash /root/deploy/install-tls.sh'
+          "${remote_cmd[@]}" 'code=$(curl -sS -o /tmp/site-lead-check.json -w "%{http_code}" -H "Accept: application/json" https://zok.pro/api/lead.php); cat /tmp/site-lead-check.json; test "$code" = 405'
 
       - name: Summary
         if: success()
