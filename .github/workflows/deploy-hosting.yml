@@ -183,10 +183,6 @@ jobs:
           "${remote_cmd[@]}" 'MAIL_DOMAIN=zok.pro bash /root/mail-form/deploy/setup.sh'
           "${remote_cmd[@]}" 'bash /root/deploy/install-tls.sh'
           "${remote_cmd[@]}" 'code=$(curl -sS -o /tmp/site-lead-check.json -w "%{http_code}" -H "Accept: application/json" https://zok.pro/api/lead.php); cat /tmp/site-lead-check.json; test "$code" = 405'
-          echo '=== postfix queue ==='
-          "${remote_cmd[@]}" 'postqueue -p || true'
-          echo '=== postfix journal: last 2 hours ==='
-          "${remote_cmd[@]}" 'journalctl -u postfix --since "2 hours ago" --no-pager || true'
 
       - name: Summary
         if: success()
