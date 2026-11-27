@@ -1,58 +1,31 @@
 #!/usr/bin/env bash
-# Только Debian/Ubuntu + systemd. Вызывается штатной выкладкой после согласования.
-# MAIL_DOMAIN=example.org bash mail-form/deploy/setup.sh
+# Debian/Ubuntu: PHP-FPM/cURL only; existing Postfix is not modified.
 set -euo pipefail
-fail() { printf '%s\n' "$*" >&2; exit 1; }
-[ "$(id -u)" = 0 ] || fail 'Run as root'
-command -v apt-get >/dev/null || fail 'Debian/Ubuntu required'
-command -v systemctl >/dev/null || fail 'systemd required'
-domain="${MAIL_DOMAIN:-}"
-[[ "$domain" =~ ^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$ && "$domain" == *.* ]] || fail 'Set MAIL_DOMAIN to the sending domain'
+[ "$(id -u)" = 0 ] || { echo 'Run as root' >&2; exit 1; }
+command -v apt-get >/dev/null
+command -v systemctl >/dev/null
 dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-[ -f "$dir/lead-pool.conf" ] || fail 'Missing lead-pool.conf'
-
-state=/var/lib/site-lead
-if [ -f "$state/managed-domain" ]; then
-    [ "$(cat "$state/managed-domain")" = "$domain" ] || fail 'Managed domain differs; manual audit required'
-    version="$(php -r 'echo PHP_MAJOR_VERSION,".",PHP_MINOR_VERSION;')"
-    "php-fpm${version}" -t
-    postfix check
-    systemctl is-active --quiet "php${version}-fpm"
-    systemctl is-active --quiet postfix
-    test -S /run/php/site-lead.sock
-    printf '%s\n' 'Managed PHP/mail installation already healthy; no configuration changed.'
-    exit 0
-fi
-
-# Чужой почтовый сервер не перенастраиваем: сначала ручной аудит.
-if command -v sendmail >/dev/null 2>&1 || [ -e /etc/postfix/main.cf ]; then
-    fail 'Existing mail transport detected. Audit it manually; no changes made.'
-fi
 export DEBIAN_FRONTEND=noninteractive
-printf 'postfix postfix/mailname string %s\npostfix postfix/main_mailer_type select Internet Site\n' "$domain" | debconf-set-selections
 apt-get update -qq
-apt-get install -y php-fpm php-cli postfix
+apt-get install -y php-fpm php-cli php-curl ca-certificates
 version="$(php -r 'echo PHP_MAJOR_VERSION,".",PHP_MINOR_VERSION;')"
-php -r 'exit(PHP_VERSION_ID >= 80100 ? 0 : 1);' || fail 'PHP 8.1+ required'
-command -v "php-fpm${version}" >/dev/null || fail 'PHP CLI/FPM version mismatch; inspect installed versions'
-install -m 644 "$dir/lead-pool.conf" "/etc/php/${version}/fpm/pool.d/site-lead.conf"
-printf '\nphp_admin_value[sendmail_path] = /usr/sbin/sendmail -t -i -f site@%s\n' "$domain" >> "/etc/php/${version}/fpm/pool.d/site-lead.conf"
-"php-fpm${version}" -t
-
-# Прямая отправка на MX получателя, не SMTP relay. Только локальный приём:
-# сервер не становится открытым реле и не слушает внешний порт 25.
-postconf -e "myhostname = mail.${domain}"
-postconf -e "myorigin = ${domain}"
-postconf -e 'inet_interfaces = loopback-only'
-postconf -e 'mynetworks = 127.0.0.0/8 [::1]/128'
-postconf -e 'mydestination = $myhostname, localhost.localdomain, localhost'
-postconf -e 'relayhost ='
-postconf -e 'smtp_tls_security_level = may'
-postfix check
-systemctl enable --now "php${version}-fpm" postfix
-systemctl restart "php${version}-fpm" postfix
+php -r 'exit(PHP_VERSION_ID >= 80100 && extension_loaded("curl") ? 0 : 1);'
+command -v "php-fpm${version}" >/dev/null
+install -d -m 750 -o root -g www-data /etc/site-lead
+[ -s /etc/site-lead/rusender-token ] || { echo 'Provision /etc/site-lead/rusender-token first' >&2; exit 1; }
+chown root:www-data /etc/site-lead/rusender-token
+chmod 640 /etc/site-lead/rusender-token
+pool="/etc/php/${version}/fpm/pool.d/site-lead.conf"
+backup="$(mktemp)"
+trap 'rm -f "$backup"' EXIT
+had_pool=false
+if [ -f "$pool" ]; then cp -a "$pool" "$backup"; had_pool=true; fi
+install -m 644 "$dir/lead-pool.conf" "$pool"
+if ! "php-fpm${version}" -t; then
+    if "$had_pool"; then cp -a "$backup" "$pool"; else rm -f "$pool"; fi
+    exit 1
+fi
+systemctl enable --now "php${version}-fpm"
+systemctl restart "php${version}-fpm"
 test -S /run/php/site-lead.sock
-install -d -m 700 "$state"
-printf '%s\n' "$domain" > "$state/managed-domain"
-chmod 600 "$state/managed-domain"
-printf '%s\n' 'PHP-FPM and local Postfix ready. Next: nginx config, DNS/PTR, outbound TCP/25 and a real delivery test.'
+echo 'PHP-FPM/cURL ready for RuSender; Postfix unchanged.'

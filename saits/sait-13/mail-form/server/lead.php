@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// PHP 8.1+, обычный mail() и локальный MTA. См. ../README.md.
+// PHP 8.1+ и cURL. Токен RuSender хранится только вне document root.
 $config = require __DIR__ . '/lead-config.php';
 $form = $config['form'];
 $site = $config['site'];
@@ -82,23 +82,63 @@ flock($lock, LOCK_UN);
 fclose($lock);
 
 $recipient = $form['mail']['recipient'];
-$sender = $form['mail']['senderLocalPart'] . '@' . $host;
+$sender = $form['mail']['sender'];
 if (!filter_var($recipient, FILTER_VALIDATE_EMAIL) || !filter_var($sender, FILTER_VALIDATE_EMAIL)) {
     respond(503, $form['sendError']);
 }
-$subject = '=?UTF-8?B?' . base64_encode($site['brand'] . ' — ' . $form['mail']['subject']) . '?=';
+$subject = $site['brand'] . ' — ' . $form['mail']['subject'];
 $body = $form['base'][0]['label'] . ': ' . $name . "\n"
     . $form['base'][1]['label'] . ': ' . $phone . "\n"
     . $form['hidden']['label'] . ': ' . $section . "\n"
     . $form['comment']['label'] . ': ' . $comment . "\n";
-$headers = [
-    'From' => $sender,
-    'MIME-Version' => '1.0',
-    'Content-Type' => 'text/plain; charset=UTF-8',
-    'Content-Transfer-Encoding' => 'base64',
-];
-if (!@mail($recipient, $subject, chunk_split(base64_encode($body)), $headers)) {
-    error_log('Site lead: mail transport rejected message');
+$tokenFile = getenv('RUSENDER_TOKEN_FILE') ?: '/etc/site-lead/rusender-token';
+$token = is_readable($tokenFile) ? trim((string) file_get_contents($tokenFile)) : '';
+if ($token === '' || preg_match('/[\r\n]/', $token) || !function_exists('curl_init')) {
+    error_log('Site lead: RuSender token or cURL unavailable');
+    respond(503, $form['sendError']);
+}
+$payload = json_encode(['data' => [
+    'from' => ['email' => $sender, 'name' => $site['brand']],
+    'to' => ['email' => $recipient],
+    'subject' => $subject,
+    'html' => '<pre>' . htmlspecialchars($body, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</pre>',
+]], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+// Один ключ на операцию: сетевой повтор ниже не создаёт второе письмо.
+$idempotencyKey = 'lead-' . bin2hex(random_bytes(16));
+$http = 0;
+$error = 0;
+$accepted = false;
+for ($attempt = 0; $attempt < 2; $attempt++) {
+    $curl = curl_init('https://api.rusender.ru/api/v1/public/emails');
+    curl_setopt_array($curl, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => $payload,
+        CURLOPT_HTTPHEADER => [
+            'Authorization: Bearer ' . $token,
+            'Content-Type: application/json',
+            'Accept: application/json',
+            'Idempotency-Key: ' . $idempotencyKey,
+        ],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 3,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_SSL_VERIFYHOST => 2,
+    ]);
+    $response = curl_exec($curl);
+    $http = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+    $error = curl_errno($curl);
+    curl_close($curl);
+    $decoded = is_string($response) ? json_decode($response, true) : null;
+    $accepted = $http === 202 && is_array($decoded) && !empty($decoded['data']['id']);
+    if ($accepted || ($error === 0 && $http < 500)) {
+        break;
+    }
+}
+if (!$accepted) {
+    // Не логируем токен, тело заявки или ответ провайдера с персональными данными.
+    error_log('Site lead: RuSender failed; HTTP=' . $http . '; curl=' . $error);
     respond(503, $form['sendError']);
 }
 respond(200, $form['success']);
