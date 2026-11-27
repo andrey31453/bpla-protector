@@ -4,7 +4,7 @@
 от соседних сайтов. Не переноси бренд, отправителя и получателя автоматически.
 
 Владелец заменил прежний PHP mail()/Postfix на RuSender HTTPS API.
-Для сайта 13 from только info@zok.pro; recipient временно andrey31453@gmail.com.
+Для сайта 13 from только info@zok.pro; актуальный recipient — в config/form.json.
 Факты/поля/адреса — config/form.json, бренд и домен — входные данные сборки.
 build.mjs создаёт два PHP-файла, клиентский модуль ничего не рендерит.
 
